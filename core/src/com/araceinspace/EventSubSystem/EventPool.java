@@ -1,5 +1,7 @@
 package com.araceinspace.EventSubSystem;
 
+import com.badlogic.gdx.utils.Pool;
+
 /**
  * Created by Isaac Assegai on 9/15/16.
  * Extends LibGdx.Pool<Event>.
@@ -17,5 +19,9 @@ package com.araceinspace.EventSubSystem;
  * or if there are too many idle events a few of them will
  * be removed manually by the superclass.
  */
-public class EventPool{
+public class EventPool extends Pool<Event>{
+
+    public EventPool(){
+
+    }
 }
