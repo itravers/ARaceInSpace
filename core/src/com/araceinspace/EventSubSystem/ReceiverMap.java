@@ -1,7 +1,8 @@
 package com.araceinspace.EventSubSystem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Isaac Assegai on 9/16/16.
@@ -11,14 +12,15 @@ import java.util.List;
  * EventReceivers when referenced by a specific
  * Event.TYPE.
  */
-public class ReceiverMap extends HashMap<Event.TYPE, List<EventReceiver>>{
+public class ReceiverMap extends HashMap<Event.TYPE, ArrayList<EventReceiver>>{
 
 /* Field Variables */
-
+    public String id;
 /* Constructors */
 
     public ReceiverMap(){
         super();
+        id = String.valueOf(new Random().nextInt());
     }
 /* Private Methods */
 
@@ -31,7 +33,8 @@ public class ReceiverMap extends HashMap<Event.TYPE, List<EventReceiver>>{
      * @param item The EventReceiver we are mapping to the type.
      */
     public void put(Event.TYPE type, EventReceiver item){
-        List l = super.get(type);
+        ArrayList l = super.get(type);
+        if(l == null)l = new ArrayList<EventReceiver>();
         l.add(item);
         super.put(type, l);
     }
@@ -42,7 +45,7 @@ public class ReceiverMap extends HashMap<Event.TYPE, List<EventReceiver>>{
      * @param type The type of EventReceiver we are looking for.
      * @return A List of EventReceivers that want to be notified of this type.
      */
-    public List<EventReceiver> get(Event.TYPE type){
+    public ArrayList<EventReceiver> get(Event.TYPE type){
         return super.get(type);
     }
 }

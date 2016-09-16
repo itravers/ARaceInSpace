@@ -4,6 +4,8 @@ import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.EventSubSystem.ReceiverMap;
 
+import java.util.ArrayList;
+
 /**
  * Created by Isaac Assegai on 9/16/16.
  * Test all the used methods of ReceiverMap.java
@@ -19,6 +21,12 @@ public class ReceiverMap_Test implements UnitTest {
 
         passed = constructorTest();
         if(!passed)return passed;
+
+        passed = putTest();
+        if(!passed)return passed;
+
+       // passed = getTest();
+       // if(!passed)return passed;
 
 
         return passed;
@@ -50,5 +58,35 @@ public class ReceiverMap_Test implements UnitTest {
         }
         System.out.println("     "+passedMessage+" constructorTest()");
         return passed;
+    }
+
+    private boolean putTest(){
+        boolean passed = false;
+        String passedMessage = "Failed";
+
+        ReceiverMap map = null;
+        map = new ReceiverMap();
+
+
+        ReceiverTest r = new ReceiverTest();
+
+        map.put(Event.TYPE.GAME_STATE, r);
+
+        if(map.get(Event.TYPE.GAME_STATE) instanceof ArrayList){
+            if(map.get(Event.TYPE.GAME_STATE).get(0) == r){
+                passed = true;
+                passedMessage = "Passed";
+            }
+        }
+        System.out.println("     "+passedMessage+" putTest()");
+        return passed;
+    }
+
+    private class ReceiverTest implements EventReceiver{
+
+        @Override
+        public void receiveEvent(Event e) {
+            System.out.println("Event Received");
+        }
     }
 }
