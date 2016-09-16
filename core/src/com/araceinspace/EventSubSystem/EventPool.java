@@ -44,6 +44,8 @@ public class EventPool extends Pool<Event>{
      * Puts the specified Event back into the pool
      * making the event available to be obtained by
      * obtainEvent().
+     * If an Event already exists in the Event pool, we do not
+     * wan't to be able to
      * @param toFree The Event we want to add back to the Pool.
      */
     public void freeEvent(Event toFree){

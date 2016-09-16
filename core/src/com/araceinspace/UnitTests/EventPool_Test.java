@@ -38,6 +38,12 @@ public class EventPool_Test implements UnitTest{
         passed = createAndReturnTest();
         if(!passed)return passed;
 
+        passed = storeEventWhenNoneHasBeenPreviouslyMade();
+        if(!passed)return passed;
+
+        passed = attemptToFreeAnEventTwice();
+        if(!passed)return passed;
+
         return passed;
     }
 
@@ -88,6 +94,40 @@ public class EventPool_Test implements UnitTest{
         }
 
         System.out.println("     "+passedMsg+" createAndReturnTest()");
+        return passed;
+    }
+
+    /**
+     * Manually creates a new event and try's to
+     * add it to a pool that hasn't created any events on it's own.
+     * The Pool should store the Event even if it didn't create it.
+     * @return True if the pool stores an Event that it didn't create.
+     */
+    private boolean storeEventWhenNoneHasBeenPreviouslyMade(){
+        boolean passed = false;
+        String passedMsg = "Failed";
+
+        EventPool pool = new EventPool(0, 10);
+
+        //manually create an event
+        Event event = new Event(Event.TYPE.INPUT, "testID", null);
+
+        pool.freeEvent(event);
+
+        if(pool.obtainEvent() == event){
+            passed = true;
+            passedMsg = "Passed";
+        }
+
+        System.out.println("     "+passedMsg+" storeEventWhenNoneHasBeenPreviouslyMade()");
+        return passed;
+    }
+
+    private boolean attemptToFreeAnEventTwice(){
+        boolean passed = false;
+        String passedMsg = "Failed";
+
+        System.out.println("     "+passedMsg+" storeEventWhenNoneHasBeenPreviouslyMade()");
         return passed;
     }
 }
