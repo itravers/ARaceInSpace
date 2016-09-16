@@ -14,4 +14,38 @@ package com.araceinspace.EventSubSystem;
 
  */
 public class Event {
+
+    /**
+     * Defines the type of Event available.
+     */
+    public static enum TYPE{INPUT, GHOST_INPUT, GAME_STATE, RENDER};
+
+    /**
+     * Stores the type of this event.
+     */
+    private Event.TYPE type;
+
+    /**
+     * The id of this particular incarnation of the event.
+     * This will be changed by EventSenders to whatever they desire.
+     */
+    private String id;
+
+    /**
+     * This is the data that the Event encapsulates. It could be a string, object
+     * or even json data. The object Receiver and Sender will decide.
+     */
+    private Object data;
+
+    /**
+     *
+     * @param type {@link Event#type}
+     * @param id {@link Event#id}
+     * @param data {@link Event#data}
+     */
+    public Event(Event.TYPE type, String id, Object data){
+        this.type = type;
+        this.id = id;
+        this.data = data;
+    }
 }
