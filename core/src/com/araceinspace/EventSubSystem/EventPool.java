@@ -21,7 +21,43 @@ import com.badlogic.gdx.utils.Pool;
  */
 public class EventPool extends Pool<Event>{
 
-    public EventPool(){
+    /**
+     * Constructor
+     * @param initialCapacity The initial number of Events the pool is set up to hold.
+     * @param maxCapacity The maximum number of Events that the pool can hold
+     *                    new Events cannot be made if the pool is beyond capacity.
+     */
+    public EventPool(int initialCapacity, int maxCapacity){
+        super(initialCapacity, maxCapacity);
+    }
 
+    /**
+     * Returns an Event from the pool
+     * The Event may be new from newObject() or be reused.
+     * @return The Event Returned
+     */
+    public Event obtainEvent(){
+        return obtain();
+    }
+
+    /**
+     * Puts the specified Event back into the pool
+     * making the event available to be obtained by
+     * obtainEvent().
+     * @param toFree The Event we want to add back to the Pool.
+     */
+    public void freeEvent(Event toFree){
+        super.free(toFree);
+    }
+
+    /**
+     * Creates a new Event to add to the pool.
+     * This will be called automagically by the
+     * extended Pool.
+     * @returnA newly Created Event.
+     */
+    @Override
+    protected Event newObject() {
+        return new Event();
     }
 }
