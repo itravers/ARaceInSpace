@@ -63,7 +63,7 @@ public class Event_Test implements UnitTest {
                 passedString = "Passed";
             }
         }
-        System.out.println("     "+passedString+" fullConstructorTest()");
+        System.out.println("     "+passedString+" emptyConstructorTest()");
         return passed;
     }
 

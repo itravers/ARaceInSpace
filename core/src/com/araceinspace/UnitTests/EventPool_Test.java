@@ -123,11 +123,31 @@ public class EventPool_Test implements UnitTest{
         return passed;
     }
 
+    /**
+     * This will instantiate a pool
+     * Create an event, then
+     * try to free that event twice to
+     * see if the event Pool accepts duplicates
+     * @return True if the EventPool does NOT allow duplicates.
+     */
     private boolean attemptToFreeAnEventTwice(){
         boolean passed = false;
         String passedMsg = "Failed";
 
-        System.out.println("     "+passedMsg+" storeEventWhenNoneHasBeenPreviouslyMade()");
+        EventPool pool = new EventPool(0, 10);
+
+        //obtain an event, then free it twice in a row.
+        Event event = pool.obtainEvent();
+        pool.freeEvent(event);
+        pool.freeEvent(event);
+
+        //test to make sure the pool only has 1 current free object and not more or less
+        if(pool.getFree() == 1){
+            passed = true;
+            passedMsg = "Passed";
+        }
+        
+        System.out.println("     "+passedMsg+" attemptToFreeAnEventTwice()");
         return passed;
     }
 }
