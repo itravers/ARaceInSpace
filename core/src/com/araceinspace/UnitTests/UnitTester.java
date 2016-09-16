@@ -36,6 +36,7 @@ public class UnitTester {
      */
     private void addTests(){
         tests.add(new Event_Test());
+        tests.add(new ReceiverMap_Test());
     }
 
     /**
