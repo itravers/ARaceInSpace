@@ -15,6 +15,9 @@ package com.araceinspace.EventSubSystem;
  */
 public class Event {
 
+
+/* Field Variables */
+
     /**
      * Defines the type of Event available.
      */
@@ -37,8 +40,11 @@ public class Event {
      */
     private Object data;
 
+
+/* Constructors */
+
     /**
-     *
+     * Creates a new Event with a specific type, id and certain data.
      * @param type {@link Event#type}
      * @param id {@link Event#id}
      * @param data {@link Event#data}
@@ -46,6 +52,79 @@ public class Event {
     public Event(Event.TYPE type, String id, Object data){
         this.type = type;
         this.id = id;
+        this.data = data;
+    }
+
+    /**
+     * Creates a new Event with the type, id and data being NULL.
+     */
+    public Event(){
+        new Event(null, null, null);
+    }
+
+
+/* Private Methods */
+
+
+/* Public Methods */
+
+    /**
+     * Resets this Event.
+     * The type, id and data are set to NULL.
+     */
+    public void reset(){
+        this.type = null;
+        this.id = null;
+        this.data = null;
+    }
+
+    /* Getters and Setters */
+
+    /**
+     * Returns the type of this Event.
+     * @return {@link Event#type}
+     */
+    public TYPE getType() {
+        return type;
+    }
+
+    /**
+     * Sets the type of this Event.
+     * @param type {@link Event#type}
+     */
+    public void setType(TYPE type) {
+        this.type = type;
+    }
+
+    /**
+     * Returns the id of this Event.
+     * @return {@link Event#id}
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the id of this Event.
+     * @param id {@link Event#id}
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns the data encapsulated by this Event.
+     * @return {@link Event#data}
+     */
+    public Object getData() {
+        return data;
+    }
+
+    /**
+     * Sets the data to be encapsulated by this Event.
+     * @param data {@link Event#data}
+     */
+    public void setData(Object data) {
         this.data = data;
     }
 }
