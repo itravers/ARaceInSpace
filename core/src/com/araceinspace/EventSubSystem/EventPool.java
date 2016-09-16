@@ -37,7 +37,7 @@ public class EventPool extends Pool<Event>{
      * @return The Event Returned
      */
     public Event obtainEvent(){
-        return obtain();
+        return super.obtain();
     }
 
     /**

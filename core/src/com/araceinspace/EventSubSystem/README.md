@@ -1,6 +1,6 @@
 Event SubSystem
 ===============
-The Event system uses the [Service Locator Pattern](gameprogrammingpatterns.com/service-locator.html) to decouple Events, such as inputs, from the Objects that receive the events, such as Players and Ghosts. A EventSender creates and sends an Event to the EventDispatcher. The EventDispatcher forwards the Event along to the appropriate EventReceiver which receives the Event and does with it what it wants.  This is supposed to help with extensibility in the future. Perhaps in a future game we will add multiplayer support. In that case we want to start building our event system now.
+The Event system uses the [Service Locator Pattern](http://gameprogrammingpatterns.com/service-locator.html) to decouple Events, such as inputs, from the Objects that receive the events, such as Players and Ghosts. A EventSender creates and sends an Event to the EventDispatcher. The EventDispatcher forwards the Event along to the appropriate EventReceiver which receives the Event and does with it what it wants.  This is supposed to help with extensibility in the future. Perhaps in a future game we will add multiplayer support. In that case we want to start building our event system now.
 
 <p align="center" alt="A mockup, not a screenshot">
   <img src="http://i.imgur.com/EeOmFO3.png">
