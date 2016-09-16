@@ -1,6 +1,5 @@
 package com.araceinspace.EventSubSystem;
 
-import com.badlogic.gdx.utils.Pool;
 
 /**
  * Created by Isaac Assegai on 9/15/16.
@@ -45,10 +44,11 @@ public class EventPool extends Pool<Event>{
      * making the event available to be obtained by
      * obtainEvent().
      * If an Event already exists in the Event pool, we do not
-     * wan't to be able to
+     * wan't to add it again
      * @param toFree The Event we want to add back to the Pool.
      */
     public void freeEvent(Event toFree){
+
         super.free(toFree);
     }
 
