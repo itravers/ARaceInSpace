@@ -35,7 +35,7 @@ public class UnitTester {
      * As we develop this is where we will wire up new unit tests.
      */
     private void addTests(){
-
+        tests.add(new Event_Test());
     }
 
     /**
@@ -46,6 +46,7 @@ public class UnitTester {
         int failed = 0; //used to print final warning.
         System.out.println("Running Unit Tests");
         for(int i = 0; i < tests.size(); i ++){
+            System.out.println();
             UnitTest test = tests.get(i);
             if(test.test()){
                 System.out.println("Passed: " + test.getName());
@@ -56,8 +57,9 @@ public class UnitTester {
         }
 
         //Print out Failed/Passed report.
+        System.out.println();
         System.out.println("PASSED: " + (tests.size()-failed));
         System.out.println("FAILED: " + failed);
-        System.out.println("TOTAL :" + tests.size());
+        System.out.println("TOTAL : " + tests.size());
     }
 }
