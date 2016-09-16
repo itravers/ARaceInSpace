@@ -15,7 +15,7 @@ import java.util.Random;
 public class ReceiverMap extends HashMap<Event.TYPE, ArrayList<EventReceiver>>{
 
 /* Field Variables */
-    public String id;
+    private String id;
 /* Constructors */
 
     public ReceiverMap(){

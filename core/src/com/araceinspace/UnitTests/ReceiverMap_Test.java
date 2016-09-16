@@ -25,9 +25,8 @@ public class ReceiverMap_Test implements UnitTest {
         passed = putTest();
         if(!passed)return passed;
 
-       // passed = getTest();
-       // if(!passed)return passed;
-
+        passed = getTest();
+        if(!passed)return passed;
 
         return passed;
     }
@@ -46,12 +45,7 @@ public class ReceiverMap_Test implements UnitTest {
         String passedMessage = "Passed";
         ReceiverMap map = null;
         map = new ReceiverMap();
-        /*map.put(Event.TYPE.GAME_STATE, new EventReceiver() {
-            @Override
-            public void receiveEvent(Event e) {
-                System.out.println(e+" received");
-            }
-        });*/
+
         if(map == null){
             passed = false;
             passedMessage = "Failed";
@@ -67,9 +61,7 @@ public class ReceiverMap_Test implements UnitTest {
         ReceiverMap map = null;
         map = new ReceiverMap();
 
-
         ReceiverTest r = new ReceiverTest();
-
         map.put(Event.TYPE.GAME_STATE, r);
 
         if(map.get(Event.TYPE.GAME_STATE) instanceof ArrayList){
@@ -82,8 +74,58 @@ public class ReceiverMap_Test implements UnitTest {
         return passed;
     }
 
-    private class ReceiverTest implements EventReceiver{
+    /**
+     * Tests the get() feature of the ReceiverMap.
+     * Creates a Receiver map and adds several
+     * EventReceivers to it. Then we use the get()
+     * method to extract specific lists referenced
+     * by event types. Then we check that the
+     * objects we created and added are the
+     * same objects that are returned.
+     * @return
+     */
+    private boolean getTest(){
+        boolean passed = true;
+        String passedMessage = "Passed";
 
+        ReceiverMap map = null;
+        map = new ReceiverMap();
+
+        ReceiverTest r1 = new ReceiverTest();
+        map.put(Event.TYPE.GAME_STATE, r1);
+
+        ReceiverTest r2 = new ReceiverTest();
+        map.put(Event.TYPE.GAME_STATE, r2);
+
+        ReceiverTest r3 = new ReceiverTest();
+        map.put(Event.TYPE.INPUT, r3);
+
+        ReceiverTest r4 = new ReceiverTest();
+        map.put(Event.TYPE.INPUT, r4);
+
+        ArrayList<EventReceiver> stateList = map.get(Event.TYPE.GAME_STATE);
+        ArrayList<EventReceiver> inputList = map.get(Event.TYPE.INPUT);
+
+        //Do the tests
+        if(stateList.get(0) != r1 || stateList.get(1) != r2 || inputList.get(0) != r3 || inputList.get(1) != r4){
+            passed = false;
+            passedMessage = "Failed";
+        }
+
+        System.out.println("     "+passedMessage+" getTest()");
+        return passed;
+    }
+
+    /**
+     * Used by the putTest() to instantiate a ReceiverMap
+     * by giving it a EventReceiver (this one)
+     */
+    private class ReceiverTest implements EventReceiver{
+        /**
+         * Print out Event Received if we Receive
+         * event, this will never be called in this test.
+         * @param e
+         */
         @Override
         public void receiveEvent(Event e) {
             System.out.println("Event Received");
