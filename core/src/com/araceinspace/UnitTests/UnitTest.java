@@ -6,4 +6,5 @@ package com.araceinspace.UnitTests;
  */
 public interface UnitTest {
     public boolean test();
+    public String getName();
 }
