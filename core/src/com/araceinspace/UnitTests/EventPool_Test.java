@@ -3,6 +3,8 @@ package com.araceinspace.UnitTests;
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventPool;
 
+import java.util.ArrayList;
+
 /**
  * Created by Isaac Assegai on 9/16/16.
  * Tests the ability of the EventPool
@@ -42,12 +44,13 @@ public class EventPool_Test implements UnitTest{
         if(!passed)return passed;
 
         passed = attemptToFreeAnEventTwice();
-        //if(!passed)return passed;
+        if(!passed)return passed;
 
         passed = attemptToFreeAnEventTwice2();
         if(!passed)return passed;
 
-
+        passed = testCapacity();
+        if(!passed)return passed;
 
         return passed;
     }
@@ -177,14 +180,48 @@ public class EventPool_Test implements UnitTest{
         pool.freeEvent(event);
         pool.freeEvent(event);
 
-        Event event2 = pool.obtainEvent();
+        Event eventA = pool.obtainEvent();
+        Event eventB = pool.obtainEvent();
 
-        if(event2 != event){
+        if(eventA != eventB){
             passed = true;
             passedMsg = "Passed";
         }
 
         System.out.println("     "+passedMsg+" attemptToFreeAnEventTwice2()");
+        return passed;
+    }
+
+    private boolean testCapacity(){
+        boolean passed = false;
+        String passedMsg = "Failed";
+
+        //create an event pool with a max of 10 items.
+        EventPool pool = new EventPool(0, 10);
+
+        ArrayList<Event> eventList = new ArrayList<Event>();
+
+        //obtain 11 events from the pool.
+        for(int i = 0; i < 11; i++){
+            eventList.add(pool.obtainEvent());
+        }
+
+        //free 10 of those events
+        for(int i = 10; i > 0; i--){
+            pool.freeEvent(eventList.remove(i));
+        }
+        int poolSize = pool.getFree();
+
+        //try to free the last event
+        pool.freeEvent(eventList.get(0));
+
+        //check to make sure the pool didn't add the last item
+        if(pool.getFree() == poolSize){
+            passed = true;
+            passedMsg = "Passed";
+        }
+
+        System.out.println("     "+passedMsg+" testCapacity()");
         return passed;
     }
 }
