@@ -127,6 +127,56 @@ public class EventDispatcher_Test implements UnitTest{
 
         dispatcherTester = EventDispatcher.getSingletonDispatcher();
 
+        //register 4 receivers under two different types
+        Receiver r1 = new Receiver();
+        dispatcherTester.registerReceiver(Event.TYPE.INPUT, r1);
+
+        Receiver r2 = new Receiver();
+        dispatcherTester.registerReceiver(Event.TYPE.INPUT, r2);
+
+        Receiver r3 = new Receiver();
+        dispatcherTester.registerReceiver(Event.TYPE.RENDER, r3);
+
+        Receiver r4 = new Receiver();
+        dispatcherTester.registerReceiver(Event.TYPE.RENDER, r4);
+
+        //create a sender, get an initate an event, change event to INPUT type, and send
+        Sender sender = new Sender();
+        Event e = sender.initiateEvent();
+        e.setType(Event.TYPE.INPUT);
+        e.setId("testID123");
+        sender.sendEvent(e);
+
+        /*check r1 and r2 to make sure they have the event
+         *and check r3 and r4 to make sure they don't have the event.*/
+        if(e == r1.eventReceived && e == r2.eventReceived &&
+                e != r3.eventReceived && e != r4.eventReceived){
+            passed = true;
+            passedMsg = "Passed";
+        }else{
+            passed = false;
+            passedMsg = "Failed";
+            System.out.println("     "+passedMsg+" registerReceiverAndSendTest() - Receive Test INPUT");
+            return passed;
+        }
+
+        //create an event and send it to render, and test they received correctly
+        Event e2 = sender.initiateEvent();
+        e2.setType(Event.TYPE.RENDER);
+        e2.setId("testID987");
+        sender.sendEvent(e2);
+
+        if(e2 == r3.eventReceived && e2 == r4.eventReceived &&
+                e2 != r1.eventReceived && e2 != r2.eventReceived){
+            passed = true;
+            passedMsg = "Passed";
+        }else{
+            passed = false;
+            passedMsg = "Failed";
+            System.out.println("     "+passedMsg+" registerReceiverAndSendTest() - Receive Test RENDER");
+            return passed;
+        }
+
         System.out.println("     "+passedMsg+" registerReceiverAndSendTest()");
         return passed;
     }
@@ -147,9 +197,6 @@ public class EventDispatcher_Test implements UnitTest{
             eventReceived = e;
         }
 
-        public void register(Event.TYPE type){
-            dispatcher.registerReceiver(type, this);
-        }
     }
 
     /**

@@ -14,5 +14,4 @@ package com.araceinspace.EventSubSystem;
  */
 public interface EventReceiver {
     public void receiveEvent(Event e);
-    public void register(Event.TYPE type);
 }
