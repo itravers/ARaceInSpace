@@ -1,4 +1,4 @@
-package com.araceinspace.UnitTests;
+package com.araceinspace.TestSubSystem;
 
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventReceiver;

@@ -1,4 +1,4 @@
-package com.araceinspace.UnitTests;
+package com.araceinspace.TestSubSystem;
 
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
@@ -18,7 +18,7 @@ import com.araceinspace.EventSubSystem.EventSender;
  *
  * 7. Free the Event
  */
-public class EventDispatcher_Test implements UnitTest{
+public class EventDispatcher_Test implements com.araceinspace.UnitTests.UnitTest {
     EventDispatcher dispatcherTester = null;
 
     public EventDispatcher_Test(){
@@ -196,7 +196,6 @@ public class EventDispatcher_Test implements UnitTest{
         public void receiveEvent(Event e) {
             eventReceived = e;
         }
-
     }
 
     /**

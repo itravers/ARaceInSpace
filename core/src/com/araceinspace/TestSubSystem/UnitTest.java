@@ -1,4 +1,4 @@
-package com.araceinspace.UnitTests;
+package com.araceinspace.TestSubSystem;
 
 /**
  * Created by Isaac Assegai on 9/15/16.

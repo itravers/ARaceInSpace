@@ -1,4 +1,4 @@
-package com.araceinspace.UnitTests;
+package com.araceinspace.TestSubSystem;
 
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventPool;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * Create a bunch of events and make sure pool doesn't exceed maxCapacity
  */
-public class EventPool_Test implements UnitTest{
+public class EventPool_Test implements UnitTest {
 
     /**
      * Constructor
