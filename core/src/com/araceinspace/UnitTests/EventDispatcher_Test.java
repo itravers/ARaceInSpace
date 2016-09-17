@@ -2,6 +2,7 @@ package com.araceinspace.UnitTests;
 
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
+import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.EventSubSystem.EventSender;
 
 /**
@@ -130,16 +131,46 @@ public class EventDispatcher_Test implements UnitTest{
         return passed;
     }
 
+    /**
+     * A class that implements EventReceiver to test Registering and Receiving.
+     */
+    private class Receiver implements EventReceiver{
+        EventDispatcher dispatcher = null;
+        public Event eventReceived = null;
+
+        public Receiver(){
+            dispatcher = EventDispatcher.getSingletonDispatcher();
+        }
+
+        @Override
+        public void receiveEvent(Event e) {
+            eventReceived = e;
+        }
+
+        public void register(Event.TYPE type){
+            dispatcher.registerReceiver(type, this);
+        }
+    }
+
+    /**
+     * A class that implements EventSender to test sending an event.
+     */
     private class Sender implements EventSender{
+
+        EventDispatcher dispatcher;
+
+        public Sender(){
+            dispatcher = EventDispatcher.getSingletonDispatcher();
+        }
 
         @Override
         public Event initiateEvent() {
-            return null;
+            return dispatcher.obtainEvent();
         }
 
         @Override
         public void sendEvent(Event e) {
-
+            dispatcher.dispatch(e);
         }
     }
 }
