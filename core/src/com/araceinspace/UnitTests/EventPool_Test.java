@@ -42,7 +42,12 @@ public class EventPool_Test implements UnitTest{
         if(!passed)return passed;
 
         passed = attemptToFreeAnEventTwice();
+        //if(!passed)return passed;
+
+        passed = attemptToFreeAnEventTwice2();
         if(!passed)return passed;
+
+
 
         return passed;
     }
@@ -148,6 +153,38 @@ public class EventPool_Test implements UnitTest{
         }
 
         System.out.println("     "+passedMsg+" attemptToFreeAnEventTwice()");
+        return passed;
+    }
+
+    /**
+     * First we obtain an event
+     * then we attempt to free it twice
+     * then we obtain an event, which should be the free'd one
+     * then we test if the pool still shows the
+     * event that we just obtained as free.
+     * This WAS failing, Had to adapt Pool.java for it to work,
+     * submitted a bug report to libgdx.
+     * @return True if the EventPool does NOT allow duplicates.
+     */
+    private boolean attemptToFreeAnEventTwice2(){
+        boolean passed = false;
+        String passedMsg = "Failed";
+
+        EventPool pool = new EventPool(0, 10);
+
+        //obtain an event, then free it twice in a row.
+        Event event = pool.obtainEvent();
+        pool.freeEvent(event);
+        pool.freeEvent(event);
+
+        Event event2 = pool.obtainEvent();
+
+        if(event2 != event){
+            passed = true;
+            passedMsg = "Passed";
+        }
+
+        System.out.println("     "+passedMsg+" attemptToFreeAnEventTwice2()");
         return passed;
     }
 }
