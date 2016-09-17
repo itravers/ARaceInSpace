@@ -1,5 +1,7 @@
 package com.araceinspace.EventSubSystem;
 
+import java.util.ArrayList;
+
 /**
  * Created by Isaac Assegai on 9/16/16.
  * The EventDispatcher has a dual purpose.
@@ -87,5 +89,26 @@ public class EventDispatcher {
      */
     public void registerReceiver(Event.TYPE type, EventReceiver receiver){
         map.put(type, receiver);
+    }
+
+    /**
+     * Dispatches the given event to every EventReceiver that
+     * has formerly registered using registerReceiver
+     * under the same Event.TYPE as the given Event.
+     * @param e
+     */
+    public void dispatch(Event e){
+        //First we will need the Type of the Event
+        Event.TYPE type = e.getType();
+
+        //Next we get an ArrayList of all the EventReceivers registered under this type.
+        ArrayList<EventReceiver>list = map.get(type);
+
+        //If there are any items in the list, we will send the Event to all of them.
+        if(!list.isEmpty()){
+            for(int i = 0; i < list.size(); i++){
+                list.get(i).receiveEvent(e);
+            }
+        }
     }
 }
