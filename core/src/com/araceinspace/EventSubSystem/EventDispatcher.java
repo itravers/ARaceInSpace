@@ -50,7 +50,8 @@ public class EventDispatcher {
      * Construct a new EventDispatcher with a default EventPool and ReceiverMap
      */
     public EventDispatcher(){
-       new EventDispatcher(new EventPool(MIN_POOL_SIZE, MAX_POOL_SIZE), new ReceiverMap());
+        pool = new EventPool(MIN_POOL_SIZE, MAX_POOL_SIZE);
+        map = new ReceiverMap();
     }
 
     /**

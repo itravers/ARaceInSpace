@@ -38,6 +38,7 @@ public class UnitTester {
         tests.add(new Event_Test());
         tests.add(new ReceiverMap_Test());
         tests.add(new EventPool_Test());
+        tests.add(new EventDispatcher_Test());
     }
 
     /**
