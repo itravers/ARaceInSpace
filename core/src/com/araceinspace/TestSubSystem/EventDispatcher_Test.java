@@ -18,14 +18,13 @@ import com.araceinspace.EventSubSystem.EventSender;
  *
  * 7. Free the Event
  */
-public class EventDispatcher_Test implements com.araceinspace.UnitTests.UnitTest {
+public class EventDispatcher_Test implements UnitTest {
     EventDispatcher dispatcherTester = null;
 
     public EventDispatcher_Test(){
 
     }
 
-    @Override
     public boolean test() {
         boolean passed = true;
 
