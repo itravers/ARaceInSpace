@@ -48,7 +48,7 @@ public class EventPool extends Pool<Event>{
      * @param toFree The Event we want to add back to the Pool.
      */
     public void freeEvent(Event toFree){
-
+        toFree.reset();
         super.free(toFree);
     }
 
