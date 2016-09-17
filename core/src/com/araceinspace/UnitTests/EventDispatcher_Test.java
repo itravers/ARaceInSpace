@@ -31,6 +31,9 @@ public class EventDispatcher_Test implements UnitTest{
         passed = obtainEventTest();
         if(!passed)return passed;
 
+        passed = freeEventTest();
+        if(!passed)return passed;
+
         return passed;
     }
 
@@ -75,6 +78,28 @@ public class EventDispatcher_Test implements UnitTest{
         }
 
         System.out.println("     "+passedMsg+" obtainEventTest()");
+        return passed;
+    }
+
+    /**
+     * Test that the dispatchers FreeEvent works and reset the event
+     * @return True if test passes.
+     */
+    private boolean freeEventTest(){
+        boolean passed = false;
+        String passedMsg = "Failed";
+
+        EventDispatcher dispatcher = new EventDispatcher();
+        Event event = dispatcher.obtainEvent();
+        event.setId("testID");
+        dispatcher.freeEvent(event);
+
+        if(event.getId() == null){
+            passed = true;
+            passedMsg = "Passed";
+        }
+
+        System.out.println("     "+passedMsg+" freeEventTest()");
         return passed;
     }
 }
