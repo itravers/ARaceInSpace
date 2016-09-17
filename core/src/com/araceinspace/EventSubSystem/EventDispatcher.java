@@ -44,6 +44,11 @@ public class EventDispatcher {
      */
     private ReceiverMap map;
 
+    /**
+     * Used to give Static Singleton access to an EventDispatcher.
+     */
+    private static EventDispatcher singletonDispatcher = null;
+
 /* Constructors */
 
     /**
@@ -52,6 +57,7 @@ public class EventDispatcher {
     public EventDispatcher(){
         pool = new EventPool(MIN_POOL_SIZE, MAX_POOL_SIZE);
         map = new ReceiverMap();
+        singletonDispatcher = this;
     }
 
     /**
@@ -62,6 +68,7 @@ public class EventDispatcher {
     public EventDispatcher(EventPool p, ReceiverMap m){
         pool = p;
         map = m;
+        singletonDispatcher = this;
     }
 /* Private Methods */
 
@@ -111,5 +118,20 @@ public class EventDispatcher {
                 list.get(i).receiveEvent(e);
             }
         }
+    }
+
+    /**
+     * Returns the Singleton instance of this Dispatcher.
+     * @return
+     */
+    public static EventDispatcher getSingletonDispatcher(){
+        if(singletonDispatcher == null){
+            synchronized (EventDispatcher.class){
+                if(singletonDispatcher == null){//this line is actually useful in multithreading
+                    singletonDispatcher = new EventDispatcher();
+                }
+            }
+        }
+        return singletonDispatcher;
     }
 }

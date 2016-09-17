@@ -2,6 +2,7 @@ package com.araceinspace.UnitTests;
 
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
+import com.araceinspace.EventSubSystem.EventSender;
 
 /**
  * Created by Isaac Assegai on 9/16/16.
@@ -17,6 +18,8 @@ import com.araceinspace.EventSubSystem.EventDispatcher;
  * 7. Free the Event
  */
 public class EventDispatcher_Test implements UnitTest{
+    EventDispatcher dispatcherTester = null;
+
     public EventDispatcher_Test(){
 
     }
@@ -32,6 +35,9 @@ public class EventDispatcher_Test implements UnitTest{
         if(!passed)return passed;
 
         passed = freeEventTest();
+        if(!passed)return passed;
+
+        passed = registerReceiverAndSendTest();
         if(!passed)return passed;
 
         return passed;
@@ -101,5 +107,39 @@ public class EventDispatcher_Test implements UnitTest{
 
         System.out.println("     "+passedMsg+" freeEventTest()");
         return passed;
+    }
+
+    /**
+     * Create a EventDispatcher singleton
+     * and check it.
+     *
+     * Create an EventReceiver and register it.
+     *
+     * Create an EventSender, get an event, modify and dispatch it.
+     *
+     * Check that the proper EventReceiver actually Received the Event.
+     * @return
+     */
+    private boolean registerReceiverAndSendTest(){
+        boolean passed = false;
+        String passedMsg = "Failed";
+
+        dispatcherTester = EventDispatcher.getSingletonDispatcher();
+
+        System.out.println("     "+passedMsg+" registerReceiverAndSendTest()");
+        return passed;
+    }
+
+    private class Sender implements EventSender{
+
+        @Override
+        public Event initiateEvent() {
+            return null;
+        }
+
+        @Override
+        public void sendEvent(Event e) {
+
+        }
     }
 }
