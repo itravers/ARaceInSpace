@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "50181128080",
+    "firebase_url": "https://admob-app-id-7637657544.firebaseio.com",
+    "project_id": "admob-app-id-7637657544",
+    "storage_bucket": "admob-app-id-7637657544.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50181128080:android:9d3ea7eab0a3b361",
+        "android_client_info": {
+          "package_name": "com.araceinspace.isaac.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50181128080-vvquc4l8l71o402e3p0svsp5hahaemv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXJfRu1BcWUeeiM5EpVuE1_Cv67M_FO0o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
