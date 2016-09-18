@@ -1,11 +1,15 @@
 package com.araceinspace;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.araceinspace.MonetizationSubSystem.AdsController;
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -23,6 +27,12 @@ public class AndroidAdsController implements AdsController {
      * Admob generated Banner ID.
      */
     private static final String BANNED_AD_ID = "ca-app-pub-5553172650479270/1591123946";
+
+    /**
+     * This is set to true while a banner ad is currently showing.
+     */
+    private boolean bannerAdShowing = false;
+
 
     /**
      * Used by showBannerAdd() to decide if banner has been loaded
@@ -52,31 +62,52 @@ public class AndroidAdsController implements AdsController {
         this.app = app;
     }
 
+    /**
+     * Check to see if the system's wifi is connected.
+     * @return True if wifi is connected.
+     */
     @Override
     public boolean isWifiConnected() {
-        return false;
+        ConnectivityManager cm = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        return (ni != null && ni.isConnected());
     }
 
+    /**
+     * Loads a banner ad from google
+     * only if wifi is on, if wifi is not on, it won't.
+     */
     @Override
     public void loadBannerAd() {
-        //needs to be run on the aps UI thread.
-        app.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                bannerAdLoaded = false;
-                AdRequest.Builder builder = new AdRequest.Builder();
-                builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
-                rawBannerAd = builder.build();
-                bannerAdLoaded = true;
-            }
-        });
+        if(isWifiConnected()) {
+            //needs to be run on the aps UI thread.
+            app.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    bannerAdLoaded = false;
+                    AdRequest.Builder builder = new AdRequest.Builder();
+                    builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
+                    rawBannerAd = builder.build();
+                    bannerAdLoaded = true;
+                }
+            });
+        }
     }
 
+    /**
+     * Tells us if a banner has been loaded.
+     * @return
+     */
     @Override
     public boolean isBannerLoaded() {
         return bannerAdLoaded;
     }
 
+    /**
+     * Shows a Pre-loaded banner ad.
+     * If no banner ad is preloaded it will not show anything.
+     */
     @Override
     public void showBannerAd() {
         if(isBannerLoaded()){
@@ -85,11 +116,20 @@ public class AndroidAdsController implements AdsController {
                 @Override
                 public void run() {
                     bannerAd.loadAd(rawBannerAd);
-                    bannerAd.setVisibility(View.VISIBLE);
+                    bannerAd.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdLoaded() {
+                            super.onAdLoaded();
+                            bannerAd.setBackgroundColor(0xff000000); // black
+                            bannerAd.setVisibility(View.VISIBLE);
+                            bannerAdShowing = true;
+                        }
+                    });
                 }
             });
         }else{
             System.out.println("ads ShowBannerAd() called when isBannerLoaded() false, so ignored");
+            System.out.println("wifi status: " + isWifiConnected());
         }
 
 
@@ -103,6 +143,7 @@ public class AndroidAdsController implements AdsController {
             @Override
             public void run() {
                 bannerAd.setVisibility(View.INVISIBLE);
+                bannerAdShowing = false;
             }
         });
     }
@@ -125,7 +166,7 @@ public class AndroidAdsController implements AdsController {
     public void setupAds() {
         bannerAd = new AdView(app);
         bannerAd.setVisibility(View.INVISIBLE);
-        bannerAd.setBackgroundColor(0xff000000); // black
+
         bannerAd.setAdUnitId(BANNED_AD_ID);
         bannerAd.setAdSize(AdSize.SMART_BANNER);
     }
@@ -145,5 +186,9 @@ public class AndroidAdsController implements AdsController {
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         layout.addView(bannerAd, params);
         return layout;
+    }
+
+    public boolean getBannerAdShowing(){
+        return bannerAdShowing;
     }
 }

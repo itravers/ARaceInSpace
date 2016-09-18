@@ -20,6 +20,7 @@ public class ARaceInSpace extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		adsController.loadBannerAd();
 	}
 
 	@Override
@@ -29,6 +30,10 @@ public class ARaceInSpace extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();
+
+		if(adsController.isBannerLoaded() && !adsController.getBannerAdShowing()){
+			adsController.showBannerAd();
+		}
 	}
 	
 	@Override
