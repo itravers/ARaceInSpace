@@ -5,4 +5,11 @@ package com.araceinspace.MonetizationSubSystem;
  * The AdsController is an interface implemented
  */
 public interface AdsController {
+    public boolean isWifiConnected();
+    public void loadBannerAd();
+    public boolean isBannerLoaded();
+    public void hideBannerAd();
+    public void loadInterstitialAd();
+    public boolean isInterstitialAdLoaded();
+    public void showInterstitialAd();
 }
