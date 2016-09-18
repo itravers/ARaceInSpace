@@ -8,6 +8,7 @@ public interface AdsController {
     public boolean isWifiConnected();
     public void loadBannerAd();
     public boolean isBannerLoaded();
+    public void showBannerAd();
     public void hideBannerAd();
     public void loadInterstitialAd();
     public boolean isInterstitialAdLoaded();
