@@ -208,11 +208,14 @@ public class AndroidAdsController implements AdsController {
 
     @Override
     public void loadInterstitialAd() {
-        AdRequest.Builder builder = new AdRequest.Builder();
-        AdRequest ad = builder.build();
-        interstitialAd.loadAd(ad);
-        interstitialAdLoaded = true;
-
+        if(isWifiConnected()) {
+            AdRequest.Builder builder = new AdRequest.Builder();
+            AdRequest ad = builder.build();
+            interstitialAd.loadAd(ad);
+            interstitialAdLoaded = true;
+        }else{
+            System.out.println("ads Wifi not connected cannot show ad.");
+        }
     }
 
     @Override
@@ -221,24 +224,39 @@ public class AndroidAdsController implements AdsController {
     }
 
     @Override
-    public void showInterstitialAd(final Runnable then) {
-        app.runOnUiThread(new Runnable() {
+    public void showInterstitialAd() {
+        final Runnable r = new Runnable() {
             @Override
             public void run() {
-                if (then != null) {
-                    interstitialAd.setAdListener(new AdListener() {
-                        @Override
-                        public void onAdClosed() {
-                            Gdx.app.postRunnable(then);
-                            AdRequest.Builder builder = new AdRequest.Builder();
-                            AdRequest ad = builder.build();
-                            interstitialAd.loadAd(ad);
-                        }
-                    });
-                }
-                interstitialAd.show();
+                System.out.println("Interstitial Ad Closed");
             }
-        });
+        };
+
+        if(isWifiConnected()) {
+            app.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (r != null) {
+                        interstitialAd.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdClosed() {
+                                Gdx.app.postRunnable(r);
+                                if(isWifiConnected()) {
+                                    AdRequest.Builder builder = new AdRequest.Builder();
+                                    AdRequest ad = builder.build();
+                                    interstitialAd.loadAd(ad);
+                                }else{
+                                    System.out.println("ads wifi not connected, can't load ad.");
+                                }
+                            }
+                        });
+                    }
+                    interstitialAd.show();
+                }
+            });
+        }else{
+            System.out.println("ads Wifi not connected, can't show ad.");
+        }
     }
 
     /**
@@ -266,7 +284,7 @@ public class AndroidAdsController implements AdsController {
         return layout;
     }
 
-    public boolean getBannerAdShowing(){
+    public boolean isBannerAdShowing(){
         return bannerAdShowing;
     }
 }
