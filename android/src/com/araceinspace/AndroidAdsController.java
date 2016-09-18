@@ -8,17 +8,21 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.araceinspace.MonetizationSubSystem.AdsController;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 
 /**
  * Created by Isaac Assegai on 9/17/16.
  * The AndroidAdsController is created by the AndroidLauncher
  * and passed to the main Game Controller: ARaceInSpace.java
+ * The AndroidAdsController controlls all the ads
+ * mediated through the Admob network.
  */
 public class AndroidAdsController implements AdsController {
 
@@ -29,9 +33,19 @@ public class AndroidAdsController implements AdsController {
     private static final String BANNED_AD_ID = "ca-app-pub-5553172650479270/1591123946";
 
     /**
+     * Admob generated interstitial id.
+     */
+    private static final String INTERSTITIAL_AD_ID = "ca-app-pub-5553172650479270/1671849140";
+
+    /**
      * This is set to true while a banner ad is currently showing.
      */
     private boolean bannerAdShowing = false;
+
+    /**
+     * This is set to true while an interstitial ad is currently showing.
+     */
+    private boolean interstitialAdShowing = false;
 
 
     /**
@@ -40,6 +54,13 @@ public class AndroidAdsController implements AdsController {
      * add has been loaded.
      */
     private boolean bannerAdLoaded = false;
+
+    /**
+     * used by showInterstitialAd() to decide if the ad has been loaded
+     * When loadInterstitialAd() is called this is set to false until
+     * a new ad has been loaded.
+     */
+    private boolean interstitialAdLoaded = false;
 
     /**
      * This is a reference to the main android app.
@@ -55,12 +76,43 @@ public class AndroidAdsController implements AdsController {
     /**
      * This is the view of the bannerAd that shows on the screen.
      */
-    protected AdView bannerAd;
+    private AdView bannerAd;
+
+    /**
+     * The interstitial ad loaded from google
+     */
+    private InterstitialAd interstitialAd;
 
 
+
+/* Constructors. */
+
+    /**
+     * Construct an AndroidAdsController
+     * @param app The Application context this controller wil be ran in.
+     */
     public AndroidAdsController(AndroidApplication app){
         this.app = app;
     }
+
+/* Private Methods. */
+
+    /**
+     * Sets up the banner ads.
+     */
+    private void setupBannerAd(){
+        bannerAd = new AdView(app);
+        bannerAd.setVisibility(View.INVISIBLE);
+
+        bannerAd.setAdUnitId(BANNED_AD_ID);
+        bannerAd.setAdSize(AdSize.SMART_BANNER);
+    }
+
+    private void setupInterstitialAd(){
+        interstitialAd = new InterstitialAd(app);
+        interstitialAd.setAdUnitId(INTERSTITIAL_AD_ID);
+    }
+
 
     /**
      * Check to see if the system's wifi is connected.
@@ -87,10 +139,8 @@ public class AndroidAdsController implements AdsController {
                 public void run() {
                     bannerAdLoaded = false;
                     AdRequest.Builder builder = new AdRequest.Builder();
-                    builder.
                     //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
                     rawBannerAd = builder.build();
-                    builder.
                     bannerAdLoaded = true;
                 }
             });
@@ -139,11 +189,11 @@ public class AndroidAdsController implements AdsController {
             System.out.println("ads ShowBannerAd() called when isBannerLoaded() false, so ignored");
             System.out.println("wifi status: " + isWifiConnected());
         }
-
-
-
     }
 
+    /**
+     * Hides the banner ad.
+     */
     @Override
     public void hideBannerAd() {
         //needs to be run on the aps UI thread.
@@ -158,25 +208,45 @@ public class AndroidAdsController implements AdsController {
 
     @Override
     public void loadInterstitialAd() {
+        AdRequest.Builder builder = new AdRequest.Builder();
+        AdRequest ad = builder.build();
+        interstitialAd.loadAd(ad);
+        interstitialAdLoaded = true;
 
     }
 
     @Override
     public boolean isInterstitialAdLoaded() {
-        return false;
+        return interstitialAdLoaded;
     }
 
     @Override
-    public void showInterstitialAd() {
-
+    public void showInterstitialAd(final Runnable then) {
+        app.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (then != null) {
+                    interstitialAd.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdClosed() {
+                            Gdx.app.postRunnable(then);
+                            AdRequest.Builder builder = new AdRequest.Builder();
+                            AdRequest ad = builder.build();
+                            interstitialAd.loadAd(ad);
+                        }
+                    });
+                }
+                interstitialAd.show();
+            }
+        });
     }
 
+    /**
+     * Sets up the ads so they are useful.
+     */
     public void setupAds() {
-        bannerAd = new AdView(app);
-        bannerAd.setVisibility(View.INVISIBLE);
-
-        bannerAd.setAdUnitId(BANNED_AD_ID);
-        bannerAd.setAdSize(AdSize.SMART_BANNER);
+        setupBannerAd();
+        setupInterstitialAd();
     }
 
     /**

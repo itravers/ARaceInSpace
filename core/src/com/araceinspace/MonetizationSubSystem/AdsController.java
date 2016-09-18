@@ -13,6 +13,6 @@ public interface AdsController {
     public void hideBannerAd();
     public void loadInterstitialAd();
     public boolean isInterstitialAdLoaded();
-    public void showInterstitialAd();
+    public void showInterstitialAd(final Runnable then);
     public void setupAds();
 }
