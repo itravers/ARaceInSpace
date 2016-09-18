@@ -111,6 +111,41 @@ public class AndroidAdsController implements AdsController {
     private void setupInterstitialAd(){
         interstitialAd = new InterstitialAd(app);
         interstitialAd.setAdUnitId(INTERSTITIAL_AD_ID);
+        loadInterstitialAd();
+
+        /*Runnable r = new Runnable() {
+
+            @Override
+            public void run() {
+                AdRequest.Builder builder = new AdRequest.Builder();
+                AdRequest ad = builder.build();
+                interstitialAd.loadAd(ad);
+            }
+        };*/
+
+       // r.run();
+       // Gdx.app.postRunnable(r);
+
+        /*new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // do something important here, asynchronously to the rendering thread
+                AdRequest.Builder builder = new AdRequest.Builder();
+                AdRequest ad = builder.build();
+                interstitialAd.loadAd(ad);
+
+                // post a Runnable to the rendering thread that processes the result
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        // process the result, e.g. add it to an Array<Result> field of the ApplicationListener.
+                        interstitialAdLoaded = true;
+                    }
+                });
+            }
+        }).start();*/
+
+
     }
 
 
@@ -208,14 +243,46 @@ public class AndroidAdsController implements AdsController {
 
     @Override
     public void loadInterstitialAd() {
-        if(isWifiConnected()) {
-            AdRequest.Builder builder = new AdRequest.Builder();
-            AdRequest ad = builder.build();
-            interstitialAd.loadAd(ad);
-            interstitialAdLoaded = true;
-        }else{
-            System.out.println("ads Wifi not connected cannot show ad.");
-        }
+        /*Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                if(isWifiConnected()) {
+                    AdRequest.Builder builder = new AdRequest.Builder();
+                    AdRequest ad = builder.build();
+                    interstitialAd.loadAd(ad);
+                    interstitialAdLoaded = true;
+                }else{
+                    System.out.println("ads Wifi not connected cannot show ad.");
+                }
+            }
+        };
+        r.run();*/
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // do something important here, asynchronously to the rendering thread
+                AdRequest.Builder builder = new AdRequest.Builder();
+                final AdRequest ad = builder.build();
+
+                // post a Runnable to the rendering thread that processes the result
+
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        app.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                interstitialAd.loadAd(ad);
+                            }
+                        });
+
+                        interstitialAdLoaded = true;
+                    }
+                });
+            }
+        }).start();
+
     }
 
     @Override

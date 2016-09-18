@@ -22,7 +22,7 @@ public class DummyController implements AdsController{
     }
 
     @Override
-    public boolean getBannerAdShowing() {
+    public boolean isBannerAdShowing() {
         return false;
     }
 

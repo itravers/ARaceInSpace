@@ -5,10 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.araceinspace.TestSubSystem.AndroidsAdsController_Test;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.araceinspace.ARaceInSpace;
-import com.google.android.gms.ads.AdView;
 
 public class AndroidLauncher extends AndroidApplication {
 
@@ -25,10 +24,10 @@ public class AndroidLauncher extends AndroidApplication {
 
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
-		View gameView = initializeForView(new ARaceInSpace(adsController), config);
+		//View gameView = initializeForView(new ARaceInSpace(adsController), config);
+		View gameView = initializeForView(new AndroidsAdsController_Test(adsController), config);
 
-		/** Now have our ads controller setupAds(). */
-		adsController.setupAds();
+
 
 		/* Setup the layouts we are going to use for our views.
 		   We want the gameView layout to match th parent layout. The main android app config.

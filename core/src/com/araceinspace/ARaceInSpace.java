@@ -14,6 +14,12 @@ public class ARaceInSpace extends ApplicationAdapter {
 
 	public ARaceInSpace(AdsController adsController){
 		this.adsController = adsController;
+
+		/** Now have our ads controller setupAds(). */
+		adsController.setupAds();
+
+		//adsController.loadBannerAd();
+		adsController.loadInterstitialAd();
 	}
 	
 	@Override
