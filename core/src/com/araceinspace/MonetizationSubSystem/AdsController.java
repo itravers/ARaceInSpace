@@ -12,4 +12,5 @@ public interface AdsController {
     public void loadInterstitialAd();
     public boolean isInterstitialAdLoaded();
     public void showInterstitialAd();
+    public void setupAds();
 }
