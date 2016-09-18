@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "com.araceinspace"
+        applicationId "com.araceinspace.isaac.game"
         minSdkVersion 8
         targetSdkVersion 24
     }
