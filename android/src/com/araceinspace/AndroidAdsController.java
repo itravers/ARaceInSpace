@@ -87,7 +87,7 @@ public class AndroidAdsController implements AdsController {
                 public void run() {
                     bannerAdLoaded = false;
                     AdRequest.Builder builder = new AdRequest.Builder();
-                    builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
+                    //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
                     rawBannerAd = builder.build();
                     bannerAdLoaded = true;
                 }
@@ -123,6 +123,12 @@ public class AndroidAdsController implements AdsController {
                             bannerAd.setBackgroundColor(0xff000000); // black
                             bannerAd.setVisibility(View.VISIBLE);
                             bannerAdShowing = true;
+                        }
+
+                        @Override
+                        public void onAdClosed(){
+                            bannerAd.setVisibility(View.INVISIBLE);
+                            bannerAd.removeAllViews();
                         }
                     });
                 }
