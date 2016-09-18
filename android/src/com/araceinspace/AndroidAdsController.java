@@ -87,8 +87,10 @@ public class AndroidAdsController implements AdsController {
                 public void run() {
                     bannerAdLoaded = false;
                     AdRequest.Builder builder = new AdRequest.Builder();
+                    builder.
                     //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
                     rawBannerAd = builder.build();
+                    builder.
                     bannerAdLoaded = true;
                 }
             });
