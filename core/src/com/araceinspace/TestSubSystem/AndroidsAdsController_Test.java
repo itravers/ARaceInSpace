@@ -16,6 +16,7 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
     AdsController adsController;
     SpriteBatch batch;
     Texture img;
+    float adTimer = 0;
 
     public AndroidsAdsController_Test(AdsController adsController){
         this.adsController = adsController;
@@ -42,8 +43,12 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
         batch.draw(img, 0, 0);
         batch.end();
 
-        if(adsController.isBannerLoaded() && !adsController.isBannerAdShowing()){
+        /* show a banner ad if:
+         *
+         */
+        if(adsController.isBannerLoaded() && !adsController.isBannerAdShowing() && adTimer > 10){
             adsController.showBannerAd();
+            adTimer = 0;
         }
     }
 

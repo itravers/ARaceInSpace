@@ -126,7 +126,7 @@ public class AndroidAdsController implements AdsController {
        // r.run();
        // Gdx.app.postRunnable(r);
 
-        /*new Thread(new Runnable() {
+       /* new Thread(new Runnable() {
             @Override
             public void run() {
                 // do something important here, asynchronously to the rendering thread
@@ -143,7 +143,8 @@ public class AndroidAdsController implements AdsController {
                     }
                 });
             }
-        }).start();*/
+        }).start();
+        */
 
 
     }
@@ -267,7 +268,14 @@ public class AndroidAdsController implements AdsController {
 
                 // post a Runnable to the rendering thread that processes the result
 
-                Gdx.app.postRunnable(new Runnable() {
+                app.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        interstitialAd.loadAd(ad);
+                    }
+                });
+
+               /* app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
                         app.runOnUiThread(new Runnable() {
@@ -280,6 +288,7 @@ public class AndroidAdsController implements AdsController {
                         interstitialAdLoaded = true;
                     }
                 });
+                */
             }
         }).start();
 
