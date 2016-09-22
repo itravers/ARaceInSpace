@@ -52,6 +52,28 @@ public abstract class GameAd {
 /* Private Methods */
 
 
+/* Abstract Methods */
+
+    /**
+     * Will be used to Asynchronously Load an ad.
+     */
+    public abstract void loadAd();
+
+    /**
+     * When the Ad is loaded, this method will be called.
+     */
+    public abstract void loadAd_callback();
+
+    /**
+     * When a caller wants to show an add, he'll use this method.
+     */
+    public abstract void showAd();
+
+    /**
+     * When a caller wants to hide an add, she'll use this.
+     */
+    public abstract void hideAd();
+
 
 /* Public Methods */
 
