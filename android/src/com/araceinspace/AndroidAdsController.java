@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.araceinspace.MonetizationSubSystem.AdsController;
+import com.araceinspace.TestSubSystem.AndroidsAdsController_Test;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.ads.AdListener;
@@ -83,6 +84,8 @@ public class AndroidAdsController implements AdsController {
      */
     private InterstitialAd interstitialAd;
 
+    private float stateTime = 0;
+
 
 
 /* Constructors. */
@@ -157,7 +160,8 @@ public class AndroidAdsController implements AdsController {
     @Override
     public boolean isWifiConnected() {
         ConnectivityManager cm = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        //NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
 
         return (ni != null && ni.isConnected());
     }
@@ -168,6 +172,7 @@ public class AndroidAdsController implements AdsController {
      */
     @Override
     public void loadBannerAd() {
+        System.out.println("game ads : loadBannerAd() called");
         if(isWifiConnected()) {
             //needs to be run on the aps UI thread.
             app.runOnUiThread(new Runnable() {
@@ -176,7 +181,9 @@ public class AndroidAdsController implements AdsController {
                     bannerAdLoaded = false;
                     AdRequest.Builder builder = new AdRequest.Builder();
                     //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
+                    builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
                     rawBannerAd = builder.build();
+                    bannerAd.loadAd(rawBannerAd);
                     bannerAdLoaded = true;
                 }
             });
@@ -198,27 +205,15 @@ public class AndroidAdsController implements AdsController {
      */
     @Override
     public void showBannerAd() {
+        System.out.println("game ads : showBannerAdAd() called");
         if(isBannerLoaded()){
             //needs to be run on the aps UI thread.
             app.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    bannerAd.loadAd(rawBannerAd);
-                    bannerAd.setAdListener(new AdListener() {
-                        @Override
-                        public void onAdLoaded() {
-                            super.onAdLoaded();
-                            bannerAd.setBackgroundColor(0xff000000); // black
-                            bannerAd.setVisibility(View.VISIBLE);
-                            bannerAdShowing = true;
-                        }
-
-                        @Override
-                        public void onAdClosed(){
-                            bannerAd.setVisibility(View.INVISIBLE);
-                            bannerAd.removeAllViews();
-                        }
-                    });
+                   // bannerAd.loadAd(rawBannerAd);
+                    bannerAd.setVisibility(View.VISIBLE);
+                    bannerAdShowing = true;
                 }
             });
         }else{
@@ -232,18 +227,23 @@ public class AndroidAdsController implements AdsController {
      */
     @Override
     public void hideBannerAd() {
+        System.out.println("game ads : hideBannerAd() called");
         //needs to be run on the aps UI thread.
         app.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 bannerAd.setVisibility(View.INVISIBLE);
                 bannerAdShowing = false;
+                loadBannerAd();
+                System.out.println("game ads hideBannerAd() complete");
             }
         });
     }
 
     @Override
     public void loadInterstitialAd() {
+        System.out.println("game ads : loadInterStitialsAd() called");
+        interstitialAdLoaded = false;
         /*Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -264,6 +264,8 @@ public class AndroidAdsController implements AdsController {
             public void run() {
                 // do something important here, asynchronously to the rendering thread
                 AdRequest.Builder builder = new AdRequest.Builder();
+                //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
+                builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
                 final AdRequest ad = builder.build();
 
                 // post a Runnable to the rendering thread that processes the result
@@ -272,6 +274,8 @@ public class AndroidAdsController implements AdsController {
                     @Override
                     public void run() {
                         interstitialAd.loadAd(ad);
+                        System.out.println("game ads : inerstitialAd.loadAd(ad) is complete");
+                        interstitialAdLoaded = true;
                     }
                 });
 
@@ -301,37 +305,40 @@ public class AndroidAdsController implements AdsController {
 
     @Override
     public void showInterstitialAd() {
+        System.out.println("game ads : showInterstitialAd() called");
+
         final Runnable r = new Runnable() {
             @Override
             public void run() {
-                System.out.println("Interstitial Ad Closed");
+                System.out.println("game ads showInterstitialAd() onAdClosed() done ");
             }
         };
 
         if(isWifiConnected()) {
-            app.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (r != null) {
-                        interstitialAd.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdClosed() {
-                                Gdx.app.postRunnable(r);
-                                if(isWifiConnected()) {
-                                    AdRequest.Builder builder = new AdRequest.Builder();
-                                    AdRequest ad = builder.build();
-                                    interstitialAd.loadAd(ad);
-                                }else{
-                                    System.out.println("ads wifi not connected, can't load ad.");
+            if(isInterstitialAdLoaded()) {
+                app.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (r != null) {
+                            interstitialAd.setAdListener(new AdListener() {
+                                @Override
+                                public void onAdClosed() {
+                                    Gdx.app.postRunnable(r);
+                                    interstitialAdShowing = false;
+                                    loadInterstitialAd();
                                 }
-                            }
-                        });
+                            });
+                        }
+                        interstitialAd.show();
+                        interstitialAdShowing = true;
+                        System.out.println("game ads : interStitialAd.show() complete");
                     }
-                    interstitialAd.show();
-                }
-            });
+                });
+            }else{
+                System.out.println("game ads showInterstitialAd() called before interstial ad is loaded");
+            }
         }else{
-            System.out.println("ads Wifi not connected, can't show ad.");
+            System.out.println("game ads Wifi not connected, can't show ad.");
         }
     }
 
@@ -339,6 +346,7 @@ public class AndroidAdsController implements AdsController {
      * Sets up the ads so they are useful.
      */
     public void setupAds() {
+        System.out.println("game ads :setupAds() called");
         setupBannerAd();
         setupInterstitialAd();
     }
@@ -362,5 +370,19 @@ public class AndroidAdsController implements AdsController {
 
     public boolean isBannerAdShowing(){
         return bannerAdShowing;
+    }
+
+    public boolean isInterstitialAdShowing(){ return interstitialAdShowing;}
+
+    @Override
+    public float getStateTime() {
+       // System.out.println("game ads : getStateTime(); called : returned: " + stateTime);
+        return stateTime;
+    }
+
+    @Override
+    public void setStateTime(float time) {
+        stateTime = time;
+       // System.out.println("game ads : setStateTime("+time+"); called");
     }
 }

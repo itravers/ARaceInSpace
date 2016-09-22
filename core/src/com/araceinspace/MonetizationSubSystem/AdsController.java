@@ -15,4 +15,7 @@ public interface AdsController {
     public boolean isInterstitialAdLoaded();
     public void showInterstitialAd();
     public void setupAds();
+    public boolean isInterstitialAdShowing();
+    public float getStateTime();
+    public void setStateTime(float time);
 }

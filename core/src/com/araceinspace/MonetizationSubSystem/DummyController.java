@@ -55,4 +55,19 @@ public class DummyController implements AdsController{
     public void setupAds() {
 
     }
+
+    @Override
+    public boolean isInterstitialAdShowing() {
+        return false;
+    }
+
+    @Override
+    public float getStateTime() {
+        return 0;
+    }
+
+    @Override
+    public void setStateTime(float time) {
+
+    }
 }

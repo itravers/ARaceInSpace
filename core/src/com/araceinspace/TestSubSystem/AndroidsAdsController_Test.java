@@ -1,11 +1,14 @@
 package com.araceinspace.TestSubSystem;
 
+import com.araceinspace.InputSubSystem.GameInputListener;
 import com.araceinspace.MonetizationSubSystem.AdsController;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Isaac Assegai on 9/18/16.
@@ -13,19 +16,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * to test the AndroidAdsControllers several functions.
  */
 public class AndroidsAdsController_Test extends ApplicationAdapter{
-    AdsController adsController;
+    public AdsController adsController;
     SpriteBatch batch;
     Texture img;
-    float adTimer = 0;
 
     public AndroidsAdsController_Test(AdsController adsController){
         this.adsController = adsController;
 
+
+
         /** Now have our ads controller setupAds(). */
         adsController.setupAds();
 
-        //adsController.loadBannerAd();
-        adsController.loadInterstitialAd();
+       // adsController.loadBannerAd();
+       // adsController.loadInterstitialAd();
     }
 
     @Override
@@ -33,6 +37,8 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
         batch = new SpriteBatch();
         img = new Texture("badlogic.jpg");
         adsController.loadBannerAd();
+        adsController.loadInterstitialAd();
+        Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(this)));
     }
 
     @Override
@@ -44,12 +50,31 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
         batch.end();
 
         /* show a banner ad if:
-         *
+         *banner is loaded
+         * banner is not showing,
+         * adTimer is more than 10
          */
-        if(adsController.isBannerLoaded() && !adsController.isBannerAdShowing() && adTimer > 10){
+       /* if(adsController.isBannerLoaded() && !adsController.isBannerAdShowing() && !adsController.isInterstitialAdShowing() && adsController.getStateTime() > 10){
+            System.out.println("game ads : timer: " + adsController.getStateTime());
+            System.out.println("game ads BANNERADDTEST GOOD, SHOW BANNER AD NOW");
             adsController.showBannerAd();
-            adTimer = 0;
+            adsController.setStateTime(0);
+
         }
+
+        if(adsController.isInterstitialAdLoaded() && adsController.isBannerAdShowing() && adsController.getStateTime() > 10){
+            System.out.println("game ads : timer: " + adsController.getStateTime());
+            System.out.println("game ads INTERSTITIALTEST GOOD, SHOW INTERSTITIAL AD NOW");
+            adsController.hideBannerAd();
+            adsController.loadBannerAd();
+            adsController.showInterstitialAd();
+            adsController.setStateTime(0);
+        }*/
+
+        //if(((int)adTimer) % 2 == 0)System.out.println("game ads : timer: " + adTimer);
+
+        //adTimer += Gdx.graphics.getDeltaTime();
+        adsController.setStateTime(adsController.getStateTime()+Gdx.graphics.getDeltaTime());
     }
 
     @Override
@@ -57,4 +82,6 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
         batch.dispose();
         img.dispose();
     }
+
+
 }
