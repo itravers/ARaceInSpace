@@ -19,14 +19,14 @@ public class ARaceInSpace extends ApplicationAdapter {
 		adsController.setupAds();
 
 		//adsController.loadBannerAd();
-		adsController.loadInterstitialAd();
+		//adsController.loadInterstitialAd();
 	}
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		adsController.loadBannerAd();
+		//adsController.loadBannerAd();
 	}
 
 	@Override
@@ -37,9 +37,9 @@ public class ARaceInSpace extends ApplicationAdapter {
 		batch.draw(img, 0, 0);
 		batch.end();
 
-		if(adsController.isBannerLoaded() && !adsController.isBannerAdShowing()){
-			adsController.showBannerAd();
-		}
+		//if(adsController.isBannerLoaded() && !adsController.isBannerAdShowing()){
+		//	adsController.showBannerAd();
+		//}
 	}
 	
 	@Override

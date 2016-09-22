@@ -301,4 +301,8 @@ public class AndroidAdsController implements AdsController {
     public void hideBannerAd(){
         bannerAd.hideAd();
     }
+
+    public RelativeLayout setupBannerLayout(RelativeLayout layout){
+        return bannerAd.setupBannerLayout(layout);
+    }
 }

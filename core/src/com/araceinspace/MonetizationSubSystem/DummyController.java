@@ -6,6 +6,7 @@ package com.araceinspace.MonetizationSubSystem;
  * an AdsController
  */
 public class DummyController implements AdsController{
+    /*
     @Override
     public boolean isWifiConnected() {
         return false;
@@ -25,6 +26,7 @@ public class DummyController implements AdsController{
     public boolean isBannerAdShowing() {
         return false;
     }
+    */
 
     @Override
     public void showBannerAd() {
@@ -35,7 +37,7 @@ public class DummyController implements AdsController{
     public void hideBannerAd() {
 
     }
-
+/*
     @Override
     public void loadInterstitialAd() {
 
@@ -50,12 +52,14 @@ public class DummyController implements AdsController{
     public void showInterstitialAd() {
 
     }
+    */
 
     @Override
     public void setupAds() {
 
     }
 
+    /*
     @Override
     public boolean isInterstitialAdShowing() {
         return false;
@@ -70,4 +74,5 @@ public class DummyController implements AdsController{
     public void setStateTime(float time) {
 
     }
+    */
 }
