@@ -66,6 +66,7 @@ public abstract class GameAd {
     public abstract void hideAd();
 
 
+
 /* Public Methods */
 
     /**
@@ -85,10 +86,28 @@ public abstract class GameAd {
     }
 
     /**
+     * Sets the Ad to the to a loaded, or unloaded state.
+     * @param loaded True for loaded, False for Unloaded.
+     */
+    public void setLoaded(boolean loaded){
+        this.loaded = loaded;
+    }
+
+    /**
      * Lets the caller know if the Ad is currently showing.
      * @return True if currently showing.
      */
     public boolean isShowing(){
         return showing;
     }
+
+    /**
+     * Lets the caller set the current showing state
+     * @param show True if set to showing, False if not.
+     */
+    public void setShowing(boolean show){
+        showing = show;
+    }
+
+
 }

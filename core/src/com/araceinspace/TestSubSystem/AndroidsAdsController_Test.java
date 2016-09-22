@@ -36,8 +36,8 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
     public void create () {
         batch = new SpriteBatch();
         img = new Texture("badlogic.jpg");
-        adsController.loadBannerAd();
-        adsController.loadInterstitialAd();
+       // adsController.loadBannerAd();
+       // adsController.loadInterstitialAd();
         Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(this)));
     }
 
@@ -74,7 +74,7 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
         //if(((int)adTimer) % 2 == 0)System.out.println("game ads : timer: " + adTimer);
 
         //adTimer += Gdx.graphics.getDeltaTime();
-        adsController.setStateTime(adsController.getStateTime()+Gdx.graphics.getDeltaTime());
+       // adsController.setStateTime(adsController.getStateTime()+Gdx.graphics.getDeltaTime());
     }
 
     @Override
