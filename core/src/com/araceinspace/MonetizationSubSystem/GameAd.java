@@ -28,25 +28,16 @@ public abstract class GameAd {
      */
     private boolean showing;
 
-    /**
-     * The LibGdx ApplicationAdapter we are currently using
-     * this will be a AndroidApplication if we are on android
-     * I believe it will be a LWJGL container on desktop.
-     * It is used to access the apps views, to allow the
-     * ads to be shown.
-     */
-    private ApplicationAdapter app;
+
 
 /* Constructors */
 
     /**
      * Create a new GameAd with a specific ID and ApplicationAdapter.
      * @param ID The ID - Ususally manually obtained from ads service.
-     * @param app The App we are displaying the ads in.
      */
-    public GameAd(String ID, ApplicationAdapter app){
+    public GameAd(String ID){
         this.ID = ID;
-        this.app = app;
     }
 
 /* Private Methods */

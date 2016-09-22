@@ -1,8 +1,12 @@
 package com.araceinspace;
 
+import android.view.View;
+
 import com.araceinspace.MonetizationSubSystem.GameAd;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 /**
@@ -26,6 +30,15 @@ public class AndroidBannerAd extends GameAd {
      */
     private AdRequest rawBannerAd;
 
+    /**
+     * The LibGdx ApplicationAdapter we are currently using
+     * this will be a AndroidApplication if we are on android
+     * I believe it will be a LWJGL container on desktop.
+     * It is used to access the apps views, to allow the
+     * ads to be shown.
+     */
+    private AndroidApplication app;
+
 /* Constructors */
 
     /**
@@ -34,8 +47,16 @@ public class AndroidBannerAd extends GameAd {
      * @param ID  The ID - Ususally manually obtained from ads service.
      * @param app The App we are displaying the ads in.
      */
-    public AndroidBannerAd(String ID, ApplicationAdapter app) {
-        super(ID, app);
+    public AndroidBannerAd(String ID, AndroidApplication app) {
+        super(ID);
+
+        this.app = app;
+
+        bannerAd = new AdView(app);
+        bannerAd.setVisibility(View.INVISIBLE);
+        bannerAd.setAdUnitId(ID);
+        bannerAd.setAdSize(AdSize.SMART_BANNER);
+
     }
 
 /* Private Methods */
