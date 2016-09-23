@@ -46,6 +46,12 @@ public class AndroidBannerAd extends GameAd{
      * ads to be shown.
      */
     private AndroidApplication app;
+
+    /**
+     * me is just an alternate reference to this, for
+     * use when code in a contained Runnable wants
+     * to refer to this.
+     */
     private AndroidBannerAd me;
 
 /* Constructors */
@@ -59,13 +65,8 @@ public class AndroidBannerAd extends GameAd{
     public AndroidBannerAd(final String ID, final AndroidApplication app) {
         super(ID);
         System.out.println("game ads: AndroidBannerAd constructed on thread:" + Thread.currentThread().getName());
-
         this.app = app;
-        me = this;
-
-
-
-
+        me = this; //We assign this to me, to make this available to Runnables.
     }
 
 /* Private Methods */
@@ -80,11 +81,7 @@ public class AndroidBannerAd extends GameAd{
         bannerAd.setAdUnitId(getID());
         //bannerAd.setBackgroundColor(0xff000000);
         bannerAd.setAdSize(AdSize.SMART_BANNER);
-
-
-       bannerAd.setAdListener(new BannerListener(me));
-
-
+        bannerAd.setAdListener(new BannerListener(me));
     }
 
     /**
@@ -103,52 +100,17 @@ public class AndroidBannerAd extends GameAd{
                     setLoaded(false);
                     AdRequest.Builder builder = new AdRequest.Builder();
                     //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
-                    //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
                     builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
                     rawBannerAd = builder.build();
                     System.out.println("game ads : about to load ad on thread:" + Thread.currentThread().getName());
                     bannerAd.loadAd(rawBannerAd);
 
-                    //test
-                  //  bannerAd.setVisibility(View.VISIBLE);
-                   // setShowing(true);
                 }
             });
-
-            /*new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // do something important here, asynchronously to the rendering thread
-                    System.out.println("game ads :inside generaic runnable on thread:" + Thread.currentThread().getName());
-
-                    // post a Runnable to the rendering thread that processes the result
-                    Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            // process the result, e.g. add it to an Array<Result> field of the ApplicationListener.
-
-                            setLoaded(false);
-                            AdRequest.Builder builder = new AdRequest.Builder();
-                            //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
-                            //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
-                            builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
-                            rawBannerAd = builder.build();
-                            System.out.println("game ads : about to load ad on thread:" + Thread.currentThread().getName());
-                            Looper.prepare();
-                            //bannerAd.setAdListener(new BannerListener(me));
-                            bannerAd.loadAd(rawBannerAd);
-
-                        }
-                    });
-                }
-
-            }).start();*/
-
 
         }else{
             System.out.println("game ads : loadAd() called, but no connection available, or app is null + " + app);
         }
-
     }
 
     /**
@@ -159,60 +121,16 @@ public class AndroidBannerAd extends GameAd{
     @Override
     public void loadAd_callback() {
         System.out.println("game ads : loadAd_callback() called on thread:"  + Thread.currentThread().getName());
-        //test setting visibility true on loadAdCallback, maybe it's a thread issue?
-        //bannerAd.setVisibility(View.VISIBLE);
-       // setShowing(true);
-
-
         setLoaded(true);
-
     }
 
-    //@Override
-   // public void showAd() {
-      //  System.out.println("game ads : showAd() called on thread:" + Thread.currentThread().getName());
-
-      //  if(isLoaded()){
-           // bannerAd.setVisibility(View.VISIBLE);
-            //setShowing(true);
-            //Showing the Ad, needs to be run on the UI Thread.
-           /* app.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println("game ads : showAd() running on thread:" + Thread.currentThread().getName());
-                    bannerAd.setVisibility(View.VISIBLE);
-
-                    setShowing(true);
-                }
-           });/*
-            /*  new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // do something important here, asynchronously to the rendering thread
-                    System.out.println("game ads :inside generaic runnable on thread:" + Thread.currentThread().getName());
-
-                    // post a Runnable to the rendering thread that processes the result
-                    Gdx.app.postRunnable(new Runnable() {
-                        @Override
-                        public void run() {
-                            // process the result, e.g. add it to an Array<Result> field of the ApplicationListener.
-
-                            System.out.println("game ads : showAd() running on thread:" + Thread.currentThread().getName());
-                            bannerAd.setVisibility(View.VISIBLE);
-                            setShowing(true);
-
-                        }
-                    });
-                }
-            }).start();*/
-       // }else{
-       //     System.out.println("game ads : showAds() called, but isLoaded() == false");
-      //  }
-    //}
-
-
+    /**
+     * Sets the visibility of the AdView. This should
+     * only be called from the render() method in the main
+     * ApplicationAdapter.
+     * @param vis A View.VISIBILE or View.INVISIBLE int.
+     */
     public void setVisibility(final int vis){
-
         app.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -220,28 +138,7 @@ public class AndroidBannerAd extends GameAd{
                 bannerAd.setVisibility(vis);
             }
         });
-
     }
-
-    //@Override
-   // public void hideAd() {
-   //     System.out.println("game ads : hideAd() called on thread:" + Thread.currentThread().getName());
-   //     bannerAd.setVisibility(View.INVISIBLE);
-
-
-        //needs to be run on the UI Thread
-        /*app.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("game ads : hideAd() ran on thread:" + Thread.currentThread().getName());
-                bannerAd.setVisibility(View.INVISIBLE);
-
-                setShowing(false);
-                //Now we want to prep loading the next banner ad to be shown
-               // loadAd();
-            }
-        });*/
-    //}
 
     /**
      * Adds our banner add to a specific layout.
@@ -313,11 +210,7 @@ public class AndroidBannerAd extends GameAd{
         public void onAdLoaded() {
             System.out.println("game ads :onAdLoaded() thread:" + Thread.currentThread().getName());
            // super.onAdLoaded();
-
             ad.loadAd_callback();
-
         }
-
-        
     }
 }
