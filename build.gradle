@@ -71,6 +71,8 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
         compile "com.google.android.gms:play-services-ads:$admobVersion"
         compile 'com.google.firebase:firebase-ads:9.4.0'
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+
     }
 
     apply plugin: 'com.google.gms.google-services'
