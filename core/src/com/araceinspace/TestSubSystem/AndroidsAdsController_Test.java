@@ -19,6 +19,7 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
     public AdsController adsController;
     SpriteBatch batch;
     Texture img;
+    int xCoords = 0;
 
     public AndroidsAdsController_Test(AdsController adsController){
         this.adsController = adsController;
@@ -35,10 +36,12 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
 
     @Override
     public void render () {
+        xCoords++;
+        if(xCoords >= Gdx.graphics.getWidth())xCoords = 0;
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(img, 0, 0);
+        batch.draw(img, xCoords, 0);
         batch.end();
         adsController.updateVisibility();
     }
