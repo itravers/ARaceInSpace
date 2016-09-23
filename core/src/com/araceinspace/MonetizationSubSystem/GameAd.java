@@ -48,6 +48,8 @@ public abstract class GameAd {
 
 /* Abstract Methods */
 
+    public abstract void setup();
+
     /**
      * Will be used to Asynchronously Load an ad.
      */
@@ -65,7 +67,7 @@ public abstract class GameAd {
      * The subclass will have to implement these capabilities.
      * @param vis Can be interpreted by subclass however they want
      */
-    public abstract void setVisibility(int vis);
+    public abstract <T> void setVisibility(T vis);
 
 /* Public Methods */
 

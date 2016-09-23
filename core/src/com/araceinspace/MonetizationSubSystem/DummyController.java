@@ -37,6 +37,11 @@ public class DummyController implements AdsController{
     public void hideBannerAd() {
 
     }
+
+    @Override
+    public <T> T setupBannerLayout(T layout) {
+        return null;
+    }
 /*
     @Override
     public void loadInterstitialAd() {

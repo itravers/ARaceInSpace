@@ -138,6 +138,28 @@ public class AndroidBannerAd extends GameAd{
     }
 
     /**
+     * Implementation of the GameAds setVisibility.
+     * We cast T visibility to an int and call
+     * out actual setVisibility(int) method.
+     * @param visibility The param we are casting to an int and passing to real method.
+     * @param <T> A generic type representing our visibility.
+     */
+    @Override
+    public <T> void setVisibility(T visibility){
+        int vis = ((Integer)visibility).intValue();
+        setVisibility(vis);
+    }
+
+    /**
+     * Queries the banner ad for it's current graphics
+     * visibility settings.
+     * @return An int representing the View.VISIBLE or View.INVISIBLE
+     */
+    public int getVisibility(){
+        return bannerAd.getVisibility();
+    }
+
+    /**
      * Adds our banner add to a specific layout.
      * Add it to be the device width, but only
      * be as high as the banner content.

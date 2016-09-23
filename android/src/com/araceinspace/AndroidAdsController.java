@@ -275,8 +275,12 @@ public class AndroidAdsController implements AdsController {
         //setupInterstitialAd();
     }
 
+    /**
+     * Checks each Ads state t
+     */
     public void updateVisibility(){
         if(bannerAd.isShowing()){
+           // bannerAd.
             bannerAd.setVisibility(View.VISIBLE);
         }else{
             bannerAd.setVisibility(View.INVISIBLE);
@@ -304,20 +308,54 @@ public class AndroidAdsController implements AdsController {
     }
     */
 
+    /**
+     * Sets the banner ad itself to the showing state.
+     * This does not change the underlying Graphics visibility
+     * as that must be done from render() through the updateVisibility()
+     * method.
+     */
     public void showBannerAd(){
         bannerAd.setShowing(true);
     }
 
+    /**
+     * Sets the banner ad to not the not showing state.
+     * This also does not change the underlying graphics visibility
+     * as that must be done from the render() through updateVisibility()
+     */
     public void hideBannerAd(){
         bannerAd.setShowing(false);
-        bannerAd.loadAd();
+        bannerAd.loadAd(); //we may want to load another ad as soon as the previous was hidden.
     }
 
+    /**
+     * Any Ads controller should be able to setup a banners
+     * layout. However the implementation of how this is
+     * done is different for every type of program.
+     * So We use generics, and cast them to the
+     * correct object before we call the actual method.
+     * @param layout The Generic Layout we are going to cast to a RelativeLayout
+     * @param <T> The generic layout type.
+     * @return A RelativeLayout cast to a Generic Layout.
+     */
+    @Override
+    public <T> T setupBannerLayout(T layout) {
+        RelativeLayout newLayout = ((RelativeLayout)layout);
+        newLayout = setupBannerLayout(newLayout);
+        return (T)newLayout;
+    }
+
+    /**
+     * Since this is android we are using A RelativeLayout
+     * as our banner layout, We use the AndroidBanner
+     * to set this up for us, so all the logic is in
+     * the same place. This method routes the call
+     * to the right place.
+     * @param layout The Relative Layout to set.
+     * @return The same layout, with the banner added.
+     */
     public RelativeLayout setupBannerLayout(RelativeLayout layout){
-        return bannerAd.setupBannerLayout(layout);
+        return bannerAd.setupBannerLayout( layout);
     }
 
-    public void dispose(){
-        //
-    }
 }
