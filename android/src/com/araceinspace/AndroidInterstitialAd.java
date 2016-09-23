@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import com.araceinspace.MonetizationSubSystem.GameAd;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
 /**
@@ -68,6 +70,7 @@ public class AndroidInterstitialAd extends GameAd{
         Gdx.app.log("Game Ads", "AndroidInterstitialAd.setup() called");
         interstitialAd = new InterstitialAd(app);
         interstitialAd.setAdUnitId(getID());
+        interstitialAd.setAdListener(new InterstitialListener(me));
     }
 
     @Override
@@ -91,9 +94,45 @@ public class AndroidInterstitialAd extends GameAd{
      */
     public boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
-        //NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo ni = cm.getActiveNetworkInfo();
-
         return (ni != null && ni.isConnected());
+    }
+
+/* Private Classes */
+
+    public class InterstitialListener extends AdListener{
+
+        /**
+         * This is the Add this Listener is Listening To.
+         */
+        AndroidInterstitialAd ad;
+
+        public InterstitialListener(AndroidInterstitialAd ad){
+            super();
+            this.ad = ad;
+        }
+
+        /**
+         * If the banner ad failed to load, this will be called.
+         * @param i The Error Code.
+         */
+        @Override
+        public void onAdFailedToLoad(int i) {
+            super.onAdFailedToLoad(i);
+            if(i == AdRequest.ERROR_CODE_INTERNAL_ERROR)Gdx.app.log("Game Ads", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_INTERNAL_ERROR");
+            if(i == AdRequest.ERROR_CODE_INVALID_REQUEST)Gdx.app.log("Game Ads", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_INVALID_REQUEST");
+            if(i == AdRequest.ERROR_CODE_NETWORK_ERROR)Gdx.app.log("Game Ads", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_NETWORK_ERROR");
+            if(i == AdRequest.ERROR_CODE_NO_FILL)Gdx.app.log("Game Ads", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_NO_FILL");
+        }
+
+        /**
+         * When a banner ad is loaded, this is called.
+         */
+        @Override
+        public void onAdLoaded() {
+            Gdx.app.log("Game Ads", "AndroidInterstitialAd.onAdLoaded() thread:" + Thread.currentThread().getName());
+            ad.loadAd_callback();
+        }
+
     }
 }
