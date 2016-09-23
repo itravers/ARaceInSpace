@@ -14,6 +14,10 @@ public interface AdsController {
     //public boolean isBannerLoaded();
     //public boolean isBannerAdShowing();
 
+    public void pause();
+    public void resume();
+    public void destroy();
+
     /**
      * This is where all the ads should be constructed and
      * setup. We want to do it this way and keep the ads

@@ -137,6 +137,19 @@ public class AndroidInterstitialAd extends GameAd{
         setShowing(false);
     }
 
+    public void pause(){
+        //interstitialAds don't have a pause function
+    }
+
+    public void resume(){
+        //interstitialAds don't have a resume function
+    }
+
+    public void destroy(){
+        //interstitialAds don't have a destroy function
+        
+    }
+
 /* Private Classes */
 
     public class InterstitialListener extends AdListener{

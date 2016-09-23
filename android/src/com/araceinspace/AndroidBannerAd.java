@@ -183,6 +183,18 @@ public class AndroidBannerAd extends GameAd{
         //doesn't do anything here, only used in interstitial ads.
     }
 
+    public void pause(){
+        bannerAd.pause();
+    }
+
+    public void resume(){
+        bannerAd.resume();
+    }
+
+    public void destroy(){
+        bannerAd.destroy();
+    }
+
 
 /* Private Classes */
 

@@ -258,6 +258,7 @@ public class AndroidAdsController implements AdsController {
 
         interstitialAd = new AndroidInterstitialAd(this.INTERSTITIAL_AD_ID, app);
         interstitialAd.setup();
+
     }
 
     /**
@@ -362,6 +363,21 @@ public class AndroidAdsController implements AdsController {
      */
     public RelativeLayout setupBannerLayout(RelativeLayout layout){
         return bannerAd.setupBannerLayout( layout);
+    }
+
+    /**
+     * Pauses any Ads that have the ability to pause
+     */
+    public void pause(){
+        bannerAd.pause();
+    }
+
+    public void resume(){
+        bannerAd.resume();
+    }
+
+    public void destroy(){
+        bannerAd.destroy();
     }
 
 }

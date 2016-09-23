@@ -76,6 +76,10 @@ public abstract class GameAd {
      */
     public abstract void showAd();
 
+    public abstract void pause();
+    public abstract void resume();
+    public abstract void destroy();
+
 /* Public Methods */
 
     /**

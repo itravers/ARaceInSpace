@@ -23,6 +23,21 @@ public class DummyController implements AdsController{
     }
 
     @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
     public void setupAds() {
 
     }

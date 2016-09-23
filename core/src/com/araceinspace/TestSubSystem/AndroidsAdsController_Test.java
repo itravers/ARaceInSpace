@@ -21,6 +21,8 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
     Texture img;
     int xCoords = 0;
 
+    
+
     public AndroidsAdsController_Test(AdsController adsController){
         this.adsController = adsController;
     }
