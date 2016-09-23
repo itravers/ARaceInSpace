@@ -69,6 +69,8 @@ public abstract class GameAd {
      */
     public abstract <T> void setVisibility(T vis);
 
+    public abstract <T> T getVisibility();
+
 /* Public Methods */
 
     /**

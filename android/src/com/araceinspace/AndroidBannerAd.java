@@ -151,11 +151,25 @@ public class AndroidBannerAd extends GameAd{
     }
 
     /**
+     * Implementation of the GameAds getVisiblity
+     * We use getVisibilityView() to get an
+     * integer representing the visibility.
+     * Then we cast it to a T and return it.
+     * @param <T> The Generic Type
+     * @return The visibility in a generic type.
+     */
+    @Override
+    public <T> T getVisibility(){
+        Integer vis = getVisibilityView();
+        return ((T)vis);
+    }
+
+    /**
      * Queries the banner ad for it's current graphics
      * visibility settings.
      * @return An int representing the View.VISIBLE or View.INVISIBLE
      */
-    public int getVisibility(){
+    public int getVisibilityView(){
         return bannerAd.getVisibility();
     }
 
