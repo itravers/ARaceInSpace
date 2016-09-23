@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.araceinspace.MonetizationSubSystem.GameAd;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.ads.InterstitialAd;
 
@@ -64,7 +65,9 @@ public class AndroidInterstitialAd extends GameAd{
 
     @Override
     public void setup() {
-
+        Gdx.app.log("Game Ads", "AndroidInterstitialAd.setup() called");
+        interstitialAd = new InterstitialAd(app);
+        interstitialAd.setAdUnitId(getID());
     }
 
     @Override
