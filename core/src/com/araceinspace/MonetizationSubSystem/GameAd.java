@@ -4,7 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 
 /**
  * Created by Isaac Assegai on 9/22/16.
- * A GameAd is the base ad type.
+ * A GameAd is the base ad type. Any object
+ * extending game ad should be able to implement
+ * the following abstract methods. GameAd provides
+ * some State functionality so we can know
+ * if an ad has been loaded, or is showing.
  */
 public abstract class GameAd {
 /* Field Variables */
@@ -27,7 +31,6 @@ public abstract class GameAd {
      * is currently showing.
      */
     private boolean showing;
-
 
 
 /* Constructors */
@@ -105,8 +108,4 @@ public abstract class GameAd {
     public void setShowing(boolean show){
         showing = show;
     }
-
-
-
-
 }
