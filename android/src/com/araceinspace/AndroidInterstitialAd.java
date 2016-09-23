@@ -101,7 +101,17 @@ public class AndroidInterstitialAd extends GameAd{
 
     @Override
     public void showAd(){
-
+        Gdx.app.log("Game Ads", "AndroidInterstitialAd.showAd() called");
+        if(isLoaded()){
+            //we want to do this on the UI thread... i think...
+            app.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    interstitialAd.show();
+                    setShowing(true);
+                }
+            });
+        }
     }
 
     @Override
@@ -117,6 +127,14 @@ public class AndroidInterstitialAd extends GameAd{
         ConnectivityManager cm = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return (ni != null && ni.isConnected());
+    }
+
+    /**
+     * Called when the ad is closed.
+     * We set showing to false.
+     */
+    public void closeAd_callback(){
+        setShowing(false);
     }
 
 /* Private Classes */
@@ -148,11 +166,21 @@ public class AndroidInterstitialAd extends GameAd{
 
         /**
          * When a banner ad is loaded, this is called.
+         * We route it back to the main classes loadAd_callback() method.
          */
         @Override
         public void onAdLoaded() {
             Gdx.app.log("Game Ads", "AndroidInterstitialAd.onAdLoaded() thread:" + Thread.currentThread().getName());
             ad.loadAd_callback();
+        }
+
+        /**
+         * Called when Ad gets closed, we route back to
+         * the main classes closeAd_callback() method.
+         */
+        @Override
+        public void onAdClosed(){
+            ad.closeAd_callback();
         }
 
     }
