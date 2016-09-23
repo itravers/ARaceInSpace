@@ -56,16 +56,13 @@ public abstract class GameAd {
     public abstract void loadAd_callback();
 
     /**
-     * When a caller wants to show an add, he'll use this method.
+     * The method called by the render thread to set visibility.
+     * Since the base GameAd doesn't know anything about
+     * the actual graphical components of an Ad.
+     * The subclass will have to implement these capabilities.
+     * @param vis Can be interpreted by subclass however they want
      */
-    //public abstract void showAd();
-
-    /**
-     * When a caller wants to hide an add, she'll use this.
-     */
-    //public abstract void hideAd();
-
-
+    public abstract void setVisibility(int vis);
 
 /* Public Methods */
 
@@ -108,6 +105,8 @@ public abstract class GameAd {
     public void setShowing(boolean show){
         showing = show;
     }
+
+
 
 
 }
