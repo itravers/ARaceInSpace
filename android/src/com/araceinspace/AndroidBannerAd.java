@@ -179,6 +179,10 @@ public class AndroidBannerAd extends GameAd{
         return (ni != null && ni.isConnected());
     }
 
+    public void showAd(){
+        //doesn't do anything here, only used in interstitial ads.
+    }
+
 
 /* Private Classes */
 

@@ -31,7 +31,7 @@ public class AndroidAdsController implements AdsController {
     /**
      * Admob generated Banner ID.
      */
-    private static final String BANNED_AD_ID = "ca-app-pub-5553172650479270/1591123946";
+    private static final String BANNER_AD_ID = "ca-app-pub-5553172650479270/1591123946";
 
     private AndroidBannerAd bannerAd;
 
@@ -40,29 +40,13 @@ public class AndroidAdsController implements AdsController {
      */
     private static final String INTERSTITIAL_AD_ID = "ca-app-pub-5553172650479270/1671849140";
 
-    /**
-     * This is set to true while an interstitial ad is currently showing.
-     */
-    private boolean interstitialAdShowing = false;
-
-    /**
-     * used by showInterstitialAd() to decide if the ad has been loaded
-     * When loadInterstitialAd() is called this is set to false until
-     * a new ad has been loaded.
-     */
-    private boolean interstitialAdLoaded = false;
+    private AndroidInterstitialAd interstitialAd;
 
     /**
      * This is a reference to the main android app.
      * needed here to add bannerAd to the main apps view.
      */
     AndroidApplication app;
-
-    /**
-     * The interstitial ad loaded from google
-     */
-    private InterstitialAd interstitialAd;
-
 
 
 /* Constructors. */
@@ -269,10 +253,11 @@ public class AndroidAdsController implements AdsController {
 
     public void setupAds() {
         System.out.println("game ads :setupAds() called");
-        bannerAd = new AndroidBannerAd(this.BANNED_AD_ID, app);
+        bannerAd = new AndroidBannerAd(this.BANNER_AD_ID, app);
         bannerAd.setup();
-        //bannerAd.loadAd();
-        //setupInterstitialAd();
+
+        interstitialAd = new AndroidInterstitialAd(this.INTERSTITIAL_AD_ID, app);
+        interstitialAd.setup();
     }
 
     /**
@@ -311,6 +296,23 @@ public class AndroidAdsController implements AdsController {
        // System.out.println("game ads : setStateTime("+time+"); called");
     }
     */
+
+    public void loadInterstitialAd(){
+        interstitialAd.loadAd();
+    }
+
+    public void showInterstitialAd(){
+        interstitialAd.showAd();
+    }
+
+    /**
+     * Makes the contained banner ad load a new ad.
+     * This will cause the ad to show as unloaded
+     * until it is done.
+     */
+    public void loadBannerAd(){
+        bannerAd.loadAd();;
+    }
 
     /**
      * Sets the banner ad itself to the showing state.

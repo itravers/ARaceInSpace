@@ -65,9 +65,16 @@ public abstract class GameAd {
      * Since the base GameAd doesn't know anything about
      * the actual graphical components of an Ad.
      * The subclass will have to implement these capabilities.
+     * Only the bannerAd types will need to inherit this.
      * @param vis Can be interpreted by subclass however they want
      */
     public abstract <T> void setVisibility(T vis);
+
+    /**
+     * Shows the current ad, only valid for interstitial type
+     * banner type will use setVisilibty.
+     */
+    public abstract void showAd();
 
 /* Public Methods */
 

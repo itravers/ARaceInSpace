@@ -15,6 +15,22 @@ public interface AdsController {
     //public boolean isBannerAdShowing();
 
     /**
+     * This is where all the ads should be constructed and
+     * setup. We want to do it this way and keep the ads
+     * setup code out of the implementing classes constructor.
+     */
+    public void setupAds();
+
+    public void loadInterstitialAd();
+
+    public void showInterstitialAd();
+
+    /**
+     * Loads a new banner ad in the background.
+     */
+    public void loadBannerAd();
+
+    /**
      * Sets the banner ad to showing, does not change
      * any underlying graphics visibility, as that
      * must be always called from main render().
@@ -45,12 +61,7 @@ public interface AdsController {
    // public boolean isInterstitialAdLoaded();
    // public void showInterstitialAd();
 
-    /**
-     * This is where all the ads should be constructed and
-     * setup. We want to do it this way and keep the ads
-     * setup code out of the implementing classes constructor.
-     */
-    public void setupAds();
+
 
    // public boolean isInterstitialAdShowing();
    // public float getStateTime();

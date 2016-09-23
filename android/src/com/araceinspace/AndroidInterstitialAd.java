@@ -75,17 +75,38 @@ public class AndroidInterstitialAd extends GameAd{
 
     @Override
     public void loadAd() {
-
+        Gdx.app.log("Game Ads", "AndroidInterstitialAd.loadAd() called");
+        if(isConnected() && app != null){
+            //this needs to be run on the aps UI thread.
+            app.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setLoaded(false);
+                    AdRequest.Builder builder = new AdRequest.Builder();
+                    builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+                    AdRequest ad = builder.build();
+                    interstitialAd.loadAd(ad);
+                }
+            });
+        }else{
+            Gdx.app.log("Game Ads", "AndroidInterstitialAd.loadAd() called, but won't work because isConnected == false || app == null");
+        }
     }
 
     @Override
     public void loadAd_callback() {
+        Gdx.app.log("Game Ads", "AndroidInterstitialAd.loadAd_callback() called");
+        setLoaded(true);
+    }
+
+    @Override
+    public void showAd(){
 
     }
 
     @Override
     public <T> void setVisibility(T vis) {
-
+      //do nothing interstitial ads visibility is not set the same way as banner ads.
     }
 
     /**
