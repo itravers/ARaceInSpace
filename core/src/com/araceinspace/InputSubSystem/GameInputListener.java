@@ -35,10 +35,12 @@ public class GameInputListener implements GestureDetector.GestureListener{
         System.out.println("game ads fling x:y" + velocityX + ":" + velocityY);
         if(velocityX >= 1){
             System.out.println("game ads fling show banner ads");
-            parent.adsController.showBannerAd();
+            //parent.adsController.showBannerAd();
+            parent.adsController.showInterstitialAd();
         }else if(velocityX <= -1){
             System.out.println("game ads fling hie banner ads");
-            parent.adsController.hideBannerAd();
+            //parent.adsController.hideBannerAd();
+            parent.adsController.loadInterstitialAd();
         }
         return true;
     }

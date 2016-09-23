@@ -28,6 +28,21 @@ public class DummyController implements AdsController{
     }
 
     @Override
+    public void loadInterstitialAd() {
+
+    }
+
+    @Override
+    public void showInterstitialAd() {
+
+    }
+
+    @Override
+    public void loadBannerAd() {
+
+    }
+
+    @Override
     public void updateVisibility() {
 
     }
