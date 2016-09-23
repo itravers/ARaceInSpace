@@ -6,27 +6,6 @@ package com.araceinspace.MonetizationSubSystem;
  * an AdsController
  */
 public class DummyController implements AdsController{
-    /*
-    @Override
-    public boolean isWifiConnected() {
-        return false;
-    }
-
-    @Override
-    public void loadBannerAd() {
-
-    }
-
-    @Override
-    public boolean isBannerLoaded() {
-        return false;
-    }
-
-    @Override
-    public boolean isBannerAdShowing() {
-        return false;
-    }
-    */
 
     //@Override
     public void showBannerAd() {
@@ -42,22 +21,6 @@ public class DummyController implements AdsController{
     public <T> T setupBannerLayout(T layout) {
         return null;
     }
-/*
-    @Override
-    public void loadInterstitialAd() {
-
-    }
-
-    @Override
-    public boolean isInterstitialAdLoaded() {
-        return false;
-    }
-
-    @Override
-    public void showInterstitialAd() {
-
-    }
-    */
 
     @Override
     public void setupAds() {
@@ -68,21 +31,4 @@ public class DummyController implements AdsController{
     public void updateVisibility() {
 
     }
-
-    /*
-    @Override
-    public boolean isInterstitialAdShowing() {
-        return false;
-    }
-
-    @Override
-    public float getStateTime() {
-        return 0;
-    }
-
-    @Override
-    public void setStateTime(float time) {
-
-    }
-    */
 }

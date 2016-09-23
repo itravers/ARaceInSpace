@@ -55,5 +55,14 @@ public interface AdsController {
    // public boolean isInterstitialAdShowing();
    // public float getStateTime();
    // public void setStateTime(float time);
+
+    /**
+     * Called from the render thread ALWAYS.
+     * This should check each ads state
+     * to see if it should be visible or not
+     * then it should set the actual graphic
+     * settings on the ads to make them
+     * visible or not, as instructed.
+     */
     public void updateVisibility();
 }

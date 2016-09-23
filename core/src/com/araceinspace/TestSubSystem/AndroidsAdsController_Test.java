@@ -22,14 +22,6 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
 
     public AndroidsAdsController_Test(AdsController adsController){
         this.adsController = adsController;
-
-
-
-        /** Now have our ads controller setupAds(). */
-       // adsController.setupAds();
-
-       // adsController.loadBannerAd();
-       // adsController.loadInterstitialAd();
     }
 
     @Override
@@ -49,34 +41,6 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
         batch.draw(img, 0, 0);
         batch.end();
         adsController.updateVisibility();
-        //System.out.println("render thread is:" + Thread.currentThread().getName());
-
-        /* show a banner ad if:
-         *banner is loaded
-         * banner is not showing,
-         * adTimer is more than 10
-         */
-       /* if(adsController.isBannerLoaded() && !adsController.isBannerAdShowing() && !adsController.isInterstitialAdShowing() && adsController.getStateTime() > 10){
-            System.out.println("game ads : timer: " + adsController.getStateTime());
-            System.out.println("game ads BANNERADDTEST GOOD, SHOW BANNER AD NOW");
-            adsController.showBannerAd();
-            adsController.setStateTime(0);
-
-        }
-
-        if(adsController.isInterstitialAdLoaded() && adsController.isBannerAdShowing() && adsController.getStateTime() > 10){
-            System.out.println("game ads : timer: " + adsController.getStateTime());
-            System.out.println("game ads INTERSTITIALTEST GOOD, SHOW INTERSTITIAL AD NOW");
-            adsController.hideBannerAd();
-            adsController.loadBannerAd();
-            adsController.showInterstitialAd();
-            adsController.setStateTime(0);
-        }*/
-
-        //if(((int)adTimer) % 2 == 0)System.out.println("game ads : timer: " + adTimer);
-
-        //adTimer += Gdx.graphics.getDeltaTime();
-       // adsController.setStateTime(adsController.getStateTime()+Gdx.graphics.getDeltaTime());
     }
 
     @Override

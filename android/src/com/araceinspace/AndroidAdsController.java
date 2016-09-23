@@ -276,11 +276,15 @@ public class AndroidAdsController implements AdsController {
     }
 
     /**
-     * Checks each Ads state t
+     * Implements the AdsController abstract updateVisiblity.
+     * This method should ONLY be called directly from the render() method.
+     * On the SAME thread.
+     * Checks each Ads state to see whether it should be visible, or invisible
+     * If it should be visibble and is not, it is set to visible.
+     * If it should be Invisible and is not, it is set to Invisible.
      */
     public void updateVisibility(){
         if(bannerAd.isShowing()){
-           // bannerAd.
             bannerAd.setVisibility(View.VISIBLE);
         }else{
             bannerAd.setVisibility(View.INVISIBLE);
