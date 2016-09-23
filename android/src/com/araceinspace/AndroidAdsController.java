@@ -270,7 +270,17 @@ public class AndroidAdsController implements AdsController {
     public void setupAds() {
         System.out.println("game ads :setupAds() called");
         bannerAd = new AndroidBannerAd(this.BANNED_AD_ID, app);
+        bannerAd.setup();
+        //bannerAd.loadAd();
         //setupInterstitialAd();
+    }
+
+    public void updateVisibility(){
+        if(bannerAd.isShowing()){
+            bannerAd.setVisibility(View.VISIBLE);
+        }else{
+            bannerAd.setVisibility(View.INVISIBLE);
+        }
     }
 
 
@@ -295,14 +305,19 @@ public class AndroidAdsController implements AdsController {
     */
 
     public void showBannerAd(){
-        bannerAd.showAd();
+        bannerAd.setShowing(true);
     }
 
     public void hideBannerAd(){
-        bannerAd.hideAd();
+        bannerAd.setShowing(false);
+        bannerAd.loadAd();
     }
 
     public RelativeLayout setupBannerLayout(RelativeLayout layout){
         return bannerAd.setupBannerLayout(layout);
+    }
+
+    public void dispose(){
+        //
     }
 }

@@ -26,7 +26,7 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
 
 
         /** Now have our ads controller setupAds(). */
-        adsController.setupAds();
+       // adsController.setupAds();
 
        // adsController.loadBannerAd();
        // adsController.loadInterstitialAd();
@@ -48,6 +48,8 @@ public class AndroidsAdsController_Test extends ApplicationAdapter{
         batch.begin();
         batch.draw(img, 0, 0);
         batch.end();
+        adsController.updateVisibility();
+        //System.out.println("render thread is:" + Thread.currentThread().getName());
 
         /* show a banner ad if:
          *banner is loaded

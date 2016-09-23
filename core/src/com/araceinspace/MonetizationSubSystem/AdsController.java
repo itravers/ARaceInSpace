@@ -17,4 +17,5 @@ public interface AdsController {
    // public boolean isInterstitialAdShowing();
    // public float getStateTime();
    // public void setStateTime(float time);
+    public void updateVisibility();
 }

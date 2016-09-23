@@ -27,6 +27,7 @@ public class AndroidLauncher extends AndroidApplication {
 		//View gameView = initializeForView(new ARaceInSpace(adsController), config);
 		View gameView = initializeForView(new AndroidsAdsController_Test(adsController), config);
 
+		adsController.setupAds();
 
 
 		/* Setup the layouts we are going to use for our views.
@@ -42,5 +43,6 @@ public class AndroidLauncher extends AndroidApplication {
 
 		//Now we set the content view for the android app.
 		setContentView(layout);
+
 	}
 }

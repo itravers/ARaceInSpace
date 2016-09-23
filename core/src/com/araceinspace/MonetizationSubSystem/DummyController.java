@@ -28,12 +28,12 @@ public class DummyController implements AdsController{
     }
     */
 
-    @Override
+    //@Override
     public void showBannerAd() {
 
     }
 
-    @Override
+    //@Override
     public void hideBannerAd() {
 
     }
@@ -56,6 +56,11 @@ public class DummyController implements AdsController{
 
     @Override
     public void setupAds() {
+
+    }
+
+    @Override
+    public void updateVisibility() {
 
     }
 

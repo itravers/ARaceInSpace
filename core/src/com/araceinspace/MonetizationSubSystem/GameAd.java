@@ -58,12 +58,12 @@ public abstract class GameAd {
     /**
      * When a caller wants to show an add, he'll use this method.
      */
-    public abstract void showAd();
+    //public abstract void showAd();
 
     /**
      * When a caller wants to hide an add, she'll use this.
      */
-    public abstract void hideAd();
+    //public abstract void hideAd();
 
 
 
