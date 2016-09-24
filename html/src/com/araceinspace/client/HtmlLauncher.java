@@ -1,5 +1,6 @@
 package com.araceinspace.client;
 
+import com.araceinspace.MonetizationSubSystem.DummyController;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
@@ -14,6 +15,7 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new ARaceInSpace();
+                DummyController controller = new DummyController();
+                return new ARaceInSpace(controller);
         }
 }

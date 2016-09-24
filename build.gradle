@@ -73,6 +73,8 @@ project(":android") {
         compile 'com.google.firebase:firebase-ads:9.4.0'
         compile fileTree(dir: 'libs', include: ['*.jar'])
 
+
+
     }
 
     apply plugin: 'com.google.gms.google-services'

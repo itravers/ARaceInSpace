@@ -8,14 +8,9 @@ import android.os.Bundle;
 import com.araceinspace.MonetizationSubSystem.GameAd;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
+import com.jirbo.adcolony.*;
+
 //import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.google.android.gms.ads.reward.mediation.MediationRewardedVideoAdAdapter;
 
 /**
  * Created by Isaac Assegai on 9/23/16.
@@ -23,24 +18,25 @@ import com.google.android.gms.ads.reward.mediation.MediationRewardedVideoAdAdapt
  * A Reward ad is given to us from the Admob network, however
  * they don't serve the ad itself so we use mediation networks.
  */
-public class AndroidRewardAd extends GameAd {
+public class AndroidRewardAd2 extends GameAd implements AdColonyV4VCListener{
 
 /* Field Variables */
 
     public static final String APP_ID = "app97267127423b4837aa";
+    public static final String ZONE_ID = "vz6ebda927dc7f49f4bb";
 
-    private RewardedVideoAd rewardedVideoAd;
+    private AdColonyV4VCAd rewardedVideoAd;
 
     private AndroidApplication app;
 
-    private AndroidRewardAd me;
+    private AndroidRewardAd2 me;
 
     /**
      * Create a new GameAd with a specific ID and ApplicationAdapter.
      *
      * @param ID The ID - Ususally manually obtained from ads service.
      */
-    public AndroidRewardAd(String ID, AndroidApplication app) {
+    public AndroidRewardAd2(String ID, AndroidApplication app) {
         super(ID);
         this.app = app;
         me = this;
@@ -56,10 +52,13 @@ public class AndroidRewardAd extends GameAd {
     public void setup() {
         Gdx.app.log("GameAds", "AndroidRewardAd.setup() called");
         // Initialize the Mobile Ads SDK.
-        MobileAds.initialize(app, APP_ID);
-        rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(app);
+       // MobileAds.initialize(app, APP_ID);
+       // rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(app);
 
-        rewardedVideoAd.setRewardedVideoAdListener(new RewardAdListener(this));
+       // rewardedVideoAd.setRewardedVideoAdListener(new RewardAdListener(this));
+        AdColony.configure(app, "version:0.0.1,store:google", APP_ID, ZONE_ID);
+        rewardedVideoAd = new AdColonyV4VCAd(ZONE_ID);
+        AdColony.addV4VCListener(this);
 
     }
 
@@ -67,27 +66,36 @@ public class AndroidRewardAd extends GameAd {
     public void loadAd() {
         Gdx.app.log("GameAds", "AndroidRewardAd.loadAd() called");
         if(isConnected() && app != null){
+            app.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    rewardedVideoAd = new AdColonyV4VCAd(ZONE_ID);
+                    setLoaded(true);
+                }
+            });
+            /*
             //this should be run on the apps UI Thread, i think...
             app.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     setLoaded(false);
                     //build and load ad here.
-                    AdRequest.Builder builder = new AdRequest.Builder();
+                   // AdRequest.Builder builder = new AdRequest.Builder();
                   //  AdColony.
                     Bundle extras = new Bundle();
                     extras.putBoolean("_noRefresh", true);
                     extras.putString("ZONE_ID", "vz6ebda927dc7f49f4bb");
                     //com.jirbo.adcolony.
 
-                    AdRequest adRequest = new AdRequest.Builder()
-                            .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-                            .addNetworkExtrasBundle(MediationRewardedVideoAdAdapter.class, extras)
-                            .build();
+                   // AdRequest adRequest = new AdRequest.Builder()
+                   //         .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+                   //         .addNetworkExtrasBundle(MediationRewardedVideoAdAdapter.class, extras)
+                   //         .build();
 
-                    rewardedVideoAd.loadAd(getID(), adRequest);
+                   // rewardedVideoAd.loadAd(getID(), adRequest);
                 }
             });
+            */
         }else{
             Gdx.app.log("GameAds", "AndroidRewardAd.loadAd() called, but isConnected() == false || app == null");
         }
@@ -117,6 +125,7 @@ public class AndroidRewardAd extends GameAd {
                 public void run() {
                     setShowing(true);
                     rewardedVideoAd.show();
+                    //rewardedVideoAd.show();
                 }
             });
         }else{
@@ -126,17 +135,21 @@ public class AndroidRewardAd extends GameAd {
 
     @Override
     public void pause() {
-        rewardedVideoAd.pause(app);
+        AdColony.pause();
+        //rewardedVideoAd.pause(app);
     }
 
     @Override
     public void resume() {
-        rewardedVideoAd.resume(app);
+        AdColony.resume(app);
+        //rewardedVideoAd.resume(app);
     }
 
     @Override
     public void destroy() {
-        rewardedVideoAd.destroy(app);
+        //do nothing?
+        //AdColony.
+        //rewardedVideoAd.destroy(app);
     }
 
     /**
@@ -149,60 +162,17 @@ public class AndroidRewardAd extends GameAd {
         return (ni != null && ni.isConnected());
     }
 
+    @Override
+    public void onAdColonyV4VCReward(AdColonyV4VCReward adColonyV4VCReward) {
+        Gdx.app.log("GameAds", "AndroidRewardAd2.onAdColonyV4VCReward() called");
+        Gdx.app.log("GameAds", "success: " + adColonyV4VCReward.success());
+        Gdx.app.log("GameAds", "name: " + adColonyV4VCReward.name());
+        Gdx.app.log("GameAds", "amount: " + adColonyV4VCReward.amount());
+
+    }
+
 
 /* Private Classes. */
 
-    private class RewardAdListener implements RewardedVideoAdListener {
 
-        AndroidRewardAd ad;
-
-        public RewardAdListener(AndroidRewardAd ad){
-            super();
-            this.ad = ad;
-        }
-
-        @Override
-        public void onRewarded(RewardItem reward) {
-            Gdx.app.log("GameAds", "onReward(): currentcy: " + reward.getType() + " amount: " +
-                    reward.getAmount());
-        }
-
-        @Override
-        public void onRewardedVideoAdLeftApplication() {
-            Gdx.app.log("GameAds", "onRewardedVideoAdLeftApplication: ");
-        }
-
-        @Override
-        public void onRewardedVideoAdClosed() {
-            //Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
-            Gdx.app.log("GameAds", "onRewardedVideoAdClosed: ");
-            closeAd_callback();
-        }
-
-        @Override
-        public void onRewardedVideoAdFailedToLoad(int errorCode) {
-            //Toast.makeText(this, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
-
-            Gdx.app.log("GameAds", "onRewardedVideoAdFailedToLoad: ");
-        }
-
-        @Override
-        public void onRewardedVideoAdLoaded() {
-            //Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
-            Gdx.app.log("GameAds", "onRewardedVideoAdLoaded: ");
-            ad.loadAd_callback();
-        }
-
-        @Override
-        public void onRewardedVideoAdOpened() {
-            //Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
-            Gdx.app.log("GameAds", "Override: ");
-        }
-
-        @Override
-        public void onRewardedVideoStarted() {
-            //Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
-            Gdx.app.log("GameAds", "onRewardedVideoStarted: ");
-        }
-    }
 }

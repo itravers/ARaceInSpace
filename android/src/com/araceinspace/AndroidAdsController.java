@@ -46,7 +46,7 @@ public class AndroidAdsController implements AdsController {
 
     private static final String REWARD_AD_ID = "ca-app-pub-5553172650479270/6900797543";
 
-    private AndroidRewardAd rewardedVideoAd;
+    private AndroidRewardAd2 rewardedVideoAd;
 
     /**
      * This is a reference to the main android app.
@@ -265,7 +265,7 @@ public class AndroidAdsController implements AdsController {
         interstitialAd = new AndroidInterstitialAd(this.INTERSTITIAL_AD_ID, app);
         interstitialAd.setup();
 
-        rewardedVideoAd = new AndroidRewardAd(this.REWARD_AD_ID, app);
+        rewardedVideoAd = new AndroidRewardAd2(this.REWARD_AD_ID, app);
         rewardedVideoAd.setup();
 
     }
