@@ -16,6 +16,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
 
 
 /**
@@ -41,6 +42,11 @@ public class AndroidAdsController implements AdsController {
     private static final String INTERSTITIAL_AD_ID = "ca-app-pub-5553172650479270/1671849140";
 
     private AndroidInterstitialAd interstitialAd;
+
+
+    private static final String REWARD_AD_ID = "ca-app-pub-5553172650479270/6900797543";
+
+    private AndroidRewardAd rewardedVideoAd;
 
     /**
      * This is a reference to the main android app.
@@ -259,6 +265,9 @@ public class AndroidAdsController implements AdsController {
         interstitialAd = new AndroidInterstitialAd(this.INTERSTITIAL_AD_ID, app);
         interstitialAd.setup();
 
+        rewardedVideoAd = new AndroidRewardAd(this.REWARD_AD_ID, app);
+        rewardedVideoAd.setup();
+
     }
 
     /**
@@ -297,6 +306,10 @@ public class AndroidAdsController implements AdsController {
        // System.out.println("game ads : setStateTime("+time+"); called");
     }
     */
+
+    public void loadRewardAd(){rewardedVideoAd.loadAd();}
+
+    public void showRewardAd(){rewardedVideoAd.showAd();}
 
     public void loadInterstitialAd(){
         interstitialAd.loadAd();
@@ -370,14 +383,17 @@ public class AndroidAdsController implements AdsController {
      */
     public void pause(){
         bannerAd.pause();
+        rewardedVideoAd.pause();
     }
 
     public void resume(){
         bannerAd.resume();
+        rewardedVideoAd.resume();
     }
 
     public void destroy(){
         bannerAd.destroy();
+        rewardedVideoAd.destroy();
     }
 
 }

@@ -25,6 +25,10 @@ public interface AdsController {
      */
     public void setupAds();
 
+    public void loadRewardAd();
+
+    public void showRewardAd();
+
     public void loadInterstitialAd();
 
     public void showInterstitialAd();

@@ -43,6 +43,16 @@ public class DummyController implements AdsController{
     }
 
     @Override
+    public void loadRewardAd() {
+
+    }
+
+    @Override
+    public void showRewardAd() {
+
+    }
+
+    @Override
     public void loadInterstitialAd() {
 
     }

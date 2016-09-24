@@ -67,7 +67,7 @@ public class AndroidInterstitialAd extends GameAd{
 
     @Override
     public void setup() {
-        Gdx.app.log("Game Ads", "AndroidInterstitialAd.setup() called");
+        Gdx.app.log("GameAds", "AndroidInterstitialAd.setup() called");
         interstitialAd = new InterstitialAd(app);
         interstitialAd.setAdUnitId(getID());
         interstitialAd.setAdListener(new InterstitialListener(me));
@@ -75,7 +75,7 @@ public class AndroidInterstitialAd extends GameAd{
 
     @Override
     public void loadAd() {
-        Gdx.app.log("Game Ads", "AndroidInterstitialAd.loadAd() called");
+        Gdx.app.log("GameAds", "AndroidInterstitialAd.loadAd() called");
         if(isConnected() && app != null){
             //this needs to be run on the aps UI thread.
             app.runOnUiThread(new Runnable() {
@@ -89,7 +89,7 @@ public class AndroidInterstitialAd extends GameAd{
                 }
             });
         }else{
-            Gdx.app.log("Game Ads", "AndroidInterstitialAd.loadAd() called, but won't work because isConnected == false || app == null");
+            Gdx.app.log("GameAds", "AndroidInterstitialAd.loadAd() called, but won't work because isConnected == false || app == null");
         }
     }
 
@@ -101,14 +101,14 @@ public class AndroidInterstitialAd extends GameAd{
 
     @Override
     public void showAd(){
-        Gdx.app.log("Game Ads", "AndroidInterstitialAd.showAd() called");
+        Gdx.app.log("GameAds", "AndroidInterstitialAd.showAd() called");
         if(isLoaded()){
             //we want to do this on the UI thread... i think...
             app.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    interstitialAd.show();
                     setShowing(true);
+                    interstitialAd.show();
                 }
             });
         }
@@ -139,6 +139,7 @@ public class AndroidInterstitialAd extends GameAd{
 
     public void pause(){
         //interstitialAds don't have a pause function
+
     }
 
     public void resume(){
@@ -147,7 +148,7 @@ public class AndroidInterstitialAd extends GameAd{
 
     public void destroy(){
         //interstitialAds don't have a destroy function
-        
+
     }
 
 /* Private Classes */
@@ -171,10 +172,10 @@ public class AndroidInterstitialAd extends GameAd{
         @Override
         public void onAdFailedToLoad(int i) {
             super.onAdFailedToLoad(i);
-            if(i == AdRequest.ERROR_CODE_INTERNAL_ERROR)Gdx.app.log("Game Ads", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_INTERNAL_ERROR");
-            if(i == AdRequest.ERROR_CODE_INVALID_REQUEST)Gdx.app.log("Game Ads", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_INVALID_REQUEST");
-            if(i == AdRequest.ERROR_CODE_NETWORK_ERROR)Gdx.app.log("Game Ads", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_NETWORK_ERROR");
-            if(i == AdRequest.ERROR_CODE_NO_FILL)Gdx.app.log("Game Ads", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_NO_FILL");
+            if(i == AdRequest.ERROR_CODE_INTERNAL_ERROR)Gdx.app.log("GameAds", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_INTERNAL_ERROR");
+            if(i == AdRequest.ERROR_CODE_INVALID_REQUEST)Gdx.app.log("GameAds", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_INVALID_REQUEST");
+            if(i == AdRequest.ERROR_CODE_NETWORK_ERROR)Gdx.app.log("GameAds", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_NETWORK_ERROR");
+            if(i == AdRequest.ERROR_CODE_NO_FILL)Gdx.app.log("GameAds", " AndroidInterstitialAd.onAdFailedToLoad: Error ERROR_CODE_NO_FILL");
         }
 
         /**
@@ -183,7 +184,7 @@ public class AndroidInterstitialAd extends GameAd{
          */
         @Override
         public void onAdLoaded() {
-            Gdx.app.log("Game Ads", "AndroidInterstitialAd.onAdLoaded() thread:" + Thread.currentThread().getName());
+            Gdx.app.log("GameAds", "AndroidInterstitialAd.onAdLoaded() thread:" + Thread.currentThread().getName());
             ad.loadAd_callback();
         }
 
