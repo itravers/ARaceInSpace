@@ -93,6 +93,7 @@ public class AndroidMonetizationController implements MonetizationController {
 
         //next setup the in-app purchase system.
         inAppPurchaser = new GooglePlayIAP(app);
+        inAppPurchaser.setup();
     }
 
     /**

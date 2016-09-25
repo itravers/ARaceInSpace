@@ -29,8 +29,8 @@ public class GooglePlayIAP {
     /**
      * This info will be where we store all our item info.
      */
-    public String testsku = "test_product_0001";
-    //public String testsku = "android.test.purchased";
+    //public String testsku = "test_product_0001";
+    public String testsku = "android.test.purchased";
 
     /**
      * Used to contact google play for pretty much everything.
@@ -142,6 +142,7 @@ public class GooglePlayIAP {
     public void consumeItem(IabResult result, Purchase purchase){
         //this is where we wire up the actual item consumtion itself.
         //we will join this to the other parts of the app as needed through the event dispatch system.
+        Gdx.app.log("GameAds", "We CONSUME THE ITEM HERE: " + purchase);
 
     }
 
@@ -180,7 +181,7 @@ public class GooglePlayIAP {
                 consumeItem(result, purchase);//we actually consume the item.
             } else {
                 // handle error
-                Log.d("GameAds", "onConsumeFinished() called, but there was an error: " + purchase + " : " + result);
+                Log.d("GameAds", "onConsumeFinished() called, but there was an error: " + IabHelper.getResponseDesc(result.getResponse()));
             }
         }
 
@@ -193,7 +194,7 @@ public class GooglePlayIAP {
         @Override
         public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
             if (result.isFailure()) {
-                Log.d("GameAds", "onQueryInventoryFinished() called, but there was an error: " + result + " : " + inventory);
+                Log.d("GameAds", "onQueryInventoryFinished() called, but there was an error: " + IabHelper.getResponseDesc(result.getResponse()));
                 return;//there was an error, don't do the normal stuff
             }
 
@@ -224,10 +225,16 @@ public class GooglePlayIAP {
         @Override
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
                     if (result.isFailure()) {
-                        // Handle error
-                        return;
-                    }
-                    else if (purchase.getSku().equals(testsku)) {
+                        Gdx.app.log("GameAd", "purchase failed for some reason: " + IabHelper.getResponseDesc(result.getResponse()));
+
+                        //we already own the item we are trying to buy, google play won't allow you to own more than one of each type of item
+                        //so we will consume it.
+                        if(result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED){
+                            Gdx.app.log("GameAd", "we already own item, so we are going to try to consume it via play store.");
+                            iabHelper.consumeAsync(purchase, this);
+                        }
+                    }else if (purchase.getSku().equals(testsku)) { //purchase was a success, we decide if we consume or not here
+                        Gdx.app.log("GameAd", "purchase success: " + result + " ::: " + purchase + IabHelper.getResponseDesc(result.getResponse()));
                         //the test item was found, we want to consume it.
                         consumeItem(result, purchase);
                     }
@@ -236,7 +243,7 @@ public class GooglePlayIAP {
         @Override
         public void onIabSetupFinished(IabResult result) {
             if(!result.isSuccess()) {
-                Gdx.app.log("GameAds", "In-app Billing setup failed: " + result);
+                Gdx.app.log("GameAds", "In-app Billing setup failed: " + IabHelper.getResponseDesc(result.getResponse()));
             }else{
                 Log.d("GameAds", "In-app Billing is set up OK");
                 Gdx.app.log("GameAds","In-app Billing is set up OK: " + result);

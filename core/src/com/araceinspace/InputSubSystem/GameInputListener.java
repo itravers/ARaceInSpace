@@ -44,10 +44,10 @@ public class GameInputListener implements GestureDetector.GestureListener{
             //parent.monetizationController.hideBannerAd();
             //parent.monetizationController.loadInterstitialAd();
            // parent.monetizationController.loadRewardAd();
-           // parent.monetizationController.consumeOwnedItems();
+            parent.monetizationController.consumeOwnedItems();
            // parent.showToast = !parent.showToast;
-            parent.toast("test toast here");
-            Gdx.app.log("GameAds","fling but do nothing");
+            parent.toast("consume owned items");
+            Gdx.app.log("GameAds","consume owned items");
         }
         return true;
     }
