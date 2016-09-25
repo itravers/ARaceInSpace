@@ -1,6 +1,7 @@
 package com.araceinspace.AndroidMonetizationSubSystem;
 
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import com.araceinspace.AndroidLauncher;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
@@ -143,6 +144,10 @@ public class GooglePlayIAP {
         //this is where we wire up the actual item consumtion itself.
         //we will join this to the other parts of the app as needed through the event dispatch system.
         Gdx.app.log("GameAds", "We CONSUME THE ITEM HERE: " + purchase);
+        //This is how we route the message, create an intent, and broadcast it. We've setup the launcher to listen for this.
+        Intent intent = new Intent("ShowToast");
+        intent.putExtra("message", "Consumed " + purchase.getSku());
+        LocalBroadcastManager.getInstance(app).sendBroadcast(intent);
 
     }
 
@@ -231,7 +236,8 @@ public class GooglePlayIAP {
                         //so we will consume it.
                         if(result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED){
                             Gdx.app.log("GameAd", "we already own item, so we are going to try to consume it via play store.");
-                            iabHelper.consumeAsync(purchase, this);
+                            //iabHelper.consumeAsync(purchase, this);
+                            consumeOwnedItems();
                         }
                     }else if (purchase.getSku().equals(testsku)) { //purchase was a success, we decide if we consume or not here
                         Gdx.app.log("GameAd", "purchase success: " + result + " ::: " + purchase + IabHelper.getResponseDesc(result.getResponse()));
