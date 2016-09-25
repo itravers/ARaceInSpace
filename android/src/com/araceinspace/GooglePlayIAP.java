@@ -20,6 +20,7 @@ public class GooglePlayIAP {
     private AndroidRewardAd me;
 
     public String testsku = "test_product_0001";
+    //public String testsku = "android.test.purchased";
 
     IabHelper mHelper;
     //String base64EncodedPublicKey = "android.test.purchased";
@@ -67,6 +68,7 @@ public class GooglePlayIAP {
                                                Log.d("GameAds", "In-app Billing is set up OK");
                                                Gdx.app.log("GameAds","In-app Billing is set up OK: " +
                                                        result);
+                                               mHelper.enableDebugLogging(true, "GameAds");
                                                mHelper.queryInventoryAsync(mGotInventoryListener);
 
                                            }
