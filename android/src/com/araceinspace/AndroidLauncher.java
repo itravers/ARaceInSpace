@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.araceinspace.MonetizationSubSystem.ToastInterface;
 import com.araceinspace.TestSubSystem.AndroidsAdsController_Test;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -16,13 +18,15 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-public class AndroidLauncher extends AndroidApplication {
+public class AndroidLauncher extends AndroidApplication implements ToastInterface{
 
 	AndroidAdsController adsController;
+	AndroidLauncher me;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		me = this;
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		//initialize(new ARaceInSpace(), config);
 
@@ -33,7 +37,7 @@ public class AndroidLauncher extends AndroidApplication {
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
 		//View gameView = initializeForView(new ARaceInSpace(adsController), config);
-		View gameView = initializeForView(new AndroidsAdsController_Test(adsController), config);
+		View gameView = initializeForView(new AndroidsAdsController_Test(adsController, this), config);
 
 		adsController.setupAds();
 
@@ -92,6 +96,21 @@ public class AndroidLauncher extends AndroidApplication {
 			//if that doesn't work, we just do it the old fashioned way.
 			super.onActivityResult(requestCode, resultCode, data);
 		}
+	}
+
+	public void toast(final String t) {
+		handler.post(new Runnable()
+		{
+
+			@Override
+			public void run() {
+				//System.out.println("toatsing in launcher run");
+				Toast.makeText(me, t, Toast.LENGTH_SHORT).show();
+//Toast.
+			}
+
+		});
+
 	}
 
 }

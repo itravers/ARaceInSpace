@@ -40,11 +40,13 @@ public class GameInputListener implements GestureDetector.GestureListener{
             //parent.adsController.showInterstitialAd();
             parent.adsController.buyItem();
         }else if(velocityX <= -1){
-            System.out.println("game ads fling hie banner ads");
+            System.out.println("game ads show toast");
             //parent.adsController.hideBannerAd();
             //parent.adsController.loadInterstitialAd();
            // parent.adsController.loadRewardAd();
-            parent.adsController.consumeOwnedItems();
+           // parent.adsController.consumeOwnedItems();
+           // parent.showToast = !parent.showToast;
+            parent.toast("test toast here");
             Gdx.app.log("GameAds","fling but do nothing");
         }
         return true;
