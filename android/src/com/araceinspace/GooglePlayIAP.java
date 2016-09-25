@@ -1,7 +1,11 @@
 package com.araceinspace;
 
 //import com.araceinspace.MonetizationSubSystem.util.IabHelper;
+import android.util.Log;
+
 import com.araceinspace.util.IabHelper;
+import com.araceinspace.util.IabResult;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 
 /**
@@ -18,7 +22,24 @@ public class GooglePlayIAP {
 
     public GooglePlayIAP(AndroidApplication app){
         this.app = app;
-        mHelper = new IabHelper(app.getContext(), base64EncodedPublicKey);
+        mHelper = new IabHelper(app, base64EncodedPublicKey);
+
+        mHelper.startSetup(new
+                                   IabHelper.OnIabSetupFinishedListener() {
+                                       public void onIabSetupFinished(IabResult result)
+                                       {
+                                           if (!result.isSuccess()) {
+                                              // Log.d("GameAds", "In-app Billing setup failed: " +
+                                              //         result);
+                                               Gdx.app.log("GameAds", "In-app Billing setup failed: " +
+                                               result);
+                                           } else {
+                                               Log.d("GameAds", "In-app Billing is set up OK");
+                                               Gdx.app.log("GameAds","In-app Billing is set up OK: " +
+                                                       result);
+                                           }
+                                       }
+                                   });
     }
 
 

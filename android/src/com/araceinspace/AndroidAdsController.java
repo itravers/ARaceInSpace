@@ -48,6 +48,8 @@ public class AndroidAdsController implements AdsController {
 
     private AndroidRewardAd2 rewardedVideoAd;
 
+    GooglePlayIAP inAppPurchaser;
+
     /**
      * This is a reference to the main android app.
      * needed here to add bannerAd to the main apps view.
@@ -267,6 +269,8 @@ public class AndroidAdsController implements AdsController {
 
         rewardedVideoAd = new AndroidRewardAd2(this.REWARD_AD_ID, app);
         rewardedVideoAd.setup();
+
+        inAppPurchaser = new GooglePlayIAP(app);
 
     }
 
