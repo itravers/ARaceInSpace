@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.araceinspace.util;
+package com.araceinspace.AndroidMonetizationSubSystem.util;
 
 /**
  * Exception thrown when something went wrong with in-app billing.

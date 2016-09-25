@@ -12,16 +12,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.araceinspace.AndroidMonetizationSubSystem.AndroidAdsController;
 import com.araceinspace.MonetizationSubSystem.ToastInterface;
 import com.araceinspace.TestSubSystem.AndroidsAdsController_Test;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class AndroidLauncher extends AndroidApplication implements ToastInterface{

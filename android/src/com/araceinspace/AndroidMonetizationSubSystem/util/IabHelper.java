@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.araceinspace.util;
+package com.araceinspace.AndroidMonetizationSubSystem.util;
 
 import android.app.Activity;
 import android.app.PendingIntent;

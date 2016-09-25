@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.araceinspace.util;
+package com.araceinspace.AndroidMonetizationSubSystem.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;

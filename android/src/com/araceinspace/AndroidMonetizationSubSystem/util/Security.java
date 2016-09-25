@@ -13,15 +13,12 @@
  * limitations under the License.
  */
 
-package com.araceinspace.util;
+package com.araceinspace.AndroidMonetizationSubSystem.util;
 
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.araceinspace.isaac.game.BuildConfig;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 import java.security.InvalidKeyException;

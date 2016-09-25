@@ -1,15 +1,15 @@
-package com.araceinspace;
+package com.araceinspace.AndroidMonetizationSubSystem;
 
 //import com.araceinspace.MonetizationSubSystem.util.IabHelper;
 import android.content.Intent;
 import android.util.Log;
 
-import com.araceinspace.util.IabHelper;
-import com.araceinspace.util.IabResult;
-import com.araceinspace.util.Inventory;
-import com.araceinspace.util.Purchase;
+import com.araceinspace.AndroidLauncher;
+import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
+import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
+import com.araceinspace.AndroidMonetizationSubSystem.util.Inventory;
+import com.araceinspace.AndroidMonetizationSubSystem.util.Purchase;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.android.AndroidApplication;
 
 /**
  * Created by Isaac Assegai on 9/24/16.

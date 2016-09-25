@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.araceinspace.util;
+package com.araceinspace.AndroidMonetizationSubSystem.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

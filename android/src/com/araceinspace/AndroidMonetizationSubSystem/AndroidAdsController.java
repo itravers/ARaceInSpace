@@ -1,23 +1,11 @@
-package com.araceinspace;
+package com.araceinspace.AndroidMonetizationSubSystem;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.araceinspace.AndroidLauncher;
 import com.araceinspace.MonetizationSubSystem.AdsController;
-import com.araceinspace.TestSubSystem.AndroidsAdsController_Test;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
 
 
 /**

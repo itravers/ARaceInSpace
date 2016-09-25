@@ -1,9 +1,8 @@
-package com.araceinspace;
+package com.araceinspace.AndroidMonetizationSubSystem;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 
 import com.araceinspace.MonetizationSubSystem.GameAd;
 import com.badlogic.gdx.Gdx;

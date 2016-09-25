@@ -1,4 +1,4 @@
-package com.araceinspace;
+package com.araceinspace.AndroidMonetizationSubSystem;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
