@@ -10,14 +10,6 @@ package com.araceinspace.MonetizationSubSystem;
  * HTTP it's own, and IOS it's own.
  */
 public interface MonetizationController {
-   // public void loadBannerAd();
-    //public boolean isBannerLoaded();
-    //public boolean isBannerAdShowing();
-
-    public void pause();
-    public void resume();
-    public void destroy();
-
     /**
      * This is where all the ads should be constructed and
      * setup. We want to do it this way and keep the ads
@@ -25,16 +17,38 @@ public interface MonetizationController {
      */
     public void setupAds();
 
+    /**
+     * Called from the render thread ALWAYS.
+     * This should check each ads state
+     * to see if it should be visible or not
+     * then it should set the actual graphic
+     * settings on the ads to make them
+     * visible or not, as instructed.
+     */
+    public void updateVisibility();
+
+    /**
+     * Lets the RewardAd Asyncronously load itself.
+     */
     public void loadRewardAd();
 
+    /**
+     * Lets the rewardsedVideoAd show itself.
+     */
     public void showRewardAd();
 
+    /**
+     * Lets the interstitial ad Asynchronously load itself.
+     */
     public void loadInterstitialAd();
 
+    /**
+     * Lets the interstitial ad show itself.
+     */
     public void showInterstitialAd();
 
     /**
-     * Loads a new banner ad in the background.
+     * Makes the contained banner ad load itself Asynchronously
      */
     public void loadBannerAd();
 
@@ -65,26 +79,6 @@ public interface MonetizationController {
      */
     public <T> T setupBannerLayout(T layout);
 
-   // public void loadInterstitialAd();
-   // public boolean isInterstitialAdLoaded();
-   // public void showInterstitialAd();
-
-
-
-   // public boolean isInterstitialAdShowing();
-   // public float getStateTime();
-   // public void setStateTime(float time);
-
-    /**
-     * Called from the render thread ALWAYS.
-     * This should check each ads state
-     * to see if it should be visible or not
-     * then it should set the actual graphic
-     * settings on the ads to make them
-     * visible or not, as instructed.
-     */
-    public void updateVisibility();
-
     /**
      * Implemented by android for when a google play billing request returns.
      * The AndroidLauncher routes the request through the ad controller
@@ -96,7 +90,31 @@ public interface MonetizationController {
      * @return
      */
     public abstract <T> boolean onActivityResult(int requestCode, int resultCode, T data);
+
+    /**
+     * Directs the iap to initiate a purchase for the specified item.
+     */
     public void buyItem();
 
+    /**
+     * Causes any consumable items stored in by the iap
+     * to be consumed.
+     */
     public void consumeOwnedItems();
+
+    /**
+     * Pauses any systems that have the ability to pause
+     */
+    public void pause();
+
+    /**
+     * Resumes any systems that have been paused.
+     */
+    public void resume();
+
+    /**
+     * Destroys any Systems with the ability to be destroyed.
+     * Called at app close.
+     */
+    public void destroy();
 }

@@ -57,6 +57,19 @@ public class AndroidMonetizationController implements MonetizationController {
 
 /* Private Methods. */
 
+    /**
+     * Since this is android we are using A RelativeLayout
+     * as our banner layout, We use the AndroidBanner
+     * to set this up for us, so all the logic is in
+     * the same place. This method routes the call
+     * to the right place.
+     * @param layout The Relative Layout to set.
+     * @return The same layout, with the banner added.
+     */
+    public RelativeLayout setupBannerLayout(RelativeLayout layout){
+        return bannerAd.setupBannerLayout( layout);
+    }
+
 
 /* Public Methods. */
 
@@ -200,16 +213,11 @@ public class AndroidMonetizationController implements MonetizationController {
     }
 
     /**
-     * Since this is android we are using A RelativeLayout
-     * as our banner layout, We use the AndroidBanner
-     * to set this up for us, so all the logic is in
-     * the same place. This method routes the call
-     * to the right place.
-     * @param layout The Relative Layout to set.
-     * @return The same layout, with the banner added.
+     * Causes any consumable items stored in google play
+     * to be consumed.
      */
-    public RelativeLayout setupBannerLayout(RelativeLayout layout){
-        return bannerAd.setupBannerLayout( layout);
+    public void consumeOwnedItems(){
+        inAppPurchaser.consumeOwnedItems();
     }
 
     /**
@@ -236,13 +244,5 @@ public class AndroidMonetizationController implements MonetizationController {
         bannerAd.destroy();
         rewardedVideoAd.destroy();
         inAppPurchaser.destroy();
-    }
-
-    /**
-     * Causes any consumable items stored in google play
-     * to be consumed.
-     */
-    public void consumeOwnedItems(){
-        inAppPurchaser.consumeOwnedItems();
     }
 }
