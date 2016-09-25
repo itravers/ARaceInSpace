@@ -56,7 +56,7 @@ public class AndroidRewardAd2 extends GameAd implements AdColonyV4VCListener{
        // rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(app);
 
        // rewardedVideoAd.setRewardedVideoAdListener(new RewardAdListener(this));
-        AdColony.configure(app, "version:0.0.1,store:google", APP_ID, ZONE_ID);
+        AdColony.configure(app, "version:0.0.1a,store:google", APP_ID, ZONE_ID);
         rewardedVideoAd = new AdColonyV4VCAd(ZONE_ID);
         AdColony.addV4VCListener(this);
 
