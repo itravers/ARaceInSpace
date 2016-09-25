@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import com.araceinspace.AndroidLauncher;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
+import com.badlogic.gdx.Gdx;
 
 /**
  * Created by Isaac Assegai on 9/17/16.
@@ -57,23 +58,28 @@ public class AndroidMonetizationController implements MonetizationController {
 /* Private Methods. */
 
 
+/* Public Methods. */
+
     /**
      * Sets up the ads so they are useful.
      */
-
     public void setupAds() {
-        System.out.println("game ads :setupAds() called");
+        Gdx.app.log("GameAds", "AndroidMonetizationController.setupAds() called");
+
+        //first setup the banner ads
         bannerAd = new AndroidBannerAd(this.BANNER_AD_ID, app);
         bannerAd.setup();
 
+        //next setup the interstitial ads
         interstitialAd = new AndroidInterstitialAd(this.INTERSTITIAL_AD_ID, app);
         interstitialAd.setup();
 
+        //next setup the rewarded video ads
         rewardedVideoAd = new AdColonyAndroidRewardAd(app);
         rewardedVideoAd.setup();
 
+        //next setup the in-app purchase system.
         inAppPurchaser = new GooglePlayIAP(app);
-
     }
 
     /**
@@ -92,22 +98,32 @@ public class AndroidMonetizationController implements MonetizationController {
         }
     }
 
+    /**
+     * Lets the RewardAd Asyncronously load itself.
+     */
     public void loadRewardAd(){rewardedVideoAd.loadAd();}
 
+    /**
+     * Lets the rewardsedVideoAd show itself.
+     */
     public void showRewardAd(){rewardedVideoAd.showAd();}
 
+    /**
+     * Lets the interstitial ad Asynchronously load itself.
+     */
     public void loadInterstitialAd(){
         interstitialAd.loadAd();
     }
 
+    /**
+     * Lets the interstitial ad show itself.
+     */
     public void showInterstitialAd(){
         interstitialAd.showAd();
     }
 
     /**
-     * Makes the contained banner ad load a new ad.
-     * This will cause the ad to show as unloaded
-     * until it is done.
+     * Makes the contained banner ad load itself Asynchronously
      */
     public void loadBannerAd(){
         bannerAd.loadAd();;
@@ -150,14 +166,35 @@ public class AndroidMonetizationController implements MonetizationController {
         return (T)newLayout;
     }
 
+    /**
+     * When google in-app billing returns results it calls this method in the Main AndroidLauncher Class
+     * which then routes it here. Where we decide if we can use it or not.
+     * If we can use it, we return true, so the calling method will know we are using it and
+     * won't use it itself.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @param <T> The Generic Type
+     * @return
+     */
     public <T> boolean onActivityResult(int requestCode, int resultCode, T data){
-        return onActivityResult(requestCode, resultCode, (Intent)data);
+        return onActivityResult(requestCode, resultCode, (Intent)data); //cast data to an intent and call ungeneric method.
     }
 
+    /**
+     * This Un-genericizes our implemented method. We cast the data to an Intent
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @return
+     */
     public boolean onActivityResult(int requestCode, int resultCode, Intent data){
         return inAppPurchaser.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Directs the iap to initiate a purchase for the specified item.
+     */
     public void buyItem(){
         inAppPurchaser.buyItem();
     }
@@ -176,26 +213,36 @@ public class AndroidMonetizationController implements MonetizationController {
     }
 
     /**
-     * Pauses any Ads that have the ability to pause
+     * Pauses any systems that have the ability to pause
      */
     public void pause(){
         bannerAd.pause();
         rewardedVideoAd.pause();
     }
 
+    /**
+     * Resumes any systems that have been paused.
+     */
     public void resume(){
         bannerAd.resume();
         rewardedVideoAd.resume();
     }
 
+    /**
+     * Destroys any Systems with the ability to be destroyed.
+     * Called at app close.
+     */
     public void destroy(){
         bannerAd.destroy();
         rewardedVideoAd.destroy();
         inAppPurchaser.destroy();
     }
 
+    /**
+     * Causes any consumable items stored in google play
+     * to be consumed.
+     */
     public void consumeOwnedItems(){
         inAppPurchaser.consumeOwnedItems();
     }
-
 }
