@@ -3,9 +3,9 @@ package com.araceinspace.MonetizationSubSystem;
 /**
  * Created by Isaac Assegai on 9/17/16.
  * Used by Launchers that have not yet implemented
- * an AdsController
+ * an MonetizationController
  */
-public class DummyController implements AdsController{
+public class DummyController implements MonetizationController {
 
     //@Override
     public void showBannerAd() {

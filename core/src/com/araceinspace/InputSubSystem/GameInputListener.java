@@ -1,6 +1,6 @@
 package com.araceinspace.InputSubSystem;
 
-import com.araceinspace.TestSubSystem.AndroidsAdsController_Test;
+import com.araceinspace.TestSubSystem.AndroidsMonetizationController_Test;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -10,9 +10,9 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class GameInputListener implements GestureDetector.GestureListener{
     //for testing
-    AndroidsAdsController_Test parent;
+    AndroidsMonetizationController_Test parent;
 
-    public GameInputListener(AndroidsAdsController_Test parent){
+    public GameInputListener(AndroidsMonetizationController_Test parent){
         this.parent = parent;
     }
 
@@ -36,15 +36,15 @@ public class GameInputListener implements GestureDetector.GestureListener{
         System.out.println("game ads fling x:y" + velocityX + ":" + velocityY);
         if(velocityX >= 1){
             System.out.println("game ads fling buy item");
-            //parent.adsController.showBannerAd();
-            //parent.adsController.showInterstitialAd();
-            parent.adsController.buyItem();
+            //parent.monetizationController.showBannerAd();
+            //parent.monetizationController.showInterstitialAd();
+            parent.monetizationController.buyItem();
         }else if(velocityX <= -1){
             System.out.println("game ads show toast");
-            //parent.adsController.hideBannerAd();
-            //parent.adsController.loadInterstitialAd();
-           // parent.adsController.loadRewardAd();
-           // parent.adsController.consumeOwnedItems();
+            //parent.monetizationController.hideBannerAd();
+            //parent.monetizationController.loadInterstitialAd();
+           // parent.monetizationController.loadRewardAd();
+           // parent.monetizationController.consumeOwnedItems();
            // parent.showToast = !parent.showToast;
             parent.toast("test toast here");
             Gdx.app.log("GameAds","fling but do nothing");

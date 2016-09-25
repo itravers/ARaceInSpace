@@ -1,6 +1,6 @@
 package com.araceinspace;
 
-import com.araceinspace.MonetizationSubSystem.AdsController;
+import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,25 +8,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ARaceInSpace extends ApplicationAdapter {
-	AdsController adsController;
+	MonetizationController monetizationController;
 	SpriteBatch batch;
 	Texture img;
 
-	public ARaceInSpace(AdsController adsController){
-		this.adsController = adsController;
+	public ARaceInSpace(MonetizationController monetizationController){
+		this.monetizationController = monetizationController;
 
 		/** Now have our ads controller setupAds(). */
-		adsController.setupAds();
+		monetizationController.setupAds();
 
-		//adsController.loadBannerAd();
-		//adsController.loadInterstitialAd();
+		//monetizationController.loadBannerAd();
+		//monetizationController.loadInterstitialAd();
 	}
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		//adsController.loadBannerAd();
+		//monetizationController.loadBannerAd();
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class ARaceInSpace extends ApplicationAdapter {
 		batch.draw(img, 0, 0);
 		batch.end();
 
-		//if(adsController.isBannerLoaded() && !adsController.isBannerAdShowing()){
-		//	adsController.showBannerAd();
+		//if(monetizationController.isBannerLoaded() && !monetizationController.isBannerAdShowing()){
+		//	monetizationController.showBannerAd();
 		//}
 	}
 	

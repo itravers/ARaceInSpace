@@ -2,14 +2,14 @@ package com.araceinspace.MonetizationSubSystem;
 
 /**
  * Created by Isaac Assegai on 9/17/16.
- * The AdsController is an interface that
+ * The MonetizationController is an interface that
  * allows us to implement an Ads controller
  * for a specific platform. IE. Android would
  * implement it's own AndroidAdsController
  * Desktop would implement it's own.
  * HTTP it's own, and IOS it's own.
  */
-public interface AdsController {
+public interface MonetizationController {
    // public void loadBannerAd();
     //public boolean isBannerLoaded();
     //public boolean isBannerAdShowing();

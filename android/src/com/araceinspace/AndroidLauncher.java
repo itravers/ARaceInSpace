@@ -12,16 +12,15 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.araceinspace.AndroidMonetizationSubSystem.AndroidAdsController;
+import com.araceinspace.AndroidMonetizationSubSystem.AndroidMonetizationController;
 import com.araceinspace.MonetizationSubSystem.ToastInterface;
-import com.araceinspace.TestSubSystem.AndroidsAdsController_Test;
+import com.araceinspace.TestSubSystem.AndroidsMonetizationController_Test;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.google.firebase.messaging.RemoteMessage;
 
 public class AndroidLauncher extends AndroidApplication implements ToastInterface{
 
-	AndroidAdsController adsController;
+	AndroidMonetizationController adsController;
 	AndroidLauncher me;
 	LocalBroadcastManager localBroadcastManager;
 	BroadcastReceiver broadcastReceiver;
@@ -33,14 +32,14 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		//initialize(new ARaceInSpace(), config);
 
-		/*Initialize and AndroidAdsController, we do it here, because the
-		 * AdView in the AndroidAdsController requires access to this */
-		adsController = new AndroidAdsController(this);
+		/*Initialize and AndroidMonetizationController, we do it here, because the
+		 * AdView in the AndroidMonetizationController requires access to this */
+		adsController = new AndroidMonetizationController(this);
 
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
-		//View gameView = initializeForView(new ARaceInSpace(adsController), config);
-		View gameView = initializeForView(new AndroidsAdsController_Test(adsController, this), config);
+		//View gameView = initializeForView(new ARaceInSpace(monetizationController), config);
+		View gameView = initializeForView(new AndroidsMonetizationController_Test(adsController, this), config);
 
 		adsController.setupAds();
 
