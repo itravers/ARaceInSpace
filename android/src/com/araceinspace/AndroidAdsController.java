@@ -414,4 +414,8 @@ public class AndroidAdsController implements AdsController {
         inAppPurchaser.destroy();
     }
 
+    public void consumeOwnedItems(){
+        inAppPurchaser.consumeOwnedItems();
+    }
+
 }

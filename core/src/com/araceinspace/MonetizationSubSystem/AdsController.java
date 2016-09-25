@@ -97,4 +97,6 @@ public interface AdsController {
      */
     public abstract <T> boolean onActivityResult(int requestCode, int resultCode, T data);
     public void buyItem();
+
+    public void consumeOwnedItems();
 }

@@ -44,6 +44,7 @@ public class GameInputListener implements GestureDetector.GestureListener{
             //parent.adsController.hideBannerAd();
             //parent.adsController.loadInterstitialAd();
            // parent.adsController.loadRewardAd();
+            parent.adsController.consumeOwnedItems();
             Gdx.app.log("GameAds","fling but do nothing");
         }
         return true;

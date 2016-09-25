@@ -81,4 +81,9 @@ public class DummyController implements AdsController{
     public void buyItem() {
 
     }
+
+    @Override
+    public void consumeOwnedItems() {
+
+    }
 }

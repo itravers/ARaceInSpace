@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.araceinspace.util.IabHelper;
 import com.araceinspace.util.IabResult;
+import com.araceinspace.util.Inventory;
 import com.araceinspace.util.Purchase;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -18,7 +19,7 @@ public class GooglePlayIAP {
 
     private AndroidRewardAd me;
 
-    public String testsku = "test_product_0002";
+    public String testsku = "test_product_0001";
 
     IabHelper mHelper;
     //String base64EncodedPublicKey = "android.test.purchased";
@@ -46,6 +47,7 @@ public class GooglePlayIAP {
                             Purchase purchase){
         Gdx.app.log("GameAds","consuming item: " +
                 result + " : " + purchase);
+        mHelper.queryInventoryAsync(mGotInventoryListener);
     }
 
     public GooglePlayIAP(AndroidLauncher app){
@@ -65,10 +67,71 @@ public class GooglePlayIAP {
                                                Log.d("GameAds", "In-app Billing is set up OK");
                                                Gdx.app.log("GameAds","In-app Billing is set up OK: " +
                                                        result);
+                                               mHelper.queryInventoryAsync(mGotInventoryListener);
+
                                            }
                                        }
                                    });
        // IabHelper.
+    }
+
+    public void consumeOwnedItems(){
+        app.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mHelper.queryInventoryAsync(mGotInventoryListener);
+            }
+        });
+
+    }
+
+    // Listener that's called when we finish querying the items and
+    // subscriptions we own
+    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+        public void onQueryInventoryFinished(IabResult result,
+                                             Inventory inventory) {
+            Log.d("GameAds", "Query inventory finished.");
+            if (result.isFailure()) {
+                Log.d("GameAds", "Failed to query inventory: " + result + " : " + inventory);
+                return;
+            }
+
+            Log.d("GameAds", "Query inventory was successful.");
+
+                /*
+                 * Check for items we own. Notice that for each purchase, we check
+                 * the developer payload to see if it's correct! See
+                 * verifyDeveloperPayload().
+                 */
+
+            // // Check for gas delivery -- if we own gas, we should fill up the
+            // tank immediately
+            Purchase purchase = inventory.getPurchase(testsku);
+            if (purchase != null && verifyDeveloperPayload(purchase)) {
+                Log.d("GameAds", "We have gas. Consuming it.");
+                mHelper.consumeAsync(inventory.getPurchase(testsku),
+                        mConsumeFinishedListener);
+                return;
+            }
+        }
+    };
+
+    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener =
+            new IabHelper.OnConsumeFinishedListener() {
+                public void onConsumeFinished(Purchase purchase,
+                                              IabResult result) {
+
+                    if (result.isSuccess()) {
+                        Log.d("GameAds", "we have consumed the purchase: " + purchase + " : " + result);
+                    } else {
+                        // handle error
+                        Log.d("GameAds", "we have NOT NOT NOT consumed the purchase: " + purchase + " : " + result);
+                    }
+                }
+            };
+
+    public boolean verifyDeveloperPayload(Purchase purchase){
+        return true;
     }
 
     /**
