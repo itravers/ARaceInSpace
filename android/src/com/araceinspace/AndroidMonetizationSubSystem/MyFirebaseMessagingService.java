@@ -1,31 +1,30 @@
 package com.araceinspace.AndroidMonetizationSubSystem;
 
-
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-
-import com.araceinspace.AndroidLauncher;
-import com.badlogic.gdx.Gdx;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 /**
  * Created by Isaac Assegai on 9/24/16.
- * Receives and processes notification
- * messages coming from google firebase.
+ * Once an app is properly linked to the FireBase console through the AdMob console
+ * then the "Notifications" service in FireBase becomes available.
+ * A new message can be created in FireBase console which gets
+ * sent to all the copies of the game.
+ * This class listens for a message being sent, and then routes that
+ * message to be shown to the user in a "toast"
  */
 public class MyFirebaseMessagingService extends FirebaseMessagingService{
 
-    AndroidLauncher app;
+/* Private Methods */
 
+    /**
+     * This is the method that is automatically invoked when A message is received through firebase.
+     * @param remoteMessage Data about, and the message itself.
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
-
-        //Gdx.app.
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d("MessagingService", "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
@@ -33,21 +32,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
             Log.d("MessagingService", "Message data payload: " + remoteMessage.getData());
         }
 
-        // Check if message contains a notification payload.
+        // If message contains a notification payload, we want to route the message to the main Launcher to be handled.
         if (remoteMessage.getNotification() != null) {
             Log.d("MessagingService", "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            //((AndroidLauncher)this.getApplicationContext()).toast("toast test: "+remoteMessage.getNotification().getBody());
-           // this.getApplicationInfo().
-           // app.toast(remoteMessage.getNotification().getBody());
+
+            //This is how we route the message, create an intent, and broadcast it. We've setup the launcher to listen for this.
             Intent intent = new Intent("ShowToast");
             intent.putExtra("remoteMessage", remoteMessage);
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-            Log.d("MessageService", "Sent Intent in broadcast: " + intent);
-            //sendBroadcast(intent);
-
         }
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
 }
