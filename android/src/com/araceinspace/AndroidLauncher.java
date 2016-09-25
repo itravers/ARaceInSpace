@@ -1,7 +1,12 @@
 package com.araceinspace;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -17,11 +22,14 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.firebase.messaging.RemoteMessage;
 
 public class AndroidLauncher extends AndroidApplication implements ToastInterface{
 
 	AndroidAdsController adsController;
 	AndroidLauncher me;
+	LocalBroadcastManager localBroadcastManager;
+	BroadcastReceiver broadcastReceiver;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -57,7 +65,8 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		setContentView(layout);
 
 
-
+		//setup the broadcast receiver, so messages can be routed through here
+		registerBroadcastReceiver();
 
 	}
 
@@ -79,6 +88,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 	public void onDestroy() {
 		//mAd.destroy(this);
 		adsController.destroy();
+		localBroadcastManager.unregisterReceiver(broadcastReceiver);
 		super.onDestroy();
 	}
 
@@ -96,6 +106,22 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 			//if that doesn't work, we just do it the old fashioned way.
 			super.onActivityResult(requestCode, resultCode, data);
 		}
+	}
+
+	private void registerBroadcastReceiver() {
+		broadcastReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				Log.d("MessageService", "AndroidLauncher Received intent: " + intent);
+				RemoteMessage remoteMessage = (RemoteMessage)intent.getExtras().get("remoteMessage");
+				toast(remoteMessage.getNotification().getBody());
+			}
+		};
+
+		localBroadcastManager = LocalBroadcastManager.getInstance(this);
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction("ShowToast");
+		localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter);
 	}
 
 	public void toast(final String t) {
