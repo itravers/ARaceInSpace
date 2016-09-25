@@ -120,18 +120,11 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 	}
 
 	public void toast(final String t) {
-		handler.post(new Runnable()
-		{
-
+		handler.post(new Runnable(){
 			@Override
 			public void run() {
-				//System.out.println("toatsing in launcher run");
 				Toast.makeText(me, t, Toast.LENGTH_SHORT).show();
-//Toast.
 			}
-
 		});
-
 	}
-
 }
