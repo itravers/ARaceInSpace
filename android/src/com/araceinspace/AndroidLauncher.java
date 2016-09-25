@@ -1,5 +1,6 @@
 package com.araceinspace;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,22 @@ public class AndroidLauncher extends AndroidApplication {
 		//mAd.destroy(this);
 		adsController.destroy();
 		super.onDestroy();
+	}
+
+	/**
+	 * When google in app billing returns it calls this method on
+	 * the actvitiy. This method check if the ad controller will handle it
+	 * otherwise sends it to the super class to handle.
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+     */
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		//give the ads controller a chance to process the activity result first.
+		if(!adsController.onActivityResult(requestCode, resultCode, data)){
+			//if that doesn't work, we just do it the old fashioned way.
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 
 }

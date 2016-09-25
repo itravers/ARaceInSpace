@@ -71,4 +71,14 @@ public class DummyController implements AdsController{
     public void updateVisibility() {
 
     }
+
+    @Override
+    public <T> boolean onActivityResult(int requestCode, int resultCode, T data) {
+        return false;
+    }
+
+    @Override
+    public void buyItem() {
+
+    }
 }

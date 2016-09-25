@@ -3,7 +3,8 @@
     package="com.araceinspace.isaac.game"
     android:versionCode="3"
     android:versionName="0.0.1a"
-    android:hardwareAccelerated="true">
+    android:hardwareAccelerated="true"
+    android:debuggable="true">
 
     <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.INTERNET" />

@@ -84,4 +84,17 @@ public interface AdsController {
      * visible or not, as instructed.
      */
     public void updateVisibility();
+
+    /**
+     * Implemented by android for when a google play billing request returns.
+     * The AndroidLauncher routes the request through the ad controller
+     * which routes it to the inAppPurchaser GooglePlayIAP
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @param <T>
+     * @return
+     */
+    public abstract <T> boolean onActivityResult(int requestCode, int resultCode, T data);
+    public void buyItem();
 }

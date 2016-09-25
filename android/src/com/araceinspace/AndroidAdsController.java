@@ -1,6 +1,7 @@
 package com.araceinspace;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
@@ -54,7 +55,7 @@ public class AndroidAdsController implements AdsController {
      * This is a reference to the main android app.
      * needed here to add bannerAd to the main apps view.
      */
-    AndroidApplication app;
+    AndroidLauncher app;
 
 
 /* Constructors. */
@@ -63,7 +64,7 @@ public class AndroidAdsController implements AdsController {
      * Construct an AndroidAdsController
      * @param app The Application context this controller wil be ran in.
      */
-    public AndroidAdsController(AndroidApplication app){
+    public AndroidAdsController(AndroidLauncher app){
         this.app = app;
     }
 
@@ -369,6 +370,18 @@ public class AndroidAdsController implements AdsController {
         return (T)newLayout;
     }
 
+    public <T> boolean onActivityResult(int requestCode, int resultCode, T data){
+        return onActivityResult(requestCode, resultCode, (Intent)data);
+    }
+
+    public boolean onActivityResult(int requestCode, int resultCode, Intent data){
+        return inAppPurchaser.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void buyItem(){
+        inAppPurchaser.buyItem();
+    }
+
     /**
      * Since this is android we are using A RelativeLayout
      * as our banner layout, We use the AndroidBanner
@@ -398,6 +411,7 @@ public class AndroidAdsController implements AdsController {
     public void destroy(){
         bannerAd.destroy();
         rewardedVideoAd.destroy();
+        inAppPurchaser.destroy();
     }
 
 }

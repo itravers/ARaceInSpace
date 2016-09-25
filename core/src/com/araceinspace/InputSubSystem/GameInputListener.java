@@ -1,6 +1,7 @@
 package com.araceinspace.InputSubSystem;
 
 import com.araceinspace.TestSubSystem.AndroidsAdsController_Test;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 
@@ -34,15 +35,16 @@ public class GameInputListener implements GestureDetector.GestureListener{
     public boolean fling(float velocityX, float velocityY, int button) {
         System.out.println("game ads fling x:y" + velocityX + ":" + velocityY);
         if(velocityX >= 1){
-            System.out.println("game ads fling show banner ads");
+            System.out.println("game ads fling buy item");
             //parent.adsController.showBannerAd();
             //parent.adsController.showInterstitialAd();
-            parent.adsController.showRewardAd();
+            parent.adsController.buyItem();
         }else if(velocityX <= -1){
             System.out.println("game ads fling hie banner ads");
             //parent.adsController.hideBannerAd();
             //parent.adsController.loadInterstitialAd();
-            parent.adsController.loadRewardAd();
+           // parent.adsController.loadRewardAd();
+            Gdx.app.log("GameAds","fling but do nothing");
         }
         return true;
     }
