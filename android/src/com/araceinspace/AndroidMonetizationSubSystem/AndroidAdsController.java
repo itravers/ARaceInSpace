@@ -33,9 +33,10 @@ public class AndroidAdsController implements AdsController {
     private AndroidInterstitialAd interstitialAd;
 
 
-    private static final String REWARD_AD_ID = "ca-app-pub-5553172650479270/6900797543";
+    private static final String REWARD_AD_ID = "ca-app-pub-5553172650479270/6900797543"; //AdMob Mediation id.
+    //private static final String REWARD_AD_ID = "app97267127423b4837aa"; //AdColon
 
-    private AndroidRewardAd2 rewardedVideoAd;
+    private AdColonyAndroidRewardAd rewardedVideoAd;
 
     GooglePlayIAP inAppPurchaser;
 
@@ -256,7 +257,7 @@ public class AndroidAdsController implements AdsController {
         interstitialAd = new AndroidInterstitialAd(this.INTERSTITIAL_AD_ID, app);
         interstitialAd.setup();
 
-        rewardedVideoAd = new AndroidRewardAd2(this.REWARD_AD_ID, app);
+        rewardedVideoAd = new AdColonyAndroidRewardAd(app);
         rewardedVideoAd.setup();
 
         inAppPurchaser = new GooglePlayIAP(app);

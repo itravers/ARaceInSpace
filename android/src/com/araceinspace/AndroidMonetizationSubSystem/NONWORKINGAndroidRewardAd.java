@@ -23,7 +23,7 @@ import com.google.android.gms.ads.reward.mediation.MediationRewardedVideoAdAdapt
  * A Reward ad is given to us from the Admob network, however
  * they don't serve the ad itself so we use mediation networks.
  */
-public class AndroidRewardAd extends GameAd {
+public class NONWORKINGAndroidRewardAd extends GameAd {
 
 /* Field Variables */
 
@@ -33,14 +33,14 @@ public class AndroidRewardAd extends GameAd {
 
     private AndroidApplication app;
 
-    private AndroidRewardAd me;
+    private NONWORKINGAndroidRewardAd me;
 
     /**
      * Create a new GameAd with a specific ID and ApplicationAdapter.
      *
      * @param ID The ID - Ususally manually obtained from ads service.
      */
-    public AndroidRewardAd(String ID, AndroidApplication app) {
+    public NONWORKINGAndroidRewardAd(String ID, AndroidApplication app) {
         super(ID);
         this.app = app;
         me = this;
@@ -54,7 +54,7 @@ public class AndroidRewardAd extends GameAd {
 
     @Override
     public void setup() {
-        Gdx.app.log("GameAds", "AndroidRewardAd.setup() called");
+        Gdx.app.log("GameAds", "NONWORKINGAndroidRewardAd.setup() called");
         // Initialize the Mobile Ads SDK.
         MobileAds.initialize(app, APP_ID);
         rewardedVideoAd = MobileAds.getRewardedVideoAdInstance(app);
@@ -65,7 +65,7 @@ public class AndroidRewardAd extends GameAd {
 
     @Override
     public void loadAd() {
-        Gdx.app.log("GameAds", "AndroidRewardAd.loadAd() called");
+        Gdx.app.log("GameAds", "NONWORKINGAndroidRewardAd.loadAd() called");
         if(isConnected() && app != null){
             //this should be run on the apps UI Thread, i think...
             app.runOnUiThread(new Runnable() {
@@ -89,14 +89,14 @@ public class AndroidRewardAd extends GameAd {
                 }
             });
         }else{
-            Gdx.app.log("GameAds", "AndroidRewardAd.loadAd() called, but isConnected() == false || app == null");
+            Gdx.app.log("GameAds", "NONWORKINGAndroidRewardAd.loadAd() called, but isConnected() == false || app == null");
         }
 
     }
 
     @Override
     public void loadAd_callback() {
-        Gdx.app.log("Game Ads", "AndroidRewardAd.loadAd_callback() called");
+        Gdx.app.log("Game Ads", "NONWORKINGAndroidRewardAd.loadAd_callback() called");
         setLoaded(true);
     }
 
@@ -109,7 +109,7 @@ public class AndroidRewardAd extends GameAd {
 
     @Override
     public void showAd() {
-        Gdx.app.log("GameAds", "AndroidRewardAd.showAd() called");
+        Gdx.app.log("GameAds", "NONWORKINGAndroidRewardAd.showAd() called");
         if(isLoaded()){
             //we want to do this on the ui thread, hopefully.
             app.runOnUiThread(new Runnable() {
@@ -120,7 +120,7 @@ public class AndroidRewardAd extends GameAd {
                 }
             });
         }else{
-            Gdx.app.log("GameAds", "AndroidRewardAd.showAd() called, but ad is not loaded.");
+            Gdx.app.log("GameAds", "NONWORKINGAndroidRewardAd.showAd() called, but ad is not loaded.");
         }
     }
 
@@ -154,9 +154,9 @@ public class AndroidRewardAd extends GameAd {
 
     private class RewardAdListener implements RewardedVideoAdListener {
 
-        AndroidRewardAd ad;
+        NONWORKINGAndroidRewardAd ad;
 
-        public RewardAdListener(AndroidRewardAd ad){
+        public RewardAdListener(NONWORKINGAndroidRewardAd ad){
             super();
             this.ad = ad;
         }

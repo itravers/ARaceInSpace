@@ -17,7 +17,7 @@ import com.badlogic.gdx.Gdx;
 public class GooglePlayIAP {
     private AndroidLauncher app;
 
-    private AndroidRewardAd me;
+    private NONWORKINGAndroidRewardAd me;
 
     public String testsku = "test_product_0001";
     //public String testsku = "android.test.purchased";

@@ -108,8 +108,9 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				Log.d("MessageService", "AndroidLauncher Received intent: " + intent);
-				RemoteMessage remoteMessage = (RemoteMessage)intent.getExtras().get("remoteMessage");
-				toast(remoteMessage.getNotification().getBody());
+				//RemoteMessage remoteMessage = (RemoteMessage)intent.getExtras().get("remoteMessage");
+				String message = (String)intent.getExtras().get("message");
+				toast(message);
 			}
 		};
 

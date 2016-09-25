@@ -38,7 +38,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
 
             //This is how we route the message, create an intent, and broadcast it. We've setup the launcher to listen for this.
             Intent intent = new Intent("ShowToast");
-            intent.putExtra("remoteMessage", remoteMessage);
+            intent.putExtra("message", remoteMessage.getNotification().getBody());
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
         }
     }
