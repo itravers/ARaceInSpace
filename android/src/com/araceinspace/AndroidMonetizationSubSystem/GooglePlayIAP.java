@@ -1,9 +1,7 @@
 package com.araceinspace.AndroidMonetizationSubSystem;
 
-//import com.araceinspace.MonetizationSubSystem.util.IabHelper;
 import android.content.Intent;
 import android.util.Log;
-
 import com.araceinspace.AndroidLauncher;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
@@ -13,125 +11,92 @@ import com.badlogic.gdx.Gdx;
 
 /**
  * Created by Isaac Assegai on 9/24/16.
+ * The GooglePlayIAP contains all the data and methods
+ * needed to contact the google play store in order to
+ * purchase, keep track of, and consume in app items.
+ * A different IAP manager will be made for each different launcher.
  */
 public class GooglePlayIAP {
+
+/* Field Variables */
+
+    /**
+     * A reference to the main libgdx android launcher app.
+     * used to run things on the ui thread,
+     */
     private AndroidLauncher app;
 
-    private NONWORKINGAndroidRewardAd me;
-
+    /**
+     * This info will be where we store all our item info.
+     */
     public String testsku = "test_product_0001";
     //public String testsku = "android.test.purchased";
 
-    IabHelper mHelper;
-    //String base64EncodedPublicKey = "android.test.purchased";
-    String base64EncodedPublicKey =
-            "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw/toWPHc37g+x3HMdK70ikTbt/7ylEC5MI+BWnoqj/Wr2Dry68xU016RbWtvJ2eGXtEl3AXnGYnwhmrt6Xmmb1BcK9o02nTZzimR7EY7EXxvOpCFBjDC2biADYWQS2NE/LNPH2brc7tadwO+Tx/FyU2FRBpC58fUveNXQcGXtY8mxp7ocesDQEiTEYc4HiLAetifTsEEtytJAc6MJ349BSLJBJH0zIwxn7pFrWPjsgXt4y2+szOPo+0E/UaNAbjWgiaj35JgsLKCJYiKdSgic7cJn4q8j1QqD5dzNTaVXrZYZiYit6ctuHFRmC+e6cqRGvbP4C1eBJVewuW62XyyvwIDAQAB";
+    /**
+     * Used to contact google play for pretty much everything.
+     */
+    IabHelper iabHelper;
 
-    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
-            = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result,
-                                          Purchase purchase)
-        {
-            if (result.isFailure()) {
-                // Handle error
-                return;
-            }
-            else if (purchase.getSku().equals(testsku)) {
-                consumeItem(result, purchase);
-               // buyButton.setEnabled(false);
-            }
+    /**
+     * Set up to listen to any response for the google play service
+     * that is initiated by the IabHelper.
+     */
+    MyIAPListener myIAPListener;
 
-        }
-    };
+    /**
+     * Key issued by google play that they use to make sure the app is legit.
+     * This should be kinda obscured in the apk somehow.
+     * we'll do that in the class constructor.
+     */
+    String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw/toWPHc37g+x3HMdK70ikTbt/7ylEC5MI+BWnoqj/Wr2Dry68xU016RbWtvJ2eGXtEl3AXnGYnwhmrt6Xmmb1BcK9o02nTZzimR7EY7EXxvOpCFBjDC2biADYWQS2NE/LNPH2brc7tadwO+Tx/FyU2FRBpC58fUveNXQcGXtY8mxp7ocesDQEiTEYc4HiLAetifTsEEtytJAc6MJ349BSLJBJH0zIwxn7pFrWPjsgXt4y2+szOPo+0E/UaNAbjWgiaj35JgsLKCJYiKdSgic7cJn4q8j1QqD5dzNTaVXrZYZiYit6ctuHFRmC+e6cqRGvbP4C1eBJVewuW62XyyvwIDAQAB";
 
-    public void consumeItem(IabResult result,
-                            Purchase purchase){
-        Gdx.app.log("GameAds","consuming item: " +
-                result + " : " + purchase);
-        mHelper.queryInventoryAsync(mGotInventoryListener);
-    }
+/* Constructors */
 
+    /**
+     * Construct a new GooglePlayIAP
+     * Assigned the app, we wait for setup to initiate anything else.
+     * @param app
+     */
     public GooglePlayIAP(AndroidLauncher app){
         this.app = app;
-        mHelper = new IabHelper(app, base64EncodedPublicKey);
-
-        mHelper.startSetup(new
-                                   IabHelper.OnIabSetupFinishedListener() {
-                                       public void onIabSetupFinished(IabResult result)
-                                       {
-                                           if (!result.isSuccess()) {
-                                              // Log.d("GameAds", "In-app Billing setup failed: " +
-                                              //         result);
-                                               Gdx.app.log("GameAds", "In-app Billing setup failed: " +
-                                               result);
-                                           } else {
-                                               Log.d("GameAds", "In-app Billing is set up OK");
-                                               Gdx.app.log("GameAds","In-app Billing is set up OK: " +
-                                                       result);
-                                               mHelper.enableDebugLogging(true, "GameAds");
-                                               mHelper.queryInventoryAsync(mGotInventoryListener);
-
-                                           }
-                                       }
-                                   });
-       // IabHelper.
     }
 
+/* Private Methods */
+
+/* Public Methods */
+
+    /**
+     * Setups up the GooglePlayIAP to be used.
+     */
+    public void setup(){
+        iabHelper = new IabHelper(app, base64EncodedPublicKey);
+        myIAPListener = new MyIAPListener();
+        iabHelper.startSetup(myIAPListener);//register the listener to listen for a setupFinished
+    }
+
+    /**
+     * Check google play for all owned items.
+     * This will cause a queryInventory to happen.
+     * The listener will them check and make sure all
+     * returned items that are consumable are properly
+     * consumed.
+     */
     public void consumeOwnedItems(){
         app.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mHelper.queryInventoryAsync(mGotInventoryListener);
+                iabHelper.queryInventoryAsync(myIAPListener);
             }
         });
 
     }
 
-    // Listener that's called when we finish querying the items and
-    // subscriptions we own
-    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result,
-                                             Inventory inventory) {
-            Log.d("GameAds", "Query inventory finished.");
-            if (result.isFailure()) {
-                Log.d("GameAds", "Failed to query inventory: " + result + " : " + inventory);
-                return;
-            }
-
-            Log.d("GameAds", "Query inventory was successful.");
-
-                /*
-                 * Check for items we own. Notice that for each purchase, we check
-                 * the developer payload to see if it's correct! See
-                 * verifyDeveloperPayload().
-                 */
-
-            // // Check for gas delivery -- if we own gas, we should fill up the
-            // tank immediately
-            Purchase purchase = inventory.getPurchase(testsku);
-            if (purchase != null && verifyDeveloperPayload(purchase)) {
-                Log.d("GameAds", "We have gas. Consuming it.");
-                mHelper.consumeAsync(inventory.getPurchase(testsku),
-                        mConsumeFinishedListener);
-                return;
-            }
-        }
-    };
-
-    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener =
-            new IabHelper.OnConsumeFinishedListener() {
-                public void onConsumeFinished(Purchase purchase,
-                                              IabResult result) {
-
-                    if (result.isSuccess()) {
-                        Log.d("GameAds", "we have consumed the purchase: " + purchase + " : " + result);
-                    } else {
-                        // handle error
-                        Log.d("GameAds", "we have NOT NOT NOT consumed the purchase: " + purchase + " : " + result);
-                    }
-                }
-            };
-
+    /**
+     * Here we will check the incoming developer payload in the purchase
+     * to make sure that it matches the payload we thing we are talking about.
+     * @param purchase
+     * @return
+     */
     public boolean verifyDeveloperPayload(Purchase purchase){
         return true;
     }
@@ -148,18 +113,137 @@ public class GooglePlayIAP {
      * @return
      */
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-       return mHelper.handleActivityResult(requestCode, resultCode, data);
+       return iabHelper.handleActivityResult(requestCode, resultCode, data);
     }
 
-
+    /**
+     * destroys the IabHelper
+     */
     public void destroy() {
-        if (mHelper != null) mHelper.dispose();
-        mHelper = null;
+        if (iabHelper != null) iabHelper.dispose();
+        iabHelper = null;
     }
 
+    /**
+     * use the IabHelper to buy an item.
+     */
     public void buyItem(){
-        mHelper.launchPurchaseFlow(app, testsku, 10001, mPurchaseFinishedListener, "mypurchasetoken");
+        iabHelper.launchPurchaseFlow(app, testsku, 10001, myIAPListener, "mypurchasetoken");
 
+    }
+
+    /**
+     * This is where we initiate the actual consumtion of the item in the app,
+     * this is called after we have already consumed the item in google play, and only
+     * called if that google play consumption worked.
+     * @param result The result of consumthing the item in google play.
+     * @param purchase The purchase we consumed, will have item data.
+     */
+    public void consumeItem(IabResult result, Purchase purchase){
+        //this is where we wire up the actual item consumtion itself.
+        //we will join this to the other parts of the app as needed through the event dispatch system.
+
+    }
+
+/* Private Classes */
+
+    /**
+     * Used to aggregate all the IabHelpers finished listeners that we will use.
+     */
+    private class MyIAPListener implements IabHelper.OnConsumeFinishedListener, IabHelper.QueryInventoryFinishedListener, IabHelper.OnIabPurchaseFinishedListener, IabHelper.OnIabSetupFinishedListener{
+
+    /* Constructors */
+
+        /**
+         * Constructor
+         */
+        public MyIAPListener(){
+            //don't need to do anything yet.
+        }
+
+    /* Private Methods */
+
+
+    /* Public Methods */
+
+        /**
+         * This means the item will now show as consumed in google play.
+         * We can wire this up to other sections of the app where
+         * we actually benefit the user for consuming the item.
+         * @param purchase The purchase that was (or was to be) consumed.
+         * @param result The result of the consumption operation.
+         */
+        @Override
+        public void onConsumeFinished(Purchase purchase, IabResult result) {
+            if (result.isSuccess()) {
+                Log.d("GameAds", "onConsumeFinished() called: " + purchase + " : " + result);
+                consumeItem(result, purchase);//we actually consume the item.
+            } else {
+                // handle error
+                Log.d("GameAds", "onConsumeFinished() called, but there was an error: " + purchase + " : " + result);
+            }
+        }
+
+        /**
+         * Listener that's called when we finish querying
+         * the items andsubscriptions we own
+         * @param result The result of the operation.
+         * @param inventory The inventory.
+         */
+        @Override
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+            if (result.isFailure()) {
+                Log.d("GameAds", "onQueryInventoryFinished() called, but there was an error: " + result + " : " + inventory);
+                return;//there was an error, don't do the normal stuff
+            }
+
+            Log.d("GameAds", "onQueryInventoryFinished() called: " + result + " : " + inventory);
+            /*
+             * Check for items we own. Notice that for each purchase, we check
+             * the developer payload to see if it's correct! See
+             * verifyDeveloperPayload().
+             */
+
+            //check for items that should be consumed right away, and consume them here
+            //we don't wire them game to consume them yet, we do that in the callback method onConsumeFinished()
+            Purchase purchase = inventory.getPurchase(testsku);
+            if (purchase != null && verifyDeveloperPayload(purchase)) {
+                Log.d("GameAds", "We have item. Consuming it.");
+                iabHelper.consumeAsync(inventory.getPurchase(testsku),
+                        /*mConsumeFinishedListener*/this);
+                return;
+            }
+        }
+
+        /**
+         * A requested purchase is finished, we can is if it went through
+         * or failed, and we can respond accordingly.
+         * @param result The result of the purchase.
+         * @param purchase
+         */
+        @Override
+        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+                    if (result.isFailure()) {
+                        // Handle error
+                        return;
+                    }
+                    else if (purchase.getSku().equals(testsku)) {
+                        //the test item was found, we want to consume it.
+                        consumeItem(result, purchase);
+                    }
+        }
+
+        @Override
+        public void onIabSetupFinished(IabResult result) {
+            if(!result.isSuccess()) {
+                Gdx.app.log("GameAds", "In-app Billing setup failed: " + result);
+            }else{
+                Log.d("GameAds", "In-app Billing is set up OK");
+                Gdx.app.log("GameAds","In-app Billing is set up OK: " + result);
+                iabHelper.enableDebugLogging(true, "GameAds");
+                iabHelper.queryInventoryAsync(/*mGotInventoryListener*/this);//will get inventory info from play
+            }
+        }
     }
 
 }
