@@ -41,7 +41,7 @@ public class PlayPurchaseManager {
      * we'll do that in the class constructor.
      */
     static String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw/toWPHc37g+x3HMdK70ikTbt/7ylEC5MI+BWnoqj/Wr2Dry68xU016RbWtvJ2eGXtEl3AXnGYnwhmrt6Xmmb1BcK9o02nTZzimR7EY7EXxvOpCFBjDC2biADYWQS2NE/LNPH2brc7tadwO+Tx/FyU2FRBpC58fUveNXQcGXtY8mxp7ocesDQEiTEYc4HiLAetifTsEEtytJAc6MJ349BSLJBJH0zIwxn7pFrWPjsgXt4y2+szOPo+0E/UaNAbjWgiaj35JgsLKCJYiKdSgic7cJn4q8j1QqD5dzNTaVXrZYZiYit6ctuHFRmC+e6cqRGvbP4C1eBJVewuW62XyyvwIDAQAB";
-    
+
 
 /* Field Variables */
 
@@ -271,13 +271,12 @@ public class PlayPurchaseManager {
 
                     if(defaultType == PURCHASE_TYPE.CONSUMABLE){
                         //consume this item immediately
-
+                        iabHelper.consumeAsync(purchase, this);
                     }else{//NON CONSUMABLE, and SUBSCRIPTIONS
                         //Create a PurchasableItem from the returned purchase, and store it in our local inventory.
                         PurchasableItem item = new PurchasableItem(purchase.getSku(), defaultType, purchase.getDeveloperPayload());
                         localInventory.put(item.getSku(), item);
                     }
-
                 }
             }
         }
