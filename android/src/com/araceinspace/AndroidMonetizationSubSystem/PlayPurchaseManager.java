@@ -1,7 +1,11 @@
 package com.araceinspace.AndroidMonetizationSubSystem;
 
 import com.araceinspace.AndroidLauncher;
+import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
+import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
+import com.araceinspace.AndroidMonetizationSubSystem.util.Inventory;
 import com.araceinspace.isaac.game.BuildConfig;
+import com.badlogic.gdx.Gdx;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +49,16 @@ public class PlayPurchaseManager {
      */
     private HashMap<String, PurchasableItem> defaultItems;
 
+    /**
+     * Locally Stores Purchasable items that have not been consumed.
+     * Whenever the app starts the local inventory should be updated
+     * with all NON_CONSUMABLES and Subscriptions stored in the
+     * remote inventory. Any consumables in the remoteInventory
+     * should be immediately consumed before they are added
+     * to this localInventory
+     */
+    private HashMap<String, PurchasableItem> localInventory;
+
 
 /* Constructors */
 
@@ -65,6 +79,7 @@ public class PlayPurchaseManager {
      * google play dev console.
      */
     private void setupDefaultItems(){
+        Gdx.app.log("PlayPurchaseManager", "setupDefaultItems() called");
         //initiate the hashmap we store our default items in.
         defaultItems = new HashMap<String, PurchasableItem>();
 
@@ -77,6 +92,22 @@ public class PlayPurchaseManager {
         defaultItems.put(item2.getSku(), item2);
     }
 
+    /**
+     * A synchronously Queries the remote inventory for any stored items.
+     * The callback onQueryInventoryFinished is called with the inventory result
+     * in THAT method, we will loop through the result, consume consumables
+     * and store any non consumables in the inventory.
+     */
+    private void setupLocalInventory(){
+        Gdx.app.log("PlayPurchaseManager", "setupLocalInventory() called");
+        app.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                iabHelper.queryInventoryAsync(myIAPListener);
+            }
+        });
+    }
+
 
 /* Public Methods */
 
@@ -84,8 +115,10 @@ public class PlayPurchaseManager {
      * Sets up the PlayPurchaseManager to be usable.
      */
     public void setup(){
+        Gdx.app.log("PlayPurchaseManager", "setup() called");
         //first we need to setup all the available default items.
         setupDefaultItems();
+        setupLocalInventory();
     }
 
 
@@ -163,6 +196,20 @@ public class PlayPurchaseManager {
          */
         public String getDeveloperPayload(){
             return developerPayload;
+        }
+    }
+
+    /**
+     * The PurchaseListener is where we implement all our callback
+     * we receive from the google play servers. Whenever we query google
+     * play servers, we need to implement the matching listener here
+     * to complete the operation.
+     */
+    private class PurchaseListner implements IabHelper.QueryInventoryFinishedListener{
+
+        @Override
+        public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+
         }
     }
 }
