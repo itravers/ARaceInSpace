@@ -35,6 +35,13 @@ public class PlayPurchaseManager {
      */
     public enum PURCHASE_TYPE {CONSUMABLE, NON_CONSUMABLE, SUBSCRIPTION};
 
+    /**
+     * Key issued by google play that they use to make sure the app is legit.
+     * This should be kinda obscured in the apk somehow.
+     * we'll do that in the class constructor.
+     */
+    static String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw/toWPHc37g+x3HMdK70ikTbt/7ylEC5MI+BWnoqj/Wr2Dry68xU016RbWtvJ2eGXtEl3AXnGYnwhmrt6Xmmb1BcK9o02nTZzimR7EY7EXxvOpCFBjDC2biADYWQS2NE/LNPH2brc7tadwO+Tx/FyU2FRBpC58fUveNXQcGXtY8mxp7ocesDQEiTEYc4HiLAetifTsEEtytJAc6MJ349BSLJBJH0zIwxn7pFrWPjsgXt4y2+szOPo+0E/UaNAbjWgiaj35JgsLKCJYiKdSgic7cJn4q8j1QqD5dzNTaVXrZYZiYit6ctuHFRmC+e6cqRGvbP4C1eBJVewuW62XyyvwIDAQAB";
+    
 
 /* Field Variables */
 
@@ -48,6 +55,12 @@ public class PlayPurchaseManager {
      * Used for all the actual contact with google play.
      */
     IabHelper iabHelper;
+
+    /**
+     * The Object that implements all the google play callback
+     * we rolled this ourselves.
+     */
+    PurchaseListener purchaseListener;
 
     /**
      * This is the list of all in-app purchasable items available to the game.
@@ -87,7 +100,7 @@ public class PlayPurchaseManager {
      */
     private void setupIabHelper(){
         iabHelper = new IabHelper(app, base64EncodedPublicKey);
-        purchaseListener = new PurchaseListner();
+        purchaseListener = new PurchaseListener();
         iabHelper.startSetup(purchaseListener);
     }
 
@@ -121,7 +134,7 @@ public class PlayPurchaseManager {
         app.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                iabHelper.queryInventoryAsync(myIAPListener);
+                iabHelper.queryInventoryAsync(purchaseListener);
             }
         });
     }
@@ -223,7 +236,7 @@ public class PlayPurchaseManager {
      * play servers, we need to implement the matching listener here
      * to complete the operation.
      */
-    private class PurchaseListner implements IabHelper.QueryInventoryFinishedListener{
+    private class PurchaseListener implements IabHelper.QueryInventoryFinishedListener{
 
     /* Private Methods */
         /**
