@@ -252,7 +252,8 @@ public class PlayPurchaseManager {
      * to complete the operation.
      */
     private class PurchaseListener implements IabHelper.QueryInventoryFinishedListener,
-                                              IabHelper.OnConsumeFinishedListener{
+                                              IabHelper.OnConsumeFinishedListener,
+                                              IabHelper.OnIabSetupFinishedListener{
 
     /* Private Methods */
         /**
@@ -319,6 +320,21 @@ public class PlayPurchaseManager {
                 Gdx.app.log("PlayPurchaseManager.Listener", "onConsumeFinished succeeded, item is consumed in play store: " + purchase.toString());
                 PurchasableItem item = new PurchasableItem(purchase.getSku(), PURCHASE_TYPE.CONSUMABLE, purchase.getDeveloperPayload());
                 consumeItemLocally(item);
+            }
+        }
+
+        /**
+         * Callback to google plays IabHelper.startSetup().
+         * After setup is successful we want to query the inventory.
+         * @param result The result of the setup process.
+         */
+        @Override
+        public void onIabSetupFinished(IabResult result) {
+            //first check to see if the call failed.
+            if(result.isFailure()){//The call did fail
+                Gdx.app.log("PlayPurchaseManager.Listener", "onIabSetupFinished() failed: " + IabHelper.getResponseDesc(result.getResponse()));
+            }else{//the call didn't fail
+                setupLocalInventory();
             }
         }
     }
