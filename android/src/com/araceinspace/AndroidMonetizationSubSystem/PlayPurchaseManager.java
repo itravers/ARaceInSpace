@@ -1,5 +1,11 @@
 package com.araceinspace.AndroidMonetizationSubSystem;
 
+import com.araceinspace.AndroidLauncher;
+import com.araceinspace.isaac.game.BuildConfig;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by Isaac Assegai on 9/26/16.
  * This class allows the caller to purchase
@@ -10,19 +16,77 @@ package com.araceinspace.AndroidMonetizationSubSystem;
 public class PlayPurchaseManager {
 
 /* Static Variables */
+
+    /**
+     * There are several different types of purchase that need to be
+     * handled in slightly different ways. For instance, a CONSUMABLE and
+     * NON_CONSUMABLE are treated by the play store as the same thing, but
+     * we treat it differently because we call consume on a CONSUMABLE as
+     * soon as we obtain it, whereas, we should never call consume on a
+     * non-consumable, or it will disappear from the play inventory
+     * when it should not.
+     */
     public enum PURCHASE_TYPE {CONSUMABLE, NON_CONSUMABLE, SUBSCRIPTION};
+
 
 /* Field Variables */
 
+    /**
+     * A reference to the main libgdx android launcher app.
+     * used to run things on the ui thread,
+     */
+    private AndroidLauncher app;
+
+    /**
+     * This is the list of all in-app purchasable items available to the game.
+     * When a new item is setup in google play it will need to be manually
+     * set up in the defaultItems list as well. We will do this in the
+     * setupDefaultItems() method call.
+     */
+    private HashMap<String, PurchasableItem> defaultItems;
 
 
 /* Constructors */
 
+    /**
+     * Constructs a new PlayPurchaseManager using the given app.
+     * @param app
+     */
+    public PlayPurchaseManager(AndroidLauncher app){
+        this.app = app;
+    }
+
 
 /* Private Methods */
 
+    /**
+     * Sets up the default items list. The items in this
+     * list must exactly match the items set up in the
+     * google play dev console.
+     */
+    private void setupDefaultItems(){
+        //initiate the hashmap we store our default items in.
+        defaultItems = new HashMap<String, PurchasableItem>();
+
+        //Create ALL the PurchasableItems that will be available for the app.
+        PurchasableItem item1 = new PurchasableItem("test_product_0001", PURCHASE_TYPE.CONSUMABLE, "test_product_0001_developer_payload");
+        PurchasableItem item2 = new PurchasableItem("test_product_0002", PURCHASE_TYPE.CONSUMABLE, "test_product_0002_developer_payload");
+
+        //Add all the items created to the defaultItems map using their skus as keys.
+        defaultItems.put(item1.getSku(), item1);
+        defaultItems.put(item2.getSku(), item2);
+    }
+
 
 /* Public Methods */
+
+    /**
+     * Sets up the PlayPurchaseManager to be usable.
+     */
+    public void setup(){
+        //first we need to setup all the available default items.
+        setupDefaultItems();
+    }
 
 
 /* Private Classes */
@@ -58,11 +122,47 @@ public class PlayPurchaseManager {
 
     /* Constructors */
 
+        /**
+         * Constructs a new PurchasableItem with the given sku, type and developerPayload.
+         * @param sku - The sku of the item, originally taken from Play Dev Site
+         * @param type - We define this type based on the google play type.
+         * @param developerPayload - The payload we verify this item was made by us with.
+         */
+        public PurchasableItem(String sku, PURCHASE_TYPE type, String developerPayload){
+            this.sku = sku;
+            this.type = type;
+            this.developerPayload = developerPayload;
+        }
+
 
     /* Private Methods */
 
 
     /* Public Methods */
-    }
 
+        /**
+         * Returns the Items SKU to the caller.
+         * @return THE SKU
+         */
+        public String getSku(){
+            return sku;
+        }
+
+        /**
+         * Returns the Type to the caller.
+         * @return The PURCHASE_TYPE
+         */
+        public PURCHASE_TYPE getType(){
+            return type;
+        }
+
+        /**
+         * Returns the Developer Payload
+         * to the caller to be checked.
+         * @return The Developer Payload String
+         */
+        public String getDeveloperPayload(){
+            return developerPayload;
+        }
+    }
 }

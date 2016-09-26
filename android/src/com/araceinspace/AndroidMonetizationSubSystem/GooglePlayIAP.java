@@ -222,6 +222,7 @@ public class GooglePlayIAP {
 //we need to check for all owned items that are consumable and consume them here.
             //check for items that should be consumed right away, and consume them here
             //we don't wire them game to consume them yet, we do that in the callback method onConsumeFinished()
+
             Purchase purchase = inventory.getPurchase(testsku);
             if (purchase != null && verifyDeveloperPayload(purchase)) {
                 Log.d("GameAds", "We have item. Consuming it.");
