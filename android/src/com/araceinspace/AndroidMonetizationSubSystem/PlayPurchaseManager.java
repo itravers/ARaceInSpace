@@ -45,6 +45,11 @@ public class PlayPurchaseManager {
     private AndroidLauncher app;
 
     /**
+     * Used for all the actual contact with google play.
+     */
+    IabHelper iabHelper;
+
+    /**
      * This is the list of all in-app purchasable items available to the game.
      * When a new item is setup in google play it will need to be manually
      * set up in the defaultItems list as well. We will do this in the
@@ -75,6 +80,16 @@ public class PlayPurchaseManager {
 
 
 /* Private Methods */
+
+    /**
+     * Sets the IabHelper, which is the object that
+     * actually mediates all communications with google play.
+     */
+    private void setupIabHelper(){
+        iabHelper = new IabHelper(app, base64EncodedPublicKey);
+        purchaseListener = new PurchaseListner();
+        iabHelper.startSetup(purchaseListener);
+    }
 
     /**
      * Sets up the default items list. The items in this
@@ -119,9 +134,9 @@ public class PlayPurchaseManager {
      */
     public void setup(){
         Gdx.app.log("PlayPurchaseManager", "setup() called");
-        //first we need to setup all the available default items.
-        setupDefaultItems();
-        setupLocalInventory();
+        setupIabHelper(); //setup the IabHelper, that actually talks to google play
+        setupDefaultItems(); //setup the default items map
+        setupLocalInventory(); //setup the localInventory map
     }
 
 
@@ -210,6 +225,7 @@ public class PlayPurchaseManager {
      */
     private class PurchaseListner implements IabHelper.QueryInventoryFinishedListener{
 
+    /* Private Methods */
         /**
          * This is where google play returns a call-back to us when we query inventory.
          * We need to loop through all available items in defaultItems and only process
