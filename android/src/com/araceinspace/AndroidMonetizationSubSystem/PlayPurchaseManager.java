@@ -176,7 +176,7 @@ public class PlayPurchaseManager {
                     PurchasableItem item = new PurchasableItem(p.getSku(), itemUnderPurchase.getType(), itemUnderPurchase.getDeveloperPayload());
                     localInventory.put(item.getSku(), item);
                 }
-                //then we want to set itemUnderPurchase back to null
+                //then we want to set itemUnderPurchase back to null, it should only be non-null when a purchase is happening.
                 itemUnderPurchase = null;
             }
         }
@@ -205,8 +205,6 @@ public class PlayPurchaseManager {
         itemUnderPurchase = item;
         iabHelper.launchPurchaseFlow(app, item.getSku(), 10001, purchaseListener, item.getDeveloperPayload());
     }
-
-
 
     /**
      * Locally Consumes a PurchasableItem. This method must only be called from
@@ -309,7 +307,8 @@ public class PlayPurchaseManager {
      */
     private class PurchaseListener implements IabHelper.QueryInventoryFinishedListener,
                                               IabHelper.OnConsumeFinishedListener,
-                                              IabHelper.OnIabSetupFinishedListener{
+                                              IabHelper.OnIabSetupFinishedListener,
+                                              IabHelper.OnIabPurchaseFinishedListener{
 
     /* Private Methods */
         /**
@@ -388,9 +387,27 @@ public class PlayPurchaseManager {
         public void onIabSetupFinished(IabResult result) {
             //first check to see if the call failed.
             if(result.isFailure()){//The call did fail
-                Gdx.app.log("PlayPurchaseManager.Listener", "onIabSetupFinished() failed: " + IabHelper.getResponseDesc(result.getResponse()));
+                Gdx.app.error("PlayPurchaseManager.Listener", "onIabSetupFinished() failed: " + IabHelper.getResponseDesc(result.getResponse()));
             }else{//the call didn't fail
                 setupLocalInventory();
+            }
+        }
+
+        /**
+         * Called from google plays IabHelper.launchPurchaseFlow.
+         * We need to check for errors, and if there is none
+         * we will invoke the PlayPurchaseMangers purchase callback function.
+         * @param result The result of the purchase.
+         * @param p The purchase information (null if purchase failed)
+         */
+        @Override
+        public void onIabPurchaseFinished(IabResult result, Purchase p) {
+            //first check to see if the call failed
+            if(result.isFailure()) {//the call did fail
+                Gdx.app.error("PlayPurchaseManager.Listener", "onIabPurchaseFinished() failed: " + IabHelper.getResponseDesc(result.getResponse()));
+            }else {//The call didn't fail.
+                //the purchase was successful, we already wrote a handler for it, lets call it.
+                purchaseItem_callback(p);
             }
         }
     }
