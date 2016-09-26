@@ -261,7 +261,7 @@ public class PlayPurchaseManager {
                 it.remove(); // avoids a ConcurrentModificationException
 
                 //Look for an item in inv which has a sku that matches the sku of a default item
-                if(inv.hasPurchase(defaultSKU){
+                if(inv.hasPurchase(defaultSKU)){
                     /* Found one, this is a valid in game item. We need to either
                        add it to the localInventory if it is non_consumable, or a
                        subscription. If it is consumable, then we need to consume it right away.*/
