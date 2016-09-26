@@ -1,5 +1,8 @@
 package com.araceinspace.AndroidMonetizationSubSystem;
 
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
+
 import com.araceinspace.AndroidLauncher;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
@@ -149,6 +152,21 @@ public class PlayPurchaseManager {
         setupLocalInventory(); //setup the localInventory map
     }
 
+    /**
+     * Locally Consumes a PurchasableItem. This method must only be called from
+     * the call back consume method. When the play store shows an item as consumed
+     * then, and only then will we consume it locally.
+     * Consuming Locally means that the item will be applied towards the player.
+     * @param item
+     */
+    public void consumeItemLocally(PurchasableItem item){
+        Gdx.app.log("PlayPurchaseManager", "consumeItemLocally() called : " + item.toString());
+        //we'll end up sending this via the event dispatcher, but for now we'll show a toast.
+        Intent intent = new Intent("ShowToast");
+        intent.putExtra("message", "Consumed " + item.getSku());
+        LocalBroadcastManager.getInstance(app).sendBroadcast(intent);
+    }
+
 
 /* Private Classes */
 
@@ -251,9 +269,9 @@ public class PlayPurchaseManager {
         public void onQueryInventoryFinished(IabResult result, Inventory inv) {
             //First check to see if the call failed.
             if (result.isFailure()) { //The call did fail.
-                Gdx.app.error("PlayPurchaseManager", "queryInventory failed: " + IabHelper.getResponseDesc(result.getResponse()));
+                Gdx.app.error("PlayPurchaseManager.Listener", "queryInventory failed: " + IabHelper.getResponseDesc(result.getResponse()));
             }else{ //The Call didn't fail.
-                Gdx.app.log("PlayPurchaseManager", "queryInventory suceeded, processing: " + inv.toString());
+                Gdx.app.log("PlayPurchaseManager.Listener", "queryInventory suceeded, processing: " + inv.toString());
                 //Iterate through the defaultItems, see if the inv has any matching items
                 Iterator it = defaultItems.entrySet().iterator();
                 while (it.hasNext()) {
@@ -294,7 +312,14 @@ public class PlayPurchaseManager {
          */
         @Override
         public void onConsumeFinished(Purchase purchase, IabResult result) {
-
+            //First check to see if the call failed.
+            if(result.isFailure()){ //The Called Failed.
+                Gdx.app.error("PlayPurchaseManager.Listener", "onConsumeFinished failed: " + IabHelper.getResponseDesc(result.getResponse()));
+            }else{
+                Gdx.app.log("PlayPurchaseManager.Listener", "onConsumeFinished succeeded, item is consumed in play store: " + purchase.toString());
+                PurchasableItem item = new PurchasableItem(purchase.getSku(), PURCHASE_TYPE.CONSUMABLE, purchase.getDeveloperPayload());
+                consumeItemLocally(item);
+            }
         }
     }
 }
