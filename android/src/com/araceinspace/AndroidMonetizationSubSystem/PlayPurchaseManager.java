@@ -5,10 +5,7 @@ import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
 import com.araceinspace.AndroidMonetizationSubSystem.util.Inventory;
 import com.araceinspace.AndroidMonetizationSubSystem.util.Purchase;
-import com.araceinspace.isaac.game.BuildConfig;
 import com.badlogic.gdx.Gdx;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -236,7 +233,8 @@ public class PlayPurchaseManager {
      * play servers, we need to implement the matching listener here
      * to complete the operation.
      */
-    private class PurchaseListener implements IabHelper.QueryInventoryFinishedListener{
+    private class PurchaseListener implements IabHelper.QueryInventoryFinishedListener,
+                                              IabHelper.OnConsumeFinishedListener{
 
     /* Private Methods */
         /**
@@ -279,6 +277,18 @@ public class PlayPurchaseManager {
                     }
                 }
             }
+        }
+
+        /**
+         * We have told google play to consume a specific item and it has called us back here.
+         * This should only have been ever called on an item already marked as consumable
+         * So we can just locally consume the item now.
+         * @param purchase The purchase that was (or was to be) consumed.
+         * @param result The result of the consumption operation.
+         */
+        @Override
+        public void onConsumeFinished(Purchase purchase, IabResult result) {
+
         }
     }
 }
