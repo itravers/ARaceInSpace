@@ -3,8 +3,8 @@
     package="com.araceinspace.isaac.game"
     android:versionCode="3"
     android:versionName="0.0.1a"
-    android:hardwareAccelerated="true"
-    android:debuggable="true"><!-- This line needs to be removed before shipping. -->
+    android:hardwareAccelerated="true">
+    <!--android:debuggable="true"--><!-- This line needs to be removed before shipping. -->
 
     <uses-permission android:name="com.android.vending.BILLING" /> <!-- Used for the In-App Purchases -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Used for the In-App Purchases -->

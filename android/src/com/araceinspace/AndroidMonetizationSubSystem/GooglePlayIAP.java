@@ -8,6 +8,7 @@ import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
 import com.araceinspace.AndroidMonetizationSubSystem.util.Inventory;
 import com.araceinspace.AndroidMonetizationSubSystem.util.Purchase;
+import com.araceinspace.isaac.game.BuildConfig;
 import com.badlogic.gdx.Gdx;
 
 /**
@@ -31,7 +32,7 @@ public class GooglePlayIAP {
      * This info will be where we store all our item info.
      */
     //public String testsku = "test_product_0001";
-    public String testsku = "android.test.purchased";
+    public String testsku;
 
     /**
      * Used to contact google play for pretty much everything.
@@ -60,6 +61,14 @@ public class GooglePlayIAP {
      */
     public GooglePlayIAP(AndroidLauncher app){
         this.app = app;
+
+        if(BuildConfig.DEBUG){
+            Gdx.app.log("GameAds", "iap launched in debug mode.");
+            testsku = "android.test.purchased";
+        }else{
+            Gdx.app.log("GameAds", "iap launched in release mode.");
+            testsku = "test_product_0001";
+        }
     }
 
 /* Private Methods */
@@ -83,6 +92,7 @@ public class GooglePlayIAP {
      * consumed.
      */
     public void consumeOwnedItems(){
+        Gdx.app.log("GameAds", "consumeOwnedItems() called");
         app.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -209,7 +219,7 @@ public class GooglePlayIAP {
              * the developer payload to see if it's correct! See
              * verifyDeveloperPayload().
              */
-
+//we need to check for all owned items that are consumable and consume them here.
             //check for items that should be consumed right away, and consume them here
             //we don't wire them game to consume them yet, we do that in the callback method onConsumeFinished()
             Purchase purchase = inventory.getPurchase(testsku);
@@ -242,7 +252,10 @@ public class GooglePlayIAP {
                     }else if (purchase.getSku().equals(testsku)) { //purchase was a success, we decide if we consume or not here
                         Gdx.app.log("GameAd", "purchase success: " + result + " ::: " + purchase + IabHelper.getResponseDesc(result.getResponse()));
                         //the test item was found, we want to consume it.
-                        consumeItem(result, purchase);
+
+                        //i need to consume this here in google play, not just in the app itsef...!!!!!
+                        iabHelper.consumeAsync(purchase, this);
+                       // consumeItem(result, purchase);
                     }
         }
 
@@ -253,7 +266,7 @@ public class GooglePlayIAP {
             }else{
                 Log.d("GameAds", "In-app Billing is set up OK");
                 Gdx.app.log("GameAds","In-app Billing is set up OK: " + result);
-                iabHelper.enableDebugLogging(true, "GameAds");
+                iabHelper.enableDebugLogging(true, "GameAds-iabHelper");
                 iabHelper.queryInventoryAsync(/*mGotInventoryListener*/this);//will get inventory info from play
             }
         }
