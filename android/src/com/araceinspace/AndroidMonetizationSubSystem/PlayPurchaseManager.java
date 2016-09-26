@@ -4,11 +4,14 @@ import com.araceinspace.AndroidLauncher;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
 import com.araceinspace.AndroidMonetizationSubSystem.util.Inventory;
+import com.araceinspace.AndroidMonetizationSubSystem.util.Purchase;
 import com.araceinspace.isaac.game.BuildConfig;
 import com.badlogic.gdx.Gdx;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by Isaac Assegai on 9/26/16.
@@ -207,9 +210,47 @@ public class PlayPurchaseManager {
      */
     private class PurchaseListner implements IabHelper.QueryInventoryFinishedListener{
 
+        /**
+         * This is where google play returns a call-back to us when we query inventory.
+         * We need to loop through all available items in defaultItems and only process
+         * those items which have a sku matching a defaultItem.
+         * For those we process, we need to check the type. If the type is non_consumable
+         * or a subscription, we need to store it in local inventory.
+         * If it is a consumable item, we need to immediately consume it.
+         * @param result The result of the operation.
+         * @param inv The inventory.
+         */
         @Override
         public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+            //Iterate through the defaultItems, see if the inv has any matching items
+            Iterator it = defaultItems.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                String defaultSKU = (String)pair.getKey();
+                PURCHASE_TYPE defaultType = ((PurchasableItem)pair.getValue()).getType();
+                System.out.println(pair.getKey() + " = " + pair.getValue());
+                it.remove(); // avoids a ConcurrentModificationException
 
+                //Look for an item in inv which has a sku that matches the sku of a default item
+                if(inv.hasPurchase(defaultSKU){
+                    /* Found one, this is a valid in game item. We need to either
+                       add it to the localInventory if it is non_consumable, or a
+                       subscription. If it is consumable, then we need to consume it right away.*/
+
+                    //Get the matched purchase from the returned remote inventory
+                    Purchase purchase = inv.getPurchase(defaultSKU);
+
+                    if(defaultType == PURCHASE_TYPE.CONSUMABLE){
+                        //consume this item immediately
+
+                    }else{//NON CONSUMABLE, and SUBSCRIPTIONS
+                        //Create a PurchasableItem from the returned purchase, and store it in our local inventory.
+                        PurchasableItem item = new PurchasableItem(purchase.getSku(), defaultType, purchase.getDeveloperPayload());
+                        localInventory.put(item.getSku(), item);
+                    }
+
+                }
+            }
         }
     }
 }
