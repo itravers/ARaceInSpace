@@ -80,6 +80,14 @@ public class PlayPurchaseManager {
      */
     private HashMap<String, PurchasableItem> localInventory;
 
+    /**
+     * When purchase item is called, this will be set to the item being purchased.
+     * That way when purchase_callback is called, we can check the developer
+     * payload returned from google play to the developer payload stored
+     * in this puchasable item. After the check, it is again set to null.
+     */
+    private PurchasableItem itemUnderPurchase = null;
+
 
 /* Constructors */
 
@@ -139,6 +147,41 @@ public class PlayPurchaseManager {
         });
     }
 
+    /**
+     * Callback that gets called when a purchase was sucessful.
+     * We check and make sure the developer payload returned
+     * from google play is the same developer payload that
+     * we wanted to purchase.
+     * @param p The purchase from google play, their format, not ours.
+     */
+    public void purchaseItem_callback(Purchase p){
+        //Check to make sure itemUnderPurchase is set correctly, this should never return i believe.
+        if(itemUnderPurchase == null){
+            Gdx.app.error("PlayPurchaseManager", "purchaseItem_callback() called, but itemUnderPurchase == null, SHOULDNT HAPPEN");
+        }else{
+            /* We want to check the developer payload to make sure it matches what we sent
+               to be purchased. */
+            if(!itemUnderPurchase.getDeveloperPayload().equals(p.getDeveloperPayload())){
+                //Developer Payload doesn't match, possible xss attack
+                Gdx.app.error("PlayPurchaseManager", "purchaseItem_callback() error, Developer payloads don't match : " +
+                        p.getDeveloperPayload() + " vs " + itemUnderPurchase.getDeveloperPayload());
+            }else{
+                Gdx.app.log("PlayPurchaseManager", "purchaseItem_callback() called successfully");
+                /* If the Item bought is consumable, we want to consume it immediately
+                   else we want to store it locally. */
+                if(itemUnderPurchase.type == PURCHASE_TYPE.CONSUMABLE){
+                    iabHelper.consumeAsync(p, purchaseListener);
+                }else{
+                    //Create a PurchasableItem from the returned purchase, and store it in our local inventory.
+                    PurchasableItem item = new PurchasableItem(p.getSku(), itemUnderPurchase.getType(), itemUnderPurchase.getDeveloperPayload());
+                    localInventory.put(item.getSku(), item);
+                }
+                //then we want to set itemUnderPurchase back to null
+                itemUnderPurchase = null;
+            }
+        }
+    }
+
 
 /* Public Methods */
 
@@ -151,6 +194,19 @@ public class PlayPurchaseManager {
         setupDefaultItems(); //setup the default items map
         setupLocalInventory(); //setup the localInventory map
     }
+
+    /**
+     * Start to initiate a purchase from google play.
+     * The item being purchased must be set up in google
+     * play and in the defaultItems map.
+     * @param item The item we want to purchase. Our format, not theirs.
+     */
+    public void purchaseItem(PurchasableItem item){
+        itemUnderPurchase = item;
+        iabHelper.launchPurchaseFlow(app, item.getSku(), 10001, purchaseListener, item.getDeveloperPayload());
+    }
+
+
 
     /**
      * Locally Consumes a PurchasableItem. This method must only be called from
