@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.araceinspace"
-    android:versionCode="2"
-    android:versionName="0.0.1" >
+    package="com.araceinspace.isaac.game"
+    android:versionCode="4"
+    android:versionName="0.0.2"
+    android:hardwareAccelerated="true">
+    <!--android:debuggable="true"--><!-- This line needs to be removed before shipping. -->
 
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="24" />
+    <uses-permission android:name="com.android.vending.BILLING" /> <!-- Used for the In-App Purchases -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Used for the In-App Purchases -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Used AdColony -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Used Ads -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- Used AdColony -->
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="24" /> <!-- Minimum SDK needed is 9 for google play services to work -->
 
     <application
         android:allowBackup="true"
@@ -21,6 +28,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" /><!-- Used for AdMob Ads -->
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" /><!-- Used for AdMob Ads -->
+
+        <activity android:name="com.jirbo.adcolony.AdColonyOverlay"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" /><!-- Used for AdColony Ads -->
+
+        <activity android:name="com.jirbo.adcolony.AdColonyFullscreen"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" /><!-- Used for AdColony Ads -->
+
+        <activity android:name="com.jirbo.adcolony.AdColonyBrowser"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" /><!-- Used for AdColony Ads -->
+
+        <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"
+            android:theme="@style/Theme.IAPTheme"/> <!-- Used for In App Purchase In House Ads -->
+
+        <service
+            android:name="com.araceinspace.AndroidMonetizationSubSystem.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service><!-- Used by FireBase Messaging Service to receive messages from the firebase console, that I send. -->
+    </application>
 </manifest>
