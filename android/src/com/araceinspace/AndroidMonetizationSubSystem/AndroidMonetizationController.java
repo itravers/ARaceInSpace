@@ -36,7 +36,8 @@ public class AndroidMonetizationController implements MonetizationController {
 
     private AdColonyAndroidRewardAd rewardedVideoAd;
 
-    GooglePlayIAP inAppPurchaser;
+    //GooglePlayIAP inAppPurchaser;
+    PlayPurchaseManager playPurchaseManager;
 
     /**
      * This is a reference to the main android app.
@@ -92,8 +93,10 @@ public class AndroidMonetizationController implements MonetizationController {
         rewardedVideoAd.setup();
 
         //next setup the in-app purchase system.
-        inAppPurchaser = new GooglePlayIAP(app);
-        inAppPurchaser.setup();
+        //inAppPurchaser = new GooglePlayIAP(app);
+       // inAppPurchaser.setup();
+        playPurchaseManager = new PlayPurchaseManager(app);
+        playPurchaseManager.setup();
     }
 
     /**
@@ -203,22 +206,17 @@ public class AndroidMonetizationController implements MonetizationController {
      * @return
      */
     public boolean onActivityResult(int requestCode, int resultCode, Intent data){
-        return inAppPurchaser.onActivityResult(requestCode, resultCode, data);
+        //return inAppPurchaser.onActivityResult(requestCode, resultCode, data);
+        return playPurchaseManager.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
      * Directs the iap to initiate a purchase for the specified item.
      */
     public void buyItem(){
-        inAppPurchaser.buyItem();
-    }
-
-    /**
-     * Causes any consumable items stored in google play
-     * to be consumed.
-     */
-    public void consumeOwnedItems(){
-        inAppPurchaser.consumeOwnedItems();
+        //inAppPurchaser.buyItem();
+        //playPurchaseManager.purchaseItem(playPurchaseManager.getDefaultItems().get("test_product_0001")); //buy test_product_0001 which is a default item.
+        playPurchaseManager.purchaseItem(playPurchaseManager.defaultItems.get("test_product_0001")); //buy test_product_0001 which is a default item.
     }
 
     /**
@@ -244,6 +242,7 @@ public class AndroidMonetizationController implements MonetizationController {
     public void destroy(){
         bannerAd.destroy();
         rewardedVideoAd.destroy();
-        inAppPurchaser.destroy();
+        //inAppPurchaser.destroy();
+        playPurchaseManager.destroy();
     }
 }

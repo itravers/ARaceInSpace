@@ -81,9 +81,4 @@ public class DummyController implements MonetizationController {
     public void buyItem() {
 
     }
-
-    @Override
-    public void consumeOwnedItems() {
-
-    }
 }

@@ -8,9 +8,13 @@ import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
 import com.araceinspace.AndroidMonetizationSubSystem.util.Inventory;
 import com.araceinspace.AndroidMonetizationSubSystem.util.Purchase;
+import com.araceinspace.MonetizationSubSystem.PurchasableItem;
 import com.badlogic.gdx.Gdx;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,17 +27,6 @@ import java.util.Map;
 public class PlayPurchaseManager {
 
 /* Static Variables */
-
-    /**
-     * There are several different types of purchase that need to be
-     * handled in slightly different ways. For instance, a CONSUMABLE and
-     * NON_CONSUMABLE are treated by the play store as the same thing, but
-     * we treat it differently because we call consume on a CONSUMABLE as
-     * soon as we obtain it, whereas, we should never call consume on a
-     * non-consumable, or it will disappear from the play inventory
-     * when it should not.
-     */
-    public enum PURCHASE_TYPE {CONSUMABLE, NON_CONSUMABLE, SUBSCRIPTION};
 
     /**
      * Key issued by google play that they use to make sure the app is legit.
@@ -68,7 +61,7 @@ public class PlayPurchaseManager {
      * set up in the defaultItems list as well. We will do this in the
      * setupDefaultItems() method call.
      */
-    private HashMap<String, PurchasableItem> defaultItems;
+    public HashMap<String, PurchasableItem> defaultItems;
 
     /**
      * Locally Stores Purchasable items that have not been consumed.
@@ -97,6 +90,7 @@ public class PlayPurchaseManager {
      */
     public PlayPurchaseManager(AndroidLauncher app){
         this.app = app;
+        defaultItems = new HashMap<String, PurchasableItem>();
     }
 
 
@@ -120,15 +114,15 @@ public class PlayPurchaseManager {
     private void setupDefaultItems(){
         Gdx.app.log("PlayPurchaseManager", "setupDefaultItems() called");
         //initiate the hashmap we store our default items in.
-        defaultItems = new HashMap<String, PurchasableItem>();
 
         //Create ALL the PurchasableItems that will be available for the app.
-        PurchasableItem item1 = new PurchasableItem("test_product_0001", PURCHASE_TYPE.CONSUMABLE, "test_product_0001_developer_payload");
-        PurchasableItem item2 = new PurchasableItem("test_product_0002", PURCHASE_TYPE.CONSUMABLE, "test_product_0002_developer_payload");
+        PurchasableItem item1 = new PurchasableItem("test_product_0001", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "test_product_0001_developer_payload");
+        PurchasableItem item2 = new PurchasableItem("test_product_0002", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "test_product_0002_developer_payload");
 
         //Add all the items created to the defaultItems map using their skus as keys.
         defaultItems.put(item1.getSku(), item1);
         defaultItems.put(item2.getSku(), item2);
+        //this.defaultItems = defaultItems;
     }
 
     /**
@@ -169,7 +163,7 @@ public class PlayPurchaseManager {
                 Gdx.app.log("PlayPurchaseManager", "purchaseItem_callback() called successfully");
                 /* If the Item bought is consumable, we want to consume it immediately
                    else we want to store it locally. */
-                if(itemUnderPurchase.type == PURCHASE_TYPE.CONSUMABLE){
+                if(itemUnderPurchase.getType() == PurchasableItem.PURCHASE_TYPE.CONSUMABLE){
                     iabHelper.consumeAsync(p, purchaseListener);
                 }else{
                     //Create a PurchasableItem from the returned purchase, and store it in our local inventory.
@@ -187,12 +181,13 @@ public class PlayPurchaseManager {
 
     /**
      * Sets up the PlayPurchaseManager to be usable.
+     * Sets up the Iab Helper and the default items.
+     * The setup callback will setup the local inventory.
      */
     public void setup(){
         Gdx.app.log("PlayPurchaseManager", "setup() called");
         setupIabHelper(); //setup the IabHelper, that actually talks to google play
         setupDefaultItems(); //setup the default items map
-        setupLocalInventory(); //setup the localInventory map
     }
 
     /**
@@ -221,83 +216,41 @@ public class PlayPurchaseManager {
         LocalBroadcastManager.getInstance(app).sendBroadcast(intent);
     }
 
+    /**
+     * A purchase process returns and calls onActivityResult on the Main AndroidLauncher
+     * which gets routed to here. If mhelper.handleActivityResult returns true, then
+     * we processed it correctly, if it returns false, then we'll let
+     * the calling AndroidLauncher process it.
+     * mHelper.handleActivity will call the mPurchaseFinishedLitener if needed.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @return
+     */
+    public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+        return iabHelper.handleActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * Gets the hashmap of default items.
+     * @return The hashmap of default items. <String, PurchasableItem>
+     */
+   // public HashMap<String, PurchasableItem> getDefaultItems(){
+   //     return defaultItems;
+    //}
+
+    /**
+     * destroys the IabHelper
+     */
+    public void destroy() {
+        if (iabHelper != null) iabHelper.dispose();
+        iabHelper = null;
+    }
+
 
 /* Private Classes */
 
-    /**
-     * A PurchasableItem represents all the
-     * data needed to use a google play
-     * iap item.
-     */
-    private class PurchasableItem{
 
-    /* Field Variables */
-        /**
-         * Purchasable Items are refered to by their sku's.
-         */
-        private String sku;
-
-        /**
-         * The type of this purchase
-         * CONSUMABLE, NON_CONSUMABLE, SUBSCRIPTION
-         */
-        private PURCHASE_TYPE type;
-
-        /**
-         * The developerPayload string gets passed to google play
-         * in the Purchase class. This payload is sent back
-         * in several callbacks, where we verfiy it matches
-         * the developerPayload that we sent out. This
-         * seems to protect against several layers of xss attacks.
-         */
-        private String developerPayload;
-
-
-    /* Constructors */
-
-        /**
-         * Constructs a new PurchasableItem with the given sku, type and developerPayload.
-         * @param sku - The sku of the item, originally taken from Play Dev Site
-         * @param type - We define this type based on the google play type.
-         * @param developerPayload - The payload we verify this item was made by us with.
-         */
-        public PurchasableItem(String sku, PURCHASE_TYPE type, String developerPayload){
-            this.sku = sku;
-            this.type = type;
-            this.developerPayload = developerPayload;
-        }
-
-
-    /* Private Methods */
-
-
-    /* Public Methods */
-
-        /**
-         * Returns the Items SKU to the caller.
-         * @return THE SKU
-         */
-        public String getSku(){
-            return sku;
-        }
-
-        /**
-         * Returns the Type to the caller.
-         * @return The PURCHASE_TYPE
-         */
-        public PURCHASE_TYPE getType(){
-            return type;
-        }
-
-        /**
-         * Returns the Developer Payload
-         * to the caller to be checked.
-         * @return The Developer Payload String
-         */
-        public String getDeveloperPayload(){
-            return developerPayload;
-        }
-    }
 
     /**
      * The PurchaseListener is where we implement all our callback
@@ -307,6 +260,7 @@ public class PlayPurchaseManager {
      */
     private class PurchaseListener implements IabHelper.QueryInventoryFinishedListener,
                                               IabHelper.OnConsumeFinishedListener,
+                                              IabHelper.OnConsumeMultiFinishedListener,
                                               IabHelper.OnIabSetupFinishedListener,
                                               IabHelper.OnIabPurchaseFinishedListener{
 
@@ -330,12 +284,18 @@ public class PlayPurchaseManager {
                 Gdx.app.log("PlayPurchaseManager.Listener", "queryInventory suceeded, processing: " + inv.toString());
                 //Iterate through the defaultItems, see if the inv has any matching items
                 Iterator it = defaultItems.entrySet().iterator();
+
+                /* iabHelper.consumeAsync cannot be called another time, before it returns from it's first call.
+                 * Apparently they made iabHelperconsumeAsync able to consume a list of purchases as well.
+                 * So we'll build a list of consumables, and if there is anything in it, we'll consume it.
+                 */
+                ArrayList<Purchase> purchases = new ArrayList<Purchase>();
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry)it.next();
                     String defaultSKU = (String)pair.getKey();
-                    PURCHASE_TYPE defaultType = ((PurchasableItem)pair.getValue()).getType();
+                    PurchasableItem.PURCHASE_TYPE defaultType = ((PurchasableItem)pair.getValue()).getType();
                     System.out.println(pair.getKey() + " = " + pair.getValue());
-                    it.remove(); // avoids a ConcurrentModificationException
+                   // it.remove(); // avoids a ConcurrentModificationException
 
                     //Look for an item in inv which has a sku that matches the sku of a default item
                     if(inv.hasPurchase(defaultSKU)){
@@ -346,9 +306,9 @@ public class PlayPurchaseManager {
                         //Get the matched purchase from the returned remote inventory
                         Purchase purchase = inv.getPurchase(defaultSKU);
 
-                        if(defaultType == PURCHASE_TYPE.CONSUMABLE){
-                            //consume this item immediately
-                            iabHelper.consumeAsync(purchase, this);
+                        if(defaultType == PurchasableItem.PURCHASE_TYPE.CONSUMABLE){
+                            //It's a consumable, add to our list of purchases to be consumed.
+                            purchases.add(purchase);
                         }else{//NON CONSUMABLE, and SUBSCRIPTIONS
                             //Create a PurchasableItem from the returned purchase, and store it in our local inventory.
                             PurchasableItem item = new PurchasableItem(purchase.getSku(), defaultType, purchase.getDeveloperPayload());
@@ -356,6 +316,8 @@ public class PlayPurchaseManager {
                         }
                     }
                 }
+                //
+                iabHelper.consumeAsync(purchases, purchaseListener);
             }
         }
 
@@ -373,8 +335,36 @@ public class PlayPurchaseManager {
                 Gdx.app.error("PlayPurchaseManager.Listener", "onConsumeFinished failed: " + IabHelper.getResponseDesc(result.getResponse()));
             }else{
                 Gdx.app.log("PlayPurchaseManager.Listener", "onConsumeFinished succeeded, item is consumed in play store: " + purchase.toString());
-                PurchasableItem item = new PurchasableItem(purchase.getSku(), PURCHASE_TYPE.CONSUMABLE, purchase.getDeveloperPayload());
+                //create an item in our format for local consumtion.
+                PurchasableItem item = new PurchasableItem(purchase.getSku(), PurchasableItem.PURCHASE_TYPE.CONSUMABLE, purchase.getDeveloperPayload());
                 consumeItemLocally(item);
+            }
+        }
+
+        /**
+         * We sent a list of items to google play for it to consume.
+         * This is the callback a corresponding list of purchases and results
+         * We loop through every result, check if it was good, if it was
+         * we locally consume the purchase.
+         * @param purchases The purchases that were (or were to be) consumed.
+         * @param results The results of each consumption operation, corresponding to each
+         */
+        @Override
+        public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
+            //loop through results, checking if each is failed or not.
+            for(int i = 0; i < results.size(); i++){
+                IabResult result = results.get(i);
+                Purchase purchase = purchases.get(i);
+
+                //check if result failed.
+                if(result.isFailure()){//The Result is failed.
+                    Gdx.app.error("PlayPurchaseManager.Listener", "onConsumeMultiFinished result failed: " + purchase.getSku() + IabHelper.getResponseDesc(result.getResponse()));
+                }else{
+                    Gdx.app.log("PlayPurchaseManager.Listener", "onConsumeMultiFinished result succeeded, item is consumed in play store: " + purchase.toString());
+                    //create an item in our format for locally consumtion
+                    PurchasableItem item = new PurchasableItem(purchase.getSku(), PurchasableItem.PURCHASE_TYPE.CONSUMABLE, purchase.getDeveloperPayload());
+                    consumeItemLocally(item);
+                }
             }
         }
 
@@ -410,5 +400,7 @@ public class PlayPurchaseManager {
                 purchaseItem_callback(p);
             }
         }
+
+
     }
 }

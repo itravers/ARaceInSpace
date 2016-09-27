@@ -97,12 +97,6 @@ public interface MonetizationController {
     public void buyItem();
 
     /**
-     * Causes any consumable items stored in by the iap
-     * to be consumed.
-     */
-    public void consumeOwnedItems();
-
-    /**
      * Pauses any systems that have the ability to pause
      */
     public void pause();
