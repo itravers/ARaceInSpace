@@ -14,10 +14,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -47,6 +49,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
     int credits = 0; //the num of in-game test credits
     TextButton loadBannerAdButton;
     TextButton showBannerAdButton;
+    TextButton hideBannerAdButton;
     TextButton loadInterstitialAdButton;
     TextButton showInterstitialAdButton;
     TextButton loadRewardAdButton;
@@ -54,6 +57,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
     TextButton buy10CreditsButton;
     TextButton buy20CreditsButton;
     Label creditAmountLabel;
+
 
 
     /**
@@ -150,11 +154,37 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         loadBannerAdButton.setWidth(Gdx.graphics.getWidth()/7);
         loadBannerAdButton.setHeight(buttonHeight);
         loadBannerAdButton.setPosition((bannerAdLabel.getX() + bannerAdLabel.getWidth()), bannerAdLabel.getY());
+        loadBannerAdButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+               System.out.println("loadBannerAdButton clicked");
+                monetizationController.loadBannerAd();
+            };
+        });
 
         showBannerAdButton = new TextButton("ShowAD", skin, "default");
         showBannerAdButton.setWidth(Gdx.graphics.getWidth()/6);
         showBannerAdButton.setHeight(buttonHeight);
         showBannerAdButton.setPosition((loadBannerAdButton.getX() + loadBannerAdButton.getWidth()+spacer), bannerAdLabel.getY());
+        showBannerAdButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("showBannerAdButton clicked");
+                monetizationController.showBannerAd();
+            };
+        });
+
+        hideBannerAdButton = new TextButton("HideAD", skin, "default");
+        hideBannerAdButton.setWidth(Gdx.graphics.getWidth()/6);
+        hideBannerAdButton.setHeight(buttonHeight);
+        hideBannerAdButton.setPosition((showBannerAdButton.getX() + showBannerAdButton.getWidth()+spacer), showBannerAdButton.getY());
+        hideBannerAdButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("hideBannerAdButton clicked");
+                monetizationController.hideBannerAd();
+            };
+        });
 
 
 
@@ -162,11 +192,23 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         loadInterstitialAdButton.setWidth(Gdx.graphics.getWidth()/7);
         loadInterstitialAdButton.setHeight(buttonHeight);
         loadInterstitialAdButton.setPosition((interstitialAdLabel.getX() + interstitialAdLabel.getWidth()), interstitialAdLabel.getY());
+        loadInterstitialAdButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("loadInterstitialAdButton clicked");
+            };
+        });
 
         showInterstitialAdButton = new TextButton("ShowAD", skin, "default");
         showInterstitialAdButton.setWidth(Gdx.graphics.getWidth()/6);
         showInterstitialAdButton.setHeight(buttonHeight);
         showInterstitialAdButton.setPosition((loadInterstitialAdButton.getX() + loadInterstitialAdButton.getWidth()+spacer), interstitialAdLabel.getY());
+        showInterstitialAdButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("showInterstitialAdButton clicked");
+            };
+        });
 
 
 
@@ -174,22 +216,46 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         loadRewardAdButton.setWidth(Gdx.graphics.getWidth()/7);
         loadRewardAdButton.setHeight(buttonHeight);
         loadRewardAdButton.setPosition((rewardAdLabel.getX() + rewardAdLabel.getWidth()), rewardAdLabel.getY());
+        loadRewardAdButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("loadRewardAdButton clicked");
+            };
+        });
 
         showRewardAdButton = new TextButton("ShowAD", skin, "default");
         showRewardAdButton.setWidth(Gdx.graphics.getWidth()/6);
         showRewardAdButton.setHeight(buttonHeight);
         showRewardAdButton.setPosition((loadRewardAdButton.getX() + loadRewardAdButton.getWidth()+spacer), rewardAdLabel.getY());
+        showRewardAdButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("showRewardAdButton clicked");
+            };
+        });
 
 
         buy10CreditsButton = new TextButton("Buy 10 Credits", skin, "default");
         buy10CreditsButton.setWidth(Gdx.graphics.getWidth()/3);
         buy10CreditsButton.setHeight(buttonHeight);
         buy10CreditsButton.setPosition((iapAdLabel.getX() + iapAdLabel.getWidth()), iapAdLabel.getY());
+        buy10CreditsButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("buy10CreditsButton clicked");
+            };
+        });
 
         buy20CreditsButton = new TextButton("Buy 20 Credits", skin, "default");
         buy20CreditsButton.setWidth(Gdx.graphics.getWidth()/3);
         buy20CreditsButton.setHeight(buttonHeight);
         buy20CreditsButton.setPosition((buy10CreditsButton.getX() + buy10CreditsButton.getWidth()+spacer), iapAdLabel.getY());
+        buy20CreditsButton.addListener( new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("buy20CreditsButton clicked");
+            };
+        });
 
 
 
@@ -204,6 +270,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
 
         guiStage.addActor(loadBannerAdButton);
         guiStage.addActor(showBannerAdButton);
+        guiStage.addActor(hideBannerAdButton);
         guiStage.addActor(loadInterstitialAdButton);
         guiStage.addActor(showInterstitialAdButton);
         guiStage.addActor(loadRewardAdButton);
@@ -215,16 +282,19 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
     @Override
     public void render () {
 
+        //update credits on screen
+        creditAmountLabel.setText(String.valueOf(credits));
+
         xCoords++;
         if(xCoords >= Gdx.graphics.getWidth()){
             xCoords = 0;
         }
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
 
-        batch.draw(img, xCoords, 0);
+        batch.draw(img, xCoords, 150);
 
         batch.end();
 
