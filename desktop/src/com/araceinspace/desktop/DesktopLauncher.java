@@ -16,6 +16,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1280;
 		config.height = 800;
+		//config.useGL30 = true;
 		System.out.println("config h/w: " + config.height + "/" + config.width);
 		DummyController controller = new DummyController();
 
