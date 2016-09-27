@@ -31,6 +31,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		super.onCreate(savedInstanceState);
 		me = this;
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		//System.out.println("config h/w: " + config. + "/" + config.width);
 		//initialize(new ARaceInSpace(), config);
 
 		/*Initialize and AndroidMonetizationController, we do it here, because the
