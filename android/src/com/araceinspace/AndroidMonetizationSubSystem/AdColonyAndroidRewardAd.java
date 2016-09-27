@@ -69,7 +69,7 @@ public class AdColonyAndroidRewardAd extends GameAd implements AdColonyV4VCListe
     @Override
     public void setup() {
         Gdx.app.log("GameAds", "AdColonyAndroidRewardAd.setup() called");
-        AdColony.configure(app, "version:0.0.1a,store:google", APP_ID, ZONE_ID);//sets the app and zone id, also need this weird string for some reason.
+        AdColony.configure(app, "version:0.0.2,store:google", APP_ID, ZONE_ID);//sets the app and zone id, also need this weird string for some reason.
         rewardedVideoAd = new AdColonyV4VCAd(ZONE_ID); //Init the reward add.
         AdColony.addV4VCListener(this); //Add this as a listener.
     }
