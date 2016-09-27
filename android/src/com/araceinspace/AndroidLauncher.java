@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.araceinspace.AndroidMonetizationSubSystem.AndroidMonetizationController;
 import com.araceinspace.MonetizationSubSystem.ToastInterface;
 import com.araceinspace.TestSubSystem.AndroidsMonetizationController_Test;
+import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
@@ -39,7 +40,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
 		//View gameView = initializeForView(new ARaceInSpace(monetizationController), config);
-		View gameView = initializeForView(new AndroidsMonetizationController_Test(adsController, this), config);
+		View gameView = initializeForView(new MonetizationIntegrationTest(adsController, this), config);
 
 		adsController.setupAds();
 

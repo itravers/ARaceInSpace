@@ -24,6 +24,8 @@ public class AndroidsMonetizationController_Test extends ApplicationAdapter{
     Texture img;
     int xCoords = 0;
 
+    int credits = 0; //the num of in-game test credits
+
 
 
     public AndroidsMonetizationController_Test(MonetizationController monetizationController, ToastInterface toastInterface){
@@ -35,9 +37,7 @@ public class AndroidsMonetizationController_Test extends ApplicationAdapter{
     public void create () {
         batch = new SpriteBatch();
         img = new Texture("badlogic.jpg");
-       // monetizationController.loadBannerAd();
-       // monetizationController.loadInterstitialAd();
-        Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(this)));
+       // Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(this)));
     }
 
     @Override
@@ -45,7 +45,6 @@ public class AndroidsMonetizationController_Test extends ApplicationAdapter{
         xCoords++;
         if(xCoords >= Gdx.graphics.getWidth()){
             xCoords = 0;
-           // if(showToast)toastInterface.toast("this is a toast");
         }
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -53,10 +52,6 @@ public class AndroidsMonetizationController_Test extends ApplicationAdapter{
         batch.draw(img, xCoords, 0);
         batch.end();
         monetizationController.updateVisibility();
-
-       // if(!toastSet && showToast){
-       //     toastInterface.toast("this is a toast2");
-       // }
     }
 
     public void toast(final String t){
@@ -68,7 +63,4 @@ public class AndroidsMonetizationController_Test extends ApplicationAdapter{
         batch.dispose();
         img.dispose();
     }
-
-
-
 }

@@ -1,6 +1,7 @@
 package com.araceinspace.InputSubSystem;
 
 import com.araceinspace.TestSubSystem.AndroidsMonetizationController_Test;
+import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -10,9 +11,9 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class GameInputListener implements GestureDetector.GestureListener{
     //for testing
-    AndroidsMonetizationController_Test parent;
+    MonetizationIntegrationTest parent;
 
-    public GameInputListener(AndroidsMonetizationController_Test parent){
+    public GameInputListener(MonetizationIntegrationTest parent){
         this.parent = parent;
     }
 
