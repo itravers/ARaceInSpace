@@ -245,4 +245,24 @@ public class AndroidMonetizationController implements MonetizationController {
         //inAppPurchaser.destroy();
         playPurchaseManager.destroy();
     }
+
+    @Override
+    public boolean isBannerAdLoaded(){
+        return bannerAd.isLoaded();
+    }
+
+    @Override
+    public boolean isBannerAdShowing(){
+        return bannerAd.isShowing();
+    }
+
+    @Override
+    public boolean isInterstitialAdLoaded(){
+        return interstitialAd.isLoaded();
+    }
+
+    @Override
+    public boolean isRewardAdLoaded(){
+        return rewardedVideoAd.isLoaded();
+    }
 }

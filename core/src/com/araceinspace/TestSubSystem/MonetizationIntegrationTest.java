@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -134,7 +135,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         rewardAdLabel.setScale(.75f);
         rewardAdLabel.setPosition(20, Gdx.graphics.getHeight()-(rewardAdLabel.getHeight()+spacer)*5);
 
-        Label iapAdLabel = new Label("Reward ADs- ", skin);
+        Label iapAdLabel = new Label("In-App purchases- ", skin);
         iapAdLabel.setFontScale(.75f);
         iapAdLabel.setScale(.75f);
         iapAdLabel.setPosition(20, Gdx.graphics.getHeight()-(iapAdLabel.getHeight()+spacer)*6);
@@ -166,6 +167,8 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         showBannerAdButton.setWidth(Gdx.graphics.getWidth()/6);
         showBannerAdButton.setHeight(buttonHeight);
         showBannerAdButton.setPosition((loadBannerAdButton.getX() + loadBannerAdButton.getWidth()+spacer), bannerAdLabel.getY());
+        showBannerAdButton.setTouchable(Touchable.disabled);
+        showBannerAdButton.setVisible(false);
         showBannerAdButton.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -178,6 +181,10 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         hideBannerAdButton.setWidth(Gdx.graphics.getWidth()/6);
         hideBannerAdButton.setHeight(buttonHeight);
         hideBannerAdButton.setPosition((showBannerAdButton.getX() + showBannerAdButton.getWidth()+spacer), showBannerAdButton.getY());
+        hideBannerAdButton.setTouchable(Touchable.disabled);
+        hideBannerAdButton.setVisible(false);
+        //showBannerAdButton.setDisabled(true);
+
         hideBannerAdButton.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -203,6 +210,8 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         showInterstitialAdButton.setWidth(Gdx.graphics.getWidth()/6);
         showInterstitialAdButton.setHeight(buttonHeight);
         showInterstitialAdButton.setPosition((loadInterstitialAdButton.getX() + loadInterstitialAdButton.getWidth()+spacer), interstitialAdLabel.getY());
+        showInterstitialAdButton.setTouchable(Touchable.disabled);
+        showInterstitialAdButton.setVisible(false);
         showInterstitialAdButton.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -227,6 +236,8 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         showRewardAdButton.setWidth(Gdx.graphics.getWidth()/6);
         showRewardAdButton.setHeight(buttonHeight);
         showRewardAdButton.setPosition((loadRewardAdButton.getX() + loadRewardAdButton.getWidth()+spacer), rewardAdLabel.getY());
+        showRewardAdButton.setTouchable(Touchable.disabled);
+        showRewardAdButton.setVisible(false);
         showRewardAdButton.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -283,7 +294,9 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
     public void render () {
 
         //update credits on screen
-        creditAmountLabel.setText(String.valueOf(credits));
+        updateGUI();
+
+
 
         xCoords++;
         if(xCoords >= Gdx.graphics.getWidth()){
@@ -301,6 +314,62 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         guiStage.draw();
 
         monetizationController.updateVisibility();//used for banner ads to know whether to show
+
+
+    }
+
+    private void updateGUI(){
+        //update changing labels
+        creditAmountLabel.setText(String.valueOf(credits));
+
+        //update button enabled
+        updateButtonsEnabled();
+
+    }
+
+    private void updateButtonsEnabled(){
+        //check banner show, should only be enabled if loaded, and not showing
+        if(monetizationController.isBannerAdLoaded() && !monetizationController.isBannerAdShowing()){
+            //showBannerAdButton.setDisabled(false);
+            showBannerAdButton.setTouchable(Touchable.enabled);
+            showBannerAdButton.setVisible(true);
+        }else{
+            //showBannerAdButton.setDisabled(true);
+            showBannerAdButton.setTouchable(Touchable.disabled);
+            showBannerAdButton.setVisible(false);
+        }
+
+        if(monetizationController.isBannerAdLoaded() && monetizationController.isBannerAdShowing()){
+            //check hideBannerAdButton
+            hideBannerAdButton.setTouchable(Touchable.enabled);
+            hideBannerAdButton.setVisible(true);
+        }else{
+            //check hideBannerAdButton
+            hideBannerAdButton.setTouchable(Touchable.disabled);
+            hideBannerAdButton.setVisible(false);
+        }
+
+        //check the showInterstitialAdButton
+        if(monetizationController.isInterstitialAdLoaded()){
+            showInterstitialAdButton.setTouchable(Touchable.enabled);
+            showInterstitialAdButton.setVisible(true);
+        }else{
+            showInterstitialAdButton.setTouchable(Touchable.disabled);
+            showInterstitialAdButton.setVisible(false);
+        }
+
+        //checks the showRewardAdButton
+        if(monetizationController.isRewardAdLoaded()){
+            showRewardAdButton.setTouchable(Touchable.enabled);
+            showRewardAdButton.setVisible(true);
+        }else{
+            showRewardAdButton.setTouchable(Touchable.disabled);
+            showRewardAdButton.setVisible(false);
+        }
+
+
+
+
 
 
     }

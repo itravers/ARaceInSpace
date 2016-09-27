@@ -38,6 +38,26 @@ public class DummyController implements MonetizationController {
     }
 
     @Override
+    public boolean isBannerAdLoaded() {
+        return false;
+    }
+
+    @Override
+    public boolean isBannerAdShowing() {
+        return false;
+    }
+
+    @Override
+    public boolean isInterstitialAdLoaded() {
+        return false;
+    }
+
+    @Override
+    public boolean isRewardAdLoaded() {
+        return false;
+    }
+
+    @Override
     public void setupAds() {
 
     }

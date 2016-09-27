@@ -111,4 +111,12 @@ public interface MonetizationController {
      * Called at app close.
      */
     public void destroy();
+
+    public boolean isBannerAdLoaded();
+
+    public boolean isBannerAdShowing();
+
+    public boolean isInterstitialAdLoaded();
+
+    public boolean isRewardAdLoaded();
 }
