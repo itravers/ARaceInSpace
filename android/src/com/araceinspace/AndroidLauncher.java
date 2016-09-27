@@ -122,6 +122,13 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 					toast("Adding a credit for watching video");
 					mainGame.add1Credit();
 				}
+				else if(action.equals("Add10Credits")){
+					toast("Adding 10 credits because you purchased them");
+					mainGame.addCredits(10);
+				}else if(action.equals("Add20Credits")){
+					toast("Adding 20 credits because you purchased them");
+					mainGame.addCredits(20);
+				}
 			}
 		};
 
@@ -129,6 +136,8 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction("ShowToast");
 		intentFilter.addAction("Add1Credit");
+		intentFilter.addAction("Add10Credits");
+		intentFilter.addAction("Add20Credits");
 		localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter);
 	}
 

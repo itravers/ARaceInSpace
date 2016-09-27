@@ -94,7 +94,7 @@ public interface MonetizationController {
     /**
      * Directs the iap to initiate a purchase for the specified item.
      */
-    public void buyItem();
+    public void buyItem(String sku);
 
     /**
      * Pauses any systems that have the ability to pause

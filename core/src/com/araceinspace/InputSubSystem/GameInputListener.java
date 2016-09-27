@@ -39,7 +39,7 @@ public class GameInputListener implements GestureDetector.GestureListener{
             System.out.println("game ads fling buy item");
             //parent.monetizationController.showBannerAd();
             //parent.monetizationController.showInterstitialAd();
-            parent.monetizationController.buyItem();
+            parent.monetizationController.buyItem("test_product_0001");
         }else if(velocityX <= -1){
             System.out.println("game ads show toast");
             //parent.monetizationController.hideBannerAd();

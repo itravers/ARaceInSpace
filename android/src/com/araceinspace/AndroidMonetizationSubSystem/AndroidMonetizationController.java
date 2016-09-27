@@ -213,10 +213,10 @@ public class AndroidMonetizationController implements MonetizationController {
     /**
      * Directs the iap to initiate a purchase for the specified item.
      */
-    public void buyItem(){
+    public void buyItem(String sku){
         //inAppPurchaser.buyItem();
         //playPurchaseManager.purchaseItem(playPurchaseManager.getDefaultItems().get("test_product_0001")); //buy test_product_0001 which is a default item.
-        playPurchaseManager.purchaseItem(playPurchaseManager.defaultItems.get("test_product_0001")); //buy test_product_0001 which is a default item.
+        playPurchaseManager.purchaseItem(playPurchaseManager.defaultItems.get(sku)); //buy test_product_0001 which is a default item.
     }
 
     /**

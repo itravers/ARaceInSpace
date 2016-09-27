@@ -98,7 +98,7 @@ public class DummyController implements MonetizationController {
     }
 
     @Override
-    public void buyItem() {
+    public void buyItem(String sku) {
 
     }
 }

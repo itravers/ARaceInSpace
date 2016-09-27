@@ -211,9 +211,20 @@ public class PlayPurchaseManager {
     public void consumeItemLocally(PurchasableItem item){
         Gdx.app.log("PlayPurchaseManager", "consumeItemLocally() called : " + item.toString());
         //we'll end up sending this via the event dispatcher, but for now we'll show a toast.
-        Intent intent = new Intent("ShowToast");
-        intent.putExtra("message", "Consumed " + item.getSku());
-        LocalBroadcastManager.getInstance(app).sendBroadcast(intent);
+        //Intent intent = new Intent("ShowToast");
+        //intent.putExtra("message", "Consumed " + item.getSku());
+        //LocalBroadcastManager.getInstance(app).sendBroadcast(intent);
+
+        //test_product_0001 gets credited with buying 10 credits, test_product_0002 gets credited with 20 credits
+        if(item.getSku().equals("test_product_0001")){
+            Intent newIntent = new Intent("Add10Credits");
+            newIntent.putExtra("message", "Consumed " + item.getSku());
+            LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
+        }else if(item.getSku().equals("test_product_0002")){
+            Intent newIntent = new Intent("Add20Credits");
+            newIntent.putExtra("message", "Consumed " + item.getSku());
+            LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
+        }
     }
 
     /**

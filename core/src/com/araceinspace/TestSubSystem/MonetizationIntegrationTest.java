@@ -146,8 +146,8 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         creditLabel.setPosition(5, Gdx.graphics.getHeight()-creditLabel.getHeight());
 
         creditAmountLabel = new Label("0", skin);
-        creditAmountLabel.setFontScale(.5f);
-        creditAmountLabel.setScale(.5f);
+       // creditAmountLabel.setFontScale(.5f);
+       // creditAmountLabel.setScale(.5f);
         creditAmountLabel.setPosition((creditLabel.getX()+creditLabel.getWidth()+spacer), Gdx.graphics.getHeight()-creditLabel.getHeight());
 
         //setup buttons
@@ -253,11 +253,12 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         buy10CreditsButton = new TextButton("Buy 10 Credits", skin, "default");
         buy10CreditsButton.setWidth(Gdx.graphics.getWidth()/3);
         buy10CreditsButton.setHeight(buttonHeight);
-        buy10CreditsButton.setPosition((iapAdLabel.getX() + iapAdLabel.getWidth()), iapAdLabel.getY());
+        buy10CreditsButton.setPosition((iapAdLabel.getX() + iapAdLabel.getWidth() - 70), iapAdLabel.getY());
         buy10CreditsButton.addListener( new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("buy10CreditsButton clicked");
+                monetizationController.buyItem("test_product_0001");
             };
         });
 
@@ -269,6 +270,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("buy20CreditsButton clicked");
+                monetizationController.buyItem("test_product_0002");
             };
         });
 
@@ -390,5 +392,9 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
 
     public void add1Credit(){
         credits++;
+    }
+
+    public void addCredits(int creds){
+        credits += creds;
     }
 }
