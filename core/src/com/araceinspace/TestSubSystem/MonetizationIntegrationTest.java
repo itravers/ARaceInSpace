@@ -47,7 +47,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
     Texture img;
     int xCoords = 0;
 
-    int credits = 0; //the num of in-game test credits
+    private int credits = 0; //the num of in-game test credits
     TextButton loadBannerAdButton;
     TextButton showBannerAdButton;
     TextButton hideBannerAdButton;
@@ -203,6 +203,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("loadInterstitialAdButton clicked");
+                monetizationController.loadInterstitialAd();
             };
         });
 
@@ -216,6 +217,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("showInterstitialAdButton clicked");
+                monetizationController.showInterstitialAd();
             };
         });
 
@@ -229,6 +231,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("loadRewardAdButton clicked");
+                monetizationController.loadRewardAd();
             };
         });
 
@@ -242,6 +245,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("showRewardAdButton clicked");
+                monetizationController.showRewardAd();
             };
         });
 
@@ -382,5 +386,9 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
     public void dispose () {
         batch.dispose();
         img.dispose();
+    }
+
+    public void add1Credit(){
+        credits++;
     }
 }

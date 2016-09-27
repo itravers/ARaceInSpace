@@ -188,5 +188,10 @@ public class AdColonyAndroidRewardAd extends GameAd implements AdColonyV4VCListe
         Gdx.app.log("GameAds", "name: " + adColonyV4VCReward.name());
         Gdx.app.log("GameAds", "amount: " + adColonyV4VCReward.amount());
 
+        //create new intent to Add1Credit. Main laucner will receive it and add a credit to the test system.
+        //This is how we route the message, create an intent, and broadcast it. We've setup the launcher to listen for this.
+        Intent intent = new Intent("Add1Credit");
+        intent.putExtra("message", "message don't matter here");
+        LocalBroadcastManager.getInstance(app).sendBroadcast(intent);
     }
 }

@@ -26,6 +26,8 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 	LocalBroadcastManager localBroadcastManager;
 	BroadcastReceiver broadcastReceiver;
 
+	MonetizationIntegrationTest mainGame;
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,7 +43,8 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
 		//View gameView = initializeForView(new ARaceInSpace(monetizationController), config);
-		View gameView = initializeForView(new MonetizationIntegrationTest(adsController, this), config);
+		mainGame = new MonetizationIntegrationTest(adsController, this);
+		View gameView = initializeForView(mainGame, config);
 
 		adsController.setupAds();
 
@@ -108,16 +111,24 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		broadcastReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
+				String action = intent.getAction();
 				Log.d("MessageService", "AndroidLauncher Received intent: " + intent);
 				//RemoteMessage remoteMessage = (RemoteMessage)intent.getExtras().get("remoteMessage");
-				String message = (String)intent.getExtras().get("message");
-				toast(message);
+
+				if(action.equals("ShowToast")){
+					String message = (String)intent.getExtras().get("message");
+					toast(message);
+				}else if(action.equals("Add1Credit")){
+					toast("Adding a credit for watching video");
+					mainGame.add1Credit();
+				}
 			}
 		};
 
 		localBroadcastManager = LocalBroadcastManager.getInstance(this);
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction("ShowToast");
+		intentFilter.addAction("Add1Credit");
 		localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter);
 	}
 
