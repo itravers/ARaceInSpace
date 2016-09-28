@@ -21,6 +21,7 @@ public class PurchasableItem{
     public enum PURCHASE_TYPE {CONSUMABLE, NON_CONSUMABLE, SUBSCRIPTION};
 
 /* Field Variables */
+
     /**
      * Purchasable Items are refered to by their sku's.
      */
