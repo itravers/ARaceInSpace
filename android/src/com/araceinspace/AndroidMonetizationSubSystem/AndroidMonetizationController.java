@@ -93,6 +93,7 @@ public class AndroidMonetizationController implements MonetizationController {
     /**
      * Sets up the ads so they are useful.
      */
+    @Override
     public void setupAds() {
         Gdx.app.log("GameAds", "AndroidMonetizationController.setupAds() called");
 
@@ -121,6 +122,7 @@ public class AndroidMonetizationController implements MonetizationController {
      * If it should be visibble and is not, it is set to visible.
      * If it should be Invisible and is not, it is set to Invisible.
      */
+    @Override
     public void updateVisibility(){
         if(bannerAd.isShowing()){
             bannerAd.setVisibility(View.VISIBLE);
@@ -132,16 +134,19 @@ public class AndroidMonetizationController implements MonetizationController {
     /**
      * Lets the RewardAd Asyncronously load itself.
      */
+    @Override
     public void loadRewardAd(){rewardedVideoAd.loadAd();}
 
     /**
      * Lets the rewardsedVideoAd show itself.
      */
+    @Override
     public void showRewardAd(){rewardedVideoAd.showAd();}
 
     /**
      * Lets the interstitial ad Asynchronously load itself.
      */
+    @Override
     public void loadInterstitialAd(){
         interstitialAd.loadAd();
     }
@@ -149,6 +154,7 @@ public class AndroidMonetizationController implements MonetizationController {
     /**
      * Lets the interstitial ad show itself.
      */
+    @Override
     public void showInterstitialAd(){
         interstitialAd.showAd();
     }
@@ -156,6 +162,7 @@ public class AndroidMonetizationController implements MonetizationController {
     /**
      * Makes the contained banner ad load itself Asynchronously
      */
+    @Override
     public void loadBannerAd(){
         bannerAd.loadAd();;
     }
@@ -166,6 +173,7 @@ public class AndroidMonetizationController implements MonetizationController {
      * as that must be done from render() through the updateVisibility()
      * method.
      */
+    @Override
     public void showBannerAd(){
         bannerAd.setShowing(true);
     }
@@ -175,6 +183,7 @@ public class AndroidMonetizationController implements MonetizationController {
      * This also does not change the underlying graphics visibility
      * as that must be done from the render() through updateVisibility()
      */
+    @Override
     public void hideBannerAd(){
         bannerAd.setShowing(false);
         bannerAd.loadAd(); //we may want to load another ad as soon as the previous was hidden.
@@ -208,6 +217,7 @@ public class AndroidMonetizationController implements MonetizationController {
      * @param <T> The Generic Type
      * @return
      */
+    @Override
     public <T> boolean onActivityResult(int requestCode, int resultCode, T data){
         return onActivityResult(requestCode, resultCode, (Intent)data); //cast data to an intent and call ungeneric method.
     }
@@ -226,6 +236,7 @@ public class AndroidMonetizationController implements MonetizationController {
     /**
      * Directs the iap to initiate a purchase for the specified item.
      */
+    @Override
     public void buyItem(String sku){
         playPurchaseManager.purchaseItem(playPurchaseManager.defaultItems.get(sku)); //buy test_product_0001 which is a default item.
     }
@@ -233,6 +244,7 @@ public class AndroidMonetizationController implements MonetizationController {
     /**
      * Pauses any systems that have the ability to pause
      */
+    @Override
     public void pause(){
         bannerAd.pause();
         rewardedVideoAd.pause();
@@ -241,6 +253,7 @@ public class AndroidMonetizationController implements MonetizationController {
     /**
      * Resumes any systems that have been paused.
      */
+    @Override
     public void resume(){
         bannerAd.resume();
         rewardedVideoAd.resume();
@@ -250,6 +263,7 @@ public class AndroidMonetizationController implements MonetizationController {
      * Destroys any Systems with the ability to be destroyed.
      * Called at app close.
      */
+    @Override
     public void destroy(){
         bannerAd.destroy();
         rewardedVideoAd.destroy();

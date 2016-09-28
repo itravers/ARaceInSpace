@@ -14,7 +14,7 @@ public class DesktopLauncher {
 
 	DummyController monetizationController;
 	DesktopLauncher me;
-	
+
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1280;
