@@ -16,11 +16,15 @@ import com.badlogic.gdx.Gdx;
 public class AndroidMonetizationController implements MonetizationController {
 
 /* Field Variables */
+
     /**
      * Admob generated Banner ID.
      */
     private static final String BANNER_AD_ID = "ca-app-pub-5553172650479270/1591123946";
 
+    /**
+     * The actual AdMob Android Banner ad, which extends GameAd.
+     */
     private AndroidBannerAd bannerAd;
 
     /**
@@ -28,15 +32,26 @@ public class AndroidMonetizationController implements MonetizationController {
      */
     private static final String INTERSTITIAL_AD_ID = "ca-app-pub-5553172650479270/1671849140";
 
+    /**
+     * The actual AdMob Android Interstitial ad, which also extends GameAd.
+     */
     private AndroidInterstitialAd interstitialAd;
 
-
+    /**
+     * This is the AdMob id for a mediated reward ad, currently Admob mediation isn't working, so we
+     * don't use it.
+     */
     private static final String REWARD_AD_ID = "ca-app-pub-5553172650479270/6900797543"; //AdMob Mediation id.
-    //private static final String REWARD_AD_ID = "app97267127423b4837aa"; //AdColon
 
+    /**
+     * The actual AdColony Android Reward Ad, which also extends GameAd.
+     */
     private AdColonyAndroidRewardAd rewardedVideoAd;
 
-    //GooglePlayIAP inAppPurchaser;
+    /**
+     * The in-app purchase manager, which gives app users the ability to buy in-app items
+     * and subscriptions.
+     */
     PlayPurchaseManager playPurchaseManager;
 
     /**
@@ -55,6 +70,7 @@ public class AndroidMonetizationController implements MonetizationController {
     public AndroidMonetizationController(AndroidLauncher app){
         this.app = app;
     }
+
 
 /* Private Methods. */
 
@@ -93,8 +109,6 @@ public class AndroidMonetizationController implements MonetizationController {
         rewardedVideoAd.setup();
 
         //next setup the in-app purchase system.
-        //inAppPurchaser = new GooglePlayIAP(app);
-       // inAppPurchaser.setup();
         playPurchaseManager = new PlayPurchaseManager(app);
         playPurchaseManager.setup();
     }
@@ -246,21 +260,37 @@ public class AndroidMonetizationController implements MonetizationController {
         playPurchaseManager.destroy();
     }
 
+    /**
+     * Checks if a Banner is Currently Loaded.
+     * @return True if loaded, false if not.
+     */
     @Override
     public boolean isBannerAdLoaded(){
         return bannerAd.isLoaded();
     }
 
+    /**
+     * Checks if a Banner Ad is currently showing.
+     * @return True if showing, false if not.
+     */
     @Override
     public boolean isBannerAdShowing(){
         return bannerAd.isShowing();
     }
 
+    /**
+     * Checks if an interstitial ad has been loaded.
+     * @return True if loaded, false if not.
+     */
     @Override
     public boolean isInterstitialAdLoaded(){
         return interstitialAd.isLoaded();
     }
 
+    /**
+     * Checks if a reward ad is loaded.
+     * @return True if loaded, false if not.
+     */
     @Override
     public boolean isRewardAdLoaded(){
         return rewardedVideoAd.isLoaded();
