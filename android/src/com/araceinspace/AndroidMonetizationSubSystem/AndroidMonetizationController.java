@@ -220,7 +220,6 @@ public class AndroidMonetizationController implements MonetizationController {
      * @return
      */
     public boolean onActivityResult(int requestCode, int resultCode, Intent data){
-        //return inAppPurchaser.onActivityResult(requestCode, resultCode, data);
         return playPurchaseManager.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -228,8 +227,6 @@ public class AndroidMonetizationController implements MonetizationController {
      * Directs the iap to initiate a purchase for the specified item.
      */
     public void buyItem(String sku){
-        //inAppPurchaser.buyItem();
-        //playPurchaseManager.purchaseItem(playPurchaseManager.getDefaultItems().get("test_product_0001")); //buy test_product_0001 which is a default item.
         playPurchaseManager.purchaseItem(playPurchaseManager.defaultItems.get(sku)); //buy test_product_0001 which is a default item.
     }
 
