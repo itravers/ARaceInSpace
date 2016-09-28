@@ -112,8 +112,16 @@ public interface MonetizationController {
      */
     public void destroy();
 
+    /**
+     * Lets the caller know if a banner ad is currently loaded.
+     * @return True if loaded, false if not.
+     */
     public boolean isBannerAdLoaded();
 
+    /**
+     * Lets the caller know if a banner ad is currently
+     * @return
+     */
     public boolean isBannerAdShowing();
 
     public boolean isInterstitialAdLoaded();
