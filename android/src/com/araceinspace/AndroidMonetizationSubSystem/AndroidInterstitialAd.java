@@ -3,7 +3,6 @@ package com.araceinspace.AndroidMonetizationSubSystem;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
 import com.araceinspace.MonetizationSubSystem.GameAd;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -65,6 +64,10 @@ public class AndroidInterstitialAd extends GameAd{
 
 /* Public Methods */
 
+    /**
+     * Setup the ad and get it ready to be used.
+     * Initializes it, sets its ID, and sets its listener.
+     */
     @Override
     public void setup() {
         Gdx.app.log("GameAds", "AndroidInterstitialAd.setup() called");
@@ -73,6 +76,10 @@ public class AndroidInterstitialAd extends GameAd{
         interstitialAd.setAdListener(new InterstitialListener(me));
     }
 
+    /**
+     * Caused the Interstitial Ad to load in the background without interfering with the
+     * rest of the game.
+     */
     @Override
     public void loadAd() {
         Gdx.app.log("GameAds", "AndroidInterstitialAd.loadAd() called");
@@ -93,12 +100,20 @@ public class AndroidInterstitialAd extends GameAd{
         }
     }
 
+    /**
+     * Callback that is called when the ad is done loaded.
+     * This just sets a boolean that we can check later
+     * to see if loading has been accomplished.
+     */
     @Override
     public void loadAd_callback() {
         Gdx.app.log("Game Ads", "AndroidInterstitialAd.loadAd_callback() called");
         setLoaded(true);
     }
 
+    /**
+     * Causes the Interstitial Ad to display.
+     */
     @Override
     public void showAd(){
         Gdx.app.log("GameAds", "AndroidInterstitialAd.showAd() called");
@@ -114,6 +129,12 @@ public class AndroidInterstitialAd extends GameAd{
         }
     }
 
+    /**
+     * We only set visibility in the banner ads, because they suck. We don't
+     * need to use this for InterstitialAds.
+     * @param vis Can be interpreted by subclass however they want
+     * @param <T>
+     */
     @Override
     public <T> void setVisibility(T vis) {
       //do nothing interstitial ads visibility is not set the same way as banner ads.
@@ -137,33 +158,58 @@ public class AndroidInterstitialAd extends GameAd{
         setShowing(false);
     }
 
+    /**
+     * Interstitial ads don't have a pause function.
+     */
     public void pause(){
         //interstitialAds don't have a pause function
-
     }
 
+    /**
+     * Interstitial ads don't have a resume function.
+     */
     public void resume(){
         //interstitialAds don't have a resume function
     }
 
+    /**
+     * Interstitial ads don't have a destroy function.
+     */
     public void destroy(){
         //interstitialAds don't have a destroy function
-
     }
+
 
 /* Private Classes */
 
+    /**
+     * The InterstitialListener extends an AdListener and implements any
+     * callbacks needed for the AdMob Interstitial Ads.
+     */
     public class InterstitialListener extends AdListener{
+
+    /* Field Variables */
 
         /**
          * This is the Add this Listener is Listening To.
          */
         AndroidInterstitialAd ad;
 
+    /* Constructors */
+
+        /**
+         * Create a new InterstitialListener.
+         * @param ad The Ad the listener is listening to.
+         */
         public InterstitialListener(AndroidInterstitialAd ad){
             super();
             this.ad = ad;
         }
+
+    /* Private Methods */
+
+
+    /* Public Methods */
 
         /**
          * If the banner ad failed to load, this will be called.
@@ -196,6 +242,5 @@ public class AndroidInterstitialAd extends GameAd{
         public void onAdClosed(){
             ad.closeAd_callback();
         }
-
     }
 }
