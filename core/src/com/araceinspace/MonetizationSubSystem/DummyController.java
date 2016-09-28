@@ -2,19 +2,22 @@ package com.araceinspace.MonetizationSubSystem;
 
 /**
  * Created by Isaac Assegai on 9/17/16.
- * Used by Launchers that have not yet implemented
- * an MonetizationController
+ * The DummyController implements the MonetizationController
+ * interface for all classes that don't actually have a
+ * monetization controller. This is a space keeper until
+ * we can implement a monetization controller for each
+ * type of launcher.
  */
 public class DummyController implements MonetizationController {
 
-    //@Override
+    @Override
     public void showBannerAd() {
-
+        //do nothing
     }
 
-    //@Override
+    @Override
     public void hideBannerAd() {
-
+        //do nothing
     }
 
     @Override
@@ -24,17 +27,17 @@ public class DummyController implements MonetizationController {
 
     @Override
     public void pause() {
-
+        //do nothing
     }
 
     @Override
     public void resume() {
-
+        //do nothing
     }
 
     @Override
     public void destroy() {
-
+        //do nothing
     }
 
     @Override
@@ -59,37 +62,37 @@ public class DummyController implements MonetizationController {
 
     @Override
     public void setupAds() {
-
+        //do nothing
     }
 
     @Override
     public void loadRewardAd() {
-
+        //do nothing
     }
 
     @Override
     public void showRewardAd() {
-
+        //do nothing
     }
 
     @Override
     public void loadInterstitialAd() {
-
+        //do nothing
     }
 
     @Override
     public void showInterstitialAd() {
-
+        //do nothing
     }
 
     @Override
     public void loadBannerAd() {
-
+        //do nothing
     }
 
     @Override
     public void updateVisibility() {
-
+        //do nothing
     }
 
     @Override
@@ -99,6 +102,6 @@ public class DummyController implements MonetizationController {
 
     @Override
     public void buyItem(String sku) {
-
+        //do nothing
     }
 }
