@@ -77,6 +77,7 @@ public class AndroidBannerAd extends GameAd{
      * We need to set it's visibility, it's size, it's id and
      * it's listener.
      */
+    @Override
     public void setup(){
         System.out.println("game ads: bannerAd constructed on thread:" + Thread.currentThread().getName());
         bannerAd = new AdView(app);
@@ -173,23 +174,14 @@ public class AndroidBannerAd extends GameAd{
         return layout;
     }
 
-    /**
-     * Check to see if the system's wifi is connected.
-     * @return True if wifi is connected.
-     */
-    public boolean isConnected() {
-        ConnectivityManager cm = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
-        //NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
 
-        return (ni != null && ni.isConnected());
-    }
 
     /**
      * This doesn't do anything here, we only use showAd in interstitial and reward ads.
      * if we want to show a banner ad we change it's visibility. The render code
      * checks the visibility and shows it there.
      */
+    @Override
     public void showAd(){
         //doesn't do anything here, only used in interstitial ads.
     }

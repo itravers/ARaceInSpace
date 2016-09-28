@@ -96,6 +96,12 @@ public abstract class GameAd {
      */
     public abstract void destroy();
 
+    /**
+     * Checks to see if the app is connected to the internet.
+     * @return
+     */
+    public abstract boolean isConnected();
+
 
 /* Public Methods */
 
@@ -138,4 +144,6 @@ public abstract class GameAd {
     public void setShowing(boolean show){
         showing = show;
     }
+
+
 }
