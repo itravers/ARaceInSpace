@@ -11,30 +11,57 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.araceinspace.AndroidMonetizationSubSystem.AndroidMonetizationController;
 import com.araceinspace.MonetizationSubSystem.ToastInterface;
-import com.araceinspace.TestSubSystem.AndroidsMonetizationController_Test;
 import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
+/**
+ * Created by Isaac Assegai on 9/17/16.
+ * The AndroidLauncher intitializes all the systems
+ * needed to get the app running on android.
+ */
 public class AndroidLauncher extends AndroidApplication implements ToastInterface{
 
+/* Field Variables */
+
+	/**
+	 * The MonetizationController that we create and pass to the game.
+	 */
 	AndroidMonetizationController adsController;
+
+	/**
+	 * An Alternate reference to this. Used inside Runnables.
+	 */
 	AndroidLauncher me;
+
+	/**
+	 * Used to receive intents
+	 */
 	LocalBroadcastManager localBroadcastManager;
+
+	/**
+	 * Also used to receive intents.
+	 */
 	BroadcastReceiver broadcastReceiver;
 
+	/**
+	 * A reference to the game.
+	 */
 	MonetizationIntegrationTest mainGame;
 
+/* Protected Methods */
+
+	/**
+	 * Called when the OS creates a new game.
+	 * @param savedInstanceState Saved data we can use to reset-up the game.
+     */
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		me = this;
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		//System.out.println("config h/w: " + config. + "/" + config.width);
-		//initialize(new ARaceInSpace(), config);
 
 		/*Initialize and AndroidMonetizationController, we do it here, because the
 		 * AdView in the AndroidMonetizationController requires access to this */
@@ -42,12 +69,11 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
-		//View gameView = initializeForView(new ARaceInSpace(monetizationController), config);
 		mainGame = new MonetizationIntegrationTest(adsController, this);
 		View gameView = initializeForView(mainGame, config);
 
+		//set up the ads controller ads.
 		adsController.setupAds();
-
 
 		/* Setup the layouts we are going to use for our views.
 		   We want the gameView layout to match th parent layout. The main android app config.
@@ -63,50 +89,16 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		//Now we set the content view for the android app.
 		setContentView(layout);
 
-
 		//setup the broadcast receiver, so messages can be routed through here
 		registerBroadcastReceiver();
-
 	}
 
-	@Override
-	public void onResume() {
-		//mAd.resume(this);
-		adsController.resume();
-		super.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		//mAd.pause(this);
-		adsController.pause();
-		super.onPause();
-	}
-
-	@Override
-	public void onDestroy() {
-		//mAd.destroy(this);
-		adsController.destroy();
-		localBroadcastManager.unregisterReceiver(broadcastReceiver);
-		super.onDestroy();
-	}
+/* Private Methods */
 
 	/**
-	 * When google in app billing returns it calls this method on
-	 * the main. This method check if the ad controller will handle it
-	 * otherwise sends it to the super class to handle.
-	 * @param requestCode
-	 * @param resultCode
-	 * @param data
-     */
-	public void onActivityResult(int requestCode, int resultCode, Intent data){
-		//give the ads controller a chance to process the activity result first.
-		if(!adsController.onActivityResult(requestCode, resultCode, data)){
-			//if that doesn't work, we just do it the old fashioned way.
-			super.onActivityResult(requestCode, resultCode, data);
-		}
-	}
-
+	 * Registers the intents broadcast receiver, and tell what to do with the
+	 * intents when they are received.
+	 */
 	private void registerBroadcastReceiver() {
 		broadcastReceiver = new BroadcastReceiver() {
 			@Override
@@ -141,6 +133,58 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter);
 	}
 
+
+/* Public Methods */
+
+	/**
+	 * Called when the OS resumes the game, after being interrupted.
+	 */
+	@Override
+	public void onResume() {
+		adsController.resume();
+		super.onResume();
+	}
+
+	/**
+	 * Called by the OS, when it needs to pause the game.
+	 */
+	@Override
+	public void onPause() {
+		adsController.pause();
+		super.onPause();
+	}
+
+	/**
+	 * Called by the OS when it wants to destroy the game.
+	 */
+	@Override
+	public void onDestroy() {
+		adsController.destroy();
+		localBroadcastManager.unregisterReceiver(broadcastReceiver);
+		mainGame.dispose();
+		super.onDestroy();
+	}
+
+	/**
+	 * When google in app billing returns it calls this method on
+	 * the main. This method check if the ad controller will handle it
+	 * otherwise sends it to the super class to handle.
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+     */
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		//give the ads controller a chance to process the activity result first.
+		if(!adsController.onActivityResult(requestCode, resultCode, data)){
+			//if that doesn't work, we just do it the old fashioned way.
+			super.onActivityResult(requestCode, resultCode, data);
+		}
+	}
+
+	/**
+	 * When we are told to toast, we'll use androids toast feature.
+	 * @param t The string we want to display in the toast.
+     */
 	public void toast(final String t) {
 		handler.post(new Runnable(){
 			@Override
