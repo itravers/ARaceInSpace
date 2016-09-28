@@ -55,7 +55,6 @@ public class AndroidBannerAd extends GameAd{
 
     /**
      * Create a new BannerAd with a specific ID and ApplicationAdapter.
-     *
      * @param ID  The ID - Ususally manually obtained from ads service.
      * @param app The App we are displaying the ads in.
      */
@@ -66,10 +65,18 @@ public class AndroidBannerAd extends GameAd{
         me = this; //We assign this to me, to make this available to Runnables.
     }
 
+
 /* Private Methods */
+
 
 /* Public Methods */
 
+    /**
+     * Setup the Banner Ad and get it ready for using.
+     * We need to ad it to the view created in the AndroidLauncher.
+     * We need to set it's visibility, it's size, it's id and
+     * it's listener.
+     */
     public void setup(){
         System.out.println("game ads: bannerAd constructed on thread:" + Thread.currentThread().getName());
         bannerAd = new AdView(app);
@@ -104,7 +111,6 @@ public class AndroidBannerAd extends GameAd{
 
                 }
             });
-
         }else{
             System.out.println("game ads : loadAd() called, but no connection available, or app is null + " + app);
         }
@@ -179,18 +185,32 @@ public class AndroidBannerAd extends GameAd{
         return (ni != null && ni.isConnected());
     }
 
+    /**
+     * This doesn't do anything here, we only use showAd in interstitial and reward ads.
+     * if we want to show a banner ad we change it's visibility. The render code
+     * checks the visibility and shows it there.
+     */
     public void showAd(){
         //doesn't do anything here, only used in interstitial ads.
     }
 
+    /**
+     * Pauses the banner ad, called by AndroidLauncher automatically.
+     */
     public void pause(){
         bannerAd.pause();
     }
 
+    /**
+     * Resumes a paused Ad, called by AndroidLauncher automatically.
+     */
     public void resume(){
         bannerAd.resume();
     }
 
+    /**
+     * Destroys a banner ad, called by AndroidLaucnerh automatically.
+     */
     public void destroy(){
         bannerAd.destroy();
     }
