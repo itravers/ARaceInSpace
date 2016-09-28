@@ -171,6 +171,7 @@ public class AdColonyAndroidRewardAd extends GameAd implements AdColonyV4VCListe
      * Check to see if the system's wifi is connected.
      * @return True if wifi is connected.
      */
+    @Override
     public boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
