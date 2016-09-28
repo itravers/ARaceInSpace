@@ -144,6 +144,7 @@ public class AndroidInterstitialAd extends GameAd{
      * Check to see if the system's wifi is connected.
      * @return True if wifi is connected.
      */
+    @Override
     public boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
@@ -161,6 +162,7 @@ public class AndroidInterstitialAd extends GameAd{
     /**
      * Interstitial ads don't have a pause function.
      */
+    @Override
     public void pause(){
         //interstitialAds don't have a pause function
     }
@@ -168,6 +170,7 @@ public class AndroidInterstitialAd extends GameAd{
     /**
      * Interstitial ads don't have a resume function.
      */
+    @Override
     public void resume(){
         //interstitialAds don't have a resume function
     }
@@ -175,6 +178,7 @@ public class AndroidInterstitialAd extends GameAd{
     /**
      * Interstitial ads don't have a destroy function.
      */
+    @Override
     public void destroy(){
         //interstitialAds don't have a destroy function
     }
