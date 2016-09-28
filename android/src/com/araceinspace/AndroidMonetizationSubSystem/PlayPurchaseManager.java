@@ -2,7 +2,6 @@ package com.araceinspace.AndroidMonetizationSubSystem;
 
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
-
 import com.araceinspace.AndroidLauncher;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabHelper;
 import com.araceinspace.AndroidMonetizationSubSystem.util.IabResult;
@@ -10,7 +9,6 @@ import com.araceinspace.AndroidMonetizationSubSystem.util.Inventory;
 import com.araceinspace.AndroidMonetizationSubSystem.util.Purchase;
 import com.araceinspace.MonetizationSubSystem.PurchasableItem;
 import com.badlogic.gdx.Gdx;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,13 +45,13 @@ public class PlayPurchaseManager {
     /**
      * Used for all the actual contact with google play.
      */
-    IabHelper iabHelper;
+    private IabHelper iabHelper;
 
     /**
      * The Object that implements all the google play callback
      * we rolled this ourselves.
      */
-    PurchaseListener purchaseListener;
+    private PurchaseListener purchaseListener;
 
     /**
      * This is the list of all in-app purchasable items available to the game.
@@ -113,7 +111,6 @@ public class PlayPurchaseManager {
      */
     private void setupDefaultItems(){
         Gdx.app.log("PlayPurchaseManager", "setupDefaultItems() called");
-        //initiate the hashmap we store our default items in.
 
         //Create ALL the PurchasableItems that will be available for the app.
         PurchasableItem item1 = new PurchasableItem("test_product_0001", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "test_product_0001_developer_payload");
@@ -122,7 +119,6 @@ public class PlayPurchaseManager {
         //Add all the items created to the defaultItems map using their skus as keys.
         defaultItems.put(item1.getSku(), item1);
         defaultItems.put(item2.getSku(), item2);
-        //this.defaultItems = defaultItems;
     }
 
     /**
@@ -211,9 +207,6 @@ public class PlayPurchaseManager {
     public void consumeItemLocally(PurchasableItem item){
         Gdx.app.log("PlayPurchaseManager", "consumeItemLocally() called : " + item.toString());
         //we'll end up sending this via the event dispatcher, but for now we'll show a toast.
-        //Intent intent = new Intent("ShowToast");
-        //intent.putExtra("message", "Consumed " + item.getSku());
-        //LocalBroadcastManager.getInstance(app).sendBroadcast(intent);
 
         //test_product_0001 gets credited with buying 10 credits, test_product_0002 gets credited with 20 credits
         if(item.getSku().equals("test_product_0001")){
@@ -243,14 +236,6 @@ public class PlayPurchaseManager {
     }
 
     /**
-     * Gets the hashmap of default items.
-     * @return The hashmap of default items. <String, PurchasableItem>
-     */
-   // public HashMap<String, PurchasableItem> getDefaultItems(){
-   //     return defaultItems;
-    //}
-
-    /**
      * destroys the IabHelper
      */
     public void destroy() {
@@ -260,8 +245,6 @@ public class PlayPurchaseManager {
 
 
 /* Private Classes */
-
-
 
     /**
      * The PurchaseListener is where we implement all our callback
@@ -306,7 +289,6 @@ public class PlayPurchaseManager {
                     String defaultSKU = (String)pair.getKey();
                     PurchasableItem.PURCHASE_TYPE defaultType = ((PurchasableItem)pair.getValue()).getType();
                     System.out.println(pair.getKey() + " = " + pair.getValue());
-                   // it.remove(); // avoids a ConcurrentModificationException
 
                     //Look for an item in inv which has a sku that matches the sku of a default item
                     if(inv.hasPurchase(defaultSKU)){
@@ -327,7 +309,6 @@ public class PlayPurchaseManager {
                         }
                     }
                 }
-                //
                 iabHelper.consumeAsync(purchases, purchaseListener);
             }
         }
@@ -411,7 +392,5 @@ public class PlayPurchaseManager {
                 purchaseItem_callback(p);
             }
         }
-
-
     }
 }
