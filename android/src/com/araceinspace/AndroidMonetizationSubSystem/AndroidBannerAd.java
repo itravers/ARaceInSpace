@@ -189,6 +189,7 @@ public class AndroidBannerAd extends GameAd{
     /**
      * Pauses the banner ad, called by AndroidLauncher automatically.
      */
+    @Override
     public void pause(){
         bannerAd.pause();
     }
@@ -196,6 +197,7 @@ public class AndroidBannerAd extends GameAd{
     /**
      * Resumes a paused Ad, called by AndroidLauncher automatically.
      */
+    @Override
     public void resume(){
         bannerAd.resume();
     }
@@ -203,8 +205,20 @@ public class AndroidBannerAd extends GameAd{
     /**
      * Destroys a banner ad, called by AndroidLaucnerh automatically.
      */
+    @Override
     public void destroy(){
         bannerAd.destroy();
+    }
+
+    /**
+     * Check to see if the system's wifi is connected.
+     * @return True if wifi is connected.
+     */
+    @Override
+    public boolean isConnected() {
+        ConnectivityManager cm = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        return (ni != null && ni.isConnected());
     }
 
 
