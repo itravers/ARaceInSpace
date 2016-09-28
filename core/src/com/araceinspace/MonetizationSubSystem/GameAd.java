@@ -11,6 +11,7 @@ import com.badlogic.gdx.ApplicationAdapter;
  * if an ad has been loaded, or is showing.
  */
 public abstract class GameAd {
+
 /* Field Variables */
 
     /**
@@ -48,6 +49,9 @@ public abstract class GameAd {
 
 /* Abstract Methods */
 
+    /**
+     * Setup a GameAd so it's ready to use.
+     */
     public abstract void setup();
 
     /**
@@ -76,9 +80,22 @@ public abstract class GameAd {
      */
     public abstract void showAd();
 
+    /**
+     * Pause the ad, used to call any underlying pause() methods.
+     */
     public abstract void pause();
+
+    /**
+     * Resume the ad, after being paused,
+     * used to call the underlying resume() methods.
+     */
     public abstract void resume();
+
+    /**
+     * Destroy the add, used to call underlying destroy() methods.
+     */
     public abstract void destroy();
+
 
 /* Public Methods */
 
