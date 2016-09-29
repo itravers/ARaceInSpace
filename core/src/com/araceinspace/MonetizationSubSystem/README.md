@@ -47,7 +47,7 @@ A GameAd is an abstract object that needs to be implemented by a
 specific system. It provides functionality to track if an ad is 
 loading, or showing. It also tracks id’s.
 <p align="center" alt="GameAd">
-  <img src="http://i.imgur.com/undefined.png">
+  <img src="http://i.imgur.com/TnLGYXW.png">
 </p>
 
 #### AndroidBannerAd
