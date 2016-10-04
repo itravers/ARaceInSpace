@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.araceinspace.AndroidMonetizationSubSystem.AndroidMonetizationController;
 import com.araceinspace.MonetizationSubSystem.ToastInterface;
 import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
+import com.araceinspace.TestSubSystem.StoreLayoutTest;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
@@ -49,7 +50,8 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 	/**
 	 * A reference to the game.
 	 */
-	MonetizationIntegrationTest mainGame;
+	//MonetizationIntegrationTest mainGame;
+	StoreLayoutTest mainGame;
 
 /* Protected Methods */
 
@@ -69,7 +71,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
-		mainGame = new MonetizationIntegrationTest(adsController, this);
+		mainGame = new StoreLayoutTest(adsController, this);
 		View gameView = initializeForView(mainGame, config);
 
 		//set up the ads controller ads.
@@ -112,14 +114,14 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 					toast(message);
 				}else if(action.equals("Add1Credit")){
 					toast("Adding a credit for watching video");
-					mainGame.add1Credit();
+				//	mainGame.add1Credit();
 				}
 				else if(action.equals("Add10Credits")){
 					toast("Adding 10 credits because you purchased them");
-					mainGame.addCredits(10);
+				//	mainGame.addCredits(10);
 				}else if(action.equals("Add20Credits")){
 					toast("Adding 20 credits because you purchased them");
-					mainGame.addCredits(20);
+					//mainGame.addCredits(20);
 				}
 			}
 		};
