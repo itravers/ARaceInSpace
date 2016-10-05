@@ -18,8 +18,8 @@ public class DesktopLauncher {
 
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 960;
-		config.height = 640;
+		config.height = 960;
+		config.width = 640;
 		//config.width = 1280;
 		//config.height = 800;
 		//config.useGL30 = true;
