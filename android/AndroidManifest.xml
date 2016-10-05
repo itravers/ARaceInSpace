@@ -21,7 +21,7 @@
         <activity
             android:name="com.araceinspace.AndroidLauncher"
             android:label="@string/app_name" 
-            android:screenOrientation="landscape"
+            android:screenOrientation="fullSensor"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

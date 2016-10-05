@@ -4,11 +4,13 @@ com.badlogic.gdx.graphics.Color: {
 	light_grey: { r: 0.8, g: 0.8, b: 0.8, a: 1 },
 	white: { r: 1, g: 1, b: 1, a: 1 },
 	red: { r: 1, a: 1 },
-	grey: { r: 0.7, g: 0.7, b: 0.7, a: 1 },
-	black: { a: 1 }
+	black: { a: 1 },
+	grey: { r: 0.7, g: 0.7, b: 0.7, a: 1 }
 },
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	font_raavi_48pt_bold: { file: font_raavi_48pt_bold.fnt },
+	font_raavi_48pt: { file: font_raavi_48pt.fnt },
+	font_raavi_28pt: { file: font_raavi_28pt.fnt },
 	font_raavi_56pt_bold: { file: font_raavi_56pt_bold.fnt },
 	default-font: { file: default.fnt }
 },
@@ -40,7 +42,8 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	default: { imageUp: paint_brush, up: default-round, down: default-round-down },
-	coinButton: { imageUp: coinbutton },
+	coinButton: { imageUp: coin_but_122x113 },
+	coinButton_small: { imageUp: coin_but_74x68 },
 	menuButton: { imageUp: menu },
 	storeButton: { imageUp: teststorebutton },
 	rewardButton: { imageUp: rewardvideoicon },
@@ -55,6 +58,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: { up: default-round, down: default-round-down },
+	white: { up: white-up, down: default-round-down },
 	toggle: { up: default-round, down: default-round-down, checked: default-round-down }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
@@ -103,6 +107,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	error: {
 		font: default-font,
 		fontColor: { a: 1, r: 1 }
+	},
+	button_title: {
+		font: font_raavi_48pt,
+		fontColor: { a: 1 }
+	},
+	taunt_small: {
+		font: font_raavi_28pt,
+		fontColor: { a: 1 }
 	},
 	title: {
 		font: font_raavi_56pt_bold,
