@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.awt.*;
@@ -84,11 +85,13 @@ public class StoreLayoutTest  extends ApplicationAdapter {
     @Override
     public void create () {
         camera = new OrthographicCamera();
-        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
+        viewport = new ScreenViewport(camera); //holy crap, this whole time we just needed a screenviewport?
+
         //viewport = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
        // batch = new SpriteBatch();
         landscapeBatch = new SpriteBatch();
         portraitBatch = new SpriteBatch();
+
         img = new Texture("isaac.png");
        // landscapeStage = new Stage(viewport, landscapeBatch);
         //portraitStage = new Stage(viewport, portraitBatch);
@@ -118,13 +121,8 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
         //img.
         //Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(this)));
-        if(orientation == Orientation.landscape){
-            setupGUI(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Orientation.landscape);
-            setupGUI(Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Orientation.portrait);
-        }else{
-            setupGUI(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Orientation.portrait);
-            setupGUI(Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Orientation.landscape);
-        }
+
+
 
     }
 
@@ -197,10 +195,22 @@ public class StoreLayoutTest  extends ApplicationAdapter {
     public void resize(int width, int height){
         System.out.println("2resize width:height "+ width + ":" + height);
         super.resize(width, height);
+        System.out.println("viewPort was: " + viewport.getScreenWidth() + ":" +viewport.getScreenHeight());
         viewport.setScreenSize(width, height);
+        System.out.println("viewPort is: " + viewport.getScreenWidth() + ":" +viewport.getScreenHeight());
 
 
         updateOrientation(width, height);
+
+
+        //the only time we should be calleding setupGUI
+        if(orientation == Orientation.landscape){
+            setupGUI(viewport.getScreenWidth(), viewport.getScreenHeight(), Orientation.landscape);
+            //setupGUI(viewport.getScreenHeight(), viewport.getScreenWidth(), Orientation.portrait);
+        }else{
+            setupGUI(viewport.getScreenWidth(), viewport.getScreenHeight(), Orientation.portrait);
+            //setupGUI(viewport.getScreenHeight(), viewport.getScreenWidth(), Orientation.landscape);
+        }
 
 
 
@@ -240,12 +250,12 @@ public class StoreLayoutTest  extends ApplicationAdapter {
                 System.out.println("setOrientation landscape");
                 orientation = newOrientation;
                 //setupGUI(width, height, newOrientation); we moved this to the first initialzer
-                Gdx.input.setInputProcessor(landscapeStage);
+               // Gdx.input.setInputProcessor(landscapeStage);
             }else{
                 System.out.println("setOrientation portrait");
                 orientation = newOrientation;
                 //setupGUI(width, height, newOrientation); // we moved this to the first intiializer.
-                Gdx.input.setInputProcessor(portraitStage);
+                //Gdx.input.setInputProcessor(portraitStage);
             }
 
         }
@@ -342,7 +352,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         storeTitleLabel = new Label("STORE", skin, "title");
         //storeTitleLabel
         //storeTitleLabel.setFontScale(Gdx.graphics.getDensity()/2);
-        storeTitleLabel.setDebug(true);
+        storeTitleLabel.setDebug(false);
         //storeTitleLabel.getStyle().
         //System.out.println("xheight: " + storeTitleLabel.getStyle().font.getXHeight() + " labelheight: " + storeTitleLabel.getHeight());
        // float scale = storeTitleLabel.getHeight()/storeTitleLabel.getStyle().font.getXHeight();
@@ -489,7 +499,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
 
         table = new Table();
-
+        table.setDebug(true);
         table.setWidth(width);
         table.align(Align.center|Align.top);
         table.setPosition(0, height);
