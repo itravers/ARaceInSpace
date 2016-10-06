@@ -72,6 +72,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
     Stage landscapeStage;
 
     ClickListener coinButtonListener;
+    boolean stageLoaded;
 
 
 
@@ -89,9 +90,10 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         landscapeBatch = new SpriteBatch();
         portraitBatch = new SpriteBatch();
         img = new Texture("isaac.png");
-        landscapeStage = new Stage(viewport, landscapeBatch);
-        portraitStage = new Stage(viewport, portraitBatch);
-        setOrientation((int)landscapeStage.getWidth(), (int)landscapeStage.getHeight());
+       // landscapeStage = new Stage(viewport, landscapeBatch);
+        //portraitStage = new Stage(viewport, portraitBatch);
+        orientation = getNewOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+       // updateOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -100,7 +102,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
             }
 
         };
-        checkOrientation();
+       // checkOrientation();
 
 
 
@@ -116,31 +118,188 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
         //img.
         //Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(this)));
-        setupGUI(viewport, landscapeStage, portraitStage);
+        if(orientation == Orientation.landscape){
+            setupGUI(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Orientation.landscape);
+            setupGUI(Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Orientation.portrait);
+        }else{
+            setupGUI(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Orientation.portrait);
+            setupGUI(Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Orientation.landscape);
+        }
+
     }
 
     /**
      * Called when orientation is changed to setup correct input processor
      */
-    private void checkOrientation(){
+   /* private void checkOrientation(){
         if(orientation == Orientation.landscape){
             Gdx.input.setInputProcessor(landscapeStage);
         }else{
             // guiStage = new Stage(viewport, batch);
             Gdx.input.setInputProcessor(portraitStage);
         }
+    }*/
+
+
+
+
+
+
+
+    @Override
+    public void render () {
+       // table.setDebug(false);
+       // headerTable.setDebug(false);
+        //bodyTable.setDebug(false);
+
+        //coinLabel.setText("27");
+
+
+        //update credits on screen
+       // updateGUI();
+
+
+        xCoords++;
+        if(xCoords >= Gdx.graphics.getWidth()){
+            xCoords = 0;
+        }
+        Gdx.gl.glClearColor(255, 255, 255, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+       // batch.begin();
+
+        //batch.draw(img, xCoords, 150);
+
+       // batch.end();
+
+        //only update the correct stage based on orientation.
+        if(orientation == Orientation.landscape && stageLoaded){
+           // System.out.println("drawing landscape");
+            Gdx.input.setInputProcessor(landscapeStage);
+            landscapeStage.act(Gdx.graphics.getDeltaTime());
+            landscapeStage.draw();
+        }else if(orientation == Orientation.portrait && stageLoaded){
+            // guiStage = new Stage(viewport, batch);
+           // System.out.println("drawing portrait");
+            Gdx.input.setInputProcessor(portraitStage);
+            portraitStage.act(Gdx.graphics.getDeltaTime());
+            portraitStage.draw();
+        }
+
+
+        monetizationController.updateVisibility();//used for banner ads to know whether to show
+
+
+    }
+
+
+    @Override
+    public void resize(int width, int height){
+        System.out.println("2resize width:height "+ width + ":" + height);
+        super.resize(width, height);
+        viewport.setScreenSize(width, height);
+
+
+        updateOrientation(width, height);
+
+
+
+        //on change to an orientation, the former orientation is destroyed and rebuilt
+       /* if(orientation == Orientation.landscape){
+            //landscapeStage.dispose();
+            landscapeStage = new Stage(viewport, landscapeBatch);
+
+            setupLandscapeGUI((float)width, (float)height);
+        }else{
+            //portraitStage.dispose();
+            portraitStage = new Stage(viewport, portraitBatch);
+            setupPortraitGUI((float)width, (float)height);
+        }
+
+        super.resize(width, height);
+        viewport.setScreenSize(width, height);
+        setOrientation(width, height);
+
+        System.out.println("Resize to : " + width + " : " + height + " " + orientation);
+
+        checkOrientation();
+       // setChangingObjectsSize(width, height);
+
+       // System.out.println("setup portrait    stage w:h " + stage.getWidth() + ":" + stage.getHeight());
+        System.out.println("resize viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
+
+        */
+
+
+    }
+
+    public void updateOrientation(int width, int height){
+        Orientation newOrientation = getNewOrientation(width, height);
+        if(orientation != newOrientation){
+            if(newOrientation == Orientation.landscape){
+                System.out.println("setOrientation landscape");
+                orientation = newOrientation;
+                //setupGUI(width, height, newOrientation); we moved this to the first initialzer
+                Gdx.input.setInputProcessor(landscapeStage);
+            }else{
+                System.out.println("setOrientation portrait");
+                orientation = newOrientation;
+                //setupGUI(width, height, newOrientation); // we moved this to the first intiializer.
+                Gdx.input.setInputProcessor(portraitStage);
+            }
+
+        }
+
+    }
+
+    public Orientation getNewOrientation(int width, int height){
+        Orientation newOrientation;
+        if(width >= height){
+            newOrientation = Orientation.landscape;
+        }else{
+            newOrientation = Orientation.portrait;
+        }
+        return newOrientation;
+    }
+
+
+    public void toast(final String t){
+        toastInterface.toast(t);
+    }
+
+    @Override
+    public void dispose () {
+       // batch.dispose();
+        landscapeBatch.dispose();
+        portraitBatch.dispose();
+        img.dispose();
     }
 
     /**
      * Creates all the buttons and labels and such we use on this test
      */
-    public void setupGUI(Viewport viewPort, Stage lStage, Stage pStage){
-        landscapeStage = setupLandscapeGUI(viewPort, lStage);
-        portraitStage = setupPortraitGUI(viewPort, pStage);
+    public void setupGUI(int width, int height, Orientation orient){
+        System.out.println("setupGUI() graphics w:h " + width + ":" + height + " g:" + Gdx.graphics.getWidth() + ":" + Gdx.graphics.getHeight() + " Viewport: " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
+        //setup the landscapeStage and portraitStage with opposite height widths
+        if(orient == Orientation.landscape){
+            landscapeStage = new Stage(viewport, landscapeBatch);
+            setupLandscapeGUI(width, height);
+            //setupPortraitGUI(landscapeStage.getHeight(), landscapeStage.getWidth());
+        }else{
+            portraitStage = new Stage(viewport, landscapeBatch);
+            setupPortraitGUI(width,height);
+            // setupLandscapeGUI(portraitStage.getHeight(),  portraitStage.getWidth());
+        }
     }
 
+    public void setupPortraitGUI(float width, float height){
+        stageLoaded = false;
+        float butWidth = width/2.6f;
+        float butHeight = height/3.955f;
 
-    public Stage setupPortraitGUI(Viewport viewport, Stage stage){
+
+        System.out.println("setup portrait    stage w:h " + width + ":" + height);
+        // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
         Table storeTable;
 
 
@@ -162,10 +321,10 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
 
         table = new Table();
-
-        table.setWidth(stage.getWidth());
+        table.setDebug(true);
+        table.setWidth(width);
         table.align(Align.center|Align.top);
-        table.setPosition(0, Gdx.graphics.getHeight());
+        table.setPosition(0, height);
 
 
         backButton = new ImageButton(skin, "backButton");
@@ -181,7 +340,17 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
         System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("STORE", skin, "title");
-        storeTitleLabel.setDebug(false);
+        //storeTitleLabel
+        //storeTitleLabel.setFontScale(Gdx.graphics.getDensity()/2);
+        storeTitleLabel.setDebug(true);
+        //storeTitleLabel.getStyle().
+        //System.out.println("xheight: " + storeTitleLabel.getStyle().font.getXHeight() + " labelheight: " + storeTitleLabel.getHeight());
+       // float scale = storeTitleLabel.getHeight()/storeTitleLabel.getStyle().font.getXHeight();
+        //storeTitleLabel.setFontScale(scale);
+
+
+
+
 
         coinLabel = new Label("25", skin, "coinLabel");
 
@@ -195,11 +364,22 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
 
 
-        headerTable.add(backButton).padLeft(spacer).padTop(spacer/2).size(stage.getWidth()/12, stage.getHeight()/12);
-        headerTable.add(menuButton).padLeft(spacer).padTop(spacer/2).align(Align.left).size(stage.getWidth()/8, stage.getWidth()/8);
-        headerTable.add(storeTitleLabel).expandX().align(Align.center).size(stage.getWidth()/3, stage.getHeight()/6);
-        headerTable.add(coinLabel).size(stage.getWidth()/11, stage.getHeight()/10).align(Align.right);
-        headerTable.add(coinButton).size(stage.getWidth()/6, stage.getWidth()/6).padTop(spacer).padRight(spacer);
+        headerTable.add(backButton).padLeft(spacer).padTop(spacer/2).size(width/12, height/12);
+        headerTable.add(menuButton).padLeft(spacer).padTop(spacer/2).align(Align.left).size(width/8, height/8);
+        headerTable.add(storeTitleLabel).expandX().align(Align.center).size(width/3, height/8);
+       // System.out.println("xheight: " + storeTitleLabel.getStyle().font.getXHeight() + " labelheight: " + storeTitleLabel.getHeight());
+
+        float fontWidth = storeTitleLabel.getStyle().font.getSpaceWidth()*storeTitleLabel.getText().length();
+        //float labelWidth = storeTitleLabel.getWidth();
+        //float fontScale = labelWidth/fontWidth;
+        //storeTitleLabel.setFontScale(fontScale);
+
+        //test update storeTitleLabel based on difference between it's font width etc
+        //get item width, get font width scale by itemWidth/fontwidth
+
+
+        headerTable.add(coinLabel).size(width/11, height/10).align(Align.right);
+        headerTable.add(coinButton).size(width/6, height/10).padTop(spacer).padRight(spacer);
 
         table.add(headerTable).fill().expandX();
         table.row();
@@ -207,7 +387,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
         bodyTable = new Table();
         bodyTable.setDebug(false);
-        bodyTable.add(rewardButton).size(stage.getWidth()/8, stage.getHeight()/12).padLeft(spacer/2).padTop(spacer/4).align(Align.top).spaceLeft(0);
+        bodyTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/2).padTop(spacer/4).align(Align.top).spaceLeft(0);
 
 
         bodyTable.align(Align.left); //aligns reward video with back button
@@ -220,68 +400,74 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         storeTable.setDebug(false);
         storeTable.align(Align.top|Align.left);
 
-        float butWidth = stage.getWidth()/2.6f;
-        float butHeight = stage.getWidth()/2.7f;
 
-        Stack buttonStack = makeButtonStack("Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
+
+        Stack buttonStack = makeButtonStack(width, height, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
         storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);//sets the button size
 
-        buttonStack = makeButtonStack("Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);//sets the button size
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack("Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack("Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack("Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
-        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack("Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
-        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack("Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);//sets the button size
-
-        buttonStack = makeButtonStack("Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
+        buttonStack = makeButtonStack(width, height, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
         storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);//sets the button size
 
         storeTable.row();
 
-        buttonStack = makeButtonStack("Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
+        buttonStack = makeButtonStack(width, height, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
         storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack("Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
+        buttonStack = makeButtonStack(width, height, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
         storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
         storeTable.row();
 
-        buttonStack = makeButtonStack("Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
+        buttonStack = makeButtonStack(width, height, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
         storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack("Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
+        buttonStack = makeButtonStack(width, height, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(width, height, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);//sets the button size
+
+        buttonStack = makeButtonStack(width, height, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);//sets the button size
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(width, height, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(width, height, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(width, height, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(width, height, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
         storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
 
 
-        bodyTable.add(scrollPane).width(stage.getWidth()*.84f).height(stage.getHeight()*.78f).padLeft(0).align(Align.top);//set the scroll pane size
+        bodyTable.add(scrollPane).width(width*.84f).height(height*.79f).padLeft(0).align(Align.top);//set the scroll pane size
 
         table.add(bodyTable).fill().expandX();
 
-        stage.addActor(table);
-        return stage;
+        portraitStage.addActor(table);
+        stageLoaded = true;
     }
 
-    public Stage setupLandscapeGUI(Viewport viewport, Stage stage){
+    public void setupLandscapeGUI(float width, float height){
+        stageLoaded = false;
+        System.out.println("setup landscape    stage w:h " + width + ":" + height);
+        float butWidth = width/4f;
+
+        float butHeight = height/3f;
+
+
         Table storeTable;
 
 
@@ -304,9 +490,9 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
         table = new Table();
 
-        table.setWidth(stage.getWidth());
+        table.setWidth(width);
         table.align(Align.center|Align.top);
-        table.setPosition(0, Gdx.graphics.getHeight());
+        table.setPosition(0, height);
 
 
         backButton = new ImageButton(skin, "backButton");
@@ -336,11 +522,11 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
 
 
-        headerTable.add(backButton).padLeft(spacer).padTop(spacer/2).size(stage.getWidth()/20, stage.getHeight()/8);
-        headerTable.add(menuButton).padLeft(spacer).padTop(spacer/2).align(Align.left).size(stage.getWidth()/12, stage.getHeight()/8);
-        headerTable.add(storeTitleLabel).expandX().align(Align.center).size(stage.getWidth()/5, stage.getHeight()/8);
-        headerTable.add(coinLabel).size(stage.getWidth()/15, stage.getHeight()/10).align(Align.right);
-        headerTable.add(coinButton).size(stage.getWidth()/9, stage.getWidth()/9).padTop(spacer).padRight(spacer);
+        headerTable.add(backButton).padLeft(spacer).padTop(spacer/2).size(width/20, height/8);
+        headerTable.add(menuButton).padLeft(spacer).padTop(spacer/2).align(Align.left).size(width/12, height/8);
+        headerTable.add(storeTitleLabel).expandX().align(Align.center).size(width/5, height/8);
+        headerTable.add(coinLabel).size(width/15, height/10).align(Align.right);
+        headerTable.add(coinButton).size(width/9, width/9).padTop(spacer).padRight(spacer);
 
         table.add(headerTable).fill().expandX();
         table.row();
@@ -348,7 +534,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
         bodyTable = new Table();
         bodyTable.setDebug(false);
-        bodyTable.add(rewardButton).size(stage.getWidth()/12, stage.getHeight()/8).padLeft(spacer).padTop(spacer/2).align(Align.top).spaceLeft(0);
+        bodyTable.add(rewardButton).size(width/12, height/8).padLeft(spacer).padTop(spacer/2).align(Align.top).spaceLeft(0);
 
 
         bodyTable.align(Align.left); //aligns reward video with back button
@@ -361,61 +547,62 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         storeTable.setDebug(false);
         storeTable.align(Align.top|Align.left);
 
-        Stack buttonStack = makeButtonStack("Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);//sets the button size
+        Stack buttonStack = makeButtonStack(width, height, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack("Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);//sets the button size
+        buttonStack = makeButtonStack(width, height, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack("Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack("Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);
-
-        buttonStack = makeButtonStack("Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);
-
-        buttonStack = makeButtonStack("Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);
+        buttonStack = makeButtonStack(width, height, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
         storeTable.row();
 
-        buttonStack = makeButtonStack("Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);//sets the button size
+        buttonStack = makeButtonStack(width, height, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack("Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);//sets the button size
+        buttonStack = makeButtonStack(width, height, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack("Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);
+        buttonStack = makeButtonStack(width, height, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
         storeTable.row();
 
-        buttonStack = makeButtonStack("Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);
+        buttonStack = makeButtonStack(width, height, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack("Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);
+        buttonStack = makeButtonStack(width, height, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack("Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
-        storeTable.add(buttonStack).pad(spacer/4).size(stage.getWidth()/4, stage.getHeight()/3);
+        buttonStack = makeButtonStack(width, height, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(width, height, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(width, height, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(width, height, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
+        storeTable.add(buttonStack).pad(spacer/4).size(butWidth, butHeight);
 
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
 
 
-        bodyTable.add(scrollPane).width(stage.getWidth()*.85f).height(stage.getHeight()*.70f).padLeft(0).align(Align.top);//set the scroll pane size
+        bodyTable.add(scrollPane).width(width*.85f).height(height*.70f).padLeft(0).align(Align.top);//set the scroll pane size
 
         table.add(bodyTable).fill().expandX();
 
-        stage.addActor(table);
-        return stage;
+        landscapeStage.addActor(table);
+        stageLoaded = true;
+
     }
 
-    private Stack makeButtonStack(String title, String price, String s_taunt1, String s_taunt2, String s_taunt3, boolean showImage){
+    private Stack makeButtonStack(float width, float height, String title, String price, String s_taunt1, String s_taunt2, String s_taunt3, boolean showImage){
         //create buttons to buy iap
         final Button storeTestButton = new Button(skin, "white");
         storeTestButton.setColor(Color.WHITE);
@@ -423,13 +610,12 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
         titleLabel.setTouchable(Touchable.disabled);
-        //titleLabel.setSize(landscapeStage.getWidth()/8, landscapeStage.getHeight()/15);
         titleLabel.setFontScale(.7f); //WORKS for rizing font, but we also change table container
 
         ImageButton button_image;
 
-            button_image = new ImageButton(skin, "coinButton_small");
-            button_image.setTouchable(Touchable.disabled);
+        button_image = new ImageButton(skin, "coinButton_small");
+        button_image.setTouchable(Touchable.disabled);
 
 
 
@@ -451,23 +637,18 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         Label taunt3 = new Label(s_taunt3, skin, "taunt_small");
         taunt3.setTouchable(Touchable.disabled);
         taunt3.setFontScale(.8f);
-        //taunt3.setFontScale(Gdx.graphics.getDensity());
-
-
-
-
 
         //create table in buttons
         Table purchaseTable = new Table();
         purchaseTable.setDebug(false);
-        purchaseTable.align(Align.top|Align.center);
+        purchaseTable.align(Align.center);
 
         //Header for purchase table
         Table purchaseHeaderTable = new Table();
         purchaseHeaderTable.setDebug(false);
         purchaseHeaderTable.align(Align.top|Align.center);
-        purchaseHeaderTable.add(titleLabel).padTop(spacer/4).padRight(spacer/4).align(Align.left);//.size(landscapeStage.getWidth()/8, landscapeStage.getHeight()/20);
-        if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(landscapeStage.getWidth()/13, landscapeStage.getWidth()/13).align(Align.top);
+        purchaseHeaderTable.add(titleLabel).padTop(spacer/4).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
+        if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(width/13, width/13).align(Align.top);
         purchaseTable.add(purchaseHeaderTable).align(Align.top);
         purchaseTable.row();
 
@@ -492,97 +673,4 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         return buttonStack;
     }
 
-
-    @Override
-    public void render () {
-
-       // table.setDebug(false);
-       // headerTable.setDebug(false);
-        //bodyTable.setDebug(false);
-
-        //coinLabel.setText("27");
-
-
-        //update credits on screen
-        updateGUI();
-
-
-        xCoords++;
-        if(xCoords >= Gdx.graphics.getWidth()){
-            xCoords = 0;
-        }
-        Gdx.gl.glClearColor(255, 255, 255, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-       // batch.begin();
-
-        //batch.draw(img, xCoords, 150);
-
-       // batch.end();
-
-        //only update the correct stage based on orientation.
-        if(orientation == Orientation.landscape){
-           // System.out.println("drawing landscape");
-            Gdx.input.setInputProcessor(landscapeStage);
-            landscapeStage.act(Gdx.graphics.getDeltaTime());
-            landscapeStage.draw();
-        }else{
-            // guiStage = new Stage(viewport, batch);
-           // System.out.println("drawing portrait");
-            Gdx.input.setInputProcessor(portraitStage);
-            portraitStage.act(Gdx.graphics.getDeltaTime());
-            portraitStage.draw();
-        }
-
-
-        monetizationController.updateVisibility();//used for banner ads to know whether to show
-
-
-    }
-
-    private void updateGUI(){
-        //update changing labels
-       // super.res
-
-      //  storeTable.getCell()
-
-    }
-
-
-    @Override
-    public void resize(int width, int height){
-        super.resize(width, height);
-        viewport.setScreenSize(width, height);
-        setOrientation(width, height);
-
-        System.out.println("Resize to : " + width + " : " + height + " " + orientation);
-
-        checkOrientation();
-       // setChangingObjectsSize(width, height);
-
-
-    }
-
-    public void setOrientation(int width, int height){
-        if(width >= height){
-            orientation = Orientation.landscape;
-            System.out.println("setOrientation landscape");
-        }else{
-            orientation = Orientation.portrait;
-            System.out.println("setOrientation portrait");
-        }
-    }
-
-
-    public void toast(final String t){
-        toastInterface.toast(t);
-    }
-
-    @Override
-    public void dispose () {
-       // batch.dispose();
-        landscapeBatch.dispose();
-        portraitBatch.dispose();
-        img.dispose();
-    }
 }
