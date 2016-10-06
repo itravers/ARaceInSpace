@@ -122,7 +122,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         //img.
         //Gdx.input.setInputProcessor(new GestureDetector(new GameInputListener(this)));
 
-
+        monetizationController.loadBannerAd();
 
     }
 
@@ -146,6 +146,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
     @Override
     public void render () {
+        if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
        // table.setDebug(false);
        // headerTable.setDebug(false);
         //bodyTable.setDebug(false);
@@ -331,7 +332,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
 
         table = new Table();
-        table.setDebug(true);
+        table.setDebug(false);
         table.setWidth(width);
         table.align(Align.center|Align.top);
         table.setPosition(0, height);
@@ -499,7 +500,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
 
 
         table = new Table();
-        table.setDebug(true);
+        table.setDebug(false);
         table.setWidth(width);
         table.align(Align.center|Align.top);
         table.setPosition(0, height);
