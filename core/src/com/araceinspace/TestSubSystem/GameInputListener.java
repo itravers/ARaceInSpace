@@ -1,4 +1,4 @@
-package com.araceinspace.InputSubSystem;
+package com.araceinspace.TestSubSystem;
 
 import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
 import com.badlogic.gdx.Gdx;
