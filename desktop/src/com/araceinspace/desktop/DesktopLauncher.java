@@ -2,6 +2,7 @@ package com.araceinspace.desktop;
 
 import com.araceinspace.MonetizationSubSystem.DummyController;
 import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
+import com.araceinspace.TestSubSystem.StoreLayoutTest;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -17,11 +18,13 @@ public class DesktopLauncher {
 
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1280;
-		config.height = 800;
+		config.height = 960;
+		config.width = 640;
+		//config.width = 1280;
+		//config.height = 800;
 		//config.useGL30 = true;
-		System.out.println("config h/w: " + config.height + "/" + config.width);
+		System.out.println("config w/h: " + config.width + "/" + config.height);
 		DummyController monetizationController = new DummyController();
-		new LwjglApplication(new MonetizationIntegrationTest(monetizationController, null), config);
+		new LwjglApplication(new StoreLayoutTest(monetizationController, null), config);
 	}
 }

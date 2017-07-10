@@ -58,6 +58,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
     TextButton buy10CreditsButton;
     TextButton buy20CreditsButton;
     Label creditAmountLabel;
+    Label titleLabel;
 
 
 
@@ -111,7 +112,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         int buttonHeight = Gdx.graphics.getHeight()/16;
 
         //setup labels
-        Label titleLabel = new Label("Monetization System Test", skin);
+        titleLabel = new Label("Monetization System Test", skin);
         titleLabel.setPosition((Gdx.graphics.getWidth()/2)-(titleLabel.getWidth()/2), Gdx.graphics.getHeight()-(titleLabel.getHeight()+spacer)*1);
 
         //setup labels
@@ -298,10 +299,12 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
 
     @Override
     public void render () {
+        titleLabel.setText("Monetization Test");
+        titleLabel.setFontScale(2f);
 
         //update credits on screen
         updateGUI();
-
+System.out.println(titleLabel.getStyle());
 
 
         xCoords++;

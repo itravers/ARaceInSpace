@@ -1,6 +1,5 @@
 package com.araceinspace.InputSubSystem;
 
-import com.araceinspace.TestSubSystem.AndroidsMonetizationController_Test;
 import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
