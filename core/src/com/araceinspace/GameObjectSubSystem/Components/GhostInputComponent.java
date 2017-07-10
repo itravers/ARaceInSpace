@@ -1,8 +1,13 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.EventSubSystem.Event;
+import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.InputSubSystem.Action;
+import com.araceinspace.InputSubSystem.GameInput;
+import com.araceinspace.InputSubSystem.InputRecorder;
+import com.araceinspace.RenderManager;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -13,7 +18,7 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * It will use the EventDispatcher to get the event to the GhostInputComponent.
  * Note, this is different than how a PlayerInputComponent processes Input Events
  */
-public class GhostInputComponent extends InputComponent implements EventReceiver{
+public class GhostInputComponent extends InputComponent{
 
     /* Field Variables & Objects */
     InputRecorder inputRecorder;
@@ -30,17 +35,9 @@ public class GhostInputComponent extends InputComponent implements EventReceiver
      * @param o
      */
     void update(GameObject o) {
-        //TODO write update code
-    }
-
-    /**
-     * Receives an event from the InputRecorder
-     * Proccesses this event with the gameobject, but does
-     * not record the event again.
-     * @param e
-     */
-    @Override
-    public void receiveEvent(Event e) {
-        //TODO write receive Event code
+        Action nextAction = inputRecorder.getNextAction(RenderManager.frameNum);
+        if(nextAction != null){
+            GameInput input = nextAction.getInput();
+        }
     }
 }

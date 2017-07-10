@@ -9,14 +9,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ARaceInSpace extends ApplicationAdapter {
+	/* Static Variables */
+	static int frameNum = 0;
+
+	/* Field Variables & Objects */
 	MonetizationController monetizationController;
 	public static EventDispatcher eventDispatcher;
-	SpriteBatch batch;
-	Texture img;
+	public static RenderManager renderManager;
+
 
 	public ARaceInSpace(MonetizationController monetizationController){
 		this.monetizationController = monetizationController;
 		this.eventDispatcher = new EventDispatcher();
+		this.renderManager = new RenderManager();
 
 		/** Now have our ads controller setupAds(). */
 		monetizationController.setupAds();
@@ -27,27 +32,17 @@ public class ARaceInSpace extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+
 		//monetizationController.loadBannerAd();
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-
-		//if(monetizationController.isBannerLoaded() && !monetizationController.isBannerAdShowing()){
-		//	monetizationController.showBannerAd();
-		//}
+		renderManager.render();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		renderManager.dispose();
 	}
 }

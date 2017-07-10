@@ -12,6 +12,5 @@ package com.araceinspace.EventSubSystem;
  * it’s new event.
  */
 public interface EventSender {
-    public Event initiateEvent();
     public void sendEvent(Event e);
 }

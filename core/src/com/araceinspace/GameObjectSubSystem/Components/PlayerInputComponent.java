@@ -4,6 +4,8 @@ import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.InputSubSystem.GameInput;
+import com.araceinspace.InputSubSystem.InputRecorder;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -17,6 +19,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
 
     /* Field Variables & Objects */
     InputRecorder inputRecorder;
+    GameInput currentInput;
 
     /* Constructors */
     public PlayerInputComponent(){
@@ -44,7 +47,8 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
     public void receiveEvent(Event e) {
         String id = e.getId();
         Event.TYPE type = e.getType();
-        int data = (Integer)e.getData();
+        GameInput data = (GameInput)e.getData();
+        currentInput = data;
     }
 
     /**

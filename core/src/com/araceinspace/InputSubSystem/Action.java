@@ -11,18 +11,18 @@ import com.badlogic.gdx.Game;
 public class Action {
 
     /* Field Variables */
-    private int timeStamp;
+    private int frameNum;
     private GameInput input;
 
     /* Constructor */
-    public Action(int timeStamp, GameInput input){
-        this.timeStamp = timeStamp;
+    public Action(int frameNum, GameInput input){
+        this.frameNum = frameNum;
         this.input = input;
     }
 
     /* Methods */
-    public int getTimeStamp(){
-        return timeStamp;
+    public int getFrameNum(){
+        return frameNum;
     }
 
     public GameInput getInput(){

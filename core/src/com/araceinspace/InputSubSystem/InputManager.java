@@ -3,6 +3,7 @@ package com.araceinspace.InputSubSystem;
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventSender;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -20,13 +21,8 @@ import com.badlogic.gdx.math.Vector2;
 public class InputManager implements EventSender, InputProcessor, GestureDetector.GestureListener {
 
     @Override
-    public Event initiateEvent() {
-        return null;
-    }
-
-    @Override
     public void sendEvent(Event e) {
-
+        EventDispatcher.getSingletonDispatcher().dispatch(e);
     }
 
     @Override
@@ -74,15 +70,46 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
 
     }
 
+    /**
+     * When the keyboard has a key pressed down. We figure out what key it is
+     * map that key to a GameInput, and sent that GameInput through the Event Subsystem
+     * to the player.
+     * @param keycode
+     * @return
+     */
     @Override
     public boolean keyDown(int keycode) {
-        sendEvent(new Event(Event.TYPE.INPUT, "KeyDown", keycode));
+        GameInput input = null;
+        if(keycode == Input.Keys.W){
+            input = GameInput.UP_PRESSED;
+        }else if(keycode == Input.Keys.A){
+            input = GameInput.LEFT_PRESSED;
+        }else if(keycode == Input.Keys.S){
+            input = GameInput.DOWN_PRESSED;
+        }else if(keycode == Input.Keys.D){
+            input = GameInput.RIGHT_PRESSED;
+        }else if(keycode == Input.Keys.SHIFT_LEFT){
+            input = GameInput.BOOST_PRESSED;
+        }
+        sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", input));
         return true;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        sendEvent(new Event(Event.TYPE.INPUT, "KeyUp", keycode));
+        GameInput input = null;
+        if(keycode == Input.Keys.W){
+            input = GameInput.UP_RELEASED;
+        }else if(keycode == Input.Keys.A){
+            input = GameInput.LEFT_RELEASED;
+        }else if(keycode == Input.Keys.S){
+            input = GameInput.DOWN_RELEASED;
+        }else if(keycode == Input.Keys.D){
+            input = GameInput.RIGHT_RELEASED;
+        }else if(keycode == Input.Keys.SHIFT_LEFT){
+            input = GameInput.BOOST_RELEASED;
+        }
+        sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", input));
         return true;
     }
 
