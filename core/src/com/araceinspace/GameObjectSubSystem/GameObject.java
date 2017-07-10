@@ -15,13 +15,12 @@ import com.araceinspace.GameObjectSubSystem.Components.StateComponent;
  */
 public abstract class GameObject {
     /* Field Variables & Objects */
-    InputComponent input;
-    PhysicsComponent physics;
-    GraphicsComponent graphics;
-    StateComponent state;
+    protected InputComponent input;
+    protected PhysicsComponent physics;
+    protected GraphicsComponent graphics;
+    protected StateComponent state;
 
     /* Abstract Methods */
     abstract void update();
-    abstract void create();
     abstract void dispose();
 }
