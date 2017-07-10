@@ -1,8 +1,5 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
-import com.araceinspace.EventSubSystem.Event;
-import com.araceinspace.EventSubSystem.EventDispatcher;
-import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.InputSubSystem.GameInput;

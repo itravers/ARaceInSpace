@@ -1,6 +1,5 @@
 package com.araceinspace.GameObjectSubSystem;
 
-import com.araceinspace.GameObjectSubSystem.Components.InputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlanetPhysicsComponent;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
