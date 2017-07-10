@@ -11,6 +11,11 @@ public class PlayerStateComponent extends StateComponent{
     PlayerState currentState;
 
 
+    /* Constructors */
+    public PlayerStateComponent(){
+        currentState = PlayerState.STAND_STILL_FORWARD;
+    }
+
     /**
      * Updates the objects current state.
      * @param o
