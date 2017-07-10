@@ -1,8 +1,11 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.EventSubSystem.Event;
+import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.InputSubSystem.GameInput;
+import com.araceinspace.InputSubSystem.InputRecorder;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -19,6 +22,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
 
     /* Constructors */
     public PlayerInputComponent(){
+        registerReceiver();
         inputRecorder = new InputRecorder();
     }
 
@@ -40,6 +44,17 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      */
     @Override
     public void receiveEvent(Event e) {
-        //TODO write receive Event code
+        String id = e.getId();
+        Event.TYPE type = e.getType();
+        GameInput data = (GameInput)e.getData();
+        currentInput = data;
+    }
+
+    /**
+     * Registers this Event Receiver with the Event Dispatcher.
+     */
+    @Override
+    public void registerReceiver() {
+        EventDispatcher.getSingletonDispatcher().registerReceiver(Event.TYPE.INPUT, this);
     }
 }

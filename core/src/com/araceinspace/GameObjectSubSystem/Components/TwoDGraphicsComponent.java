@@ -21,9 +21,10 @@ public class TwoDGraphicsComponent extends GraphicsComponent{
     Animation animations;
 
     /*Constructor*/
-    //TODO fix up constructor to match design doc
-    TwoDGraphicsComponent(){
-
+    public TwoDGraphicsComponent(TextureAtlas atlas, TextureAtlas.AtlasRegion regions, Animation animations){
+        this.atlas = atlas;
+        this.regions = regions;
+        this.animations = animations;
     }
 
     @Override
