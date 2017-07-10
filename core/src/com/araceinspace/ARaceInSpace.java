@@ -1,5 +1,6 @@
 package com.araceinspace;
 
+import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -9,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ARaceInSpace extends ApplicationAdapter {
 	MonetizationController monetizationController;
+	public static EventDispatcher eventDispatcher;
 	SpriteBatch batch;
 	Texture img;
 
 	public ARaceInSpace(MonetizationController monetizationController){
 		this.monetizationController = monetizationController;
+		this.eventDispatcher = new EventDispatcher();
 
 		/** Now have our ads controller setupAds(). */
 		monetizationController.setupAds();
