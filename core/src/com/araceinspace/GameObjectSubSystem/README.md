@@ -1,5 +1,8 @@
 Game Object SubSystem
 =====================
+<p align="center" alt="MonetizationController">
+  <img src="http://i.imgur.com/PVybUkx.png">
+</p>
 The Game Object SubSystem deals with in-game objects only. 
 This would exclude menu’s, etc. In-Game objects all descend from 
 the same base GameObject. 
@@ -53,6 +56,10 @@ of a planet will be different from the physics of a Player or a Ghost.
 
 
 ## Components
+<p align="center" alt="MonetizationController">
+  <img src="http://i.imgur.com/in40itn.png">
+</p>
+
 A Component takes care of a job that a GameObject would normally do 
 in it’s own logic. Instead of having the GameObject encapsulate the 
 data and logic itself we use Components. This gives us the ability 
