@@ -12,6 +12,6 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * Both of their input components own their own input recorder.
  * Which is defined in the Input SubSystem section.
  */
-public abstract class InputComponent {
+public abstract class InputComponent extends Component{
     abstract void update(GameObject o);
 }

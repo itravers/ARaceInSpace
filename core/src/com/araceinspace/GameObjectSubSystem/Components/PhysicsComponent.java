@@ -9,6 +9,6 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * This is where the player locomotion and forces are calculated.
  * Everything excluding collision physics should be located here.
  */
-public abstract class PhysicsComponent {
+public abstract class PhysicsComponent extends Component{
     abstract void update(GameObject o);
 }

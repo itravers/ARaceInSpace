@@ -9,6 +9,6 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * The planets and indicators and backgrounds and clouds will all be 2d graphics,
  * but the Players and the Ghosts will be 3D graphics(possibly).
  */
-public abstract class GraphicsComponent {
+public abstract class GraphicsComponent extends Component{
     abstract void update(GameObject o);
 }
