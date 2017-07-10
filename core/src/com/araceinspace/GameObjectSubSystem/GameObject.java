@@ -1,5 +1,10 @@
 package com.araceinspace.GameObjectSubSystem;
 
+import com.araceinspace.GameObjectSubSystem.Components.GraphicsComponent;
+import com.araceinspace.GameObjectSubSystem.Components.InputComponent;
+import com.araceinspace.GameObjectSubSystem.Components.PhysicsComponent;
+import com.araceinspace.GameObjectSubSystem.Components.StateComponent;
+
 /**
  * Created by Isaac Assegai on 7/10/17.
  * This is the base abstract object class.
