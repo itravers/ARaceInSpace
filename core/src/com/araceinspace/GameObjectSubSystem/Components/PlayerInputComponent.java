@@ -19,7 +19,6 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
 
     /* Field Variables & Objects */
     InputRecorder inputRecorder;
-    GameInput currentInput;
 
     /* Constructors */
     public PlayerInputComponent(){

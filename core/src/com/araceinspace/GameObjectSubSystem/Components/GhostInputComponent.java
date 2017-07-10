@@ -38,6 +38,7 @@ public class GhostInputComponent extends InputComponent{
         Action nextAction = inputRecorder.getNextAction(RenderManager.frameNum);
         if(nextAction != null){
             GameInput input = nextAction.getInput();
+            currentInput = input;
         }
     }
 }

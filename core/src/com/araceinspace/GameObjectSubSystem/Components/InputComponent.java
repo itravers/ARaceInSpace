@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.InputSubSystem.GameInput;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -13,5 +14,11 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * Which is defined in the Input SubSystem section.
  */
 public abstract class InputComponent extends Component{
+    protected GameInput currentInput;
     abstract void update(GameObject o);
+
+
+    public GameInput getCurrentInput(){
+        return currentInput;
+    }
 }

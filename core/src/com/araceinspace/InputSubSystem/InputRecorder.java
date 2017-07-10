@@ -21,7 +21,7 @@ import java.util.ArrayList;
  the event, if it doesn’t it will just discard it. This allows an InputRecorder to control a Ghost.
 
  */
-public class InputRecorder implements EventSender{
+public class InputRecorder{
     /* Static Variables */
     static int FRAMES_PER_KEYFRAME = 30;
 
@@ -58,10 +58,5 @@ public class InputRecorder implements EventSender{
             }
         }
         return returnVal;
-    }
-
-    @Override
-    public void sendEvent(Event e) {
-        EventDispatcher.getSingletonDispatcher().dispatch(e);
     }
 }
