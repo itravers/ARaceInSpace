@@ -4,10 +4,15 @@ com.badlogic.gdx.graphics.Color: {
 	light_grey: { r: 0.8, g: 0.8, b: 0.8, a: 1 },
 	white: { r: 1, g: 1, b: 1, a: 1 },
 	red: { r: 1, a: 1 },
-	black: { a: 1 },
-	grey: { r: 0.7, g: 0.7, b: 0.7, a: 1 }
+	grey: { r: 0.7, g: 0.7, b: 0.7, a: 1 },
+	black: { a: 1 }
 },
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	font_d_estroy__20pt: { file: font_d_estroy__20pt.fnt },
+	font_d_estroy__56pt: { file: font_d_estroy__56pt.fnt },
+	font_d_estroy__24pt: { file: font_d_estroy__24pt.fnt },
+	font_d_estroy__36pt: { file: font_d_estroy__36pt.fnt },
+	font_d_estroy__48pt: { file: font_d_estroy__48pt.fnt },
 	font_raavi_48pt_bold: { file: font_raavi_48pt_bold.fnt },
 	font_raavi_48pt: { file: font_raavi_48pt.fnt },
 	font_raavi_28pt: { file: font_raavi_28pt.fnt },
@@ -42,12 +47,12 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	default: { imageUp: paint_brush, up: default-round, down: default-round-down },
-	coinButton: { imageUp: coin_but_122x113 },
+	coinButton: { imageUp: coin_button_up, imageDown: coin_button_down },
 	coinButton_small: { imageUp: coin_but_74x68 },
-	menuButton: { imageUp: menu },
-	storeButton: { imageUp: teststorebutton },
-	rewardButton: { imageUp: rewardvideoicon },
-	backButton: { imageUp: back }
+	menuButton: { imageUp: menu_button_up, imageDown: menu_button_down },
+	storeButton: { imageUp: store_button_up, imageDown: store_button_down },
+	rewardButton: { imageUp: rewardvideo_button_up, imageDown: rewardvideo_button_down },
+	backButton: { imageUp: back_button_up3, imageDown: back_button_down3 }
 },
 com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 	default-vertical: { handle: default-splitpane-vertical },
@@ -101,7 +106,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: { a: 1, b: 1, g: 1, r: 1 }
 	},
 	coinLabel: {
-		font: font_raavi_48pt_bold,
+		font: font_d_estroy__36pt,
 		fontColor: { a: 1, b: 0.8, g: 0.8, r: 0.8 }
 	},
 	error: {
@@ -112,12 +117,20 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: font_raavi_48pt,
 		fontColor: { a: 1 }
 	},
+	Store_Title: {
+		font: font_d_estroy__48pt,
+		fontColor: { a: 1, b: 0.8, g: 0.8, r: 0.8 }
+	},
 	taunt_small: {
 		font: font_raavi_28pt,
 		fontColor: { a: 1 }
 	},
 	title: {
 		font: font_raavi_56pt_bold,
+		fontColor: { a: 1, b: 0.8, g: 0.8, r: 0.8 }
+	},
+	extra_small: {
+		font: font_d_estroy__20pt,
 		fontColor: { a: 1, b: 0.8, g: 0.8, r: 0.8 }
 	}
 },
