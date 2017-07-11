@@ -71,9 +71,9 @@ public class Background {
 
          batch.end();
 
-/*
+
         batch.enableBlending();
-        batch.setProjectionMatrix(parent.getParent().getRenderManager().getBackgroundCamera().calculateParallaxMatrix(.15f, .15f));
+        batch.setProjectionMatrix(parent.parent.renderManager.getBackgroundCamera().calculateParallaxMatrix(.15f, .15f));
         batch.begin();
        // batch.draw(layers[3],  -(int)(layers[3].getRegionWidth() /4), -(int)(layers[3].getRegionHeight() /4),
        //         layers[3].getRegionWidth()/2, layers[3].getRegionWidth()/2);
@@ -86,12 +86,12 @@ public class Background {
                 0);
 
         batch.end();
-        */
 
- /*
+
+
 
         batch.enableBlending();
-        batch.setProjectionMatrix(parent.getParent().getRenderManager().getBackgroundCamera().calculateParallaxMatrix(.225f, .225f));
+        batch.setProjectionMatrix(parent.parent.renderManager.getBackgroundCamera().calculateParallaxMatrix(.225f, .225f));
         batch.begin();
         // batch.draw(layers[2], -(int) (layers[2].getRegionWidth() / 2),
         //         -(int) (layers[2].getRegionHeight() / 2));
@@ -110,7 +110,7 @@ public class Background {
 
 
         batch.enableBlending();
-        batch.setProjectionMatrix(parent.getParent().getRenderManager().getBackgroundCamera().calculateParallaxMatrix(.4f, .4f));
+        batch.setProjectionMatrix(parent.parent.renderManager.getBackgroundCamera().calculateParallaxMatrix(.4f, .4f));
         batch.begin();
        // TiledDrawable tile = new TiledDrawable(layers[1]);
         //tile.draw(batch, (layers[1].getRegionWidth() / 2f), (layers[1].getRegionHeight() / 2f),
@@ -128,7 +128,7 @@ public class Background {
 
                 batch.end();
 
-*/
+
         batch.setProjectionMatrix(temp);
     }
 }

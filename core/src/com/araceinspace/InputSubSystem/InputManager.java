@@ -161,6 +161,25 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
 
     @Override
     public boolean scrolled(int amount) {
+        float zoom = parent.renderManager.getCameraZoom();
+        float baseZoom = parent.renderManager.getBaseZoom();
+        if(amount <= 0){
+            float zoomChange = zoom/10;
+            zoom -= zoomChange;
+            if(zoom <= baseZoom*.4f && !parent.devMode) zoom = baseZoom*.4f;
+            System.out.println("Zoom In " + zoom);
+        }else{
+            float zoomChange = zoom/10;
+            zoom += zoomChange;
+
+            if(zoom > baseZoom*2.5 && !parent.devMode){
+                zoom = baseZoom*2.5f;
+                System.out.println("Zoom Out " + zoom);
+            }
+
+        }
+        //parent.getRenderManager().viewport.getC
+        parent.renderManager.setCameraZoom(zoom);
         return false;
     }
 }

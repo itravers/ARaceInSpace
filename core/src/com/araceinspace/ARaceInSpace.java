@@ -16,6 +16,7 @@ public class ARaceInSpace extends ApplicationAdapter {
 	public GameWorld gameWorld;
 
 
+
 	public ARaceInSpace(MonetizationController monetizationController){
 		this.monetizationController = monetizationController;
 

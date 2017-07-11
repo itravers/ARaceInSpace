@@ -31,6 +31,7 @@ public class GameWorld {
     public InputManager inputManager;
     public World world;
     float elapsedTime;
+    public boolean devMode = false;
 
 
     /* Constructors */

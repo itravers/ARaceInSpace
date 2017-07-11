@@ -68,20 +68,18 @@ public class RenderManager {
     //zoom
     //gui size
     private void setupScreenSizeDependantItems(){
+        System.out.println(Gdx.graphics.getWidth());
         if(Gdx.graphics.getWidth() <= 480){
             baseZoom = 1f;
         }else if(Gdx.graphics.getWidth() >= 900){
             baseZoom = .5f;
+        }else{
+            baseZoom = .75f;
         }
         setCameraZoom(baseZoom);
     }
 
-    private void setCameraZoom(float cameraZoom) {
-        this.cameraZoom = cameraZoom;
-        camera.zoom = cameraZoom;
-        backgroundCamera.zoom = cameraZoom;
-        // shapeCamera.zoom = cameraZoom;
-    }
+
 
     /**
      * Finds what level we are on and renders it
@@ -89,12 +87,14 @@ public class RenderManager {
      */
     private void renderInGame(float timeElapsed){
         Player p = parent.levelManager.getPlayer();
-        camera.zoom = .5f;
-       // camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0); //this causes a 2nd sprite to be printed???
-       // camera.setToAngle(p.getPhysics().getBody().getAngle());
+        camera.zoom = cameraZoom;
+        backgroundCamera.zoom = cameraZoom;
+        camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0); //this causes a 2nd sprite to be printed???
+        camera.setToAngle(p.getPhysics().getBody().getAngle());
         camera.update();
 
         backgroundCamera.position.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2, 0);
+        backgroundCamera.setToAngle(p.getPhysics().getBody().getAngle());
         backgroundCamera.update();
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
         batch.setProjectionMatrix(camera.combined);
@@ -104,7 +104,7 @@ public class RenderManager {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-        //renderBackground(timeElapsed, backgroundBatch);
+        renderBackground(timeElapsed, backgroundBatch);
 
 
 
@@ -159,7 +159,18 @@ public class RenderManager {
         return cameraZoom;
     }
 
+    public float getBaseZoom(){
+        return baseZoom;
+    }
+
     public void dispose(){
 
+    }
+
+    public void setCameraZoom(float cameraZoom) {
+        this.cameraZoom = cameraZoom;
+        camera.zoom = cameraZoom;
+        backgroundCamera.zoom = cameraZoom;
+        // shapeCamera.zoom = cameraZoom;
     }
 }
