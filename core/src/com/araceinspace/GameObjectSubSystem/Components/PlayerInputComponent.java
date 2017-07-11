@@ -32,7 +32,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      * Updates the input component
      * @param o
      */
-    void update(GameObject o) {
+    public void update(GameObject o) {
         //TODO write update code
     }
 

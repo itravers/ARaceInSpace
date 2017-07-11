@@ -5,6 +5,7 @@ import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -38,5 +39,15 @@ public class Ghost extends TwoDGameObject{
     @Override
     void dispose() {
         //TODO create ghost dispose code
+    }
+
+    @Override
+    public void onEnd(AnimationController.AnimationDesc animation) {
+
+    }
+
+    @Override
+    public void onLoop(AnimationController.AnimationDesc animation) {
+
     }
 }

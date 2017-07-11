@@ -21,7 +21,7 @@ public class PlayerStateComponent extends StateComponent{
      * @param o
      */
     @Override
-    void update(GameObject o) {
+    public void update(GameObject o) {
         //TODO make update code
     }
 }

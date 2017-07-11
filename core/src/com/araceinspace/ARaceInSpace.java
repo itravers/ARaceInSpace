@@ -13,14 +13,12 @@ public class ARaceInSpace extends ApplicationAdapter {
 	MonetizationController monetizationController;
 	public static EventDispatcher eventDispatcher;
 	public GameWorld gameWorld;
-	public static RenderManager renderManager;
 
 
 	public ARaceInSpace(MonetizationController monetizationController){
 		this.monetizationController = monetizationController;
-		this.eventDispatcher = new EventDispatcher();
-		this.gameWorld = new GameWorld(this);
-		this.renderManager = new RenderManager();
+
+
 
 		/** Now have our ads controller setupAds(). */
 		monetizationController.setupAds();
@@ -31,7 +29,8 @@ public class ARaceInSpace extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
-
+		this.eventDispatcher = new EventDispatcher();
+		this.gameWorld = new GameWorld(this);
 		//monetizationController.loadBannerAd();
 	}
 
@@ -42,6 +41,6 @@ public class ARaceInSpace extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		renderManager.dispose();
+
 	}
 }

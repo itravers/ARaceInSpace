@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * Created by slack on 7/10/17.
+ * Created by Isaac Assegai on 7/10/17.
+ * Manages the game rendering
  */
 public class RenderManager {
     /* Static Variables */
@@ -15,20 +16,26 @@ public class RenderManager {
 
     /* Field Variables & Objects */
     GameWorld parent;
-    SpriteBatch batch;
-    Texture img;
     private float elapsedTime;
 
     /* Constructor */
     public RenderManager(GameWorld p){
+        System.out.println("RenderManager Constructor");
         parent = p;
         frameNum = 0;
         elapsedTime = 0;
-        batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
+        setupRendering();
+
     }
 
     /* Private Methods */
+
+    /**
+     * Sets up the rendering engine with everything it needs to render with.
+     */
+    private void setupRendering(){
+        parent.animationManager.setupAnimations();
+    }
 
     /**
      * Finds what level we are on and renders it
@@ -66,7 +73,6 @@ public class RenderManager {
     }
 
     public void dispose(){
-        batch.dispose();
-        img.dispose();
+
     }
 }

@@ -130,5 +130,10 @@ public class ReceiverMap_Test implements UnitTest {
         public void receiveEvent(Event e) {
             System.out.println("Event Received");
         }
+
+        @Override
+        public void registerReceiver() {
+
+        }
     }
 }

@@ -18,6 +18,7 @@ public class LevelManager {
 
     /* Constructors */
     public LevelManager(GameWorld p){
+        System.out.println("LevelManager Constructor");
         parent = p;
     }
 
@@ -44,7 +45,7 @@ public class LevelManager {
      */
     public void setLevel(int level){
         currentLevel = level;
-        player = new Player(atlas);
+      //  player = new Player(atlas);
     }
 
     /**
