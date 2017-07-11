@@ -20,14 +20,11 @@ follows:
 
 #### Classes
 -Classes must be structured with the following sections.
-1. Imports
-2. Main Class Declaration
-3. Field Variables
-4. Constructors
-5. Private Methods
-6. Abstract Methods (Abstract class Only)
-7. Public Methods
-8. Private Classes
+1. Static Variables
+2. Field Variables
+3. Constructors
+4. Private Methods
+5. Public Methods
 
 Each Section Header must start with:
 /* Section Name */

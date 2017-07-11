@@ -1,12 +1,9 @@
 package com.araceinspace;
 
 import com.araceinspace.EventSubSystem.EventDispatcher;
+import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ARaceInSpace extends ApplicationAdapter {
 	/* Static Variables */
@@ -15,12 +12,14 @@ public class ARaceInSpace extends ApplicationAdapter {
 	/* Field Variables & Objects */
 	MonetizationController monetizationController;
 	public static EventDispatcher eventDispatcher;
+	public GameWorld gameWorld;
 	public static RenderManager renderManager;
 
 
 	public ARaceInSpace(MonetizationController monetizationController){
 		this.monetizationController = monetizationController;
 		this.eventDispatcher = new EventDispatcher();
+		this.gameWorld = new GameWorld(this);
 		this.renderManager = new RenderManager();
 
 		/** Now have our ads controller setupAds(). */
@@ -38,7 +37,7 @@ public class ARaceInSpace extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		renderManager.render();
+		gameWorld.renderManager.render();
 	}
 	
 	@Override

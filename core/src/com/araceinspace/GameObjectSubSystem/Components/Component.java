@@ -7,6 +7,6 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * Every object that extends Component must have an update(GameObject) method implemented.
  * The update message will be called from the GameObject that owns this Component.
  */
-public abstract class Component {
-    abstract void update(GameObject o);
+public interface Component {
+    void update(GameObject o);
 }
