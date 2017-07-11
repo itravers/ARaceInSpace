@@ -1,6 +1,6 @@
 package com.araceinspace.InputSubSystem;
 
-import com.araceinspace.RenderManager;
+import com.araceinspace.Managers.RenderManager;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,6 @@
 package com.araceinspace.desktop;
 
+import com.araceinspace.ARaceInSpace;
 import com.araceinspace.MonetizationSubSystem.DummyController;
 import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
 import com.araceinspace.TestSubSystem.StoreLayoutTest;
@@ -25,6 +26,7 @@ public class DesktopLauncher {
 		//config.useGL30 = true;
 		System.out.println("config w/h: " + config.width + "/" + config.height);
 		DummyController monetizationController = new DummyController();
-		new LwjglApplication(new StoreLayoutTest(monetizationController, null), config);
+		//new LwjglApplication(new StoreLayoutTest(monetizationController, null), config);
+		new LwjglApplication(new ARaceInSpace(monetizationController), config);
 	}
 }

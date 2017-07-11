@@ -11,6 +11,6 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * The GameObject will return it’s state from the StateComponent.
 
  */
-public abstract class StateComponent extends Component{
-    abstract void update(GameObject o);
+public abstract class StateComponent implements Component{
+    abstract public void update(float timeElapsed);
 }

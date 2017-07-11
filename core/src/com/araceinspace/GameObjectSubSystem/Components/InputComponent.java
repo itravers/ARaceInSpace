@@ -13,12 +13,13 @@ import com.araceinspace.InputSubSystem.GameInput;
  * Both of their input components own their own input recorder.
  * Which is defined in the Input SubSystem section.
  */
-public abstract class InputComponent extends Component{
-    protected GameInput currentInput;
-    abstract void update(GameObject o);
+public abstract class InputComponent implements Component{
+    public boolean boostPressed = false;
+    public boolean upPressed = false;
+    public boolean leftPressed = false;
+    public boolean downPressed = false;
+    public boolean rightPressed = false;
+    abstract public void update(float timeElapsed);
 
 
-    public GameInput getCurrentInput(){
-        return currentInput;
-    }
 }

@@ -195,6 +195,11 @@ public class EventDispatcher_Test implements UnitTest {
         public void receiveEvent(Event e) {
             eventReceived = e;
         }
+
+        @Override
+        public void registerReceiver() {
+
+        }
     }
 
     /**
@@ -208,7 +213,6 @@ public class EventDispatcher_Test implements UnitTest {
             dispatcher = EventDispatcher.getSingletonDispatcher();
         }
 
-        @Override
         public Event initiateEvent() {
             return dispatcher.obtainEvent();
         }

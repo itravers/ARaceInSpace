@@ -4,7 +4,7 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.InputSubSystem.InputRecorder;
-import com.araceinspace.RenderManager;
+import com.araceinspace.Managers.RenderManager;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -31,11 +31,10 @@ public class GhostInputComponent extends InputComponent{
      * Updates the input component
      * @param o
      */
-    void update(GameObject o) {
+    public void update(float timeElapsed) {
         Action nextAction = inputRecorder.getNextAction(RenderManager.frameNum);
         if(nextAction != null){
             GameInput input = nextAction.getInput();
-            currentInput = input;
         }
     }
 }

@@ -51,7 +51,8 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 	 * A reference to the game.
 	 */
 	//MonetizationIntegrationTest mainGame;
-	StoreLayoutTest mainGame;
+	//StoreLayoutTest mainGame;
+	ARaceInSpace mainGame;
 
 /* Protected Methods */
 
@@ -71,7 +72,8 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
-		mainGame = new StoreLayoutTest(adsController, this);
+		//mainGame = new StoreLayoutTest(adsController, this);
+		mainGame = new ARaceInSpace(adsController);
 		View gameView = initializeForView(mainGame, config);
 
 		//set up the ads controller ads.

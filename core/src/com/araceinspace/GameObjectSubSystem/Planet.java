@@ -3,6 +3,7 @@ package com.araceinspace.GameObjectSubSystem;
 import com.araceinspace.GameObjectSubSystem.Components.PlanetPhysicsComponent;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -15,23 +16,31 @@ public class Planet extends TwoDGameObject{
     /**
      * constructor
      * @param atlas
-     * @param regions
      * @param animations
      */
-    public Planet(TextureAtlas atlas, TextureAtlas.AtlasRegion regions, Animation animations) {
-        super(atlas, regions, animations);
+    public Planet(TextureAtlas atlas, Animation animations) {
         input = null; //Planets don't take inputs
         physics = new PlanetPhysicsComponent();
         state = null; //Planets don't have different states;
     }
 
     @Override
-    void update() {
+    public void update(float elapsedTime) {
         //TODO add Planet update code
     }
 
     @Override
     void dispose() {
         //TODO add planet dispose code
+    }
+
+    @Override
+    public void onEnd(AnimationController.AnimationDesc animation) {
+
+    }
+
+    @Override
+    public void onLoop(AnimationController.AnimationDesc animation) {
+
     }
 }
