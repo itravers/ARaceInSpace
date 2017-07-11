@@ -25,10 +25,13 @@ public class RenderManager {
     GameWorld parent;
 
     private OrthCamera camera;
+    private OrthCamera backgroundCamera;
     private Box2DDebugRenderer debugRenderer;
     private Matrix4 debugMatrix;
     private SpriteBatch batch;
-    
+    private SpriteBatch backgroundBatch;
+    private float baseZoom;
+    private float cameraZoom;
 
     /* Constructor */
     public RenderManager(GameWorld p){
@@ -47,12 +50,37 @@ public class RenderManager {
         resetFrameNum();
         parent.animationManager.setupAnimations();
         camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        backgroundCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
 
+        backgroundBatch = new SpriteBatch();
+        backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
+
         debugRenderer = new Box2DDebugRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
+
+        setupScreenSizeDependantItems();
+    }
+
+    //Several things in the game are going to be dependant on the users screen size
+    //zoom
+    //gui size
+    private void setupScreenSizeDependantItems(){
+        if(Gdx.graphics.getWidth() <= 480){
+            baseZoom = 1f;
+        }else if(Gdx.graphics.getWidth() >= 900){
+            baseZoom = .5f;
+        }
+        setCameraZoom(baseZoom);
+    }
+
+    private void setCameraZoom(float cameraZoom) {
+        this.cameraZoom = cameraZoom;
+        camera.zoom = cameraZoom;
+        backgroundCamera.zoom = cameraZoom;
+        // shapeCamera.zoom = cameraZoom;
     }
 
     /**
@@ -63,10 +91,20 @@ public class RenderManager {
         Player p = parent.levelManager.getPlayer();
         camera.zoom = .5f;
        // camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0); //this causes a 2nd sprite to be printed???
-        //camera.setToAngle(p.getPhysics().getBody().getAngle());
+       // camera.setToAngle(p.getPhysics().getBody().getAngle());
         camera.update();
 
+        backgroundCamera.position.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2, 0);
+        backgroundCamera.update();
+        backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
         batch.setProjectionMatrix(camera.combined);
+
+        //clear screen
+        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+        //renderBackground(timeElapsed, backgroundBatch);
 
 
 
@@ -76,6 +114,11 @@ public class RenderManager {
 
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
         debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);
+    }
+
+    private void renderBackground(float timeElapsed, SpriteBatch b){
+      //  System.out.println("RenderBackground");
+        parent.levelManager.getBackground().render(timeElapsed, b);
     }
 
     /**
@@ -106,6 +149,14 @@ public class RenderManager {
 
     public void resetFrameNum(){
         setFrameNum(0);
+    }
+
+    public OrthCamera getBackgroundCamera(){
+        return backgroundCamera;
+    }
+
+    public float getCameraZoom() {
+        return cameraZoom;
     }
 
     public void dispose(){
