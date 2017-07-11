@@ -18,7 +18,6 @@ public class LevelManager {
 
     /* Field Variables & Objects */
     public GameWorld parent;
-    private World world; //Physics world
     private int currentLevel;
     private Player player;
 
@@ -26,21 +25,10 @@ public class LevelManager {
     public LevelManager(GameWorld p){
         System.out.println("LevelManager Constructor");
         parent = p;
-        setupPhysics();
         setupPlayer();
     }
 
     /* Private Methods */
-    private void resetPhysics(){
-        setupPhysics();
-    }
-
-    private void setupPhysics(){
-        parent.renderManager.elapsedTime = 0; //reset elapsed time
-        parent.renderManager.resetFrameNum(); //reset num frames passed
-        world = new World(new Vector2(0,0), true); //create world
-        world.setContactListener(parent.contactListenerManager); //set collision manager
-    }
 
     /* Public Methods */
     public void setCurrentLevel(int level){
@@ -83,6 +71,14 @@ public class LevelManager {
     public void setupPlayer(){
         TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
         Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
-        player = new Player(this, world, atlas, animation);
+        player = new Player(this, parent.world, atlas, animation);
+    }
+
+    public void update(float elaspedTime){
+        player.update(elaspedTime);
+    }
+
+    public World getWorld(){
+        return parent.world;
     }
 }

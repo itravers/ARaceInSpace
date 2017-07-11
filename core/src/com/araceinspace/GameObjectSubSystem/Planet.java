@@ -25,7 +25,7 @@ public class Planet extends TwoDGameObject{
     }
 
     @Override
-    void update() {
+    public void update(float elapsedTime) {
         //TODO add Planet update code
     }
 

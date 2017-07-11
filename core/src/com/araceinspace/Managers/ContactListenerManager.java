@@ -18,6 +18,7 @@ public class ContactListenerManager implements ContactListener {
 
     /* Constructors */
     public ContactListenerManager(GameWorld p){
+        System.out.println("ContactListenerManager Constructor");
         parent = p;
     }
 

@@ -37,8 +37,8 @@ public class Player extends TwoDGameObject{
     }
 
     @Override
-    void update() {
-        //TODO create player update code
+    public void update(float elapsedTime) {
+        physics.update(elapsedTime);
     }
 
     @Override
@@ -62,6 +62,10 @@ public class Player extends TwoDGameObject{
 
     public PlayerPhysicsComponent getPhysics(){
         return (PlayerPhysicsComponent)physics;
+    }
+
+    public PlayerInputComponent getInput(){
+        return (PlayerInputComponent)input;
     }
 
     public float getX(){

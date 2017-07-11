@@ -4,6 +4,7 @@ import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 
 public class ARaceInSpace extends ApplicationAdapter {
 	/* Static Variables */
@@ -36,7 +37,8 @@ public class ARaceInSpace extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		gameWorld.renderManager.render();
+		//First Calculate Elapsed Time
+		gameWorld.update();
 	}
 	
 	@Override

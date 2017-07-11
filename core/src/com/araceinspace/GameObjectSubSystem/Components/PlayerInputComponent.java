@@ -30,7 +30,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
 
     /**
      * Updates the input component
-     * @param o
+     * @param timeElapsed
      */
     public void update(float timeElapsed) {
         //TODO write update code
@@ -46,8 +46,41 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
     public void receiveEvent(Event e) {
         String id = e.getId();
         Event.TYPE type = e.getType();
-        GameInput data = (GameInput)e.getData();
-        currentInput = data;
+        GameInput currentInput = (GameInput)e.getData();
+
+        switch(currentInput){
+            case BOOST_PRESSED:
+                    boostPressed = true;
+                break;
+            case RIGHT_PRESSED:
+                rightPressed = true;
+                break;
+            case LEFT_PRESSED:
+                leftPressed = true;
+                break;
+            case UP_PRESSED:
+                upPressed = true;
+                break;
+            case DOWN_PRESSED:
+                downPressed = true;
+                break;
+            case RIGHT_RELEASED:
+                rightPressed = false;
+                break;
+            case LEFT_RELEASED:
+                leftPressed = false;
+                break;
+            case UP_RELEASED:
+                upPressed = false;
+                break;
+            case DOWN_RELEASED:
+                downPressed = false;
+                break;
+            case BOOST_RELEASED:
+                boostPressed = false;
+                break;
+        }
+
     }
 
     /**

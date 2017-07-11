@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -16,22 +18,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class RenderManager {
     /* Static Variables */
     static public int frameNum;
+    public static final float PIXELS_TO_METERS = 10f;
 
 
     /* Field Variables & Objects */
     GameWorld parent;
-    public float elapsedTime;
+
     private OrthCamera camera;
+    private Box2DDebugRenderer debugRenderer;
+    private Matrix4 debugMatrix;
     private SpriteBatch batch;
+    
 
     /* Constructor */
     public RenderManager(GameWorld p){
         System.out.println("RenderManager Constructor");
         parent = p;
         frameNum = 0;
-        elapsedTime = 0;
         setupRendering();
-
     }
 
     /* Private Methods */
@@ -40,11 +44,15 @@ public class RenderManager {
      * Sets up the rendering engine with everything it needs to render with.
      */
     private void setupRendering(){
+        resetFrameNum();
         parent.animationManager.setupAnimations();
         camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
+
+        debugRenderer = new Box2DDebugRenderer();
+        debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
     }
 
     /**
@@ -53,9 +61,9 @@ public class RenderManager {
      */
     private void renderInGame(float timeElapsed){
         Player p = parent.levelManager.getPlayer();
-        camera.zoom = .1f;
-        camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0); //this causes a 2nd sprite to be printed???
-        camera.setToAngle(p.getPhysics().getBody().getAngle());
+        camera.zoom = .5f;
+       // camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0); //this causes a 2nd sprite to be printed???
+        //camera.setToAngle(p.getPhysics().getBody().getAngle());
         camera.update();
 
         batch.setProjectionMatrix(camera.combined);
@@ -65,6 +73,9 @@ public class RenderManager {
         batch.begin();
         renderPlayer(timeElapsed, batch);
         batch.end();
+
+        debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
+        debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);
     }
 
     /**
@@ -82,12 +93,8 @@ public class RenderManager {
 
     /**
      * Finds what state the game is currently in and calls the pertinent render method.
-     * Also calculated elapsedTime
      */
-    public void render(){
-        //First Calculate Elapsed Time
-        elapsedTime += Gdx.graphics.getDeltaTime();
-
+    public void render(float elapsedTime){
         //Call appropriate render method based on game state
         if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
             renderInGame(elapsedTime);

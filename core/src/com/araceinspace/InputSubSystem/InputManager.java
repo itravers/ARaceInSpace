@@ -3,7 +3,10 @@ package com.araceinspace.InputSubSystem;
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventSender;
+import com.araceinspace.GameWorld;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -19,6 +22,23 @@ import com.badlogic.gdx.math.Vector2;
  * EventDispatcher to dispatch it. A GameObjects InputComponent receives this and consumes it.
  */
 public class InputManager implements EventSender, InputProcessor, GestureDetector.GestureListener {
+    /* Static Variables */
+
+    /* Field Variables & Objects */
+    GameWorld parent;
+
+    /* Constructors */
+
+    public InputManager(GameWorld p){
+        parent = p;
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
+    }
+
+    /* Private Methods */
+
+    /* Public Methods */
 
     @Override
     public void sendEvent(Event e) {
@@ -79,6 +99,7 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
      */
     @Override
     public boolean keyDown(int keycode) {
+        //System.out.println("KeyDown: " + keycode);
         GameInput input = null;
         if(keycode == Input.Keys.W){
             input = GameInput.UP_PRESSED;

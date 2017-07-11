@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.GameObjectSubSystem.Player;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -20,7 +21,7 @@ public class PlanetPhysicsComponent extends  PhysicsComponent{
      * Create a new PlanetPhysicsComponent
      */
     public PlanetPhysicsComponent(){
-        //TODO Add constructor code.
+
     }
 
     /* Methods */

@@ -33,7 +33,7 @@ public class Ghost extends Player{
     }
 
     @Override
-    void update() {
+    public void update(float elapsedTime) {
         //TODO create ghost update code
     }
 

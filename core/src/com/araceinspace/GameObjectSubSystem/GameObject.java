@@ -22,6 +22,6 @@ public abstract class GameObject{
     protected StateComponent state;
 
     /* Abstract Methods */
-    abstract void update();
+    abstract void update(float elapsedTime);
     abstract void dispose();
 }
