@@ -2,6 +2,7 @@ package com.araceinspace;
 
 import com.araceinspace.Managers.AnimationManager;
 import com.araceinspace.Managers.GameStateManager;
+import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.badlogic.gdx.ApplicationAdapter;
 
@@ -16,6 +17,7 @@ public class GameWorld {
     public GameStateManager gameStateManager;
     public AnimationManager animationManager; //Must be constructed before renderManager
     public RenderManager renderManager;
+    public LevelManager levelManager;
 
 
     /* Constructors */
@@ -24,6 +26,7 @@ public class GameWorld {
         gameStateManager = new GameStateManager(this);
         animationManager = new AnimationManager(this);
         renderManager = new RenderManager(this);
+        levelManager = new LevelManager(this);
     }
 
     /* Private Methods */

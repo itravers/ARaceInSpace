@@ -16,11 +16,9 @@ public class Planet extends TwoDGameObject{
     /**
      * constructor
      * @param atlas
-     * @param regions
      * @param animations
      */
-    public Planet(TextureAtlas atlas, TextureAtlas.AtlasRegion regions, Animation animations) {
-        super(atlas, regions, animations);
+    public Planet(TextureAtlas atlas, Animation animations) {
         input = null; //Planets don't take inputs
         physics = new PlanetPhysicsComponent();
         state = null; //Planets don't have different states;

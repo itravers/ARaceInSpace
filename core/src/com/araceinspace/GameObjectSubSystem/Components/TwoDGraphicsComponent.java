@@ -18,14 +18,13 @@ public class TwoDGraphicsComponent extends Sprite implements GraphicsComponent {
 
     /* Field Variables & Methods */
     TextureAtlas atlas;
-    TextureAtlas.AtlasRegion regions;
     Animation animations;
+    Animation currentAnimation;
 
     /*Constructor*/
-    public TwoDGraphicsComponent(TextureAtlas atlas, TextureAtlas.AtlasRegion regions, Animation animations){
+    public TwoDGraphicsComponent(TextureAtlas atlas, Animation animations){
         super(atlas.getRegions().first(), 0, 0, 50, 50);
         this.atlas = atlas;
-        this.regions = regions;
         this.animations = animations;
     }
 
@@ -33,4 +32,5 @@ public class TwoDGraphicsComponent extends Sprite implements GraphicsComponent {
     public void update(GameObject o) {
         //TODO write graphics update code
     }
+
 }

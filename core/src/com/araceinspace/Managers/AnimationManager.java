@@ -49,4 +49,16 @@ public class AnimationManager {
     public void setupAnimations(){
         setupStandingStillForwardsAnimation();
     }
+
+    public TextureAtlas getStandingStillForwardsAtlas() {
+        return standingStillForwardsAtlas;
+    }
+
+    public Array<TextureAtlas.AtlasRegion> getStandingStillForwardsRegion() {
+        return standingStillForwardsRegion;
+    }
+
+    public Animation getStandingStillForwardsAnimation() {
+        return standingStillForwardsAnimation;
+    }
 }

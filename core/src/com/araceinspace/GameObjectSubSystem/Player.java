@@ -1,5 +1,6 @@
 package com.araceinspace.GameObjectSubSystem;
 
+import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
@@ -18,14 +19,13 @@ public class Player extends TwoDGameObject{
     /**
      * Constructor
      * @param atlas
-     * @param regions
      * @param animations
      */
-    public Player(TextureAtlas atlas, TextureAtlas.AtlasRegion regions, Animation animations) {
-        super(atlas, regions, animations);
+    public Player(TextureAtlas atlas, Animation animations) {
         input = new PlayerInputComponent();
         physics = new PlayerPhysicsComponent();
         state = new PlayerStateComponent();
+        graphics = new PlayerGraphicsComponent(atlas, animations);
     }
 
     @Override
@@ -47,4 +47,26 @@ public class Player extends TwoDGameObject{
     public void onLoop(AnimationController.AnimationDesc animation) {
 
     }
+
+    public PlayerGraphicsComponent getGraphics(){
+        return (PlayerGraphicsComponent)graphics;
+    }
+
+    public float getX(){
+        return ((PlayerGraphicsComponent)graphics).getX();
+    }
+
+    public float getY(){
+        return ((PlayerGraphicsComponent)graphics).getY();
+    }
+
+    public float getWidth(){
+        return ((PlayerGraphicsComponent)graphics).getWidth();
+    }
+
+    public float getHeight(){
+        return ((PlayerGraphicsComponent)graphics).getHeight();
+    }
+
+
 }

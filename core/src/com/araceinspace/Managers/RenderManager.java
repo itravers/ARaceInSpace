@@ -1,8 +1,10 @@
 package com.araceinspace.Managers;
 
+import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -17,6 +19,8 @@ public class RenderManager {
     /* Field Variables & Objects */
     GameWorld parent;
     private float elapsedTime;
+    private OrthographicCamera camera;
+    private SpriteBatch batch;
 
     /* Constructor */
     public RenderManager(GameWorld p){
@@ -35,6 +39,9 @@ public class RenderManager {
      */
     private void setupRendering(){
         parent.animationManager.setupAnimations();
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch = new SpriteBatch();
+        batch.setProjectionMatrix(camera.combined);
     }
 
     /**
@@ -42,7 +49,21 @@ public class RenderManager {
      * @param timeElapsed
      */
     private void renderInGame(float timeElapsed){
+        Player p = parent.levelManager.getPlayer();
+        batch.setProjectionMatrix(camera.combined);
+        camera.position.set(p.getX()+p.getWidth(), p.getY()+p.getHeight(), 0);
+        camera.update();
 
+        batch.begin();
+        renderPlayer(timeElapsed, batch);
+        batch.end();
+    }
+
+    /**
+     * Renders the player to the screen
+     */
+    private void renderPlayer(float timeElapsed, SpriteBatch batch){
+        parent.levelManager.getPlayer().getGraphics().render(timeElapsed, batch);
     }
 
     private void setFrameNum(int num){

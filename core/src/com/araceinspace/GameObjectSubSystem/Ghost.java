@@ -21,11 +21,9 @@ public class Ghost extends TwoDGameObject{
     /**
      * Constructor
      * @param atlas
-     * @param regions
      * @param animations
      */
-    public Ghost(TextureAtlas atlas, TextureAtlas.AtlasRegion regions, Animation animations) {
-        super(atlas, regions, animations);
+    public Ghost(TextureAtlas atlas, Animation animations) {
         input = new GhostInputComponent();
         physics = new PlayerPhysicsComponent();
         state = new PlayerStateComponent();

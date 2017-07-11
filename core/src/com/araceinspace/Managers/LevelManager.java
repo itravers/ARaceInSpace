@@ -2,6 +2,8 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 /**
  * Created by Isaac Assegai on 7/11/17.
@@ -20,6 +22,7 @@ public class LevelManager {
     public LevelManager(GameWorld p){
         System.out.println("LevelManager Constructor");
         parent = p;
+        setupPlayer();
     }
 
     /* Private Methods */
@@ -45,7 +48,7 @@ public class LevelManager {
      */
     public void setLevel(int level){
         currentLevel = level;
-      //  player = new Player(atlas);
+        setupPlayer();
     }
 
     /**
@@ -61,5 +64,14 @@ public class LevelManager {
      */
     public void setPlayer(Player p){
         player = p;
+    }
+
+    /**
+     * Sets up the player to be usable
+     */
+    public void setupPlayer(){
+        TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+        Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+        player = new Player(atlas, animation);
     }
 }

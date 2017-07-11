@@ -16,12 +16,8 @@ public abstract class TwoDGameObject extends GameObject implements AnimationCont
 
     /**
      * Constructor
-     * @param atlas
-     * @param regions
-     * @param animations
      */
-    public TwoDGameObject(TextureAtlas atlas, TextureAtlas.AtlasRegion regions, Animation animations){
+    public TwoDGameObject(){
         super();
-        graphics = new TwoDGraphicsComponent(atlas, regions, animations);
     }
 }
