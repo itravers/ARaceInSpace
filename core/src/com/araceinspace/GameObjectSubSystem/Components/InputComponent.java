@@ -15,7 +15,7 @@ import com.araceinspace.InputSubSystem.GameInput;
  */
 public abstract class InputComponent implements Component{
     protected GameInput currentInput;
-    abstract public void update(GameObject o);
+    abstract public void update(float timeElapsed);
 
 
     public GameInput getCurrentInput(){

@@ -30,7 +30,7 @@ public class PlanetPhysicsComponent extends  PhysicsComponent{
      * @param o // The Planet Object
      */
     @Override
-    public void update(GameObject o) {
+    public void update(float timeElapsed) {
         //TODO Add update code for player physics
     }
 }

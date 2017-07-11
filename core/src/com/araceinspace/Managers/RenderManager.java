@@ -2,6 +2,7 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
+import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,10 +17,11 @@ public class RenderManager {
     /* Static Variables */
     static public int frameNum;
 
+
     /* Field Variables & Objects */
     GameWorld parent;
-    private float elapsedTime;
-    private OrthographicCamera camera;
+    public float elapsedTime;
+    private OrthCamera camera;
     private SpriteBatch batch;
 
     /* Constructor */
@@ -39,7 +41,8 @@ public class RenderManager {
      */
     private void setupRendering(){
         parent.animationManager.setupAnimations();
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
     }
@@ -50,9 +53,14 @@ public class RenderManager {
      */
     private void renderInGame(float timeElapsed){
         Player p = parent.levelManager.getPlayer();
-        batch.setProjectionMatrix(camera.combined);
-        camera.position.set(p.getX()+p.getWidth(), p.getY()+p.getHeight(), 0);
+        camera.zoom = .1f;
+        camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0); //this causes a 2nd sprite to be printed???
+        camera.setToAngle(p.getPhysics().getBody().getAngle());
         camera.update();
+
+        batch.setProjectionMatrix(camera.combined);
+
+
 
         batch.begin();
         renderPlayer(timeElapsed, batch);

@@ -10,5 +10,5 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * Everything excluding collision physics should be located here.
  */
 public abstract class PhysicsComponent implements Component{
-    public abstract void update(GameObject o);
+    public abstract void update(float elapsedTime);
 }

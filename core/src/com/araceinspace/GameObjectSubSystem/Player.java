@@ -4,9 +4,11 @@ import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
+import com.araceinspace.Managers.LevelManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -15,17 +17,23 @@ import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
  * the player and to save all inputs to replay a game. It uses a PlayerPhysicsComponent.
  */
 public class Player extends TwoDGameObject{
+    /* Static Variables */
+
+    /* Field Variables & Objects */
+    public LevelManager parent;
 
     /**
      * Constructor
      * @param atlas
      * @param animations
      */
-    public Player(TextureAtlas atlas, Animation animations) {
+    public Player(LevelManager p, World world, TextureAtlas atlas, Animation animations) {
+        parent = p;
+        graphics = new PlayerGraphicsComponent(atlas, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent();
-        physics = new PlayerPhysicsComponent();
+        physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent();
-        graphics = new PlayerGraphicsComponent(atlas, animations);
+
     }
 
     @Override
@@ -52,6 +60,10 @@ public class Player extends TwoDGameObject{
         return (PlayerGraphicsComponent)graphics;
     }
 
+    public PlayerPhysicsComponent getPhysics(){
+        return (PlayerPhysicsComponent)physics;
+    }
+
     public float getX(){
         return ((PlayerGraphicsComponent)graphics).getX();
     }
@@ -66,6 +78,10 @@ public class Player extends TwoDGameObject{
 
     public float getHeight(){
         return ((PlayerGraphicsComponent)graphics).getHeight();
+    }
+
+    public void setRotation(float rotation){
+        getGraphics().setRotation(rotation);
     }
 
 

@@ -12,5 +12,5 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
 
  */
 public abstract class StateComponent implements Component{
-    abstract public void update(GameObject o);
+    abstract public void update(float timeElapsed);
 }

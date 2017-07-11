@@ -8,5 +8,5 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * The update message will be called from the GameObject that owns this Component.
  */
 public interface Component {
-    void update(GameObject o);
+    void update(float elapsedTime);
 }

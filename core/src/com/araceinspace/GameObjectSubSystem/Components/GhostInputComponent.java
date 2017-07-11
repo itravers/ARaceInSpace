@@ -31,7 +31,7 @@ public class GhostInputComponent extends InputComponent{
      * Updates the input component
      * @param o
      */
-    public void update(GameObject o) {
+    public void update(float timeElapsed) {
         Action nextAction = inputRecorder.getNextAction(RenderManager.frameNum);
         if(nextAction != null){
             GameInput input = nextAction.getInput();

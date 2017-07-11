@@ -10,5 +10,5 @@ import com.araceinspace.GameObjectSubSystem.GameObject;
  * but the Players and the Ghosts will be 3D graphics(possibly).
  */
 public interface GraphicsComponent extends Component{
-    abstract void update(GameObject o);
+    abstract void update(float timeElapsed);
 }

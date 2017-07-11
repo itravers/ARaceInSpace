@@ -29,7 +29,7 @@ public class TwoDGraphicsComponent extends Sprite implements GraphicsComponent {
     }
 
     @Override
-    public void update(GameObject o) {
+    public void update(float timeElapsed) {
         //TODO write graphics update code
     }
 
