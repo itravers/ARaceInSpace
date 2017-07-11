@@ -72,7 +72,7 @@ public class Background {
          batch.end();
 
 
-        batch.enableBlending();
+      /*  batch.enableBlending();
         batch.setProjectionMatrix(parent.parent.renderManager.getBackgroundCamera().calculateParallaxMatrix(.15f, .15f));
         batch.begin();
        // batch.draw(layers[3],  -(int)(layers[3].getRegionWidth() /4), -(int)(layers[3].getRegionHeight() /4),
@@ -127,6 +127,7 @@ public class Background {
 
 
                 batch.end();
+                */
 
 
         batch.setProjectionMatrix(temp);

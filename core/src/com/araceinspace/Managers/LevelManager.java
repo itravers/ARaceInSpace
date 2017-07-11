@@ -40,7 +40,7 @@ public class LevelManager {
     private void setupBackground() {
         System.out.println("SetupBackground");
         Texture background = new Texture(Gdx.files.internal("data/tiledBackground.png"));
-        Texture starscape1 = new Texture(Gdx.files.internal("data/starscape1.png"));
+        Texture starscape1 = new Texture(Gdx.files.internal("data/stars1.png"));
         Texture starscape2 = new Texture(Gdx.files.internal("data/starscape2.png"));
         Texture starscape3 = new Texture(Gdx.files.internal("data/starscape3.png"));
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
