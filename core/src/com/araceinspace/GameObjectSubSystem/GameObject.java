@@ -5,6 +5,7 @@ import com.araceinspace.GameObjectSubSystem.Components.InputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.StateComponent;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -14,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * A game object will need update, create and dispose methods.
 
  */
-public abstract class GameObject{
+public abstract class GameObject extends Actor {
     /* Field Variables & Objects */
     protected InputComponent input;
     protected PhysicsComponent physics;

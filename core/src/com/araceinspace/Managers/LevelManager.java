@@ -1,5 +1,6 @@
 package com.araceinspace.Managers;
 
+import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
 import com.araceinspace.misc.Background;
@@ -10,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 7/11/17.
@@ -24,6 +27,7 @@ public class LevelManager {
     public GameWorld parent;
     private int currentLevel;
     private Player player;
+    private ArrayList<Planet> planets;
     private Background mainBackground;
 
     /* Constructors */
@@ -31,11 +35,19 @@ public class LevelManager {
         System.out.println("LevelManager Constructor");
         parent = p;
         setupBackground();
+        setupPlanets();
         setupPlayer();
 
     }
 
     /* Private Methods */
+
+    /**
+     * Reads the level file and gets the planets to setup.
+     */
+    private void setupPlanets(){
+
+    }
 
     private void setupBackground() {
         System.out.println("SetupBackground");
@@ -105,6 +117,7 @@ public class LevelManager {
         TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
         Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
         player = new Player(this, parent.world, atlas, animation);
+       // parent.renderManager.stage.addActor(player);
     }
 
     public void update(float elaspedTime){

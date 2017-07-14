@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -32,6 +35,9 @@ public class RenderManager {
     private SpriteBatch backgroundBatch;
     private float baseZoom;
     private float cameraZoom;
+
+    private Viewport viewport;
+    public Stage stage;
 
     /* Constructor */
     public RenderManager(GameWorld p){
@@ -57,6 +63,10 @@ public class RenderManager {
 
         backgroundBatch = new SpriteBatch();
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
+
+        viewport = new ScreenViewport(camera);
+        stage = new Stage(viewport, batch);
+
 
         debugRenderer = new Box2DDebugRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
@@ -111,6 +121,8 @@ public class RenderManager {
         batch.begin();
         renderPlayer(timeElapsed, batch);
         batch.end();
+        //stage.act(timeElapsed);
+       // stage.draw();
 
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
         debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);

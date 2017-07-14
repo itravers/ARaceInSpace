@@ -73,7 +73,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/
 		//mainGame = new StoreLayoutTest(adsController, this);
-		mainGame = new ARaceInSpace(adsController);
+		mainGame = new ARaceInSpace(adsController, this);
 		View gameView = initializeForView(mainGame, config);
 
 		//set up the ads controller ads.
@@ -83,7 +83,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		   We want the gameView layout to match th parent layout. The main android app config.
 		 */
 		RelativeLayout layout = new RelativeLayout(this);
-		layout.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
+		           layout.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.MATCH_PARENT);
 
 		/* We letAndroidAdsController add itself to the layout.

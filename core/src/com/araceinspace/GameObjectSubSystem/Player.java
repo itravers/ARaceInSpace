@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -33,6 +34,7 @@ public class Player extends TwoDGameObject{
         input = new PlayerInputComponent();
         physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent();
+
 
     }
 

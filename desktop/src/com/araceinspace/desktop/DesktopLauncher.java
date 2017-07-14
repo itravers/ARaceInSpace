@@ -27,6 +27,6 @@ public class DesktopLauncher {
 		System.out.println("config w/h: " + config.width + "/" + config.height);
 		DummyController monetizationController = new DummyController();
 		//new LwjglApplication(new StoreLayoutTest(monetizationController, null), config);
-		new LwjglApplication(new ARaceInSpace(monetizationController), config);
+		new LwjglApplication(new ARaceInSpace(monetizationController, null), config);
 	}
 }
