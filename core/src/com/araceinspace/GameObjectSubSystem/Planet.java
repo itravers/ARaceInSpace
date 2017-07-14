@@ -1,9 +1,14 @@
 package com.araceinspace.GameObjectSubSystem;
 
+import com.araceinspace.GameObjectSubSystem.Components.PlanetGraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlanetPhysicsComponent;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
+import com.araceinspace.Managers.LevelManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -12,21 +17,34 @@ import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
  * of a Player or a Ghost.
  */
 public class Planet extends TwoDGameObject{
+    /* Static Variables */
+
+    /* Field Variables & Objects */
+    public LevelManager parent;
+
 
     /**
-     * constructor
-     * @param atlas
-     * @param animations
-     */
-    public Planet(TextureAtlas atlas, Animation animations) {
+     * constructor*/
+    public Planet(Vector2 loc, TextureAtlas atlas, Animation animations, World world, float size, float gravityRadius, float mass, LevelManager p) {
+        parent = p;
         input = null; //Planets don't take inputs
-        physics = new PlanetPhysicsComponent();
+
+        graphics = new PlanetGraphicsComponent(this, atlas, animations); //graphics must be constructed before physics
+        physics = new PlanetPhysicsComponent(this, world, loc, size, mass, gravityRadius);
         state = null; //Planets don't have different states;
+
     }
+
+
+    /* Private Methods */
+
+
+    /* Public Methods */
+
 
     @Override
     public void update(float elapsedTime) {
-        //TODO add Planet update code
+       physics.update(elapsedTime);
     }
 
     @Override
@@ -42,5 +60,21 @@ public class Planet extends TwoDGameObject{
     @Override
     public void onLoop(AnimationController.AnimationDesc animation) {
 
+    }
+
+    public PlanetGraphicsComponent getGraphics(){
+        return (PlanetGraphicsComponent)graphics;
+    }
+
+    public PlanetPhysicsComponent getPhysics(){
+        return (PlanetPhysicsComponent)physics;
+    }
+
+    public float getX(){
+        return getGraphics().getX();
+    }
+
+    public float getY(){
+        return getGraphics().getY();
     }
 }

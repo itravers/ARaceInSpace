@@ -22,10 +22,15 @@ public class AnimationManager {
     private Array<TextureAtlas.AtlasRegion> standingStillForwardsRegion;
     private Animation standingStillForwardsAnimation;
 
+    //Planet Animation data
+    private TextureAtlas planetAtlas = null;
+    private TextureAtlas gravityWellAtlas = null;
+
     /* Constructors */
     public AnimationManager(GameWorld p){
         System.out.println("Animation Constructor");
         parent = p;
+        setupPlanets();
     }
 
     /* Private Methods */
@@ -34,10 +39,19 @@ public class AnimationManager {
      * Loads from file and set's up the standingStillForwards Animation
      */
     private void setupStandingStillForwardsAnimation(){
-
         standingStillForwardsAtlas = new TextureAtlas(Gdx.files.internal("data/StandingStillForward.pack"));
         standingStillForwardsRegion = standingStillForwardsAtlas.getRegions();
         standingStillForwardsAnimation = new Animation(1/30f, standingStillForwardsRegion);
+    }
+
+    /**
+     * Sets the planets atlas
+     */
+    private void setupPlanets(){
+        planetAtlas = new TextureAtlas((Gdx.files.internal("data/Planets.pack")));
+        gravityWellAtlas = new TextureAtlas(Gdx.files.internal("data/gravity_Well.txt"));
+       // planetRegion = planetAtlas.findRegions("Moon");
+        //planetRotateAnimation = new Animation(1/2f, planetRegion);
     }
 
     /* Public Methods */
@@ -60,5 +74,29 @@ public class AnimationManager {
 
     public Animation getStandingStillForwardsAnimation() {
         return standingStillForwardsAnimation;
+    }
+
+    public TextureAtlas getPlanetAtlas(){
+        if(planetAtlas == null)setupPlanets();//incase animation manager constructed after level manager
+        return planetAtlas;
+    }
+
+    public void setPlanetAtlas(TextureAtlas p){
+        planetAtlas = p;
+    }
+
+    public Animation getPlanetAnimationFromName(String atlasName){
+        Array<TextureAtlas.AtlasRegion> planetRegion = getPlanetAtlas().findRegions(atlasName);
+        Animation planetRotateAnimation = new Animation(1/2f, planetRegion);
+        return planetRotateAnimation;
+    }
+
+    public TextureAtlas getGravityWellAtlas() {
+        if(gravityWellAtlas == null)setupPlanets();
+        return gravityWellAtlas;
+    }
+
+    public void setGravityWellAtlas(TextureAtlas gravityWellAtlas) {
+        this.gravityWellAtlas = gravityWellAtlas;
     }
 }

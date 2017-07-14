@@ -1,0 +1,26 @@
+
+Planets.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Moon
+  rotate: false
+  xy: 1, 4821
+  size: 2408, 2408
+  orig: 2408, 2408
+  offset: 0, 0
+  index: -1
+Planet 01
+  rotate: false
+  xy: 1, 2411
+  size: 2408, 2408
+  orig: 2408, 2408
+  offset: 0, 0
+  index: -1
+Planet 02
+  rotate: false
+  xy: 1, 1
+  size: 2408, 2408
+  orig: 2408, 2408
+  offset: 0, 0
+  index: -1

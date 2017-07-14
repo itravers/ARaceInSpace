@@ -1,5 +1,6 @@
 package com.araceinspace.Managers;
 
+import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
 import com.araceinspace.misc.OrthCamera;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -120,6 +123,7 @@ public class RenderManager {
 
         batch.begin();
         renderPlayer(timeElapsed, batch);
+        renderPlanets(timeElapsed, batch);
         batch.end();
         //stage.act(timeElapsed);
        // stage.draw();
@@ -138,6 +142,13 @@ public class RenderManager {
      */
     private void renderPlayer(float timeElapsed, SpriteBatch batch){
         parent.levelManager.getPlayer().getGraphics().render(timeElapsed, batch);
+    }
+
+    private void renderPlanets(float timeElapsed, SpriteBatch batch){
+        ArrayList<Planet> planets = parent.levelManager.getPlanets();
+        for(int i = 0; i < planets.size(); i++){
+            planets.get(i).getGraphics().render(timeElapsed, batch);
+        }
     }
 
     private void setFrameNum(int num){

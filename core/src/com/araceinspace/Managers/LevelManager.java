@@ -2,15 +2,18 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.SpriteTemplate;
 import com.araceinspace.GameWorld;
 import com.araceinspace.misc.Background;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Json;
 
 import java.util.ArrayList;
 
@@ -22,6 +25,7 @@ public class LevelManager {
 
     /* Static Variables */
     public static final short CATEGORY_PLAYER = -1;
+    public static final short CATEGORY_PLANET = -2;
 
     /* Field Variables & Objects */
     public GameWorld parent;
@@ -34,9 +38,7 @@ public class LevelManager {
     public LevelManager(GameWorld p){
         System.out.println("LevelManager Constructor");
         parent = p;
-        setupBackground();
-        setupPlanets();
-        setupPlayer();
+        setLevel(1);//sets player, planets, background, etc.
 
     }
 
@@ -46,7 +48,40 @@ public class LevelManager {
      * Reads the level file and gets the planets to setup.
      */
     private void setupPlanets(){
+        planets = new ArrayList<Planet>();
+        Json json = new Json();
+        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
 
+        //Read the list of levelItems, create a planet for every planet in the list
+        for(int i = 0; i < levelItems.size(); i++){
+            SpriteTemplate item = levelItems.get(i);
+            if(item.getType().equals("planet")){
+                TextureAtlas atlas = parent.animationManager.getPlanetAtlas();
+                Animation animations = parent.animationManager.getPlanetAnimationFromName(item.getAtlas());
+                Planet p = new Planet(new Vector2(item.getxLoc(), item.getyLoc()), atlas, animations, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
+                planets.add(p);
+            }
+        }
+    }
+
+    /**
+     * Returns the level file handle for this level.
+     * First checks externally, to check if a mod of the level exists.
+     * if not, it looks for the level file internally, in android assets.
+     * @param lvl The level we want to find.
+     * @return A fileHandler for the  level we want.
+     */
+    private FileHandle getLevelFile(int lvl){
+        FileHandle fileHandle = null;
+        String fileName = "levels/level"+lvl+".json";
+        if(Gdx.files.classpath(fileName).exists()){
+            fileHandle = Gdx.files.local(fileName);
+            //System.out.println("using external file.");
+        }else{
+            fileHandle = Gdx.files.internal(fileName);
+            //System.out.println("using internal file.");
+        }
+        return fileHandle;
     }
 
     private void setupBackground() {
@@ -93,6 +128,8 @@ public class LevelManager {
         currentLevel = level;
         setupPlayer();
         setupBackground();
+        setupPlanets();
+
     }
 
     /**
@@ -122,6 +159,11 @@ public class LevelManager {
 
     public void update(float elaspedTime){
         player.update(elaspedTime);
+
+        //update all planets
+        for(int i = 0; i < planets.size(); i++){
+            planets.get(i).update(elaspedTime);
+        }
     }
 
     public World getWorld(){
@@ -130,5 +172,9 @@ public class LevelManager {
 
     public Background getBackground(){
         return mainBackground;
+    }
+
+    public ArrayList<Planet> getPlanets(){
+        return planets;
     }
 }

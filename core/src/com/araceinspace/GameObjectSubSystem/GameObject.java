@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * A game object will need update, create and dispose methods.
 
  */
-public abstract class GameObject extends Actor {
+public abstract class GameObject{
     /* Field Variables & Objects */
     protected InputComponent input;
     protected PhysicsComponent physics;
