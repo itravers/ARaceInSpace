@@ -1,7 +1,6 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
-import com.araceinspace.GameObjectSubSystem.GameObject;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 

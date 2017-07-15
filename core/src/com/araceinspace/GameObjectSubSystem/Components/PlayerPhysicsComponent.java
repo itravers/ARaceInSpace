@@ -183,4 +183,69 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public Body getBody(){
         return body;
     }
+
+    /**
+     * Returns the distance from the closest planet.
+     * @return The distance
+     */
+    public float getDistanceFromClosestPlanet(){
+        float distanceToClosestPlanet = 1010101f;
+        ArrayList<Planet>planets = parent.parent.parent.levelManager.getPlanets();
+        for(int i = 0; i < planets.size(); i++){
+            Planet p = planets.get(i);
+            float radiusPlanet = p.getBody().getFixtureList().first().getShape().getRadius();
+            float dist = p.getBody().getPosition().dst(body.getPosition());
+            dist -= radiusPlanet;
+            if(dist < distanceToClosestPlanet){
+                distanceToClosestPlanet = dist;
+            }
+        }
+        return distanceToClosestPlanet;
+    }
+
+    /**
+     * Returns the closest Planet to the Player
+     * @return
+     */
+    public Planet getClosestPlanet(){
+        float distanceToClosestPlanet = 1010101f;
+        ArrayList<Planet>planets = parent.parent.parent.levelManager.getPlanets();
+        Planet closest = planets.get(0);
+        for(int i = 0; i < planets.size(); i++){
+            Planet p = planets.get(i);
+            float radiusPlanet = p.getBody().getFixtureList().first().getShape().getRadius();
+            float dist = p.getBody().getPosition().dst(body.getPosition());
+            dist -= radiusPlanet;
+            if(dist < distanceToClosestPlanet){
+                distanceToClosestPlanet = dist;
+                closest = planets.get(i);
+            }
+        }
+        return closest;
+    }
+
+    /**
+     * Return true if the player is moving towards the closest planet
+     * @return
+     */
+    public boolean movingTowardsClosestPlanet(){
+        Planet p = getClosestPlanet();
+        if(isMovingTowards(p.getBody().getPosition(), this.getBody().getPosition(), this.getBody().getLinearVelocity())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if object position and velocity is moving towards testPoint, false if not.
+     * @param testPoint
+     * @param objectPosition
+     * @param objectVelocity
+     * @return
+     */
+    public boolean isMovingTowards(Vector2 testPoint, Vector2 objectPosition, Vector2 objectVelocity){
+        Vector2 toPoint = testPoint.sub(objectPosition);
+        return toPoint.dot(objectVelocity) > 0;
+    }
 }

@@ -82,6 +82,12 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
             case BOOST_RELEASED:
                 boostPressed = false;
                 break;
+            case JUMP_PRESSED:
+                jumpPressed = true;
+                break;
+            case JUMP_RELEASED:
+                jumpPressed = false;
+                break;
             default:
                 break;
         }
@@ -94,5 +100,25 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
     @Override
     public void registerReceiver() {
         EventDispatcher.getSingletonDispatcher().registerReceiver(Event.TYPE.INPUT, this);
+    }
+
+    /**
+     * Returns true if the jump button is pressed.
+     * @return
+     */
+    public boolean jumpPressed(){
+        return jumpPressed;
+    }
+
+    /**
+     * Returns true if one of the thrust buttons are pressed.
+     * @return
+     */
+    public boolean thrustPressed(){
+        if(upPressed || downPressed){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

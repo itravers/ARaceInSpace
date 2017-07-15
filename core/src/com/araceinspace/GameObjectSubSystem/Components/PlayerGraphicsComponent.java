@@ -31,4 +31,8 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                     getScaleX(), getScaleY(),
                     getRotation());
     }
+
+    public void setAnimation(Animation animation){
+        this.currentAnimation = animation;
+    }
 }

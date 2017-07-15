@@ -17,5 +17,7 @@ public enum GameInput {
     UP_RELEASED,
     DOWN_RELEASED,
     BOOST_RELEASED,
-    DEV_MODE_TOGGLE
+    DEV_MODE_TOGGLE,
+    JUMP_PRESSED,
+    JUMP_RELEASED
 }

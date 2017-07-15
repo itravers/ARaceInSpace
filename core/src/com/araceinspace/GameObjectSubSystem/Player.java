@@ -23,6 +23,7 @@ public class Player extends TwoDGameObject{
 
     /* Field Variables & Objects */
     public LevelManager parent;
+    private float health;
 
     /**
      * Constructor
@@ -31,16 +32,18 @@ public class Player extends TwoDGameObject{
      */
     public Player(LevelManager p, Vector2 loc, World world, TextureAtlas atlas, Animation animations) {
         parent = p;
+        health = 100;
         graphics = new PlayerGraphicsComponent(loc, atlas, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent();
         physics = new PlayerPhysicsComponent(this, world);
-        state = new PlayerStateComponent();
+        state = new PlayerStateComponent(this);
 
 
     }
 
     @Override
     public void update(float elapsedTime) {
+        state.update(elapsedTime);
         physics.update(elapsedTime);
     }
 
@@ -89,6 +92,14 @@ public class Player extends TwoDGameObject{
 
     public void setRotation(float rotation){
         getGraphics().setRotation(rotation);
+    }
+
+    public boolean isAlive(){
+        if(health > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 

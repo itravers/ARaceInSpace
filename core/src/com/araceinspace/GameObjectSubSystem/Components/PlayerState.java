@@ -18,5 +18,7 @@ public enum PlayerState {
     RUN_SLOW,
     RUN_FAST,
     FLOAT_SIDEWAYS,
-    LAND_SIDEWAYS
+    LAND_SIDEWAYS,
+    EXPLODING,
+    DEAD
 }

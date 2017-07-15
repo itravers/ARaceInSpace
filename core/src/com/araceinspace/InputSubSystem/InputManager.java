@@ -114,6 +114,8 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
         }else if(keycode == Input.Keys.F1){
             parent.devMode = !parent.devMode;
             return true; //don't send event, just toggle devMode
+        }else if(keycode == Input.Keys.SPACE){
+            input = GameInput.JUMP_PRESSED;
         }
         sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", input));
         return true;
@@ -134,6 +136,8 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
             input = GameInput.BOOST_RELEASED;
         }else if(keycode == Input.Keys.F1){
             return true;//don't do anything
+        }else if(keycode == Input.Keys.SPACE){
+            input = GameInput.JUMP_RELEASED;
         }
         sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", input));
         return true;
