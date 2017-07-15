@@ -77,14 +77,32 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.JUMP_FORWARD && parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE){
             //Transition from JUMP_FORWARD to FLYING
             setState(PlayerState.FLYING);
+            isLanded = false;
         }else if(currentState == PlayerState.FLOAT_SIDEWAYS && parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE &&
                  parent.getInput().thrustPressed()){
             //Transition from FLOAT_SIDEWAYS to FLYING
             setState(PlayerState.FLYING);
+            isLanded = false;
         }else if(currentState == PlayerState.FLYING && parent.getPhysics().getDistanceFromClosestPlanet() <= LANDING_DISTANCE &&
                  parent.getPhysics().movingTowardsClosestPlanet()){
             //Transition from flying to landing forward
             setState(PlayerState.LAND_FORWARD);
+            isLanded = true;
+        }else if(currentState == PlayerState.JUMP_SIDEWAYS && currentAnimation.getLoops(stateTime) >= 1 &&
+                 parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE && parent.getInput().noInputs()){
+            //Transition from JUMP_SIDEWAYS to FLOAT_SIDEWAYS
+            setState(PlayerState.FLOAT_SIDEWAYS);
+        }else if(currentState == PlayerState.FLOAT_SIDEWAYS && parent.getPhysics().getDistanceFromClosestPlanet() <= LANDING_DISTANCE &&
+                 parent.getPhysics().movingTowardsClosestPlanet()){
+            //Transition from FLOAT_SIDEWAYS to LAND_SIDEWAYS
+            setState(PlayerState.LAND_SIDEWAYS);
+            isLanded = true;
+        }else if(currentState == PlayerState.JUMP_SIDEWAYS && currentAnimation.getLoops(stateTime) >= 1 &&
+                 parent.getPhysics().getDistanceFromClosestPlanet() <= LANDING_DISTANCE &&
+                 parent.getPhysics().movingTowardsClosestPlanet()){
+            //Transition from JUMP_SIDEWAYS to LAND_SIDEWAYS
+            setState(PlayerState.LAND_SIDEWAYS);
+            isLanded = true;
         }
 
     }

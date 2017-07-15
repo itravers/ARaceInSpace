@@ -121,4 +121,16 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
             return false;
         }
     }
+
+    /**
+     * Returns true if no player inputs are currently pressed.
+     * @return
+     */
+    public boolean noInputs(){
+        if(!boostPressed && !upPressed && !downPressed && !rightPressed && !leftPressed && !jumpPressed){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
