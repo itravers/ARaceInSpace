@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -27,6 +30,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public static float MAX_ANGULAR_VELOCITY = 20f;
     public static float LINEAR_DAMPENING = .4f;
     public static float ANGULAR_DAMPENING = .5f;
+    public static float GRAVITATIONAL_CONSTANT = .08f;
 
     public static float DENSITY = 1.25f;
     public static float FRICTION = .5f;
@@ -77,8 +81,40 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         shape.dispose();
     }
 
+    /**
+     * Apply Orbital gravity.
+     * Loop through each planet and calculate it's gravitimetric force on the player
+     * Add all these forces together and apply to player
+     * @param elapsedTime
+     */
     private void applyGravity(float elapsedTime){
-        //TODO write apply gravity code
+        ArrayList<Planet> planets = parent.parent.parent.levelManager.getPlanets();
+        Vector2 force = new Vector2(0,0); // The total force of all the planets
+        Vector2 preForce = new Vector2(0,0);// The force of a single planet
+        float PIXELS_TO_METER = parent.parent.parent.renderManager.PIXELS_TO_METERS;
+
+        for(int i = 0; i < planets.size(); i++){
+            Planet p = planets.get(i);
+            float g = GRAVITATIONAL_CONSTANT;
+            float pMass = p.getMass();
+            float sMass = this.getBody().getMass();
+            Vector2 pCenter = p.getBody().getPosition();
+            Vector2 sCenter = this.getBody().getPosition();
+            float distanceSQ = sCenter.dst2(pCenter);
+            float distance = sCenter.dst(pCenter);
+            float pRadius = p.getBody().getFixtureList().first().getShape().getRadius();
+
+            //calculate single planet force
+            preForce.set(0,0);
+            preForce = pCenter.sub(sCenter);
+            preForce.scl(g * pMass * sMass);
+            preForce.set(preForce.x / distanceSQ, preForce.y/distanceSQ);
+
+            //Add the force if the distance between player and planet is less than the gravity radius of the planet
+            if(distance * PIXELS_TO_METER * 2 <= p.getGravityRadius()){
+                force = force.add(preForce);
+            }
+        }
     }
 
     private void applyMovement(float elapsedTime){

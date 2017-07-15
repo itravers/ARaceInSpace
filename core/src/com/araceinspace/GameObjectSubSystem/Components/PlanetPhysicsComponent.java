@@ -83,4 +83,16 @@ public class PlanetPhysicsComponent extends  PhysicsComponent{
         parent.getGraphics().setPosition(body.getPosition().x * PIXELS_TO_METERS - parent.getGraphics().getWidth() / 2,
                                          body.getPosition().y * PIXELS_TO_METERS - parent.getGraphics().getHeight() / 2);
     }
+
+    public float getMass(){
+        return mass;
+    }
+
+    public Body getBody(){
+        return body;
+    }
+
+    public float getGravityRadius(){
+        return gravityRadius;
+    }
 }

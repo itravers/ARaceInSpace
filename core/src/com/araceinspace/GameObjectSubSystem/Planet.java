@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
@@ -76,5 +77,17 @@ public class Planet extends TwoDGameObject{
 
     public float getY(){
         return getGraphics().getY();
+    }
+
+    public float getMass(){
+        return getPhysics().getMass();
+    }
+
+    public Body getBody(){
+        return getPhysics().getBody();
+    }
+
+    public float getGravityRadius(){
+        return getPhysics().getGravityRadius();
     }
 }
