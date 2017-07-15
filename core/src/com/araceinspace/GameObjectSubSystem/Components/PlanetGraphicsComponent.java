@@ -1,9 +1,8 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
-import com.araceinspace.GameObjectSubSystem.Components.GraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Planet;
+import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -20,7 +19,7 @@ public class PlanetGraphicsComponent extends PlayerGraphicsComponent {
     /* Constructors */
 
     public PlanetGraphicsComponent(Planet p, Vector2 loc, TextureAtlas atlas, Animation animations) {
-        super(loc, atlas, animations);
+        super(null, loc, atlas, animations);
         parent = p;
     }
 

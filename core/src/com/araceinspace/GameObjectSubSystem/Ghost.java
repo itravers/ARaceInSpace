@@ -4,7 +4,7 @@ import com.araceinspace.GameObjectSubSystem.Components.GhostInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
 import com.araceinspace.Managers.LevelManager;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.math.Vector2;
@@ -30,7 +30,7 @@ public class Ghost extends Player{
         super(levelManager, loc, world, atlas, animations);
         input = new GhostInputComponent();
         physics = new PlayerPhysicsComponent((Player)this, world);
-        state = new PlayerStateComponent();
+        state = new PlayerStateComponent(this);
     }
 
     @Override

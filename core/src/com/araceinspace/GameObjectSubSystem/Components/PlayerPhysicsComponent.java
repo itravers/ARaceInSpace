@@ -248,4 +248,13 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         Vector2 toPoint = testPoint.sub(objectPosition);
         return toPoint.dot(objectVelocity) > 0;
     }
+
+    /**
+     * Makes the player have a jump impulse, should only be called after the jump animation is done.
+     */
+    public void jumpImpulse(){
+        Vector2 impulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
+        //System.out.println("Applying Impulse: " + impulse);
+        getBody().applyLinearImpulse(impulse, getBody().getPosition(), true);
+    }
 }

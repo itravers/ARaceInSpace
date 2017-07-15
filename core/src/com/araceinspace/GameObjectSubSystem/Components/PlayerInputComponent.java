@@ -133,4 +133,16 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
             return false;
         }
     }
+
+    /**
+     * returns true if a walk input is pressed, false if not
+     * @return
+     */
+    public boolean walkInput(){
+        if(rightPressed || leftPressed){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

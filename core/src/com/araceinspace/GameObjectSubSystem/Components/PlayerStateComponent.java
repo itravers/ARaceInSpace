@@ -3,6 +3,7 @@ package com.araceinspace.GameObjectSubSystem.Components;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.badlogic.gdx.Gdx;
 import  com.araceinspace.misc.Animation;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -16,6 +17,9 @@ public class PlayerStateComponent extends StateComponent{
     private float NO_MOVEMENT_SPEED = .001f;
     private float FLYING_DISTANCE = 3.5f;
     private float LANDING_DISTANCE = FLYING_DISTANCE / 2;
+    private float WALK_SLOW_THRESHOLD = 60f;
+    private float RUN_SLOW_THRESHOLD = 120f;
+    private float RUN_FAST_THRESHOLD = 200f;
 
     /* Field Variables & Objects */
     PlayerState currentState;
@@ -42,6 +46,7 @@ public class PlayerStateComponent extends StateComponent{
     private void setState(PlayerState s){
         currentState = s;
         stateTime = 0;
+        System.out.println("SetState("+s+")");
     }
 
     /* Public Methods */
@@ -54,12 +59,13 @@ public class PlayerStateComponent extends StateComponent{
     public void update(float timeElapsed) {
         stateTime += Gdx.graphics.getDeltaTime(); //Update the amount of time we have been in current state
         Animation currentAnimation = parent.getGraphics().currentAnimation; //Used by some transitions
+        float speed = parent.getPhysics().getBody().getLinearVelocity().len2();
 
         /* Go through all possible state transitions*/
 
         //Transition from StandingStillSideways to StandingStillForwards
         if(currentState == PlayerState.STAND_STILL_SIDEWAYS && onPlanet() &&
-           parent.getPhysics().getBody().getLinearVelocity().len2() < NO_MOVEMENT_SPEED  &&
+          speed < NO_MOVEMENT_SPEED  &&
            currentAnimation.getLoops(stateTime) >= STANDING_STILL_SIDEWAYS_TIME){
             setState(PlayerState.STAND_STILL_FORWARD);
         }else if(currentState == PlayerState.LAND_FORWARD && parent.isAlive() && isLanded()){
@@ -103,7 +109,49 @@ public class PlayerStateComponent extends StateComponent{
             //Transition from JUMP_SIDEWAYS to LAND_SIDEWAYS
             setState(PlayerState.LAND_SIDEWAYS);
             isLanded = true;
+        }else if(currentState == PlayerState.LAND_SIDEWAYS && currentAnimation.getLoops(stateTime) >= 1 && isLanded()){
+            //Transition from LAND_SIDEWAYS to STAND_STILL_SIDEWAYS
+            setState(PlayerState.STAND_STILL_SIDEWAYS);
+        }else if(currentState == PlayerState.WALK_SLOW && speed < NO_MOVEMENT_SPEED){
+            //Transition from WALK_SLOW to STAND_STILL_SIDEWAYS
+            setState(PlayerState.STAND_STILL_SIDEWAYS);
+        }else if(currentState == PlayerState.STAND_STILL_FORWARD && parent.getInput().walkInput()){
+            //Transition from STAND_STILL_SIDEWAYS to WALK_SLOW
+            setState(PlayerState.WALK_SLOW);
+        }else if(currentState == PlayerState.STAND_STILL_SIDEWAYS && parent.getInput().walkInput()){
+            //Transition from STAND_STILL_SIDEWAYS to WALK_SLOW
+            setState(PlayerState.WALK_SLOW);
+        }else if(currentState == PlayerState.WALK_FAST && speed <= WALK_SLOW_THRESHOLD){
+            //Transition from WALK_FAST to WALK_SLOW
+            setState(PlayerState.WALK_SLOW);
+        }else if(currentState == PlayerState.WALK_SLOW && speed > WALK_SLOW_THRESHOLD){
+            //Transition from WALK_SLOW to WALK_FAST
+            setState(PlayerState.WALK_FAST);
+        }else if(currentState == PlayerState.RUN_SLOW && speed <= RUN_SLOW_THRESHOLD){
+            //Transition from RUN_SLOW to WALK_FAST
+            setState(PlayerState.WALK_FAST);
+        }else if(currentState == PlayerState.WALK_FAST && speed >= RUN_SLOW_THRESHOLD){
+            //Transition from WALk_FAST to RUN_SLOW
+            setState(PlayerState.RUN_SLOW);
+        }else if(currentState == PlayerState.RUN_FAST && speed < RUN_FAST_THRESHOLD){
+            //Transition from RUN_FAST to RUN_SLOW
+            setState(PlayerState.RUN_SLOW);
+        }else if(currentState == PlayerState.RUN_SLOW && speed >= RUN_FAST_THRESHOLD){
+            //Transition from RUN_SLOW to RUN_FAST
+            setState(PlayerState.RUN_FAST);
+        }else if((currentState == PlayerState.WALK_SLOW ||
+                  currentState == PlayerState.STAND_STILL_SIDEWAYS ||
+                  currentState == PlayerState.WALK_FAST ||
+                  currentState == PlayerState.RUN_SLOW ||
+                  currentState == PlayerState.RUN_FAST) &&
+                 parent.getInput().jumpPressed()){
+            //Transition from WALk_SLOW to JUMP_SIDEWAYS
+            setState(PlayerState.JUMP_SIDEWAYS);
+        }else if((currentState == PlayerState.JUMP_SIDEWAYS || currentState == PlayerState.JUMP_FORWARD) && currentAnimation.getLoops(stateTime) >= 1){
+            parent.getPhysics().jumpImpulse();
         }
+
+
 
     }
 
@@ -125,5 +173,9 @@ public class PlayerStateComponent extends StateComponent{
 
     public boolean isLanded(){
         return isLanded;
+    }
+
+    public PlayerState getCurrentState(){
+        return currentState;
     }
 }

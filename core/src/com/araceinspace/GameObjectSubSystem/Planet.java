@@ -4,7 +4,7 @@ import com.araceinspace.GameObjectSubSystem.Components.PlanetGraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlanetPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
 import com.araceinspace.Managers.LevelManager;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.math.Vector2;

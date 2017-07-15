@@ -5,7 +5,7 @@ import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
 import com.araceinspace.Managers.LevelManager;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.math.Vector2;
@@ -33,7 +33,7 @@ public class Player extends TwoDGameObject{
     public Player(LevelManager p, Vector2 loc, World world, TextureAtlas atlas, Animation animations) {
         parent = p;
         health = 100;
-        graphics = new PlayerGraphicsComponent(loc, atlas, animations);//Graphics Component must be constructed before physics component
+        graphics = new PlayerGraphicsComponent(this, loc, atlas, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent();
         physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent(this);
@@ -44,6 +44,7 @@ public class Player extends TwoDGameObject{
     @Override
     public void update(float elapsedTime) {
         state.update(elapsedTime);
+        graphics.update(elapsedTime);
         physics.update(elapsedTime);
     }
 
@@ -72,6 +73,10 @@ public class Player extends TwoDGameObject{
 
     public PlayerInputComponent getInput(){
         return (PlayerInputComponent)input;
+    }
+
+    public PlayerStateComponent getState(){
+        return (PlayerStateComponent)state;
     }
 
     public float getX(){

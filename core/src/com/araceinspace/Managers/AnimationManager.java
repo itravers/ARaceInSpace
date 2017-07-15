@@ -1,9 +1,8 @@
 package com.araceinspace.Managers;
 
 import com.araceinspace.GameWorld;
+import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 
@@ -21,6 +20,10 @@ public class AnimationManager {
     private TextureAtlas standingStillForwardsAtlas;
     private Array<TextureAtlas.AtlasRegion> standingStillForwardsRegion;
     private Animation standingStillForwardsAnimation;
+
+    private TextureAtlas walkSlowAtlas;
+    private Array<TextureAtlas.AtlasRegion> walkSlowRegion;
+    private Animation walkSlowAnimation;
 
     //Planet Animation data
     private TextureAtlas planetAtlas = null;
@@ -44,6 +47,12 @@ public class AnimationManager {
         standingStillForwardsAnimation = new Animation(1/30f, standingStillForwardsRegion);
     }
 
+    private void setupWalkSlowAnimation(){
+        walkSlowAtlas = new TextureAtlas(Gdx.files.internal("data/WalkSlow.pack"));
+        walkSlowRegion = walkSlowAtlas.getRegions();
+        walkSlowAnimation = new Animation(1/30f, walkSlowRegion);
+    }
+
     /**
      * Sets the planets atlas
      */
@@ -62,6 +71,7 @@ public class AnimationManager {
      */
     public void setupAnimations(){
         setupStandingStillForwardsAnimation();
+        setupWalkSlowAnimation();
     }
 
     public TextureAtlas getStandingStillForwardsAtlas() {
@@ -74,6 +84,10 @@ public class AnimationManager {
 
     public Animation getStandingStillForwardsAnimation() {
         return standingStillForwardsAnimation;
+    }
+
+    public Animation getWalkSlowAnimation(){
+        return walkSlowAnimation;
     }
 
     public TextureAtlas getPlanetAtlas(){
