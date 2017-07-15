@@ -1,13 +1,16 @@
 package com.araceinspace.Managers;
 
+import com.araceinspace.ARaceInSpace;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -42,6 +45,8 @@ public class RenderManager {
     private Viewport viewport;
     public Stage stage;
 
+    private BitmapFont font;
+
     /* Constructor */
     public RenderManager(GameWorld p){
         System.out.println("RenderManager Constructor");
@@ -58,6 +63,7 @@ public class RenderManager {
     private void setupRendering(){
         resetFrameNum();
         parent.animationManager.setupAnimations();
+        font = new BitmapFont();
         camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         backgroundCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -114,7 +120,7 @@ public class RenderManager {
 
         //clear screen
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         renderBackground(timeElapsed, backgroundBatch);
@@ -124,12 +130,22 @@ public class RenderManager {
         batch.begin();
         renderPlayer(timeElapsed, batch);
         renderPlanets(timeElapsed, batch);
+        if(parent.devMode){
+            renderVersion(batch);
+        }
         batch.end();
         //stage.act(timeElapsed);
        // stage.draw();
 
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
-       if(parent.devMode) debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);
+       if(parent.devMode){
+           debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);
+       }
+    }
+
+    private void renderVersion(SpriteBatch batch){
+        font.setColor(Color.WHITE);
+        font.draw(batch, "Version: " +((ARaceInSpace)parent.parent).version, parent.levelManager.getPlayer().getX(),parent.levelManager.getPlayer().getY());
     }
 
     private void renderBackground(float timeElapsed, SpriteBatch b){
