@@ -45,6 +45,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     World world;
     Body body;
     private Vector2 gravityForce;
+    private float lastFrameTime = 0; //Used by gravity to calculate time since last frame
 
     /**
      * Create a new PlayerPhysicsComponent
@@ -115,6 +116,12 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
                 force = force.add(preForce);
             }
         }
+        float elapsedTimeInLastFrame = elapsedTime - lastFrameTime;
+        lastFrameTime = elapsedTime;
+        this.gravityForce = force.cpy();
+        force = force.scl(elapsedTimeInLastFrame);
+        this.getBody().applyForce(force, body.getPosition(), true);
+
     }
 
     private void applyMovement(float elapsedTime){
