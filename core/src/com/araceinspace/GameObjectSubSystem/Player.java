@@ -107,5 +107,13 @@ public class Player extends TwoDGameObject{
         }
     }
 
+    public float getHealth(){
+        return health;
+    }
+
+    public void setHealth(float health){
+        this.health = health;
+    }
+
 
 }

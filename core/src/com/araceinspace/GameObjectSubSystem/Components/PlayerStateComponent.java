@@ -25,7 +25,7 @@ public class PlayerStateComponent extends StateComponent{
     PlayerState currentState;
     Player parent;
     float stateTime = 0; //The amount of time we have been in current State
-    boolean isLanded = onPlanet();
+    public  boolean isLanded = onPlanet();
 
 
 
@@ -43,7 +43,7 @@ public class PlayerStateComponent extends StateComponent{
      * reset stateTime
      * @param s
      */
-    private void setState(PlayerState s){
+    public void setState(PlayerState s){
         currentState = s;
         stateTime = 0;
         System.out.println("SetState("+s+")");
@@ -68,7 +68,7 @@ public class PlayerStateComponent extends StateComponent{
           speed < NO_MOVEMENT_SPEED  &&
            currentAnimation.getLoops(stateTime) >= STANDING_STILL_SIDEWAYS_TIME){
             setState(PlayerState.STAND_STILL_FORWARD);
-        }else if(currentState == PlayerState.LAND_FORWARD && parent.isAlive() && isLanded()){
+        }else if(currentState == PlayerState.LAND_FORWARD && parent.isAlive() && isLanded() && currentAnimation.getLoops(stateTime) >= 1){
             //Transistion from Land_Forward to Stand_Stil_Forward
             setState(PlayerState.STAND_STILL_FORWARD);
         }else if(currentState == PlayerState.WAVE && currentAnimation.getLoops(stateTime) >= 1){

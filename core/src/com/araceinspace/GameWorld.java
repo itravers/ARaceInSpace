@@ -33,9 +33,10 @@ public class GameWorld {
     /* Constructors */
     public GameWorld(ApplicationAdapter p){
         parent = p;
+        contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
         inputManager = new InputManager(this);
-        contactListenerManager = new ContactListenerManager(this);
+
         gameStateManager = new GameStateManager(this);
         animationManager = new AnimationManager(this);
 

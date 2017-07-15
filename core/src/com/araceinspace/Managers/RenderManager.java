@@ -129,7 +129,7 @@ public class RenderManager {
        // stage.draw();
 
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
-        debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);
+       if(parent.devMode) debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);
     }
 
     private void renderBackground(float timeElapsed, SpriteBatch b){

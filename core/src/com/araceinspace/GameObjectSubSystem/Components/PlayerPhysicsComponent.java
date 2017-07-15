@@ -36,7 +36,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public static float FRICTION = .5f;
 
     /* Field Variables & Objects */
-    Player parent;
+    public Player parent;
     BodyDef bodyDef;
     FixtureDef fixtureDef;
     Fixture fixture;
@@ -157,7 +157,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
             body.applyLinearImpulse(impulse.rotate(-90).scl(2.5f), pos, true);
             body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/2), pos, true);
         }else if(parent.getInput().rightPressed){
-            body.applyAngularImpulse(1f, true);
+            body.applyAngularImpulse(-1f, true);
         }
 
 

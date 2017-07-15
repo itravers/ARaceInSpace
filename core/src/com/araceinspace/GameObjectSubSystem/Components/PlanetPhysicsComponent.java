@@ -32,7 +32,7 @@ public class PlanetPhysicsComponent extends  PhysicsComponent{
     private float mass;
     private float radius;
     public float gravityRadius;
-    private Planet parent;
+    public Planet parent;
 
     /**
      * Create a new PlanetPhysicsComponent
