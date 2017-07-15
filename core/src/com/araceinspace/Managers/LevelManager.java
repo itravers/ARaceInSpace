@@ -151,10 +151,25 @@ public class LevelManager {
      * Sets up the player to be usable
      */
     public void setupPlayer(){
-        TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+        /*TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
         Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
         player = new Player(this, parent.world, atlas, animation);
        // parent.renderManager.stage.addActor(player);
+       */
+
+        Json json = new Json();
+        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+        //go through all the level items, find the player item and initialze him
+        for(int i = 0; i < levelItems.size(); i++){
+            SpriteTemplate item = levelItems.get(i);
+            if(item.getType().equals("player")){
+                float xLoc = item.getxLoc();
+                float yLoc = item.getyLoc();
+                TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+                Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+                player = new Player(this, new Vector2(xLoc, yLoc), parent.world, atlas, animation);
+            }
+        }
     }
 
     public void update(float elaspedTime){

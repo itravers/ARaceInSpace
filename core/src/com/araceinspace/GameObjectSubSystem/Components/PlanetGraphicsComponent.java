@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Isaac Assegai on 7/14/17.
@@ -18,8 +19,8 @@ public class PlanetGraphicsComponent extends PlayerGraphicsComponent {
 
     /* Constructors */
 
-    public PlanetGraphicsComponent(Planet p, TextureAtlas atlas, Animation animations) {
-        super(atlas, animations);
+    public PlanetGraphicsComponent(Planet p, Vector2 loc, TextureAtlas atlas, Animation animations) {
+        super(loc, atlas, animations);
         parent = p;
     }
 

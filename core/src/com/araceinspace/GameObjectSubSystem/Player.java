@@ -8,6 +8,7 @@ import com.araceinspace.Managers.LevelManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -28,9 +29,9 @@ public class Player extends TwoDGameObject{
      * @param atlas
      * @param animations
      */
-    public Player(LevelManager p, World world, TextureAtlas atlas, Animation animations) {
+    public Player(LevelManager p, Vector2 loc, World world, TextureAtlas atlas, Animation animations) {
         parent = p;
-        graphics = new PlayerGraphicsComponent(atlas, animations);//Graphics Component must be constructed before physics component
+        graphics = new PlayerGraphicsComponent(loc, atlas, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent();
         physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent();

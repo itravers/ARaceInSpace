@@ -48,6 +48,9 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
         Event.TYPE type = e.getType();
         GameInput currentInput = (GameInput)e.getData();
 
+        //handle undefined input error
+        if(currentInput == null)return;
+
         switch(currentInput){
             case BOOST_PRESSED:
                     boostPressed = true;
@@ -78,6 +81,8 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case BOOST_RELEASED:
                 boostPressed = false;
+                break;
+            default:
                 break;
         }
 

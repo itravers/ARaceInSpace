@@ -4,14 +4,17 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Isaac Assegai on 7/11/17.
  * The graphics component the player will use
  */
 public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
-    public PlayerGraphicsComponent(TextureAtlas atlas, Animation animations) {
+    public PlayerGraphicsComponent(Vector2 loc, TextureAtlas atlas, Animation animations) {
         super(atlas, animations);
+        this.setX(loc.x);
+        this.setY(loc.y);
         setupRendering(animations);
     }
 

@@ -29,7 +29,7 @@ public class Planet extends TwoDGameObject{
         parent = p;
         input = null; //Planets don't take inputs
 
-        graphics = new PlanetGraphicsComponent(this, atlas, animations); //graphics must be constructed before physics
+        graphics = new PlanetGraphicsComponent(this, loc, atlas, animations); //graphics must be constructed before physics
         physics = new PlanetPhysicsComponent(this, world, loc, size, mass, gravityRadius);
         state = null; //Planets don't have different states;
 

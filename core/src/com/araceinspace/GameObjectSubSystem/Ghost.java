@@ -7,6 +7,7 @@ import com.araceinspace.Managers.LevelManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
@@ -25,8 +26,8 @@ public class Ghost extends Player{
      * @param atlas
      * @param animations
      */
-    public Ghost(LevelManager levelManager, World world, TextureAtlas atlas, Animation animations) {
-        super(levelManager, world, atlas, animations);
+    public Ghost(LevelManager levelManager, Vector2 loc, World world, TextureAtlas atlas, Animation animations) {
+        super(levelManager, loc, world, atlas, animations);
         input = new GhostInputComponent();
         physics = new PlayerPhysicsComponent((Player)this, world);
         state = new PlayerStateComponent();
