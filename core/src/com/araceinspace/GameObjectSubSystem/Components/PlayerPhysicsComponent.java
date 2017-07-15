@@ -146,17 +146,36 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
             body.applyLinearImpulse(impulse, pos, true);
         }
 
-        if(parent.getInput().leftPressed){
-            body.applyAngularImpulse(-1f, true);
+        if(parent.getInput().leftPressed && onPlanet()){
+            body.applyLinearImpulse(impulse.rotate(90).scl(2.5f), pos, true);
+            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/2), pos, true);
+        }else  if(parent.getInput().leftPressed){
+            body.applyAngularImpulse(1f, true);
         }
 
-        if(parent.getInput().rightPressed){
+        if(parent.getInput().rightPressed && onPlanet()){
+            body.applyLinearImpulse(impulse.rotate(-90).scl(2.5f), pos, true);
+            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/2), pos, true);
+        }else if(parent.getInput().rightPressed){
             body.applyAngularImpulse(1f, true);
         }
 
 
 
 
+    }
+
+    /**
+     * Examines current state and decides if that means we are on a planet or we are off a planet
+     * @return
+     */
+    private boolean onPlanet(){
+        PlayerState state = parent.getState().getCurrentState();
+        if((state == PlayerState.FLYING || state == PlayerState.FLOAT_SIDEWAYS) && getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 

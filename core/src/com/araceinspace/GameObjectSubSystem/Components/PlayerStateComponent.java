@@ -15,7 +15,7 @@ public class PlayerStateComponent extends StateComponent{
     private int WAVE_TIME = 20; //The number of times the state still animation plays before a wave
     private int STANDING_STILL_SIDEWAYS_TIME = 4; //Number of times Stand_Still_Sideways animation plays, before state change
     private float NO_MOVEMENT_SPEED = .001f;
-    private float FLYING_DISTANCE = 3.5f;
+    public float FLYING_DISTANCE = 3.5f;
     private float LANDING_DISTANCE = FLYING_DISTANCE / 2;
     private float WALK_SLOW_THRESHOLD = 60f;
     private float RUN_SLOW_THRESHOLD = 120f;

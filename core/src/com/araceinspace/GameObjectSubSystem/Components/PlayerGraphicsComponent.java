@@ -38,7 +38,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         TextureRegion frame = currentAnimation.getKeyFrame(elapsedTime, true);
         batch.draw(frame,
                     flip ? getX()+getWidth() : getX(), getY(),
-                    getOriginX(), getOriginY(),
+                    flip ? -getOriginX(): getOriginX(), getOriginY(),
                     flip ? -getWidth() : getWidth(), getHeight(),
                     getScaleX(), getScaleY(),
                     getRotation());
@@ -55,8 +55,38 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                 setAnimation(animationManager.getWalkSlowAnimation());
                 break;
             case STAND_STILL_SIDEWAYS:
-               // setAnimation(animationManager.getStandingStillSidewaysAnimation());
+                setAnimation(animationManager.getStandingStillSidewaysAnimation());
                 break;
+            case WAVE:
+                setAnimation(animationManager.getWaveAnimation());
+                break;
+            case JUMP_FORWARD:
+                setAnimation(animationManager.getJumpForwardAnimation());
+                break;
+            case FLYING:
+                setAnimation(animationManager.getFlyingAnimation());
+                break;
+            case LAND_FORWARD:
+                setAnimation(animationManager.getLandForwardAnimation());
+                break;
+            case FLOAT_SIDEWAYS:
+                setAnimation(animationManager.getFloatSidewaysAnimation());
+                break;
+            case LAND_SIDEWAYS:
+                setAnimation(animationManager.getLandSidewaysAnimation());
+                break;
+            case WALK_FAST:
+                setAnimation(animationManager.getWalkFastAnimation());
+                break;
+            case RUN_SLOW:
+                setAnimation(animationManager.getRunSlowAnimation());
+                break;
+            case RUN_FAST:
+                setAnimation(animationManager.getRunFastAnimation());
+                break;
+            case JUMP_SIDEWAYS:
+                setAnimation(animationManager.getJumpSidewaysAnimation());
+
         }
     }
 

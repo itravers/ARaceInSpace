@@ -19,7 +19,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
 
     /* Field Variables & Objects */
     InputRecorder inputRecorder;
-    GameInput lastInput =  null;
+    GameInput lastWalkInput =  null;
 
     /* Constructors */
     public PlayerInputComponent(){
@@ -51,7 +51,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
 
         //handle undefined input error
         if(currentInput == null)return;
-        lastInput = currentInput;
+
 
         switch(currentInput){
             case BOOST_PRESSED:
@@ -59,9 +59,11 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case RIGHT_PRESSED:
                 rightPressed = true;
+                lastWalkInput = currentInput;
                 break;
             case LEFT_PRESSED:
                 leftPressed = true;
+                lastWalkInput = currentInput;
                 break;
             case UP_PRESSED:
                 upPressed = true;
@@ -153,7 +155,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      * @return
      */
     public boolean flip(){
-        if(lastInput == GameInput.LEFT_PRESSED || lastInput == GameInput.LEFT_RELEASED){
+        if(lastWalkInput == GameInput.LEFT_PRESSED){
             return true;
         }else{
             return false;
