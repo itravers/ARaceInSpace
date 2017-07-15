@@ -257,4 +257,5 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         //System.out.println("Applying Impulse: " + impulse);
         getBody().applyLinearImpulse(impulse, getBody().getPosition(), true);
     }
+
 }

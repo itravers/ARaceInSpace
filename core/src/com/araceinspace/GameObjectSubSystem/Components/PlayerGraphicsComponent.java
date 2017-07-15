@@ -28,11 +28,18 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     }
 
     public void render(float elapsedTime, SpriteBatch batch){
+        boolean flip;
+        if(parent == null){//takes care of when input isn't constructed yet
+            flip = false;
+        }else{
+            flip = parent.getInput().flip();
+        }
+
         TextureRegion frame = currentAnimation.getKeyFrame(elapsedTime, true);
         batch.draw(frame,
-                    getX(), getY(),
+                    flip ? getX()+getWidth() : getX(), getY(),
                     getOriginX(), getOriginY(),
-                    getWidth(), getHeight(),
+                    flip ? -getWidth() : getWidth(), getHeight(),
                     getScaleX(), getScaleY(),
                     getRotation());
     }
@@ -55,5 +62,6 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
 
     public void setAnimation(Animation animation){
         this.currentAnimation = animation;
+
     }
 }
