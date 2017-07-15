@@ -1,6 +1,5 @@
 package com.araceinspace.TestSubSystem;
 
-import com.araceinspace.InputSubSystem.GameInputListener;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.araceinspace.MonetizationSubSystem.ToastInterface;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -10,10 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -21,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -58,6 +52,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
     TextButton buy10CreditsButton;
     TextButton buy20CreditsButton;
     Label creditAmountLabel;
+    Label titleLabel;
 
 
 
@@ -111,7 +106,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
         int buttonHeight = Gdx.graphics.getHeight()/16;
 
         //setup labels
-        Label titleLabel = new Label("Monetization System Test", skin);
+        titleLabel = new Label("Monetization System Test", skin);
         titleLabel.setPosition((Gdx.graphics.getWidth()/2)-(titleLabel.getWidth()/2), Gdx.graphics.getHeight()-(titleLabel.getHeight()+spacer)*1);
 
         //setup labels
@@ -298,10 +293,12 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
 
     @Override
     public void render () {
+        titleLabel.setText("Monetization Test");
+        titleLabel.setFontScale(2f);
 
         //update credits on screen
         updateGUI();
-
+System.out.println(titleLabel.getStyle());
 
 
         xCoords++;
