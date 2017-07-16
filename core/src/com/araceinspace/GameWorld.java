@@ -39,7 +39,7 @@ public class GameWorld {
         inputManager = new InputManager(this);
 
 
-        animationManager = new AnimationManager(this);
+        animationManager = new AnimationManager(this);//must before level manager & before rendermanager
         levelManager = new LevelManager(this);
         renderManager = new RenderManager(this);
 

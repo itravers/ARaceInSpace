@@ -50,9 +50,9 @@ public class Background {
      * @param elapsedTime
      * @param batch
      */
-    public void render(float elapsedTime, SpriteBatch batch){
+    public void render(OrthCamera backgroundCamera, float elapsedTime, SpriteBatch batch){
         Matrix4 temp = batch.getProjectionMatrix();
-        batch.setProjectionMatrix(parent.parent.renderManager.getBackgroundCamera().calculateParallaxMatrix(.08f, .08f));
+        batch.setProjectionMatrix(backgroundCamera.calculateParallaxMatrix(.08f, .08f));
         batch.disableBlending();
         batch.begin();
         /*batch.draw(layers[0], -(int) (layers[0].getRegionWidth() / 2),

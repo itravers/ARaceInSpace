@@ -38,7 +38,7 @@ public class LevelManager {
     public LevelManager(GameWorld p){
         System.out.println("LevelManager Constructor");
         parent = p;
-       //  setLevel(1);//sets player, planets, background, etc.
+        //setLevel(1);//sets player, planets, background, etc.
        // setupTitleScreen();
 
     }

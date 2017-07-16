@@ -77,6 +77,7 @@ public class AnimationManager {
     public AnimationManager(GameWorld p){
         System.out.println("Animation Constructor");
         parent = p;
+        //setupAnimations();
         setupPlanets();
     }
 

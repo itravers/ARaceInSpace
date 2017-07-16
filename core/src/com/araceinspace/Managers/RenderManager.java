@@ -4,18 +4,15 @@ import com.araceinspace.ARaceInSpace;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
+import com.araceinspace.Screens.INGAMEScreen;
 import com.araceinspace.Screens.TITLEScreen;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -44,10 +41,10 @@ public class RenderManager {
     private float cameraZoom;
 
     private Viewport viewport;
-    public Stage stage;
 
     private BitmapFont font;
     private TITLEScreen titleScreen;
+    private INGAMEScreen ingameScreen;
 
     /* Constructor */
     public RenderManager(GameWorld p){
@@ -65,6 +62,7 @@ public class RenderManager {
     private void setupRendering(){
         resetFrameNum();
         parent.animationManager.setupAnimations();
+        /*
         font = new BitmapFont();
         camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         backgroundCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -76,14 +74,16 @@ public class RenderManager {
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
 
         viewport = new ScreenViewport(camera);
-        stage = new Stage(viewport, batch);
 
 
         debugRenderer = new Box2DDebugRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
+        *///moved to INGameScreen
 
-        setupScreenSizeDependantItems();
+
         titleScreen = new TITLEScreen(this);
+        ingameScreen = new INGAMEScreen(this);
+        setupScreenSizeDependantItems();//must come after screens are constructed
     }
 
     //Several things in the game are going to be dependant on the users screen size
@@ -108,6 +108,9 @@ public class RenderManager {
      * @param timeElapsed
      */
     private void renderInGame(float timeElapsed){
+        ingameScreen.render(timeElapsed);
+
+        /*
         Player p = parent.levelManager.getPlayer();
         camera.zoom = cameraZoom;
         backgroundCamera.zoom = cameraZoom;
@@ -144,28 +147,25 @@ public class RenderManager {
        if(parent.devMode){
            debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);
        }
+       */
     }
 
-    private void renderVersion(SpriteBatch batch){
-        font.setColor(Color.WHITE);
-        font.draw(batch, "Version: " +((ARaceInSpace)parent.parent).version, parent.levelManager.getPlayer().getX(),parent.levelManager.getPlayer().getY());
-    }
 
-    public void renderBackground(float timeElapsed, SpriteBatch b){
+
+    public void renderBackground(OrthCamera backgroundCamera, float timeElapsed, SpriteBatch b){
       //  System.out.println("RenderBackground");
         if(parent.levelManager.mainBackground == null)parent.levelManager.setupBackground();
-        parent.levelManager.getBackground().render(timeElapsed, b);
+        parent.levelManager.getBackground().render(backgroundCamera, timeElapsed, b);
     }
 
     /**
      * Renders the player to the screen
      */
-    private void renderPlayer(float timeElapsed, SpriteBatch batch){
+    public void renderPlayer(Player p, float timeElapsed, SpriteBatch batch){
         parent.levelManager.getPlayer().getGraphics().render(timeElapsed, batch);
     }
 
-    private void renderPlanets(float timeElapsed, SpriteBatch batch){
-        ArrayList<Planet> planets = parent.levelManager.getPlanets();
+    public void renderPlanets(ArrayList<Planet> planets, float timeElapsed, SpriteBatch batch){
         for(int i = 0; i < planets.size(); i++){
             planets.get(i).getGraphics().render(timeElapsed, batch);
         }
@@ -218,8 +218,10 @@ public class RenderManager {
 
     public void setCameraZoom(float cameraZoom) {
         this.cameraZoom = cameraZoom;
-        camera.zoom = cameraZoom;
-        backgroundCamera.zoom = cameraZoom;
-        // shapeCamera.zoom = cameraZoom;
+        if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
+            ingameScreen.setCameraZoom(cameraZoom);
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
+            titleScreen.setCameraZoom(cameraZoom);
+        }
     }
 }

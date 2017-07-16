@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public abstract class Screen {
     protected RenderManager parent;
     protected Viewport viewport;
-    protected Camera camera;
+    protected OrthCamera camera;
     protected SpriteBatch batch;
     protected Stage stage;
 
@@ -26,8 +26,13 @@ public abstract class Screen {
         camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new ScreenViewport(camera);
         batch = new SpriteBatch();
-        stage = new Stage(viewport, batch);
+        batch.setProjectionMatrix(camera.combined);
+
         setup();
+    }
+
+    public void setCameraZoom(float zoom){
+        camera.zoom = zoom;
     }
 
     public abstract void setup();
