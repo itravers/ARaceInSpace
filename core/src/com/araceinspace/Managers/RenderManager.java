@@ -4,6 +4,7 @@ import com.araceinspace.ARaceInSpace;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
+import com.araceinspace.Screens.TITLEScreen;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -31,7 +32,7 @@ public class RenderManager {
 
 
     /* Field Variables & Objects */
-    GameWorld parent;
+    public GameWorld parent;
 
     private OrthCamera camera;
     private OrthCamera backgroundCamera;
@@ -46,6 +47,7 @@ public class RenderManager {
     public Stage stage;
 
     private BitmapFont font;
+    private TITLEScreen titleScreen;
 
     /* Constructor */
     public RenderManager(GameWorld p){
@@ -81,6 +83,7 @@ public class RenderManager {
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
 
         setupScreenSizeDependantItems();
+        titleScreen = new TITLEScreen(this);
     }
 
     //Several things in the game are going to be dependant on the users screen size
@@ -148,8 +151,9 @@ public class RenderManager {
         font.draw(batch, "Version: " +((ARaceInSpace)parent.parent).version, parent.levelManager.getPlayer().getX(),parent.levelManager.getPlayer().getY());
     }
 
-    private void renderBackground(float timeElapsed, SpriteBatch b){
+    public void renderBackground(float timeElapsed, SpriteBatch b){
       //  System.out.println("RenderBackground");
+        if(parent.levelManager.mainBackground == null)parent.levelManager.setupBackground();
         parent.levelManager.getBackground().render(timeElapsed, b);
     }
 
@@ -171,6 +175,10 @@ public class RenderManager {
         frameNum = num;
     }
 
+    private void renderTitleScreen(float elapsedTime){
+        titleScreen.render(elapsedTime);
+    }
+
     /* Public Methods */
 
     /**
@@ -180,6 +188,8 @@ public class RenderManager {
         //Call appropriate render method based on game state
         if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
             renderInGame(elapsedTime);
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
+            renderTitleScreen(elapsedTime);
         }
 
         //Increase the amound of frameNum's we have used (used for ghost recordings)

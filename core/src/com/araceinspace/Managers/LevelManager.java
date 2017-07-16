@@ -32,13 +32,14 @@ public class LevelManager {
     private int currentLevel;
     private Player player;
     private ArrayList<Planet> planets;
-    private Background mainBackground;
+    public Background mainBackground;
 
     /* Constructors */
     public LevelManager(GameWorld p){
         System.out.println("LevelManager Constructor");
         parent = p;
-        setLevel(1);//sets player, planets, background, etc.
+       //  setLevel(1);//sets player, planets, background, etc.
+       // setupTitleScreen();
 
     }
 
@@ -84,7 +85,7 @@ public class LevelManager {
         return fileHandle;
     }
 
-    private void setupBackground() {
+    public void setupBackground() {
         System.out.println("SetupBackground");
         Texture background = new Texture(Gdx.files.internal("data/tiledBackground.png"));
         Texture starscape1 = new Texture(Gdx.files.internal("data/stars1.png"));
@@ -109,6 +110,15 @@ public class LevelManager {
         //mainBackground = new Background(this, backGroundTextures);
     }
 
+    private void updateInGame(float elapsedTime){
+        player.update(elapsedTime);
+
+        //update all planets
+        for(int i = 0; i < planets.size(); i++){
+            planets.get(i).update(elapsedTime);
+        }
+    }
+
     /* Public Methods */
     public void setCurrentLevel(int level){
         currentLevel = level;
@@ -129,7 +139,6 @@ public class LevelManager {
         setupPlayer();
         setupBackground();
         setupPlanets();
-
     }
 
     /**
@@ -172,12 +181,10 @@ public class LevelManager {
         }
     }
 
-    public void update(float elaspedTime){
-        player.update(elaspedTime);
-
-        //update all planets
-        for(int i = 0; i < planets.size(); i++){
-            planets.get(i).update(elaspedTime);
+    public void update(float elapsedTime){
+        /* Update ingame, if we are actually INGAME */
+        if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
+           updateInGame(elapsedTime);
         }
     }
 

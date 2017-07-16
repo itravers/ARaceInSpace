@@ -33,15 +33,16 @@ public class GameWorld {
     /* Constructors */
     public GameWorld(ApplicationAdapter p){
         parent = p;
+        gameStateManager = new GameStateManager(this);
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
         inputManager = new InputManager(this);
 
-        gameStateManager = new GameStateManager(this);
-        animationManager = new AnimationManager(this);
 
-        renderManager = new RenderManager(this);
+        animationManager = new AnimationManager(this);
         levelManager = new LevelManager(this);
+        renderManager = new RenderManager(this);
+
         elapsedTime = 0;
     }
 

@@ -26,12 +26,13 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
 
     /* Field Variables & Objects */
     GameWorld parent;
+    InputMultiplexer multiplexer;
 
     /* Constructors */
 
     public InputManager(GameWorld p){
         parent = p;
-        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
     }
@@ -39,6 +40,11 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
     /* Private Methods */
 
     /* Public Methods */
+
+    public void addInputProcessor(InputProcessor p){
+        multiplexer.addProcessor(p);
+        Gdx.input.setInputProcessor(multiplexer);
+    }
 
     @Override
     public void sendEvent(Event e) {
