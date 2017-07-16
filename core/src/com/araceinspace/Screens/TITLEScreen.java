@@ -58,8 +58,8 @@ public class TITLEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("StartButtonClicked");
-                parent.parent.levelManager.setLevel(1);
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+               // parent.parent.levelManager.setLevel(1);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
             }
         };
         leaderboardButtonListener = new ClickListener(){

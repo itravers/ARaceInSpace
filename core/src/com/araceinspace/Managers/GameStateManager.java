@@ -32,6 +32,11 @@ public class GameStateManager {
         return stateStack.peek();
     }
 
+    public GAME_STATE popState(){
+        stateStack.pop();
+        return stateStack.pop();
+    }
+
     public void setCurrentState(GAME_STATE state){
         stateStack.push(state);
     }

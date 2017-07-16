@@ -17,7 +17,7 @@ public class ARaceInSpace extends ApplicationAdapter {
 	public boolean showToast = false;
 	public boolean toastSet = false;
 
-	MonetizationController monetizationController;
+	public MonetizationController monetizationController;
 	public static EventDispatcher eventDispatcher;
 	public GameWorld gameWorld;
 
@@ -47,13 +47,13 @@ public class ARaceInSpace extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
+		//if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
 
 		//First Calculate Elapsed Time
 		gameWorld.update();
 		//if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
 
-		monetizationController.updateVisibility();//used for banner ads to know whether to show
+		//monetizationController.updateVisibility();//used for banner ads to know whether to show
 	}
 
 	public void toast(final String t){

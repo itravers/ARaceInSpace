@@ -4,6 +4,7 @@ import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
 import com.araceinspace.Screens.INGAMEScreen;
+import com.araceinspace.Screens.LEVELSELECTScreen;
 import com.araceinspace.Screens.TITLEScreen;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
@@ -28,6 +29,7 @@ public class RenderManager {
 
     private TITLEScreen titleScreen;
     private INGAMEScreen ingameScreen;
+    private LEVELSELECTScreen levelselectScreen;
 
     /* Constructor */
     public RenderManager(GameWorld p){
@@ -47,6 +49,7 @@ public class RenderManager {
         parent.animationManager.setupAnimations();
         titleScreen = new TITLEScreen(this);
         ingameScreen = new INGAMEScreen(this);
+        levelselectScreen = new LEVELSELECTScreen(this);
         setupScreenSizeDependantItems();//must come after screens are constructed
     }
 
@@ -113,6 +116,8 @@ public class RenderManager {
             renderInGame(elapsedTime);
         }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
             renderTitleScreen(elapsedTime);
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.LEVEL_SELECT){
+            levelselectScreen.render(elapsedTime);
         }
 
         //Increase the amound of frameNum's we have used (used for ghost recordings)
