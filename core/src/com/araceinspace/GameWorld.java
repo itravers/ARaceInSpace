@@ -48,7 +48,7 @@ public class GameWorld {
 
     /* Private Methods */
 
-    private void setupPhysics(){
+    public void setupPhysics(){
         world = new World(new Vector2(0,0), true); //create world
         world.setContactListener(contactListenerManager); //set collision manager
     }

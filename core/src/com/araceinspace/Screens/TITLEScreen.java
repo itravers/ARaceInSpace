@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 
@@ -107,7 +109,9 @@ public class TITLEScreen extends Screen{
         menuBatch = new SpriteBatch();
         menuBatch.setProjectionMatrix(menuCamera.combined);
 
-        stage = new Stage(viewport, menuBatch);
+        Viewport menuViewport = new ScreenViewport(menuCamera);
+
+        stage = new Stage(menuViewport, menuBatch);
 
         setupSkin();
         setupButtons();
@@ -130,7 +134,7 @@ public class TITLEScreen extends Screen{
         camera.setToAngle(p.getPhysics().getBody().getAngle());
         camera.update();
 
-        mainTable.setPosition((p.getX()+p.getWidth()/2)-Gdx.graphics.getWidth()/2, (p.getY()+p.getHeight()/2)-Gdx.graphics.getHeight()/2); //reposition the table
+        mainTable.setPosition((p.getX()+p.getWidth()/2)-Gdx.graphics.getWidth()/2, (p.getY()+p.getHeight()/2)-Gdx.graphics.getHeight()/3); //reposition the table
 
         backgroundCamera.position.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2, 0);
         backgroundCamera.setToAngle(p.getPhysics().getBody().getAngle());
@@ -138,6 +142,8 @@ public class TITLEScreen extends Screen{
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
         batch.setProjectionMatrix(camera.combined);
 
+        menuCamera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0);
+       // menuCamera.setToAngle(p.getPhysics().getBody().getAngle());
         menuCamera.update();
 
         //clear screen
@@ -160,8 +166,9 @@ public class TITLEScreen extends Screen{
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glEnable(GL20.GL_BLEND);
         batch.begin();
-        parent.renderPlayer(p, elapsedTime, batch);
+
         parent.renderPlanets(planets, elapsedTime, batch);
+        parent.renderPlayer(p, elapsedTime, batch);
         batch.end();
         stage.draw();
 

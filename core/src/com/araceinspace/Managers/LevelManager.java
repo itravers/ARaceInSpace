@@ -119,6 +119,10 @@ public class LevelManager {
         }
     }
 
+    private void updateTitleScreen(float elapsedTime){
+        updateInGame(elapsedTime);
+    }
+
     /* Public Methods */
     public void setCurrentLevel(int level){
         currentLevel = level;
@@ -136,6 +140,7 @@ public class LevelManager {
      */
     public void setLevel(int level){
         currentLevel = level;
+        parent.setupPhysics();
         setupPlayer();
         setupBackground();
         setupPlanets();
@@ -185,6 +190,8 @@ public class LevelManager {
         /* Update ingame, if we are actually INGAME */
         if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
            updateInGame(elapsedTime);
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
+            updateTitleScreen(elapsedTime);
         }
     }
 

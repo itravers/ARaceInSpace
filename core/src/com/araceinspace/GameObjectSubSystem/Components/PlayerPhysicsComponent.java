@@ -147,15 +147,15 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         }
 
         if(parent.getInput().leftPressed && onPlanet()){
-            body.applyLinearImpulse(impulse.rotate(90).scl(2.5f), pos, true);
-            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/2), pos, true);
+            body.applyLinearImpulse(impulse.rotate(90).scl(2.5f), pos, true);//side force
+            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/1.8f), pos, true);//downforce
         }else  if(parent.getInput().leftPressed){
             body.applyAngularImpulse(1f, true);
         }
 
         if(parent.getInput().rightPressed && onPlanet()){
-            body.applyLinearImpulse(impulse.rotate(-90).scl(2.5f), pos, true);
-            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/2), pos, true);
+            body.applyLinearImpulse(impulse.rotate(-90).scl(2.5f), pos, true);//sideforce
+            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/1.8f), pos, true);//downforce
         }else if(parent.getInput().rightPressed){
             body.applyAngularImpulse(-1f, true);
         }
