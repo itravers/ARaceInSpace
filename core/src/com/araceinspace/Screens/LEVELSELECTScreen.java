@@ -35,14 +35,11 @@ public class LEVELSELECTScreen extends Screen {
     private TextButton backButton;
     private TextButton storeButton;
     private TextButton levelButton;
-    private MonetizationController monetizationController;
 
     /* Constructors */
 
     public LEVELSELECTScreen(RenderManager parent) {
         super(parent);
-        monetizationController = ((ARaceInSpace)parent.parent.parent).monetizationController;
-       // monetizationController.loadBannerAd();
     }
 
     /* Private Methods */
@@ -82,8 +79,11 @@ public class LEVELSELECTScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("levelButtonListener");
+                monetizationController.hideBannerAd();
                 parent.parent.levelManager.setLevel(3);
+
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+
             }
         };
 

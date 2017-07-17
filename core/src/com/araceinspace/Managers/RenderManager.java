@@ -32,7 +32,7 @@ public class RenderManager {
     private TITLEScreen titleScreen;
     private INGAMEScreen ingameScreen;
     private LEVELSELECTScreen levelselectScreen;
-    private MonetizationController monetizationController;
+    public MonetizationController monetizationController;
 
     /* Constructor */
     public RenderManager(GameWorld p){

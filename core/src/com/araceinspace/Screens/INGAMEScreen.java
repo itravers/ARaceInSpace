@@ -91,7 +91,7 @@ public class INGAMEScreen extends Screen{
         if(parent.parent.devMode){
             debugRenderer.render(parent.parent.levelManager.getWorld(), debugMatrix);
         }
-
+        monetizationController.updateVisibility();//used for banner ads to know whether to show
     }
 
     @Override

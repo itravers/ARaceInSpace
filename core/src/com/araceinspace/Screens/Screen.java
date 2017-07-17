@@ -2,6 +2,7 @@ package com.araceinspace.Screens;
 
 import com.araceinspace.GameObjectSubSystem.SpriteTemplate;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -21,9 +22,11 @@ public abstract class Screen {
     protected OrthCamera camera;
     protected SpriteBatch batch;
     protected Stage stage;
+    protected MonetizationController monetizationController;
 
     public Screen(RenderManager parent){
         this.parent = parent;
+        this.monetizationController = parent.monetizationController;
         camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         batch = new SpriteBatch();
