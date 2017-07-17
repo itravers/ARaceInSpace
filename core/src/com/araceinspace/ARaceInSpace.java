@@ -41,8 +41,8 @@ public class ARaceInSpace extends ApplicationAdapter {
 		this.gameWorld = new GameWorld(this);
 		//monetizationController.loadBannerAd();
 		/** Now have our ads controller setupAds(). */
-		monetizationController.setupAds();
-		monetizationController.loadBannerAd();
+		//monetizationController.setupAds();
+		//monetizationController.loadBannerAd();
 	}
 
 	@Override

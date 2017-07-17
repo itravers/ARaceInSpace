@@ -170,6 +170,7 @@ public class AndroidBannerAd extends GameAd{
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        bannerAd.setVisibility(View.VISIBLE);
         layout.addView(bannerAd, params);
         return layout;
     }

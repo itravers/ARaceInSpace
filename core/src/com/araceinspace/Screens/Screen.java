@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -16,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  */
 public abstract class Screen {
     protected RenderManager parent;
-    protected Viewport viewport;
+    protected FitViewport viewport;
     protected OrthCamera camera;
     protected SpriteBatch batch;
     protected Stage stage;
@@ -24,7 +25,7 @@ public abstract class Screen {
     public Screen(RenderManager parent){
         this.parent = parent;
         camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        viewport = new ScreenViewport(camera);
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
 

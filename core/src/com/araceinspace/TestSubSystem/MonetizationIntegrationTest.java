@@ -298,7 +298,7 @@ public class MonetizationIntegrationTest extends ApplicationAdapter{
 
         //update credits on screen
         updateGUI();
-System.out.println(titleLabel.getStyle());
+//System.out.println(titleLabel.getStyle());
 
 
         xCoords++;

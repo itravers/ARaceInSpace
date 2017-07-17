@@ -1,8 +1,10 @@
 package com.araceinspace.Managers;
 
+import com.araceinspace.ARaceInSpace;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
+import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.araceinspace.Screens.INGAMEScreen;
 import com.araceinspace.Screens.LEVELSELECTScreen;
 import com.araceinspace.Screens.TITLEScreen;
@@ -30,11 +32,13 @@ public class RenderManager {
     private TITLEScreen titleScreen;
     private INGAMEScreen ingameScreen;
     private LEVELSELECTScreen levelselectScreen;
+    private MonetizationController monetizationController;
 
     /* Constructor */
     public RenderManager(GameWorld p){
         System.out.println("RenderManager Constructor");
         parent = p;
+        monetizationController =( (ARaceInSpace)parent.parent).monetizationController;
         frameNum = 0;
         setupRendering();
     }
@@ -51,6 +55,7 @@ public class RenderManager {
         ingameScreen = new INGAMEScreen(this);
         levelselectScreen = new LEVELSELECTScreen(this);
         setupScreenSizeDependantItems();//must come after screens are constructed
+        monetizationController.loadBannerAd();
     }
 
     //Several things in the game are going to be dependant on the users screen size

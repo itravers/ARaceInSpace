@@ -42,6 +42,7 @@ public class LEVELSELECTScreen extends Screen {
     public LEVELSELECTScreen(RenderManager parent) {
         super(parent);
         monetizationController = ((ARaceInSpace)parent.parent.parent).monetizationController;
+       // monetizationController.loadBannerAd();
     }
 
     /* Private Methods */
@@ -148,20 +149,22 @@ public class LEVELSELECTScreen extends Screen {
     @Override
     public void render(float elapsedTime) {
         if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
-        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+       // Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+       // Gdx.gl.glClearColor(1, 1, 1, 1);
+       // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(Gdx.graphics.getDeltaTime());
 
-        batch.enableBlending();
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl.glEnable(GL20.GL_BLEND);
+        //batch.enableBlending();
+       // Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+       // Gdx.gl.glEnable(GL20.GL_BLEND);
 
         stage.draw();
 
-        Gdx.gl.glDisable(GL20.GL_BLEND);
-        batch.disableBlending();
+        //Gdx.gl.glDisable(GL20.GL_BLEND);
+       // batch.disableBlending();
 
         monetizationController.updateVisibility();//used for banner ads to know whether to show
     }

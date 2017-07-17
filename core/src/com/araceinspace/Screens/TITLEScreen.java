@@ -131,7 +131,7 @@ public class TITLEScreen extends Screen{
         camera.zoom = parent.getCameraZoom();
         backgroundCamera.zoom = parent.getCameraZoom();
         camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0);
-        camera.setToAngle(p.getPhysics().getBody().getAngle());
+       // camera.setToAngle(p.getPhysics().getBody().getAngle());
         camera.update();
 
         mainTable.setPosition((p.getX()+p.getWidth()/2)-Gdx.graphics.getWidth()/2, (p.getY()+p.getHeight()/2)-Gdx.graphics.getHeight()/3); //reposition the table
