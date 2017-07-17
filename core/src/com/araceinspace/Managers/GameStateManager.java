@@ -38,6 +38,8 @@ public class GameStateManager {
     }
 
     public void setCurrentState(GAME_STATE state){
+        parent.renderManager.disposeScreen();
+        parent.renderManager.loadScreen(state);
         stateStack.push(state);
     }
 }

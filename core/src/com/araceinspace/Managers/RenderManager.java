@@ -7,6 +7,9 @@ import com.araceinspace.GameWorld;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.araceinspace.Screens.INGAMEScreen;
 import com.araceinspace.Screens.LEVELSELECTScreen;
+import com.araceinspace.Screens.MENUScreen;
+import com.araceinspace.Screens.STOREScreen;
+import com.araceinspace.Screens.Screen;
 import com.araceinspace.Screens.TITLEScreen;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
@@ -29,9 +32,11 @@ public class RenderManager {
     private float baseZoom;
     private float cameraZoom;
 
+    private Screen currentScreen;
     private TITLEScreen titleScreen;
     private INGAMEScreen ingameScreen;
     private LEVELSELECTScreen levelselectScreen;
+    private STOREScreen storeScreen;
     public MonetizationController monetizationController;
 
     /* Constructor */
@@ -50,12 +55,39 @@ public class RenderManager {
      */
     private void setupRendering(){
         resetFrameNum();
-        parent.animationManager.setupAnimations();
-        titleScreen = new TITLEScreen(this);
-        ingameScreen = new INGAMEScreen(this);
-        levelselectScreen = new LEVELSELECTScreen(this);
-        setupScreenSizeDependantItems();//must come after screens are constructed
         monetizationController.loadBannerAd();
+        parent.animationManager.setupAnimations();
+        currentScreen = new TITLEScreen(this);//default screen when game is loaded
+        setupScreenSizeDependantItems();//must come after screens are constructed
+    }
+
+    /**
+     * Called from game state manager, when a state is set.
+     * @param state
+     */
+    public void loadScreen(GameStateManager.GAME_STATE state){
+        switch(state){
+            case TITLE_SCREEN:
+                currentScreen = new TITLEScreen(this);
+                break;
+            case LEVEL_SELECT:
+                currentScreen = new LEVELSELECTScreen(this);
+                break;
+            case STORE:
+                currentScreen = new STOREScreen(this);
+                break;
+            case INGAME:
+                currentScreen = new INGAMEScreen(this);
+                break;
+            case MENU:
+                currentScreen = new MENUScreen(this);
+                break;
+
+        }
+    }
+
+    public void disposeScreen(){
+        currentScreen.dispose();
     }
 
     //Several things in the game are going to be dependant on the users screen size
@@ -117,13 +149,18 @@ public class RenderManager {
      */
     public void render(float elapsedTime){
         //Call appropriate render method based on game state
-        if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
+      /*  if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
             renderInGame(elapsedTime);
         }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
             renderTitleScreen(elapsedTime);
         }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.LEVEL_SELECT){
             levelselectScreen.render(elapsedTime);
-        }
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.STORE){
+            storeScreen.render(elapsedTime);
+        }*/
+        currentScreen.render(elapsedTime);
+
+        monetizationController.updateVisibility();//used for banner ads to know whether to show
 
         //Increase the amound of frameNum's we have used (used for ghost recordings)
         frameNum ++;
@@ -147,10 +184,12 @@ public class RenderManager {
 
     public void setCameraZoom(float cameraZoom) {
         this.cameraZoom = cameraZoom;
-        if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
+       /* if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
             ingameScreen.setCameraZoom(cameraZoom);
         }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
             titleScreen.setCameraZoom(cameraZoom);
         }
+        */
+        currentScreen.setCameraZoom(cameraZoom);
     }
 }

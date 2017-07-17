@@ -49,7 +49,14 @@ public class TITLEScreen extends Screen{
         parent.parent.levelManager.setLevel(1);
     }
 
-
+    @Override
+    public void dispose() {
+        skin.dispose();
+        stage.dispose();;
+        batch.dispose();
+        backgroundBatch.dispose();
+        menuBatch.dispose();
+    }
 
     /* Private Methods */
 
@@ -125,13 +132,14 @@ public class TITLEScreen extends Screen{
 
     @Override
     public void render(float elapsedTime) {
+        if(monetizationController.isBannerAdShowing()) monetizationController.hideBannerAd();
         mainTable.setDebug(parent.parent.devMode);
         Player p = parent.parent.levelManager.getPlayer();
         ArrayList<Planet> planets = parent.parent.levelManager.getPlanets();
         camera.zoom = parent.getCameraZoom();
         backgroundCamera.zoom = parent.getCameraZoom();
         camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0);
-       // camera.setToAngle(p.getPhysics().getBody().getAngle());
+        camera.setToAngle(p.getPhysics().getBody().getAngle());
         camera.update();
 
         mainTable.setPosition((p.getX()+p.getWidth()/2)-Gdx.graphics.getWidth()/2, (p.getY()+p.getHeight()/2)-Gdx.graphics.getHeight()/3); //reposition the table
@@ -179,10 +187,7 @@ public class TITLEScreen extends Screen{
         menuBatch.disableBlending();
     }
 
-    @Override
-    public void dispose() {
 
-    }
 
     public void setCameraZoom(float zoom){
         backgroundCamera.zoom = zoom;

@@ -32,9 +32,11 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
 
     public InputManager(GameWorld p){
         parent = p;
+        Gdx.input.setCatchBackKey(true);
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
+
     }
 
     /* Private Methods */
@@ -105,7 +107,7 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
      */
     @Override
     public boolean keyDown(int keycode) {
-        //System.out.println("KeyDown: " + keycode);
+      //  System.out.println("KeyDown: " + keycode);
         GameInput input = null;
         if(keycode == Input.Keys.W){
             input = GameInput.UP_PRESSED;
@@ -122,6 +124,10 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
             return true; //don't send event, just toggle devMode
         }else if(keycode == Input.Keys.SPACE){
             input = GameInput.JUMP_PRESSED;
+        }else if(keycode == Input.Keys.BACK) {
+            System.out.println("KeyDown: " + keycode);
+            parent.gameStateManager.setCurrentState(parent.gameStateManager.popState());
+
         }
         sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", input));
         return true;

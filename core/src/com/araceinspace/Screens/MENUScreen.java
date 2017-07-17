@@ -1,9 +1,7 @@
 package com.araceinspace.Screens;
 
-import com.araceinspace.ARaceInSpace;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
-import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -19,26 +17,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Created by Isaac Assegai on 7/16/17.
  * This screen will contain everything needed to implement the Level Select Functionality
  */
-public class LEVELSELECTScreen extends Screen {
+public class MENUScreen extends Screen {
     /* Static Variables */
 
     /* Field Variables & Objects */
     private Skin skin;
     private Table mainTable;
     private Label titleLabel;
-    private ClickListener menuButtonListener;
-    private ClickListener storeButtonListener;
     private ClickListener backButtonListener;
-    private ClickListener levelButtonListener;
 
-    private TextButton menuButton;
     private TextButton backButton;
-    private TextButton storeButton;
-    private TextButton levelButton;
 
     /* Constructors */
 
-    public LEVELSELECTScreen(RenderManager parent) {
+    public MENUScreen(RenderManager parent) {
         super(parent);
     }
 
@@ -51,21 +43,7 @@ public class LEVELSELECTScreen extends Screen {
     }
 
     private void setupButtons(){
-        menuButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("menuButtonListener");
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
-            }
-        };
 
-        storeButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("storeButtonListener");
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
-            }
-        };
 
         backButtonListener = new ClickListener(){
             @Override
@@ -75,33 +53,15 @@ public class LEVELSELECTScreen extends Screen {
             }
         };
 
-        levelButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("levelButtonListener");
-                monetizationController.hideBannerAd();
-                parent.parent.levelManager.setLevel(3);
 
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
-
-            }
-        };
-
-        menuButton = new TextButton("Menu", skin);
-        menuButton.addListener(menuButtonListener);
 
         backButton = new TextButton("Back", skin);
         backButton.addListener(backButtonListener);
 
-        storeButton = new TextButton("Store", skin);
-        storeButton.addListener(storeButtonListener);
-
-        levelButton = new TextButton("Level", skin);
-        levelButton.addListener(levelButtonListener);
     }
 
     private void setupLabels(){
-        titleLabel = new Label("Choose Your Level", skin);
+        titleLabel = new Label("Menu", skin);
     }
 
     private void setupTables(){
@@ -112,17 +72,10 @@ public class LEVELSELECTScreen extends Screen {
         mainTable.add(titleLabel);
         mainTable.row();
 
-        mainTable.add(menuButton);
-        mainTable.row();
 
         mainTable.add(backButton);
         mainTable.row();
 
-        mainTable.add(storeButton);
-        mainTable.row();
-
-        mainTable.add(levelButton);
-        mainTable.row();
     }
 
     /* Public Methods */

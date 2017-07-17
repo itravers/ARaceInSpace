@@ -33,7 +33,7 @@ public class GameWorld {
     /* Constructors */
     public GameWorld(ApplicationAdapter p){
         parent = p;
-        gameStateManager = new GameStateManager(this);
+
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
         inputManager = new InputManager(this);
@@ -42,6 +42,7 @@ public class GameWorld {
         animationManager = new AnimationManager(this);//must before level manager & before rendermanager
         levelManager = new LevelManager(this);
         renderManager = new RenderManager(this);
+        gameStateManager = new GameStateManager(this);//must come after rendermanager
 
         elapsedTime = 0;
     }
