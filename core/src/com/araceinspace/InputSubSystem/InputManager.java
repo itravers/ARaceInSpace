@@ -4,6 +4,7 @@ import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventSender;
 import com.araceinspace.GameWorld;
+import com.araceinspace.Managers.GameStateManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -107,8 +108,13 @@ public class InputManager implements EventSender, InputProcessor, GestureDetecto
      */
     @Override
     public boolean keyDown(int keycode) {
+
+
       //  System.out.println("KeyDown: " + keycode);
         GameInput input = null;
+
+
+
         if(keycode == Input.Keys.W){
             input = GameInput.UP_PRESSED;
         }else if(keycode == Input.Keys.A){

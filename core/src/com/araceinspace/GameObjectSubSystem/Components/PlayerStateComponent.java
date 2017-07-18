@@ -46,7 +46,7 @@ public class PlayerStateComponent extends StateComponent{
     public void setState(PlayerState s){
         currentState = s;
         stateTime = 0;
-        System.out.println("SetState("+s+")");
+        //System.out.println("SetState("+s+")");
     }
 
     /* Public Methods */

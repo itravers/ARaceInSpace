@@ -35,7 +35,7 @@ public class ContactListenerManager implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("Begin Contact: " + contact);
+       // System.out.println("Begin Contact: " + contact);
         Object a = contact.getFixtureA().getBody().getUserData();
         Object b = contact.getFixtureB().getBody().getUserData();
         /*
@@ -58,7 +58,7 @@ public class ContactListenerManager implements ContactListener {
              * We were flying, now we've hit the planet, so we are either landing or crashing.
              * In order to land the player must be faced away from the planet, and must be under the crashing speed.
              */
-        System.out.println(player.getState().getCurrentState());
+       // System.out.println(player.getState().getCurrentState());
             if(player.getState().getCurrentState() == PlayerState.FLYING){
                 //if(didPlayerCrash(player, planet)){
                    // player.getState().setState(PlayerState.EXPLODING);
