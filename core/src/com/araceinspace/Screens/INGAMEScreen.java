@@ -1,6 +1,7 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.ARaceInSpace;
+import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.Managers.GameStateManager;
@@ -12,7 +13,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -36,6 +39,7 @@ public class INGAMEScreen extends Screen{
     /* Field Variables & Objects */
     private OrthCamera backgroundCamera;
     private Box2DDebugRenderer debugRenderer;
+    private ShapeRenderer shapeRenderer;
     private Matrix4 debugMatrix;
     private SpriteBatch backgroundBatch;
     private BitmapFont font;
@@ -43,6 +47,7 @@ public class INGAMEScreen extends Screen{
     private ClickListener rewardButtonListener;
     private Skin skin;
     private OrthCamera menuCamera;
+    private OrthCamera shapeCamera; // need this because other cameras zoom
 
     /* Constructors */
 
@@ -64,11 +69,14 @@ public class INGAMEScreen extends Screen{
        // stage = new Stage(menuCamera)
         font = new BitmapFont();
         backgroundCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        shapeCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         menuCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         backgroundBatch = new SpriteBatch();
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
         debugRenderer = new Box2DDebugRenderer();
+        shapeRenderer = new ShapeRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
+        monetizationController.loadRewardAd();
         setupStage();
     }
 
@@ -98,8 +106,9 @@ public class INGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("Reward Clicked");
-                monetizationController.loadRewardAd();
+
                 monetizationController.showRewardAd();
+                monetizationController.loadRewardAd();
             }
         };
 
@@ -156,6 +165,12 @@ public class INGAMEScreen extends Screen{
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
         batch.setProjectionMatrix(camera.combined);
 
+        shapeCamera.position.set(p.getX() + p.getWidth(),
+                p.getY() + p.getHeight(), 0);
+
+        shapeCamera.setToAngle(p.getPhysics().getBody().getAngle());
+        shapeCamera.update();
+
         menuCamera.update();
 
         //clear screen
@@ -171,9 +186,15 @@ public class INGAMEScreen extends Screen{
         if(parent.parent.devMode){
             renderVersion(batch);
         }
+
+
         batch.end();
+
+        renderGoal(timeElapsed, batch);
         //stage.act(timeElapsed);
         // stage.draw();
+
+
 
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
         if(parent.parent.devMode){
@@ -184,6 +205,67 @@ public class INGAMEScreen extends Screen{
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+
+    }
+
+    private void renderGoal(float elapsedTime, SpriteBatch batch){
+        GameObject g = parent.parent.levelManager.getGoal(); /* This object is our goal. */
+        Player p = parent.parent.levelManager.getPlayer();
+
+        if(g instanceof Planet){ //D
+            Planet goal = (Planet)g;
+            // float goalRadius = goal.getRadiusFromMass(goal.getMass());
+            float goalRadius = ((Planet)goal).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
+            Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+            Vector2 goalPos = new Vector2(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
+            Vector2 endLine = goalPos.cpy().sub(startPos); //get difference vector
+            Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
+            Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
+
+
+            endLine.setLength(105f); // set length of distance vector
+            perpLine1.setLength(15f); //set length of perpLineVector
+            perpLine2.setLength(15f); //set length of perpLineVector
+
+            endLine = startPos.cpy().add(endLine); //convert back to point
+            perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
+            perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
+
+
+            if(g != null){ /* The goal can be null, make sure it isn't here. */
+                //
+
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setProjectionMatrix(shapeCamera.combined);
+                shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
+                shapeRenderer.setColor(Color.GREEN);
+
+                //shapeRenderer.line(startPos, endLine);
+                shapeRenderer.rectLine(endLine, perpLine1, 3);
+                shapeRenderer.rectLine(endLine, perpLine2, 3);
+                shapeRenderer.end();
+
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+                // shapeRenderer.set(ShapeRenderer.ShapeType.Line);
+                shapeRenderer.setProjectionMatrix(camera.combined);
+
+               /* RadialGradientPaint rgp = new RadialGradientPaint(
+                        new Point((int)(0+0 / 2), (int) (0 + 0 / 2)),
+                        (float) 0,
+                        new float[]{.01f, .5f},
+                        new java.awt.Color[]{java.awt.green, java.awt.green}
+                );
+                */
+
+
+
+                shapeRenderer.circle((goalPos.x), (goalPos.y), goalRadius / 2);
+
+                shapeRenderer.setProjectionMatrix(shapeCamera.combined);
+                shapeRenderer.end();
+                //Gdx.gl2
+            }
+        }
 
     }
 

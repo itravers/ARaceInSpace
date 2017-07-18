@@ -165,11 +165,16 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
     }
 
+
+
+
+    /* Public Methods */
+
     /**
      * Examines current state and decides if that means we are on a planet or we are off a planet
      * @return
      */
-    private boolean onPlanet(){
+    public boolean onPlanet(){
         PlayerState state = parent.getState().getCurrentState();
         if((state == PlayerState.FLYING || state == PlayerState.FLOAT_SIDEWAYS) && getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
             return false;
@@ -177,9 +182,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
             return true;
         }
     }
-
-
-    /* Public Methods */
 
     /**
      * Updates the Players Physics.

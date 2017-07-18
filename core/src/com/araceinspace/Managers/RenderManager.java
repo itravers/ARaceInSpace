@@ -6,8 +6,11 @@ import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.araceinspace.Screens.INGAMEScreen;
+import com.araceinspace.Screens.LEADERBOARDScreen;
 import com.araceinspace.Screens.LEVELSELECTScreen;
 import com.araceinspace.Screens.MENUScreen;
+import com.araceinspace.Screens.PREGAMEScreen;
+import com.araceinspace.Screens.SCOREScreen;
 import com.araceinspace.Screens.STOREScreen;
 import com.araceinspace.Screens.Screen;
 import com.araceinspace.Screens.TITLEScreen;
@@ -33,10 +36,7 @@ public class RenderManager {
     private float cameraZoom;
 
     private Screen currentScreen;
-    private TITLEScreen titleScreen;
     private INGAMEScreen ingameScreen;
-    private LEVELSELECTScreen levelselectScreen;
-    private STOREScreen storeScreen;
     public MonetizationController monetizationController;
 
     /* Constructor */
@@ -81,6 +81,15 @@ public class RenderManager {
                 break;
             case MENU:
                 currentScreen = new MENUScreen(this);
+                break;
+            case PREGAME:
+                currentScreen = new PREGAMEScreen(this);
+                break;
+            case SCOREBOARD:
+                currentScreen = new SCOREScreen(this);
+                break;
+            case LEADERBOARDS:
+                currentScreen = new LEADERBOARDScreen(this);
                 break;
 
         }
@@ -138,9 +147,6 @@ public class RenderManager {
         frameNum = num;
     }
 
-    private void renderTitleScreen(float elapsedTime){
-        titleScreen.render(elapsedTime);
-    }
 
     /* Public Methods */
 

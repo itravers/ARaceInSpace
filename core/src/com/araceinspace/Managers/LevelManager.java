@@ -1,5 +1,6 @@
 package com.araceinspace.Managers;
 
+import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameObjectSubSystem.SpriteTemplate;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -33,6 +35,8 @@ public class LevelManager {
     private Player player;
     private ArrayList<Planet> planets;
     public Background mainBackground;
+    private Boolean levelGoalCompleted;
+    private GameObject goal; /* The goal planet to land on */
 
     /* Constructors */
     public LevelManager(GameWorld p){
@@ -123,6 +127,57 @@ public class LevelManager {
         updateInGame(elapsedTime);
     }
 
+    /**
+     * REads the levelx.json file for current level and designates the appropriate planet as the goal.
+     */
+    private void setupGoal(){
+        int level = getCurrentLevel();
+        if(level != 0){ //level 0 doesn't have a goal as it is the menu
+            levelGoalCompleted = false;
+            Json json = new Json();
+            ArrayList<SpriteTemplate> levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class,
+                    getLevelFile(level));
+            //read list of levelItems, creating a planet for every planet in the list.
+            for(int i = 0; i < levelItems.size(); i++){
+                SpriteTemplate item = levelItems.get(i);
+                if(item.getType().equals("goal")){
+                    int index = Integer.valueOf(item.getExtraInfo()); //The index of the goal planet defined in the levelx.json file
+                    Planet p = planets.get(index);
+                    goal = p;
+                }
+            }
+        }
+    }
+
+    private void completeLevel(){
+        setGoalCompleted(true);
+        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
+    }
+
+    private void setGoalCompleted(Boolean levelGoalCompleted) {
+        this.levelGoalCompleted = levelGoalCompleted;
+    }
+
+    /**
+     * Checks if we have completed the levels goal.
+     * We have completed the goal if we are landed, and the
+     * nearest planet is the goal planet.
+     */
+    public void checkGoal(Planet planet, Player p){
+        //we only do this if the levelGoal has not been completed
+        if(!levelGoalCompleted){
+
+            boolean stateGood = p.getPhysics().onPlanet();
+            boolean goalGood = (goal.equals(planet));
+            boolean playerTypeGood = true; //(!(p instanceof Ghost));
+            //we know the goal is completed if the player has landed on the goal planet and he is not a ghost.
+            if(stateGood && goalGood && playerTypeGood){
+
+                completeLevel();
+            }
+        }
+    }
+
     /* Public Methods */
     public void setCurrentLevel(int level){
         currentLevel = level;
@@ -130,6 +185,10 @@ public class LevelManager {
 
     public int getCurrentLevel(){
         return currentLevel;
+    }
+
+    public GameObject getGoal(){
+        return goal;
     }
 
     /**
@@ -141,9 +200,11 @@ public class LevelManager {
     public void setLevel(int level){
         currentLevel = level;
         parent.setupPhysics();
+        setGoalCompleted(false);
         setupPlayer();
         setupBackground();
         setupPlanets();
+        setupGoal();
     }
 
     /**
