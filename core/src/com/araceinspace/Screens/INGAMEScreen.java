@@ -214,11 +214,13 @@ public class INGAMEScreen extends Screen{
 
         if(g instanceof Planet){ //D
             Planet goal = (Planet)g;
-            // float goalRadius = goal.getRadiusFromMass(goal.getMass());
             float goalRadius = ((Planet)goal).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
-            Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+
+            Vector2 startPos = new Vector2(p.getX()+p.getWidth(), p.getY()+p.getHeight());
             Vector2 goalPos = new Vector2(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
-            Vector2 endLine = goalPos.cpy().sub(startPos); //get difference vector
+
+            Vector2 middleOfGoal = new Vector2(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
+            Vector2 endLine = middleOfGoal.cpy().sub(startPos); //get difference vector
             Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
             Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
 
@@ -259,7 +261,13 @@ public class INGAMEScreen extends Screen{
 
 
 
-                shapeRenderer.circle((goalPos.x), (goalPos.y), goalRadius / 2);
+                Gdx.gl.glLineWidth(100);
+
+                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), goalRadius / 2);
+
+                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), 10);
+
+                Gdx.gl.glLineWidth(2);
 
                 shapeRenderer.setProjectionMatrix(shapeCamera.combined);
                 shapeRenderer.end();
