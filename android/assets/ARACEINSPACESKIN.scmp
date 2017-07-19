@@ -1112,6 +1112,32 @@ atlasData: {
 			tintName: null
 			name: blank
 		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/select_box_background.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: select_box_background
+		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/select_box_open.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: select_box_open
+		}
 	]
 }
 jsonData: {
@@ -3104,35 +3130,35 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: font_d_estroy__20pt
 					}
 					fontColorSelected: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColorSelected
 						optional: false
-						value: null
+						value: GRAY
 					}
 					fontColorUnselected: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColorUnselected
 						optional: false
-						value: null
+						value: GRAY
 					}
 					selection: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: selection
 						optional: false
-						value: null
+						value: blank
 					}
 					background: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: null
+						value: select_box_open
 					}
 				}
 				deletable: false
@@ -3395,28 +3421,28 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: font_d_estroy__20pt
 					}
 					fontColor: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColor
 						optional: false
-						value: null
+						value: GRAY
 					}
 					disabledFontColor: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.graphics.Color
 						name: disabledFontColor
 						optional: true
-						value: null
+						value: GRAY
 					}
 					background: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: null
+						value: select_box_background
 					}
 					scrollStyle: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3444,7 +3470,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: backgroundOpen
 						optional: true
-						value: null
+						value: select_box_open
 					}
 					backgroundDisabled: {
 						class: com.ray3k.skincomposer.data.StyleProperty

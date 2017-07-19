@@ -169,6 +169,15 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: font_d_estroy__24pt
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: font_d_estroy__20pt
+		fontColorSelected: GRAY
+		fontColorUnselected: GRAY
+		selection: blank
+		background: select_box_open
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default: {
 		background: default-scroll
@@ -181,6 +190,17 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 		hScrollKnob: default-round-large
 		vScroll: default-scroll
 		vScrollKnob: default-round-large
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: font_d_estroy__20pt
+		fontColor: GRAY
+		disabledFontColor: GRAY
+		background: select_box_background
+		scrollStyle: default
+		listStyle: default
+		backgroundOpen: select_box_open
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
