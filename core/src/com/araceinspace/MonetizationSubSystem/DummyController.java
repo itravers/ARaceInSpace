@@ -22,7 +22,7 @@ public class DummyController implements MonetizationController {
 
     @Override
     public <T> T setupBannerLayout(T layout) {
-        return null;
+        return layout;
     }
 
     @Override

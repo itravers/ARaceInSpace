@@ -202,7 +202,7 @@ public class LevelManager {
         parent.setupPhysics();
         setGoalCompleted(false);
         setupPlayer();
-        setupBackground();
+       // setupBackground();
         setupPlanets();
         setupGoal();
     }

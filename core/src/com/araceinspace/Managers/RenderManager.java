@@ -126,8 +126,8 @@ public class RenderManager {
 
 
     public void renderBackground(OrthCamera backgroundCamera, float timeElapsed, SpriteBatch b){
-        if(parent.levelManager.mainBackground == null)parent.levelManager.setupBackground();
-        parent.levelManager.getBackground().render(backgroundCamera, timeElapsed, b);
+        //if(parent.levelManager.mainBackground == null)parent.levelManager.setupBackground();
+       // parent.levelManager.getBackground().render(backgroundCamera, timeElapsed, b);
     }
 
     /**

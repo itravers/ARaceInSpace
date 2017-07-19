@@ -6,6 +6,7 @@ import com.araceinspace.Managers.ContactListenerManager;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.Managers.SoundManager;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -25,6 +26,7 @@ public class GameWorld {
     public LevelManager levelManager;
     public ContactListenerManager contactListenerManager;
     public InputManager inputManager;
+    public SoundManager soundManager;
     public World world;
     float elapsedTime;
     public boolean devMode = false;
@@ -43,6 +45,8 @@ public class GameWorld {
         levelManager = new LevelManager(this);
         renderManager = new RenderManager(this);
         gameStateManager = new GameStateManager(this);//must come after rendermanager
+
+        soundManager = new SoundManager(this);
 
         elapsedTime = 0;
     }

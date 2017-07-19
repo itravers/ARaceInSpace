@@ -188,7 +188,7 @@ public class TITLEScreen extends Screen implements EventSender {
     @Override
     public void render(float elapsedTime) {
 
-        if(monetizationController.isBannerAdShowing()) monetizationController.hideBannerAd();
+       // if(monetizationController.isBannerAdShowing()) monetizationController.hideBannerAd();
         mainTable.setDebug(parent.parent.devMode);
         headerTable.setDebug(parent.parent.devMode);
         //titleTable.setDebug(parent.parent.devMode);
@@ -228,7 +228,7 @@ public class TITLEScreen extends Screen implements EventSender {
 
         //clear screen
        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 
