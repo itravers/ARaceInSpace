@@ -5,6 +5,7 @@ import com.araceinspace.Managers.RenderManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Tree;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
@@ -42,6 +44,8 @@ public class MENUScreen extends Screen {
     private ClickListener coinButtonListener;
     private  ClickListener backButtonListener;
     private ClickListener rewardAdButtonListener;
+    private ClickListener muteMusicButtonListener;
+    private ChangeListener musicVolumeSliderListener;
 
     private ImageButton backButton;
     private ImageButton coinButton;
@@ -56,6 +60,9 @@ public class MENUScreen extends Screen {
 
     private Slider musicVolumeSlider;
     private Slider sfxVolumeSlider;
+
+
+
 
     ScrollPane scrollPane;
 
@@ -101,6 +108,21 @@ public class MENUScreen extends Screen {
 
         };
 
+        muteMusicButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                if(parent.parent.soundManager.isMusicMuted()){
+                    parent.parent.soundManager.setMusicVolume(.5f);
+                    musicMuteButton.getLabel().setText("Mute");
+                    musicVolumeSlider.setValue(.5f*100);
+                }else{
+                    parent.parent.soundManager.setMusicVolume(0);
+                    musicMuteButton.getLabel().setText("Unmute");
+                    musicVolumeSlider.setValue(0);
+                }
+            }
+        };
+
         backButton = new ImageButton(skin, "backButton");
         backButton.addListener(backButtonListener);
 
@@ -118,7 +140,7 @@ public class MENUScreen extends Screen {
         exitButton.addListener(rewardAdButtonListener);
        // exitButton.setWidth(restartButton.getWidth());
         musicMuteButton = new ImageTextButton("Mute", skin);
-        musicMuteButton.addListener(rewardAdButtonListener);
+        musicMuteButton.addListener(muteMusicButtonListener);
 
         sfxMuteButton = new ImageTextButton("Mute", skin);
         sfxMuteButton.addListener(rewardAdButtonListener);
@@ -141,8 +163,28 @@ public class MENUScreen extends Screen {
     }
 
     private void setupSliders(){
+
         musicVolumeSlider = new Slider(0, 100, 1, false, skin);
         sfxVolumeSlider = new Slider(0, 100, 1, false, skin);
+
+        musicVolumeSliderListener = new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+              // System.out.println( ((Slider)actor).getValue());
+                float volume = ((Slider)actor).getValue()/100;
+                parent.parent.soundManager.setMusicVolume(volume);
+                if(volume == 0){
+                    musicMuteButton.getLabel().setText("Unmute");
+                }else{
+                    musicMuteButton.getLabel().setText("Mute");
+                }
+            }
+        };
+        musicVolumeSlider.addListener(musicVolumeSliderListener);
+
+        float musicVolume = parent.parent.soundManager.getMusicVolume()*100;
+        musicVolumeSlider.setValue(musicVolume);
     }
 
     private void setupTables(){
@@ -192,13 +234,13 @@ public class MENUScreen extends Screen {
         soundSectionTable.align(Align.left|Align.top);
         soundSectionTable.add(new Label("Music Volume", skin, "extra_small"));
         soundSectionTable.row();
-        soundSectionTable.add(musicVolumeSlider).width(width/2f).fill().expandX().spaceRight(width/20);
-        soundSectionTable.add(musicMuteButton);
+        soundSectionTable.add(musicVolumeSlider).width(width/2.8f).fill().expandX().spaceRight(width/20);
+        soundSectionTable.add(musicMuteButton).width(width/4.2f).fill().expandX();
         soundSectionTable.row();
         soundSectionTable.add(new Label("  SFX Volume", skin, "extra_small"));
         soundSectionTable.row();
-        soundSectionTable.add(sfxVolumeSlider).width(width/2f).fill().expandX().spaceRight(width/20);
-        soundSectionTable.add(sfxMuteButton);
+        soundSectionTable.add(sfxVolumeSlider).width(width/2.8f).fill().expandX().spaceRight(width/20);
+        soundSectionTable.add(sfxMuteButton).width(width/4.2f).fill().expandX();
         Tree.Node soundSectionChild = new Tree.Node(soundSectionTable);
         soundSelectionNode.add(soundSectionChild);
 
@@ -282,6 +324,7 @@ public class MENUScreen extends Screen {
      */
     @Override
     public void render(float elapsedTime) {
+
         if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
         showdebug();
         Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);

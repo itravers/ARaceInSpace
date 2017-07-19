@@ -15,22 +15,50 @@ public class SoundManager {
     GameWorld parent;
     public Sound beethovens7th;
 
+    private Sound currentSong;
+    long currentSongId;
+    float musicVolume;
+
+    boolean musicMuted;
+
     /* Constructors */
     public SoundManager(GameWorld p){
         System.out.println("Constructing SoundManager");
         parent = p;
         setupSounds();
-        playSong(beethovens7th);
     }
 
     /* Private Methods */
 
     private void setupSounds(){
+
         beethovens7th = Gdx.audio.newSound(Gdx.files.internal("data/beethoven7th.mp3"));
+        playSong(beethovens7th);
+        setMusicVolume(.5f);
     }
 
     /* Public Methods */
     public void playSong(Sound s){
-        s.play();
+        currentSong = s;
+        currentSongId = s.play();
+    }
+
+    public void setMusicVolume(float musicVolume){
+        if(musicVolume == 0){
+            musicMuted = true;
+        }else{
+            musicMuted = false;
+        }
+        this.musicVolume = musicVolume;
+        currentSong.setVolume(currentSongId, musicVolume);
+
+    }
+
+    public boolean isMusicMuted(){
+        return musicMuted;
+    }
+
+    public float getMusicVolume(){
+        return musicVolume;
     }
 }
