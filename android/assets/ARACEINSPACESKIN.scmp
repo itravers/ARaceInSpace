@@ -3,6 +3,422 @@ atlasData: {
 	atlasCurrent: true
 	drawables: [
 		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__20pt.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_d_estroy__20pt
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__24pt.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_d_estroy__24pt
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__36pt.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_d_estroy__36pt
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__48pt.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_d_estroy__48pt
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__56pt.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_d_estroy__56pt
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_raavi_28pt.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_raavi_28pt
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_raavi_48pt.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_raavi_48pt
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_raavi_48pt_bold.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_raavi_48pt_bold
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/back_button_down3.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: back_button_down3
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/back_button_up3.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: back_button_up3
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/coin_but_191x176.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: coin_but_191x176
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/coin_button_up.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: coin_button_up
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/default.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: default
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_raavi_56pt_bold.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: false
+			tint: null
+			tintName: null
+			name: font_raavi_56pt_bold
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/store_button_down.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: store_button_down
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/store_button_up.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: store_button_up
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/teststorebutton.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: teststorebutton
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/Button.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: Button
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/CheckBox.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: CheckBox
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/ImageButton.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: ImageButton
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/Label.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: Label
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/List.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: List
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/ProgressBar.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: ProgressBar
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/ScrollPane.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: ScrollPane
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/SelectBox.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: SelectBox
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/Slider.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: Slider
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/SplitPane.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: SplitPane
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/TextButton.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: TextButton
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/TextField.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: TextField
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/Touchpad.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: Touchpad
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/Tree.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: Tree
+		}
+		{
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/Window.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: Window
+		}
+		{
 			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/back.png"
 			bgColor: {
 				r: 1
@@ -42,19 +458,6 @@ atlasData: {
 			name: back_button_down2
 		}
 		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/back_button_down3.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: back_button_down3
-		}
-		{
 			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/back_button_up.png"
 			bgColor: {
 				r: 1
@@ -79,19 +482,6 @@ atlasData: {
 			tint: null
 			tintName: null
 			name: back_button_up2
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/back_button_up3.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: back_button_up3
 		}
 		{
 			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/check-off.png"
@@ -185,19 +575,6 @@ atlasData: {
 			name: coinbutton
 		}
 		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/coin_but_191x176.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: coin_but_191x176
-		}
-		{
 			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/coin_but_74x68.png"
 			bgColor: {
 				r: 1
@@ -224,19 +601,6 @@ atlasData: {
 			name: coin_button_down
 		}
 		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/coin_button_up.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: coin_button_up
-		}
-		{
 			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/cursor.9.png"
 			bgColor: {
 				r: 0
@@ -248,19 +612,6 @@ atlasData: {
 			tint: null
 			tintName: null
 			name: cursor
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/default.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: default
 		}
 		{
 			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/default-pane.9.png"
@@ -471,123 +822,6 @@ atlasData: {
 			name: default-window
 		}
 		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__20pt.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_d_estroy__20pt
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__24pt.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_d_estroy__24pt
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__36pt.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_d_estroy__36pt
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__48pt.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_d_estroy__48pt
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_d_estroy__56pt.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_d_estroy__56pt
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_raavi_28pt.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_raavi_28pt
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_raavi_48pt.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_raavi_48pt
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_raavi_48pt_bold.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_raavi_48pt_bold
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/font_raavi_56pt_bold.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: false
-			tint: null
-			tintName: null
-			name: font_raavi_56pt_bold
-		}
-		{
 			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/menu.png"
 			bgColor: {
 				r: 1
@@ -692,45 +926,6 @@ atlasData: {
 			name: selection
 		}
 		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/store_button_down.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: store_button_down
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/store_button_up.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: store_button_up
-		}
-		{
-			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/teststorebutton.png"
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: teststorebutton
-		}
-		{
 			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/tree-minus.png"
 			bgColor: {
 				r: 1
@@ -809,7 +1004,7 @@ atlasData: {
 			name: white
 		}
 		{
-			file: temp/247982323_data/widgets/Button.png
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/TextImageButton.png"
 			bgColor: {
 				r: 1
 				g: 1
@@ -819,192 +1014,10 @@ atlasData: {
 			visible: true
 			tint: null
 			tintName: null
-			name: Button
+			name: TextImageButton
 		}
 		{
-			file: temp/247982323_data/widgets/CheckBox.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: CheckBox
-		}
-		{
-			file: temp/247982323_data/widgets/ImageButton.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: ImageButton
-		}
-		{
-			file: temp/247982323_data/widgets/Label.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: Label
-		}
-		{
-			file: temp/247982323_data/widgets/List.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: List
-		}
-		{
-			file: temp/247982323_data/widgets/ProgressBar.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: ProgressBar
-		}
-		{
-			file: temp/247982323_data/widgets/ScrollPane.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: ScrollPane
-		}
-		{
-			file: temp/247982323_data/widgets/SelectBox.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: SelectBox
-		}
-		{
-			file: temp/247982323_data/widgets/Slider.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: Slider
-		}
-		{
-			file: temp/247982323_data/widgets/SplitPane.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: SplitPane
-		}
-		{
-			file: temp/247982323_data/widgets/TextButton.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: TextButton
-		}
-		{
-			file: temp/247982323_data/widgets/TextField.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: TextField
-		}
-		{
-			file: temp/247982323_data/widgets/Touchpad.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: Touchpad
-		}
-		{
-			file: temp/247982323_data/widgets/Tree.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: Tree
-		}
-		{
-			file: temp/247982323_data/widgets/Window.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			visible: true
-			tint: null
-			tintName: null
-			name: Window
-		}
-		{
-			file: temp/247982323_data/white.png
+			file: "/home/slack/workspace/ARaceInSpace/android/assets/ARACEINSPACESKIN_data/white.png"
 			bgColor: {
 				r: 0
 				g: 0
@@ -1022,7 +1035,7 @@ atlasData: {
 			name: dialogDim
 		}
 		{
-			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/TextImageButton.png"
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/minusButton.png"
 			bgColor: {
 				r: 1
 				g: 1
@@ -1032,7 +1045,72 @@ atlasData: {
 			visible: true
 			tint: null
 			tintName: null
-			name: TextImageButton
+			name: minusButton
+		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/plusButton.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: plusButton
+		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/sliderKnob.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: sliderKnob
+		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/slider_before_knob.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: slider_before_knob
+		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/slider-after-knob.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: slider-after-knob
+		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/blank.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: blank
 		}
 	]
 }
@@ -2591,7 +2669,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: font_d_estroy__20pt
+						value: font_d_estroy__24pt
 					}
 					fontColor: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -2985,6 +3063,35 @@ jsonData: {
 				}
 				deletable: true
 			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: tree_header
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+				properties: {
+					font: {
+						class: com.ray3k.skincomposer.data.StyleProperty
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: font
+						optional: false
+						value: font_d_estroy__24pt
+					}
+					fontColor: {
+						class: com.ray3k.skincomposer.data.StyleProperty
+						type: com.badlogic.gdx.graphics.Color
+						name: fontColor
+						optional: true
+						value: null
+					}
+					background: {
+						class: com.ray3k.skincomposer.data.StyleProperty
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: null
+					}
+				}
+				deletable: true
+			}
 		]
 		com.badlogic.gdx.scenes.scene2d.ui.List: [
 			{
@@ -2997,7 +3104,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: default-font
+						value: null
 					}
 					fontColorSelected: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3018,7 +3125,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: selection
 						optional: false
-						value: selection
+						value: null
 					}
 					background: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3029,49 +3136,6 @@ jsonData: {
 					}
 				}
 				deletable: false
-			}
-			{
-				class: com.ray3k.skincomposer.data.StyleData
-				name: dimmed
-				clazz: com.badlogic.gdx.scenes.scene2d.ui.List
-				properties: {
-					font: {
-						class: com.ray3k.skincomposer.data.StyleProperty
-						type: com.badlogic.gdx.graphics.g2d.BitmapFont
-						name: font
-						optional: false
-						value: default-font
-					}
-					fontColorSelected: {
-						class: com.ray3k.skincomposer.data.StyleProperty
-						type: com.badlogic.gdx.graphics.Color
-						name: fontColorSelected
-						optional: false
-						value: null
-					}
-					fontColorUnselected: {
-						class: com.ray3k.skincomposer.data.StyleProperty
-						type: com.badlogic.gdx.graphics.Color
-						name: fontColorUnselected
-						optional: false
-						value: null
-					}
-					selection: {
-						class: com.ray3k.skincomposer.data.StyleProperty
-						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
-						name: selection
-						optional: false
-						value: selection
-					}
-					background: {
-						class: com.ray3k.skincomposer.data.StyleProperty
-						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
-						name: background
-						optional: true
-						value: dialogDim
-					}
-				}
-				deletable: true
 			}
 		]
 		com.badlogic.gdx.scenes.scene2d.ui.ProgressBar: [
@@ -3331,7 +3395,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: default-font
+						value: null
 					}
 					fontColor: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3352,7 +3416,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: default-select
+						value: null
 					}
 					scrollStyle: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3418,7 +3482,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: false
-						value: default-slider
+						value: blank
 					}
 					disabledBackground: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3432,7 +3496,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: knob
 						optional: true
-						value: default-slider-knob
+						value: sliderKnob
 					}
 					disabledKnob: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3446,14 +3510,14 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: knobBefore
 						optional: true
-						value: null
+						value: slider_before_knob
 					}
 					knobAfter: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: knobAfter
 						optional: true
-						value: null
+						value: slider-after-knob
 					}
 					disabledKnobBefore: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3878,7 +3942,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: default-font
+						value: null
 					}
 					fontColor: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3906,7 +3970,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: textfield
+						value: null
 					}
 					focusedBackground: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3927,14 +3991,14 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: cursor
 						optional: true
-						value: cursor
+						value: null
 					}
 					selection: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: selection
 						optional: true
-						value: selection
+						value: null
 					}
 					messageFont: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -4020,14 +4084,14 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: plus
 						optional: false
-						value: tree-plus
+						value: plusButton
 					}
 					minus: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: minus
 						optional: false
-						value: tree-minus
+						value: minusButton
 					}
 					over: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -4041,7 +4105,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: selection
 						optional: true
-						value: default-select-selection
+						value: null
 					}
 					background: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -4138,7 +4202,7 @@ preferences: {
 	}
 	id: {
 		class: java.lang.Integer
-		value: 247982323
+		value: 437079365
 	}
 	resources-relative: {
 		class: java.lang.Boolean

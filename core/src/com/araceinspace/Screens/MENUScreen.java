@@ -7,11 +7,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Tree;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 /**
  * Created by Isaac Assegai on 7/16/17.
@@ -21,12 +27,33 @@ public class MENUScreen extends Screen {
     /* Static Variables */
 
     /* Field Variables & Objects */
+    int spacer;
     private Skin skin;
-    private Table mainTable;
-    private Label titleLabel;
-    private ClickListener backButtonListener;
+    Table table;
+    Table headerTable;
+    Table bodyTable;
+    Table menuTable;
+    Table levelSectionTable;
 
-    private TextButton backButton;
+    private Label titleLabel;
+    private Label coinLabel;
+
+    private ClickListener coinButtonListener;
+    private  ClickListener backButtonListener;
+    private ClickListener rewardAdButtonListener;
+
+    private ImageButton backButton;
+    private ImageButton coinButton;
+    private ImageButton rewardButton;
+    private ImageTextButton restartButton;
+    private ImageTextButton exitButton;
+    private ImageTextButton musicMuteButton;
+    private ImageTextButton sfxMuteButton;
+
+    private Slider musicVolumeSlider;
+    private Slider sfxVolumeSlider;
+
+    ScrollPane scrollPane;
 
     /* Constructors */
 
@@ -37,45 +64,167 @@ public class MENUScreen extends Screen {
     /* Private Methods */
 
     private void setupSkin(){
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("uiskin_default.atlas"));
-        skin = new Skin(Gdx.files.internal("uiskin_default.json"), atlas);
-
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
     }
 
     private void setupButtons(){
+        coinButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
+            }
 
+        };
 
         backButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                System.out.println("backButtonListener");
+                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
                 parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
             }
+
         };
 
+        rewardAdButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
+                monetizationController.loadRewardAd();
+                monetizationController.showRewardAd();
+            }
 
+        };
 
-        backButton = new TextButton("Back", skin);
+        backButton = new ImageButton(skin, "backButton");
         backButton.addListener(backButtonListener);
+
+        coinButton = new ImageButton(skin, "coinButton");
+        coinButton.addListener(coinButtonListener);
+
+        rewardButton = new ImageButton(skin, "rewardButton");
+        rewardButton.addListener(rewardAdButtonListener);
+
+        restartButton = new ImageTextButton("Restart", skin);
+        restartButton.addListener(rewardAdButtonListener);
+      //  restartButton.setWidth(restartButton.getWidth()+20);
+
+        exitButton = new ImageTextButton("Exit", skin);
+        exitButton.addListener(rewardAdButtonListener);
+       // exitButton.setWidth(restartButton.getWidth());
+        musicMuteButton = new ImageTextButton("Mute", skin);
+        musicMuteButton.addListener(rewardAdButtonListener);
+
+        sfxMuteButton = new ImageTextButton("Mute", skin);
+        sfxMuteButton.addListener(rewardAdButtonListener);
 
     }
 
     private void setupLabels(){
-        titleLabel = new Label("Menu", skin);
+        titleLabel = new Label("Menu", skin, "Store_Title");
+        coinLabel = new Label("25", skin, "coinLabel");
+    }
+
+    private void setupSliders(){
+        musicVolumeSlider = new Slider(0, 100, 1, false, skin);
+        sfxVolumeSlider = new Slider(0, 100, 1, false, skin);
     }
 
     private void setupTables(){
-        mainTable = new Table();
-        mainTable.setFillParent(true);
-        mainTable.setDebug(parent.parent.devMode);
+        float width = viewport.getScreenWidth();
+        float height = viewport.getScreenHeight();
 
-        mainTable.add(titleLabel);
-        mainTable.row();
+        table = new Table();
+        table.setDebug(parent.parent.devMode);
+        table.setWidth(width);
+        table.align(Align.center|Align.top);
+        table.setPosition(0, height);
+
+        headerTable = new Table();
+        headerTable.setDebug(parent.parent.devMode);
+        headerTable.align(Align.center|Align.top);
+
+        headerTable.add(backButton).padLeft(spacer).padTop(0).size(width/8, height/10);
+        headerTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.left).spaceLeft(0);
+        headerTable.add(titleLabel).expandX().align(Align.center).size(width/3, height/12);
+
+        headerTable.add(coinLabel).size(width/11, height/12).align(Align.right);
+        headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
+        headerTable.row();
+
+        bodyTable = new Table();
+        bodyTable.setDebug(parent.parent.devMode);
+        bodyTable.align(Align.center);
+
+        menuTable = new Table();
+        menuTable.setDebug(parent.parent.devMode);
+        menuTable.align(Align.top|Align.center);
+
+        Tree tree = new Tree(skin, "default");
+
+        Tree.Node levelSectionNode = new Tree.Node(new   Label("         Level Section", skin, "tree_header"));
+        levelSectionTable = new Table();
+        levelSectionTable.setDebug(parent.parent.devMode);
+        levelSectionTable.align(Align.left|Align.top);
+        levelSectionTable.add(restartButton).width(width/3.5f).fill().expandX().spaceRight(width/20);
+        levelSectionTable.add(exitButton).width(width/3.5f).fill().expandX();
+        Tree.Node levelSectionChild = new Tree.Node(levelSectionTable);
+        levelSectionNode.add(levelSectionChild);
+
+        Tree.Node soundSelectionNode = new Tree.Node(new Label("         Sound Section", skin, "tree_header"));
+        Table soundSectionTable = new Table();
+        soundSectionTable.setDebug(parent.parent.devMode);
+        soundSectionTable.align(Align.left|Align.top);
+        soundSectionTable.add(new Label("Music Volume", skin, "extra_small"));
+        soundSectionTable.row();
+        soundSectionTable.add(musicVolumeSlider).width(width/2f).fill().expandX().spaceRight(width/20);
+        soundSectionTable.add(musicMuteButton);
+        soundSectionTable.row();
+        soundSectionTable.add(new Label("  SFX Volume", skin, "extra_small"));
+        soundSectionTable.row();
+        soundSectionTable.add(sfxVolumeSlider).width(width/2f).fill().expandX().spaceRight(width/20);;
+        soundSectionTable.add(sfxMuteButton);
+        Tree.Node soundSectionChild = new Tree.Node(soundSectionTable);
+        soundSelectionNode.add(soundSectionChild);
+
+       // Tree.Node videoSectionNode = new T
 
 
-        mainTable.add(backButton);
-        mainTable.row();
+        Tree.Node moo2 = new Tree.Node(new TextButton("moo2", skin));
+        Tree.Node moo3 = new Tree.Node(new TextButton("moo3", skin));
+        Tree.Node moo4 = new Tree.Node(new TextButton("moo4", skin));
+        tree.add(levelSectionNode);
+        tree.add(soundSelectionNode);
+        tree.add(moo2);
+        tree.add(moo3);
+        tree.add(moo4);
 
+        tree.collapseAll();
+
+
+        menuTable.add(tree).fill().expandX();
+
+
+
+        scrollPane = new ScrollPane(menuTable, skin, "default");
+        bodyTable.add(scrollPane).width(width*.95f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
+
+        table.add(headerTable).fill().expandX();
+        table.row();
+        table.add(bodyTable).fill().expandX();
+
+        stage.addActor(table);
+
+    }
+
+    private void showdebug(){
+        boolean debug = parent.parent.devMode;
+        table.setDebug(debug);
+        bodyTable.setDebug(debug);
+        headerTable.setDebug(debug);
+        menuTable.setDebug(debug);
+        levelSectionTable.setDebug(debug);
     }
 
     /* Public Methods */
@@ -89,9 +238,10 @@ public class MENUScreen extends Screen {
         setupSkin();
         setupButtons();
         setupLabels();
+        setupSliders();
         setupTables();
 
-        stage.addActor(mainTable);
+        //stage.addActor(mainTable);
         parent.parent.inputManager.addInputProcessor(stage);
     }
 
@@ -102,7 +252,8 @@ public class MENUScreen extends Screen {
     @Override
     public void render(float elapsedTime) {
         if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        showdebug();
+        Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

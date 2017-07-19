@@ -102,7 +102,6 @@ public class TITLEScreen extends Screen implements EventSender {
         };
         startButton = new ImageTextButton("Start", skin);
         startButton.addListener(startButtonListener);
-        //startButton.getCells().first().pad(50,50,50,50);
 
         leaderboardButton = new ImageTextButton("Leader Boards", skin);
         leaderboardButton.addListener(leaderboardButtonListener);
@@ -112,6 +111,7 @@ public class TITLEScreen extends Screen implements EventSender {
 
         menuButton = new ImageButton(skin, "menuButton");
         menuButton.addListener(menuButtonListener);
+
     }
 
     private void setupTables(){
