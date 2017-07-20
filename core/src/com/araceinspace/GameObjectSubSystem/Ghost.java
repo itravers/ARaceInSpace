@@ -26,8 +26,8 @@ public class Ghost extends Player{
      * @param atlas
      * @param animations
      */
-    public Ghost(LevelManager levelManager, Vector2 loc, World world, TextureAtlas atlas, Animation animations) {
-        super(levelManager, loc, world, atlas, animations);
+    public Ghost(LevelManager levelManager, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
+        super(levelManager, loc, world, region, animations);
         input = new GhostInputComponent();
         physics = new PlayerPhysicsComponent((Player)this, world);
         state = new PlayerStateComponent(this);

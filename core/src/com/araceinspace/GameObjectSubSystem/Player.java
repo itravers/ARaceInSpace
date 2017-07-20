@@ -30,10 +30,10 @@ public class Player extends TwoDGameObject{
      * @param atlas
      * @param animations
      */
-    public Player(LevelManager p, Vector2 loc, World world, TextureAtlas atlas, Animation animations) {
+    public Player(LevelManager p, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
         parent = p;
         health = 100;
-        graphics = new PlayerGraphicsComponent(this, loc, atlas, animations);//Graphics Component must be constructed before physics component
+        graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent();
         physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent(this);

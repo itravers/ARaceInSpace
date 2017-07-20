@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -32,7 +33,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public static float ANGULAR_DAMPENING = .5f;
     public static float GRAVITATIONAL_CONSTANT = .08f;
 
-    public static float DENSITY = 1.25f;
+    public static float DENSITY = 0.5f;
     public static float FRICTION = .5f;
 
     /* Field Variables & Objects */
@@ -44,6 +45,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     float torque = 0.0f;
     World world;
     Body body;
+
     private Vector2 gravityForce;
     private float lastFrameTime = 0; //Used by gravity to calculate time since last frame
 
@@ -70,7 +72,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         body.setLinearDamping(LINEAR_DAMPENING);
         body.setAngularDamping(ANGULAR_DAMPENING);
         shape = new PolygonShape();
-        shape.setAsBox((parent.getWidth() / 2) / PIXELS_TO_METERS,
+        shape.setAsBox((parent.getHeight() / 2) / PIXELS_TO_METERS,
                        (parent.getHeight() / 2) / PIXELS_TO_METERS);
         fixtureDef = new FixtureDef();
         fixtureDef.filter.groupIndex = parent.parent.CATEGORY_PLAYER;
@@ -99,6 +101,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
             float g = GRAVITATIONAL_CONSTANT;
             float pMass = p.getMass();
             float sMass = this.getBody().getMass();
+           // System.out.println("smass: " + sMass);
             Vector2 pCenter = p.getBody().getPosition();
             Vector2 sCenter = this.getBody().getPosition();
             float distanceSQ = sCenter.dst2(pCenter);

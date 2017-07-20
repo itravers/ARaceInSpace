@@ -26,11 +26,11 @@ public class Planet extends TwoDGameObject{
 
     /**
      * constructor*/
-    public Planet(Vector2 loc, TextureAtlas atlas, Animation animations, World world, float size, float gravityRadius, float mass, LevelManager p) {
+    public Planet(Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations, World world, float size, float gravityRadius, float mass, LevelManager p) {
         parent = p;
         input = null; //Planets don't take inputs
 
-        graphics = new PlanetGraphicsComponent(this, loc, atlas, animations); //graphics must be constructed before physics
+        graphics = new PlanetGraphicsComponent(this, loc, region, animations); //graphics must be constructed before physics
         physics = new PlanetPhysicsComponent(this, world, loc, size, mass, gravityRadius);
         state = null; //Planets don't have different states;
 

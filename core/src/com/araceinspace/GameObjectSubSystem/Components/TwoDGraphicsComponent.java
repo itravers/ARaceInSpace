@@ -16,14 +16,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class TwoDGraphicsComponent extends Sprite implements GraphicsComponent {
 
     /* Field Variables & Methods */
-    TextureAtlas atlas;
+    //TextureAtlas atlas;
     Animation animations;
     Animation currentAnimation;
 
     /*Constructor*/
-    public TwoDGraphicsComponent(TextureAtlas atlas, Animation animations){
-        super(atlas.getRegions().first(), 0, 0, 50, 50);
-        this.atlas = atlas;
+    public TwoDGraphicsComponent(TextureAtlas.AtlasRegion region, Animation animations){
+
+        super(region, 0, 0, region.getRegionWidth()/2, region.getRegionHeight()/2);
+        //this.atlas = atlas;
         this.animations = animations;
     }
 

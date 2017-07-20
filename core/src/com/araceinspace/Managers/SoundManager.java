@@ -34,7 +34,7 @@ public class SoundManager {
 
         beethovens7th = Gdx.audio.newSound(Gdx.files.internal("data/beethoven7th.mp3"));
         playSong(beethovens7th);
-        setMusicVolume(.5f);
+        setMusicVolume(0f);
     }
 
     /* Public Methods */

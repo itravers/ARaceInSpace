@@ -181,8 +181,9 @@ public class INGAMEScreen extends Screen{
         parent.renderBackground(backgroundCamera, timeElapsed, backgroundBatch);
 
         batch.begin();
-        parent.renderPlayer(p, timeElapsed, batch);
         parent.renderPlanets(planets, timeElapsed, batch);
+        parent.renderPlayer(p, timeElapsed, batch);
+
         if(parent.parent.devMode){
             renderVersion(batch);
         }

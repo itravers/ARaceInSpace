@@ -61,9 +61,9 @@ public class LevelManager {
         for(int i = 0; i < levelItems.size(); i++){
             SpriteTemplate item = levelItems.get(i);
             if(item.getType().equals("planet")){
-                TextureAtlas atlas = parent.animationManager.getPlanetAtlas();
+                TextureAtlas.AtlasRegion region = parent.animationManager.getPlanetAtlas().getRegions().first();
                 Animation animations = parent.animationManager.getPlanetAnimationFromName(item.getAtlas());
-                Planet p = new Planet(new Vector2(item.getxLoc(), item.getyLoc()), atlas, animations, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
+                Planet p = new Planet(new Vector2(item.getxLoc(), item.getyLoc()), region, animations, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
                 planets.add(p);
             }
         }
@@ -240,9 +240,10 @@ public class LevelManager {
             if(item.getType().equals("player")){
                 float xLoc = item.getxLoc();
                 float yLoc = item.getyLoc();
-                TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+               // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+                TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
                 Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
-                player = new Player(this, new Vector2(xLoc, yLoc), parent.world, atlas, animation);
+                player = new Player(this, new Vector2(xLoc, yLoc), parent.world, region, animation);
             }
         }
     }

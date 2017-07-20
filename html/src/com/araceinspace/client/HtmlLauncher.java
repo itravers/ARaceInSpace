@@ -10,12 +10,12 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public GwtApplicationConfiguration getConfig () {
-                return new GwtApplicationConfiguration(480, 320);
+                return new GwtApplicationConfiguration(960, 640);
         }
 
         @Override
         public ApplicationListener createApplicationListener () {
                 DummyController controller = new DummyController();
-                return new ARaceInSpace(controller);
+                return new ARaceInSpace(controller, null);
         }
 }
