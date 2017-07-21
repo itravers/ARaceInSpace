@@ -229,6 +229,15 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
             Touchpad pad = ((Touchpad) actor);
             float x = pad.getKnobPercentX();
             float y = pad.getKnobPercentY();
+            if(x == 0 && y == 0){
+                //System.out.println("joystick released");
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
+                return;
+            }
 
             double angle = Math.atan2(y, x);
             if(angle < 0)angle += 2*Math.PI;
@@ -253,7 +262,7 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
                 currentSectorPressed = Sectors.DOWN_RIGHT;
             }
 
-
+            if(currentSectorPressed == null)return;
 
             switch(currentSectorPressed){
                 case RIGHT:
@@ -352,7 +361,7 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
 
                     break;
                 default:
-                    
+
                     break;
             }
 

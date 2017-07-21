@@ -103,7 +103,7 @@ public class INGAMEScreen extends Screen{
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
 
         touchPad = new Touchpad(10, skin, "default");
-        touchPad.setBounds(15, 15, 200,200);
+        touchPad.setBounds(15, 15, Gdx.graphics.getWidth()/2-20,Gdx.graphics.getWidth()/2-20);
         touchPad.addListener(parent.parent.inputManager);
 
 
@@ -197,7 +197,7 @@ public class INGAMEScreen extends Screen{
 
         //clear screen
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         parent.renderBackground(backgroundCamera, timeElapsed, backgroundBatch);

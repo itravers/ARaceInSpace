@@ -130,7 +130,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     private void applyMovement(float elapsedTime){
         float deltaTime = Gdx.graphics.getDeltaTime();
         Vector2 impulse;
-        Vector2 baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(4f);
+        Vector2 baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
         Vector2 pos = body.getPosition();
 
         //check if boost is pressed and change impulse accordingly
@@ -153,14 +153,14 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
             body.applyLinearImpulse(impulse.rotate(90).scl(2.5f), pos, true);//side force
             body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/1.8f), pos, true);//downforce
         }else  if(parent.getInput().leftPressed){
-            body.applyAngularImpulse(1f, true);
+            body.applyAngularImpulse(3f, true);
         }
 
         if(parent.getInput().rightPressed && onPlanet()){
             body.applyLinearImpulse(impulse.rotate(-90).scl(2.5f), pos, true);//sideforce
             body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/1.8f), pos, true);//downforce
         }else if(parent.getInput().rightPressed){
-            body.applyAngularImpulse(-1f, true);
+            body.applyAngularImpulse(-3f, true);
         }
 
 
