@@ -92,7 +92,12 @@ public class MENUScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
+                GameStateManager.GAME_STATE stateBefore = parent.parent.gameStateManager.getCurrentState();
+                GameStateManager.GAME_STATE stateAfter = parent.parent.gameStateManager.popState();
+
+
+
+                parent.parent.gameStateManager.setCurrentState(stateAfter);
             }
 
         };

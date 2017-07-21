@@ -28,7 +28,7 @@ public class GameWorld {
     public InputManager inputManager;
     public SoundManager soundManager;
     public World world;
-    float elapsedTime;
+    public float elapsedTime;
     public boolean devMode = false;
 
 
@@ -65,10 +65,20 @@ public class GameWorld {
     }
 
     public void update(){
-        elapsedTime += Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getDeltaTime();
+        //System.out.println("deltaTime: " + delta);
+
         renderManager.render(elapsedTime);
         levelManager.update(elapsedTime);
-        world.step(1f / 60f, 6, 2);
+
+        GameStateManager.GAME_STATE currentState = gameStateManager.getCurrentState();
+
+        //we don't want physics to update when not ingame, or titlescreen
+        if(currentState == GameStateManager.GAME_STATE.INGAME || currentState == GameStateManager.GAME_STATE.TITLE_SCREEN){
+            elapsedTime += delta;
+            world.step(1f / 60f, 6, 2);
+        }
+
     }
 
 }

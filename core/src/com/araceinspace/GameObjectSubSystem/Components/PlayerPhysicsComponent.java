@@ -192,6 +192,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      */
     @Override
     public void update(float elapsedTime) {
+       // System.out.println("update: " + elapsedTime);
         applyMovement(elapsedTime);
         applyGravity(elapsedTime);
         body.applyTorque(torque, true);

@@ -53,6 +53,7 @@ public class INGAMEScreen extends Screen{
 
     public INGAMEScreen(RenderManager p) {
         super(p);
+       // parent.parent.elapsedTime = 0;//reset elapsed time
     }
 
     @Override
@@ -62,6 +63,7 @@ public class INGAMEScreen extends Screen{
         backgroundBatch.dispose();
         font.dispose();
         debugRenderer.dispose();
+
     }
 
     @Override
@@ -77,6 +79,7 @@ public class INGAMEScreen extends Screen{
         shapeRenderer = new ShapeRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
         monetizationController.loadRewardAd();
+        monetizationController.hideBannerAd();
         setupStage();
     }
 
@@ -151,6 +154,7 @@ public class INGAMEScreen extends Screen{
 
     @Override
     public void render(float timeElapsed) {
+       // System.out.println("timeElapsed: " + timeElapsed);
         Player p = parent.parent.levelManager.getPlayer();
         ArrayList<Planet> planets = parent.parent.levelManager.getPlanets();
         camera.zoom = parent.getCameraZoom();

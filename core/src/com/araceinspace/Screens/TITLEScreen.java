@@ -64,6 +64,7 @@ public class TITLEScreen extends Screen implements EventSender {
     public TITLEScreen(RenderManager p) {
         super(p);
         parent.parent.levelManager.setLevel(1);
+       // parent.parent.elapsedTime = 0;
     }
 
     @Override
@@ -181,6 +182,7 @@ public class TITLEScreen extends Screen implements EventSender {
         stage.addActor(mainTable);
         parent.parent.inputManager.addInputProcessor(stage);
         menuBatch.enableBlending();
+        monetizationController.loadBannerAd();
 
 
     }

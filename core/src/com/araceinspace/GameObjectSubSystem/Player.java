@@ -27,7 +27,7 @@ public class Player extends TwoDGameObject{
 
     /**
      * Constructor
-     * @param atlas
+     * @param region
      * @param animations
      */
     public Player(LevelManager p, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {

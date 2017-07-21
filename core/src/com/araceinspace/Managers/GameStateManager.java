@@ -29,17 +29,31 @@ public class GameStateManager {
 
     /* Public Methods */
     public GAME_STATE getCurrentState(){
+        if(stateStack.size() == 0)return null; //incase getCurrentState is called before a state is set.
         return stateStack.peek();
     }
 
     public GAME_STATE popState(){
-        stateStack.pop();
-        return stateStack.pop();
+        GAME_STATE stateBefore = stateStack.pop();
+        GAME_STATE stateNow = stateStack.pop();
+       // if(stateBefore == )
+        return stateNow;
     }
 
     public void setCurrentState(GAME_STATE state){
+        if(getCurrentState() != null){
+            System.out.println(" currentState: " + getCurrentState().name());
+            System.out.println("    nextState: " + state.name());
+        }
+
+        if(getCurrentState() == GAME_STATE.TITLE_SCREEN){
+            parent.elapsedTime = 0;
+        }
+
         parent.renderManager.disposeScreen();
         parent.renderManager.loadScreen(state);
         stateStack.push(state);
     }
+
+
 }
