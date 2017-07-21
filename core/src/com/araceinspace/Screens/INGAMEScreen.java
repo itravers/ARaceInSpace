@@ -17,12 +17,16 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -49,11 +53,14 @@ public class INGAMEScreen extends Screen{
     private OrthCamera menuCamera;
     private OrthCamera shapeCamera; // need this because other cameras zoom
 
+    private Touchpad touchPad;
+
     /* Constructors */
 
     public INGAMEScreen(RenderManager p) {
         super(p);
        // parent.parent.elapsedTime = 0;//reset elapsed time
+        Touchpad t;
     }
 
     @Override
@@ -63,6 +70,8 @@ public class INGAMEScreen extends Screen{
         backgroundBatch.dispose();
         font.dispose();
         debugRenderer.dispose();
+        skin.dispose();
+
 
     }
 
@@ -90,8 +99,16 @@ public class INGAMEScreen extends Screen{
     private void setupStage(){
         viewport = new ScreenViewport(menuCamera);
         stage = new Stage(viewport, batch);
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("uiskin.json"), atlas);
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+
+        touchPad = new Touchpad(10, skin, "default");
+        touchPad.setBounds(15, 15, 200,200);
+        touchPad.addListener(parent.parent.inputManager);
+
+
+
+       // touchPad.addListener(touchpadListener);
 
         Table mainTable;
         Table headerTable;
@@ -139,6 +156,7 @@ public class INGAMEScreen extends Screen{
         headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
         mainTable.add(headerTable).fill().expandX();
         stage.addActor(mainTable);
+        stage.addActor(touchPad);
         parent.parent.inputManager.addInputProcessor(stage);
 
 

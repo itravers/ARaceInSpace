@@ -1138,6 +1138,32 @@ atlasData: {
 			tintName: null
 			name: select_box_open
 		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/touchpad_knob.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: touchpad_knob
+		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/touchpad_background.png"
+			bgColor: {
+				r: 0
+				g: 0
+				b: 0
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: touchpad_background
+		}
 	]
 }
 jsonData: {
@@ -4086,14 +4112,14 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: default-pane
+						value: touchpad_background
 					}
 					knob: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: knob
 						optional: true
-						value: default-round-large
+						value: touchpad_knob
 					}
 				}
 				deletable: false

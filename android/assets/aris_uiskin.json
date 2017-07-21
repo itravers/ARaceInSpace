@@ -246,8 +246,8 @@ com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
 	default: {
-		background: default-pane
-		knob: default-round-large
+		background: touchpad_background
+		knob: touchpad_knob
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
