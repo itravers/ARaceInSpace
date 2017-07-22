@@ -104,6 +104,8 @@ public class INGAMEScreen extends Screen{
 
         touchPad = new Touchpad(10, skin, "default");
         touchPad.setBounds(15, 15, Gdx.graphics.getWidth()/2-20,Gdx.graphics.getWidth()/2-20);
+        touchPad.getStyle().knob.setMinWidth(touchPad.getWidth()/4);
+        touchPad.getStyle().knob.setMinHeight(touchPad.getHeight()/4);
         touchPad.addListener(parent.parent.inputManager);
 
 
