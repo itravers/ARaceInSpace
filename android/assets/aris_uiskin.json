@@ -125,6 +125,10 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageUp: back_button_up3
 		imageDown: back_button_down3
 	}
+	boostButton: {
+		imageUp: boost_up
+		imageDown: boost_down
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {

@@ -1,10 +1,14 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.ARaceInSpace;
+import com.araceinspace.EventSubSystem.Event;
+import com.araceinspace.EventSubSystem.EventDispatcher;
+import com.araceinspace.EventSubSystem.EventSender;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
@@ -20,6 +24,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -36,7 +41,7 @@ import java.util.ArrayList;
 /**
  * Created by The screen to be rendered when the GAME_STATE is INGAME on 7/16/17.
  */
-public class INGAMEScreen extends Screen{
+public class INGAMEScreen extends Screen implements EventSender{
 
     /* Static Variables */
     int spacer = 25;
@@ -55,6 +60,8 @@ public class INGAMEScreen extends Screen{
     private OrthCamera shapeCamera; // need this because other cameras zoom
 
     private Touchpad touchPad;
+    private ImageButton boostButton;
+    private InputListener boostButtonListener;
 
     /* Constructors */
 
@@ -109,6 +116,27 @@ public class INGAMEScreen extends Screen{
         touchPad.getStyle().knob.setMinHeight(touchPad.getHeight()/4);
         touchPad.addListener(parent.parent.inputManager);
 
+        boostButton = new ImageButton(skin, "boostButton");
+        boostButton.setWidth(Gdx.graphics.getWidth()/3-20);
+        boostButton.setHeight(Gdx.graphics.getWidth()/3-20);
+        boostButton.setBounds(Gdx.graphics.getWidth()-15-boostButton.getWidth(), 15, boostButton.getWidth(), boostButton.getHeight());
+
+        boostButtonListener = new InputListener(){
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.BOOST_PRESSED));
+                return true;
+            }
+
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.BOOST_RELEASED));
+            }
+        };
+
+
+        boostButton.addListener(boostButtonListener);
+
+
+
 
 
        // touchPad.addListener(touchpadListener);
@@ -160,6 +188,7 @@ public class INGAMEScreen extends Screen{
         mainTable.add(headerTable).fill().expandX();
         stage.addActor(mainTable);
         stage.addActor(touchPad);
+        stage.addActor(boostButton);
         parent.parent.inputManager.addInputProcessor(stage);
 
 
@@ -426,5 +455,10 @@ public class INGAMEScreen extends Screen{
     public void setCameraZoom(float zoom){
         super.setCameraZoom(zoom);
         backgroundCamera.zoom = zoom;
+    }
+
+    @Override
+    public void sendEvent(Event e) {
+        EventDispatcher.getSingletonDispatcher().dispatch(e);
     }
 }
