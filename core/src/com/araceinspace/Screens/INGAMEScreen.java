@@ -1,6 +1,7 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.ARaceInSpace;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
@@ -237,7 +238,12 @@ public class INGAMEScreen extends Screen{
     }
 
     private void renderVelocityIndicator(SpriteBatch batch){
+
+
         Player p = parent.parent.levelManager.getPlayer();
+
+        //don't render velocity indicator if player  is standing still forward
+        if(p.getState().getCurrentState() == PlayerState.STAND_STILL_FORWARD)return;
         Vector2 velocityVector = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity();
         Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
         Vector2 goalPos = velocityVector.add(startPos);
