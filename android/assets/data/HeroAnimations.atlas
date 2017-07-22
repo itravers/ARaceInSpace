@@ -122,6 +122,124 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 2, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 0
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 2, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 1
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 229, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 2
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 3
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 229, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 4
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 456, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 5
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 6
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 229, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 7
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 456, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 8
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 683, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 9
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 229, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 10
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 456, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 11
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 683, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 12
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 456, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 13
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 683, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 14
+FlyingNoThrust/FlyingNoThrust
+  rotate: false
+  xy: 683, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 15
+
+HeroAnimations3.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 StandingStillSideways/StandingStillSideways
   rotate: false
   xy: 2, 766
@@ -235,7 +353,7 @@ StandingStillSideways/StandingStillSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations3.png
+HeroAnimations4.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -353,7 +471,7 @@ WalkingSlow/WalkSlow
   offset: 0, 0
   index: 15
 
-HeroAnimations4.png
+HeroAnimations5.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -471,7 +589,7 @@ Flying/Flying
   offset: 0, 0
   index: 15
 
-HeroAnimations5.png
+HeroAnimations6.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -589,7 +707,7 @@ LandingForward/LandingForward
   offset: 0, 0
   index: 15
 
-HeroAnimations6.png
+HeroAnimations7.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -707,7 +825,7 @@ Wave/Wave
   offset: 0, 0
   index: 15
 
-HeroAnimations7.png
+HeroAnimations8.png
 size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
@@ -769,7 +887,7 @@ FlyingToFlyLeftTransition/FlyingToLeftTransition
   offset: 0, 0
   index: 7
 
-HeroAnimations8.png
+HeroAnimations9.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -859,7 +977,7 @@ RunSlow/RunSlow
   offset: 0, 0
   index: 11
 
-HeroAnimations9.png
+HeroAnimations10.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -977,7 +1095,7 @@ StandingStillForward/StandingStillForwar
   offset: 0, 0
   index: 15
 
-HeroAnimations10.png
+HeroAnimations11.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1095,7 +1213,7 @@ WalkingFast/WalkingFast
   offset: 0, 0
   index: 15
 
-HeroAnimations11.png
+HeroAnimations12.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1185,7 +1303,7 @@ RunFast/RunFast
   offset: 0, 0
   index: 11
 
-HeroAnimations12.png
+HeroAnimations13.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1303,7 +1421,7 @@ FloatingSideways/FloatingSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations13.png
+HeroAnimations14.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1421,7 +1539,7 @@ JumpSideways/JumpSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations14.png
+HeroAnimations15.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1539,7 +1657,7 @@ LandingSideways/LandingSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations15.png
+HeroAnimations16.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1657,7 +1775,7 @@ FlyingRight/FlyingRight
   offset: 0, 0
   index: 15
 
-HeroAnimations16.png
+HeroAnimations17.png
 size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1719,7 +1837,7 @@ FlyingToFlyRightTransition/FlyingToRightTransition
   offset: 0, 0
   index: 7
 
-HeroAnimations17.png
+HeroAnimations18.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest

@@ -70,7 +70,11 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                 setAnimation(animationManager.getJumpForwardAnimation());
                 break;
             case FLYING:
-                setAnimation(animationManager.getFlyingAnimation());
+                if(!parent.getInput().upPressed){
+                    setAnimation(animationManager.getFlyingNoThrustAnimation());
+                }else{
+                    setAnimation(animationManager.getFlyingAnimation());
+                }
                 break;
             case LAND_FORWARD:
                 setAnimation(animationManager.getLandForwardAnimation());
@@ -92,7 +96,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                 break;
             case JUMP_SIDEWAYS:
                 setAnimation(animationManager.getJumpSidewaysAnimation());
-
+                break;
         }
     }
 

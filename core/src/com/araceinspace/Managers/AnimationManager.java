@@ -73,6 +73,7 @@ public class AnimationManager {
     //private TextureAtlas jumpSidewaysAtlas;
    // private Array<TextureAtlas.AtlasRegion>jumpSidewaysRegion;
     private Animation  jumpSidewaysAnimation;
+    private Animation flyingNoThrustAnimation;
 
 
 
@@ -91,6 +92,11 @@ public class AnimationManager {
     }
 
     /* Private Methods */
+
+    private void setFlyingNoThrustAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingNoThrustRegion = heroAtlas.findRegions("FlyingNoThrust/FlyingNoThrust");
+        flyingNoThrustAnimation = new Animation(1/30f, flyingNoThrustRegion);
+    }
 
     private void setupJumpSidewaysAnimation(){
         /*
@@ -257,6 +263,7 @@ public class AnimationManager {
         setupRunSlowAnimation();
         setupRunFastAnimation();
         setupJumpSidewaysAnimation();
+        setFlyingNoThrustAnimation();
     }
 
 
@@ -314,6 +321,10 @@ public class AnimationManager {
 
     public Animation getRunFastAnimation(){
         return runFastAnimation;
+    }
+
+    public Animation getFlyingNoThrustAnimation(){
+        return flyingNoThrustAnimation;
     }
 
     public Animation getJumpSidewaysAnimation(){
