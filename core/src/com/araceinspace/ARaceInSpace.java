@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 
 public class ARaceInSpace extends ApplicationAdapter {
 	/* Static Variables */
-	public static String version = "0.0.3";
+	public static String version = "0.0.4";
 	static int frameNum = 0;
 
 	/* Field Variables & Objects */
@@ -17,7 +17,7 @@ public class ARaceInSpace extends ApplicationAdapter {
 	public boolean showToast = false;
 	public boolean toastSet = false;
 
-	MonetizationController monetizationController;
+	public MonetizationController monetizationController;
 	public static EventDispatcher eventDispatcher;
 	public GameWorld gameWorld;
 
@@ -41,19 +41,19 @@ public class ARaceInSpace extends ApplicationAdapter {
 		this.gameWorld = new GameWorld(this);
 		//monetizationController.loadBannerAd();
 		/** Now have our ads controller setupAds(). */
-		monetizationController.setupAds();
-		monetizationController.loadBannerAd();
+		//monetizationController.setupAds();
+		//monetizationController.loadBannerAd();
 	}
 
 	@Override
 	public void render () {
-		if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
+		//if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
 
 		//First Calculate Elapsed Time
 		gameWorld.update();
 		//if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
 
-		monetizationController.updateVisibility();//used for banner ads to know whether to show
+		//monetizationController.updateVisibility();//used for banner ads to know whether to show
 	}
 
 	public void toast(final String t){

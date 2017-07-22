@@ -4,19 +4,19 @@ import com.araceinspace.ARaceInSpace;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
+import com.araceinspace.MonetizationSubSystem.MonetizationController;
+import com.araceinspace.Screens.INGAMEScreen;
+import com.araceinspace.Screens.LEADERBOARDScreen;
+import com.araceinspace.Screens.LEVELSELECTScreen;
+import com.araceinspace.Screens.MENUScreen;
+import com.araceinspace.Screens.PREGAMEScreen;
+import com.araceinspace.Screens.SCOREScreen;
+import com.araceinspace.Screens.STOREScreen;
+import com.araceinspace.Screens.Screen;
+import com.araceinspace.Screens.TITLEScreen;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 
@@ -31,26 +31,19 @@ public class RenderManager {
 
 
     /* Field Variables & Objects */
-    GameWorld parent;
-
-    private OrthCamera camera;
-    private OrthCamera backgroundCamera;
-    private Box2DDebugRenderer debugRenderer;
-    private Matrix4 debugMatrix;
-    private SpriteBatch batch;
-    private SpriteBatch backgroundBatch;
+    public GameWorld parent;
     private float baseZoom;
     private float cameraZoom;
 
-    private Viewport viewport;
-    public Stage stage;
-
-    private BitmapFont font;
+    private Screen currentScreen;
+    private INGAMEScreen ingameScreen;
+    public MonetizationController monetizationController;
 
     /* Constructor */
     public RenderManager(GameWorld p){
         System.out.println("RenderManager Constructor");
         parent = p;
+        monetizationController =( (ARaceInSpace)parent.parent).monetizationController;
         frameNum = 0;
         setupRendering();
     }
@@ -62,25 +55,48 @@ public class RenderManager {
      */
     private void setupRendering(){
         resetFrameNum();
+        monetizationController.loadBannerAd();
         parent.animationManager.setupAnimations();
-        font = new BitmapFont();
-        camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        backgroundCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        currentScreen = new TITLEScreen(this);//default screen when game is loaded
+        setupScreenSizeDependantItems();//must come after screens are constructed
+    }
 
-        batch = new SpriteBatch();
-        batch.setProjectionMatrix(camera.combined);
+    /**
+     * Called from game state manager, when a state is set.
+     * @param state
+     */
+    public void loadScreen(GameStateManager.GAME_STATE state){
+        switch(state){
+            case TITLE_SCREEN:
+                currentScreen = new TITLEScreen(this);
+                break;
+            case LEVEL_SELECT:
+                currentScreen = new LEVELSELECTScreen(this);
+                break;
+            case STORE:
+                currentScreen = new STOREScreen(this);
+                break;
+            case INGAME:
+                currentScreen = new INGAMEScreen(this);
+                break;
+            case MENU:
+                currentScreen = new MENUScreen(this);
+                break;
+            case PREGAME:
+                currentScreen = new PREGAMEScreen(this);
+                break;
+            case SCOREBOARD:
+                currentScreen = new SCOREScreen(this);
+                break;
+            case LEADERBOARDS:
+                currentScreen = new LEADERBOARDScreen(this);
+                break;
 
-        backgroundBatch = new SpriteBatch();
-        backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
+        }
+    }
 
-        viewport = new ScreenViewport(camera);
-        stage = new Stage(viewport, batch);
-
-
-        debugRenderer = new Box2DDebugRenderer();
-        debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
-
-        setupScreenSizeDependantItems();
+    public void disposeScreen(){
+        currentScreen.dispose();
     }
 
     //Several things in the game are going to be dependant on the users screen size
@@ -99,69 +115,29 @@ public class RenderManager {
     }
 
 
-
     /**
      * Finds what level we are on and renders it
      * @param timeElapsed
      */
     private void renderInGame(float timeElapsed){
-        Player p = parent.levelManager.getPlayer();
-        camera.zoom = cameraZoom;
-        backgroundCamera.zoom = cameraZoom;
-        camera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0); //this causes a 2nd sprite to be printed???
-        camera.setToAngle(p.getPhysics().getBody().getAngle());
-        camera.update();
-
-        backgroundCamera.position.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2, 0);
-        backgroundCamera.setToAngle(p.getPhysics().getBody().getAngle());
-        backgroundCamera.update();
-        backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
-        batch.setProjectionMatrix(camera.combined);
-
-        //clear screen
-        Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-
-        renderBackground(timeElapsed, backgroundBatch);
-
-
-
-        batch.begin();
-        renderPlayer(timeElapsed, batch);
-        renderPlanets(timeElapsed, batch);
-        if(parent.devMode){
-            renderVersion(batch);
-        }
-        batch.end();
-        //stage.act(timeElapsed);
-       // stage.draw();
-
-        debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
-       if(parent.devMode){
-           debugRenderer.render(parent.levelManager.getWorld(), debugMatrix);
-       }
+        ingameScreen.render(timeElapsed);
     }
 
-    private void renderVersion(SpriteBatch batch){
-        font.setColor(Color.WHITE);
-        font.draw(batch, "Version: " +((ARaceInSpace)parent.parent).version, parent.levelManager.getPlayer().getX(),parent.levelManager.getPlayer().getY());
-    }
 
-    private void renderBackground(float timeElapsed, SpriteBatch b){
-      //  System.out.println("RenderBackground");
-        parent.levelManager.getBackground().render(timeElapsed, b);
+
+    public void renderBackground(OrthCamera backgroundCamera, float timeElapsed, SpriteBatch b){
+        //if(parent.levelManager.mainBackground == null)parent.levelManager.setupBackground();
+       // parent.levelManager.getBackground().render(backgroundCamera, timeElapsed, b);
     }
 
     /**
      * Renders the player to the screen
      */
-    private void renderPlayer(float timeElapsed, SpriteBatch batch){
+    public void renderPlayer(Player p, float timeElapsed, SpriteBatch batch){
         parent.levelManager.getPlayer().getGraphics().render(timeElapsed, batch);
     }
 
-    private void renderPlanets(float timeElapsed, SpriteBatch batch){
-        ArrayList<Planet> planets = parent.levelManager.getPlanets();
+    public void renderPlanets(ArrayList<Planet> planets, float timeElapsed, SpriteBatch batch){
         for(int i = 0; i < planets.size(); i++){
             planets.get(i).getGraphics().render(timeElapsed, batch);
         }
@@ -171,6 +147,7 @@ public class RenderManager {
         frameNum = num;
     }
 
+
     /* Public Methods */
 
     /**
@@ -178,9 +155,18 @@ public class RenderManager {
      */
     public void render(float elapsedTime){
         //Call appropriate render method based on game state
-        if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
+      /*  if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
             renderInGame(elapsedTime);
-        }
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
+            renderTitleScreen(elapsedTime);
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.LEVEL_SELECT){
+            levelselectScreen.render(elapsedTime);
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.STORE){
+            storeScreen.render(elapsedTime);
+        }*/
+        currentScreen.render(elapsedTime);
+
+        monetizationController.updateVisibility();//used for banner ads to know whether to show
 
         //Increase the amound of frameNum's we have used (used for ghost recordings)
         frameNum ++;
@@ -188,10 +174,6 @@ public class RenderManager {
 
     public void resetFrameNum(){
         setFrameNum(0);
-    }
-
-    public OrthCamera getBackgroundCamera(){
-        return backgroundCamera;
     }
 
     public float getCameraZoom() {
@@ -208,8 +190,12 @@ public class RenderManager {
 
     public void setCameraZoom(float cameraZoom) {
         this.cameraZoom = cameraZoom;
-        camera.zoom = cameraZoom;
-        backgroundCamera.zoom = cameraZoom;
-        // shapeCamera.zoom = cameraZoom;
+       /* if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
+            ingameScreen.setCameraZoom(cameraZoom);
+        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
+            titleScreen.setCameraZoom(cameraZoom);
+        }
+        */
+        currentScreen.setCameraZoom(cameraZoom);
     }
 }

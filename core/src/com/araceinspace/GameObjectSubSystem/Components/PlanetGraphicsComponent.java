@@ -18,8 +18,8 @@ public class PlanetGraphicsComponent extends PlayerGraphicsComponent {
 
     /* Constructors */
 
-    public PlanetGraphicsComponent(Planet p, Vector2 loc, TextureAtlas atlas, Animation animations) {
-        super(null, loc, atlas, animations);
+    public PlanetGraphicsComponent(Planet p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
+        super(null, loc, region, animations);
         parent = p;
     }
 

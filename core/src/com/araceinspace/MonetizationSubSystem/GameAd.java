@@ -142,6 +142,7 @@ public abstract class GameAd {
      * @param show True if set to showing, False if not.
      */
     public void setShowing(boolean show){
+        System.out.println("game ads: setShowing: "+show);
         showing = show;
     }
 

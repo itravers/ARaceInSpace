@@ -15,7 +15,7 @@ public class PlayerStateComponent extends StateComponent{
     private int WAVE_TIME = 20; //The number of times the state still animation plays before a wave
     private int STANDING_STILL_SIDEWAYS_TIME = 4; //Number of times Stand_Still_Sideways animation plays, before state change
     private float NO_MOVEMENT_SPEED = .001f;
-    public float FLYING_DISTANCE = 3.5f;
+    public float FLYING_DISTANCE = 5.5f;
     private float LANDING_DISTANCE = FLYING_DISTANCE / 2;
     private float WALK_SLOW_THRESHOLD = 60f;
     private float RUN_SLOW_THRESHOLD = 120f;
@@ -46,7 +46,7 @@ public class PlayerStateComponent extends StateComponent{
     public void setState(PlayerState s){
         currentState = s;
         stateTime = 0;
-        System.out.println("SetState("+s+")");
+        //System.out.println("SetState("+s+")");
     }
 
     /* Public Methods */
@@ -71,6 +71,7 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.LAND_FORWARD && parent.isAlive() && isLanded() && currentAnimation.getLoops(stateTime) >= 1){
             //Transistion from Land_Forward to Stand_Stil_Forward
             setState(PlayerState.STAND_STILL_FORWARD);
+            parent.parent.checkGoal(parent.getPhysics().getClosestPlanet() ,parent);
         }else if(currentState == PlayerState.WAVE && currentAnimation.getLoops(stateTime) >= 1){
             //Transition from WAVE to STAND_STILL_FORWARD
             setState(PlayerState.STAND_STILL_FORWARD);
@@ -94,8 +95,8 @@ public class PlayerStateComponent extends StateComponent{
             //Transition from flying to landing forward
             setState(PlayerState.LAND_FORWARD);
             isLanded = true;
-        }else if(currentState == PlayerState.JUMP_SIDEWAYS && currentAnimation.getLoops(stateTime) >= 1 &&
-                 parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE && parent.getInput().noInputs()){
+        }else if(currentState == PlayerState.JUMP_SIDEWAYS &&
+                 parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE){
             //Transition from JUMP_SIDEWAYS to FLOAT_SIDEWAYS
             setState(PlayerState.FLOAT_SIDEWAYS);
         }else if(currentState == PlayerState.FLOAT_SIDEWAYS && parent.getPhysics().getDistanceFromClosestPlanet() <= LANDING_DISTANCE &&
@@ -112,6 +113,7 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.LAND_SIDEWAYS && currentAnimation.getLoops(stateTime) >= 1 && isLanded()){
             //Transition from LAND_SIDEWAYS to STAND_STILL_SIDEWAYS
             setState(PlayerState.STAND_STILL_SIDEWAYS);
+            parent.parent.checkGoal(parent.getPhysics().getClosestPlanet() ,parent);
         }else if(currentState == PlayerState.WALK_SLOW && speed < NO_MOVEMENT_SPEED){
             //Transition from WALK_SLOW to STAND_STILL_SIDEWAYS
             setState(PlayerState.STAND_STILL_SIDEWAYS);

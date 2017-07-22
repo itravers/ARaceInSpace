@@ -6,6 +6,7 @@ import com.araceinspace.Managers.ContactListenerManager;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.Managers.SoundManager;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -25,29 +26,34 @@ public class GameWorld {
     public LevelManager levelManager;
     public ContactListenerManager contactListenerManager;
     public InputManager inputManager;
+    public SoundManager soundManager;
     public World world;
-    float elapsedTime;
+    public float elapsedTime;
     public boolean devMode = false;
 
 
     /* Constructors */
     public GameWorld(ApplicationAdapter p){
         parent = p;
+
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
         inputManager = new InputManager(this);
 
-        gameStateManager = new GameStateManager(this);
-        animationManager = new AnimationManager(this);
 
-        renderManager = new RenderManager(this);
+        animationManager = new AnimationManager(this);//must before level manager & before rendermanager
         levelManager = new LevelManager(this);
+        renderManager = new RenderManager(this);
+        gameStateManager = new GameStateManager(this);//must come after rendermanager
+
+        soundManager = new SoundManager(this);
+
         elapsedTime = 0;
     }
 
     /* Private Methods */
 
-    private void setupPhysics(){
+    public void setupPhysics(){
         world = new World(new Vector2(0,0), true); //create world
         world.setContactListener(contactListenerManager); //set collision manager
     }
@@ -59,10 +65,20 @@ public class GameWorld {
     }
 
     public void update(){
-        elapsedTime += Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getDeltaTime();
+        //System.out.println("deltaTime: " + delta);
+
         renderManager.render(elapsedTime);
         levelManager.update(elapsedTime);
-        world.step(1f / 60f, 6, 2);
+
+        GameStateManager.GAME_STATE currentState = gameStateManager.getCurrentState();
+
+        //we don't want physics to update when not ingame, or titlescreen
+        if(currentState == GameStateManager.GAME_STATE.INGAME || currentState == GameStateManager.GAME_STATE.TITLE_SCREEN){
+            elapsedTime += delta;
+            world.step(1f / 60f, 6, 2);
+        }
+
     }
 
 }

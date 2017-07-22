@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.araceinspace.AndroidMonetizationSubSystem.AndroidMonetizationController;
+import com.araceinspace.MonetizationSubSystem.DummyController;
 import com.araceinspace.MonetizationSubSystem.ToastInterface;
 import com.araceinspace.TestSubSystem.MonetizationIntegrationTest;
 import com.araceinspace.TestSubSystem.StoreLayoutTest;
@@ -31,6 +32,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 	 * The MonetizationController that we create and pass to the game.
 	 */
 	AndroidMonetizationController adsController;
+	//DummyController adsController;
 
 	/**
 	 * An Alternate reference to this. Used inside Runnables.
@@ -69,6 +71,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		/*Initialize and AndroidMonetizationController, we do it here, because the
 		 * AdView in the AndroidMonetizationController requires access to this */
 		adsController = new AndroidMonetizationController(this);
+		//adsController = new DummyController();
 
 		/*Create a View and pass it an instance of the core game
 		 *initialized with our ads controller.*/

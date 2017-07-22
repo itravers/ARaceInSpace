@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -32,7 +33,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public static float ANGULAR_DAMPENING = .5f;
     public static float GRAVITATIONAL_CONSTANT = .08f;
 
-    public static float DENSITY = 1.25f;
+    public static float DENSITY = 0.5f;
     public static float FRICTION = .5f;
 
     /* Field Variables & Objects */
@@ -44,6 +45,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     float torque = 0.0f;
     World world;
     Body body;
+
     private Vector2 gravityForce;
     private float lastFrameTime = 0; //Used by gravity to calculate time since last frame
 
@@ -70,7 +72,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         body.setLinearDamping(LINEAR_DAMPENING);
         body.setAngularDamping(ANGULAR_DAMPENING);
         shape = new PolygonShape();
-        shape.setAsBox((parent.getWidth() / 2) / PIXELS_TO_METERS,
+        shape.setAsBox((parent.getHeight() / 2) / PIXELS_TO_METERS,
                        (parent.getHeight() / 2) / PIXELS_TO_METERS);
         fixtureDef = new FixtureDef();
         fixtureDef.filter.groupIndex = parent.parent.CATEGORY_PLAYER;
@@ -99,11 +101,16 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
             float g = GRAVITATIONAL_CONSTANT;
             float pMass = p.getMass();
             float sMass = this.getBody().getMass();
+            float pRadius = p.getWidth();
+
+           // System.out.println("smass: " + sMass);
             Vector2 pCenter = p.getBody().getPosition();
+          // // pCenter = new Vector2(pCenter.x + pRadius/2, pCenter.y +pRadius/2);
+           // pCenter = new Vector2(p.getX() + (pRadius/2), p.getY() +(pRadius/2));
             Vector2 sCenter = this.getBody().getPosition();
             float distanceSQ = sCenter.dst2(pCenter);
             float distance = sCenter.dst(pCenter);
-            float pRadius = p.getBody().getFixtureList().first().getShape().getRadius();
+
 
             //calculate single planet force
             preForce.set(0,0);
@@ -118,8 +125,9 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         }
         float elapsedTimeInLastFrame = elapsedTime - lastFrameTime;
         lastFrameTime = elapsedTime;
-        this.gravityForce = force.cpy();
+
         force = force.scl(elapsedTimeInLastFrame);
+        this.gravityForce = force.cpy();
         this.getBody().applyForce(force, body.getPosition(), true);
 
     }
@@ -127,7 +135,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     private void applyMovement(float elapsedTime){
         float deltaTime = Gdx.graphics.getDeltaTime();
         Vector2 impulse;
-        Vector2 baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(4f);
+        Vector2 baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
         Vector2 pos = body.getPosition();
 
         //check if boost is pressed and change impulse accordingly
@@ -147,17 +155,17 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         }
 
         if(parent.getInput().leftPressed && onPlanet()){
-            body.applyLinearImpulse(impulse.rotate(90).scl(2.5f), pos, true);
-            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/2), pos, true);
+            body.applyLinearImpulse(impulse.rotate(90).scl(2.5f), pos, true);//side force
+            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/1.8f), pos, true);//downforce
         }else  if(parent.getInput().leftPressed){
-            body.applyAngularImpulse(1f, true);
+            body.applyAngularImpulse(3f, true);
         }
 
         if(parent.getInput().rightPressed && onPlanet()){
-            body.applyLinearImpulse(impulse.rotate(-90).scl(2.5f), pos, true);
-            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/2), pos, true);
+            body.applyLinearImpulse(impulse.rotate(-90).scl(2.5f), pos, true);//sideforce
+            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/1.8f), pos, true);//downforce
         }else if(parent.getInput().rightPressed){
-            body.applyAngularImpulse(-1f, true);
+            body.applyAngularImpulse(-3f, true);
         }
 
 
@@ -165,11 +173,16 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
     }
 
+
+
+
+    /* Public Methods */
+
     /**
      * Examines current state and decides if that means we are on a planet or we are off a planet
      * @return
      */
-    private boolean onPlanet(){
+    public boolean onPlanet(){
         PlayerState state = parent.getState().getCurrentState();
         if((state == PlayerState.FLYING || state == PlayerState.FLOAT_SIDEWAYS) && getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
             return false;
@@ -178,15 +191,13 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         }
     }
 
-
-    /* Public Methods */
-
     /**
      * Updates the Players Physics.
      * @param elapsedTime // The time elapsed
      */
     @Override
     public void update(float elapsedTime) {
+       // System.out.println("update: " + elapsedTime);
         applyMovement(elapsedTime);
         applyGravity(elapsedTime);
         body.applyTorque(torque, true);
@@ -275,6 +286,14 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         Vector2 impulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
         //System.out.println("Applying Impulse: " + impulse);
         getBody().applyLinearImpulse(impulse, getBody().getPosition(), true);
+    }
+
+    /**
+     * Returns the gravity force vector, useful for the gravity force indicator
+     * @return
+     */
+    public Vector2 getGravityForce(){
+        return gravityForce;
     }
 
 }

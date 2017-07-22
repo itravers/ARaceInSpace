@@ -15,8 +15,8 @@ import com.badlogic.gdx.math.Vector2;
 public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     Player parent;
 
-    public PlayerGraphicsComponent(Player p, Vector2 loc, TextureAtlas atlas, Animation animations) {
-        super(atlas, animations);
+    public PlayerGraphicsComponent(Player p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
+        super(region, animations);
         parent = p;
         this.setX(loc.x);
         this.setY(loc.y);
@@ -36,6 +36,12 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         }
 
         TextureRegion frame = currentAnimation.getKeyFrame(elapsedTime, true);
+
+        //batch.draw(frame, getX(), getY(), getWidth(), getHeight()); seems to work similar to original
+
+        //batch.draw(frame, getX(), getY()); //player is big, and planets are scewed
+
+        //originial
         batch.draw(frame,
                     flip ? getX()+getWidth() : getX(), getY(),
                     flip ? -getOriginX(): getOriginX(), getOriginY(),
@@ -64,7 +70,11 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                 setAnimation(animationManager.getJumpForwardAnimation());
                 break;
             case FLYING:
-                setAnimation(animationManager.getFlyingAnimation());
+                if(!parent.getInput().upPressed){
+                    setAnimation(animationManager.getFlyingNoThrustAnimation());
+                }else{
+                    setAnimation(animationManager.getFlyingAnimation());
+                }
                 break;
             case LAND_FORWARD:
                 setAnimation(animationManager.getLandForwardAnimation());
@@ -86,7 +96,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                 break;
             case JUMP_SIDEWAYS:
                 setAnimation(animationManager.getJumpSidewaysAnimation());
-
+                break;
         }
     }
 

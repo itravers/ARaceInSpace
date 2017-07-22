@@ -2,6 +2,8 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameWorld;
 
+import java.util.Stack;
+
 /**
  * Created by Isaac Assegai on 7/11/17.
  * GameStateManager keeps track of which state the game is in.
@@ -12,13 +14,14 @@ public class GameStateManager {
 
     /* Field Variables & Objects */
     GameWorld parent;
-    public enum GAME_STATE {INGAME}
-    private GAME_STATE currentState;
+    public enum GAME_STATE {TITLE_SCREEN, LEVEL_SELECT, STORE, MENU, LEADERBOARDS, PREGAME, SCOREBOARD, INGAME}
+    private Stack<GAME_STATE> stateStack; //Used to keep track of what state we are in, and what order we have been in
 
     /* Constructors */
     public GameStateManager(GameWorld p){
         parent = p;
-        setCurrentState(GAME_STATE.INGAME);
+        stateStack = new Stack<GAME_STATE>();
+        setCurrentState(GAME_STATE.TITLE_SCREEN);
 
     }
 
@@ -26,10 +29,31 @@ public class GameStateManager {
 
     /* Public Methods */
     public GAME_STATE getCurrentState(){
-        return currentState;
+        if(stateStack.size() == 0)return null; //incase getCurrentState is called before a state is set.
+        return stateStack.peek();
+    }
+
+    public GAME_STATE popState(){
+        GAME_STATE stateBefore = stateStack.pop();
+        GAME_STATE stateNow = stateStack.pop();
+       // if(stateBefore == )
+        return stateNow;
     }
 
     public void setCurrentState(GAME_STATE state){
-        currentState = state;
+        if(getCurrentState() != null){
+            System.out.println(" currentState: " + getCurrentState().name());
+            System.out.println("    nextState: " + state.name());
+        }
+
+        if(getCurrentState() == GAME_STATE.TITLE_SCREEN || getCurrentState() == GAME_STATE.SCOREBOARD){
+            parent.elapsedTime = 0;
+        }
+
+        parent.renderManager.disposeScreen();
+        parent.renderManager.loadScreen(state);
+        stateStack.push(state);
     }
+
+
 }

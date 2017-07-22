@@ -113,7 +113,7 @@ public class EventDispatcher {
         ArrayList<EventReceiver>list = map.get(type);
 
         //If there are any items in the list, we will send the Event to all of them.
-        if(!list.isEmpty()){
+        if(list!= null && !list.isEmpty()){
             for(int i = 0; i < list.size(); i++){
                 list.get(i).receiveEvent(e);
             }

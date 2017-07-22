@@ -126,6 +126,7 @@ public class AndroidMonetizationController implements MonetizationController {
     public void updateVisibility(){
         if(bannerAd.isShowing()){
             bannerAd.setVisibility(View.VISIBLE);
+           // System.out.println("game ads: setting ad visible");
         }else{
             bannerAd.setVisibility(View.INVISIBLE);
         }
@@ -175,7 +176,9 @@ public class AndroidMonetizationController implements MonetizationController {
      */
     @Override
     public void showBannerAd(){
-        bannerAd.setShowing(true);
+      //  System.out.println("game ads: showBannerAd() called");
+        if(!isBannerAdShowing())
+            bannerAd.setShowing(true);
     }
 
     /**
