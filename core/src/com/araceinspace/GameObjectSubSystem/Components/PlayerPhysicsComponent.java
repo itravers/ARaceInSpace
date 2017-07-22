@@ -101,12 +101,16 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
             float g = GRAVITATIONAL_CONSTANT;
             float pMass = p.getMass();
             float sMass = this.getBody().getMass();
+            float pRadius = p.getWidth();
+
            // System.out.println("smass: " + sMass);
             Vector2 pCenter = p.getBody().getPosition();
+          // // pCenter = new Vector2(pCenter.x + pRadius/2, pCenter.y +pRadius/2);
+           // pCenter = new Vector2(p.getX() + (pRadius/2), p.getY() +(pRadius/2));
             Vector2 sCenter = this.getBody().getPosition();
             float distanceSQ = sCenter.dst2(pCenter);
             float distance = sCenter.dst(pCenter);
-            float pRadius = p.getBody().getFixtureList().first().getShape().getRadius();
+
 
             //calculate single planet force
             preForce.set(0,0);
@@ -121,8 +125,9 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         }
         float elapsedTimeInLastFrame = elapsedTime - lastFrameTime;
         lastFrameTime = elapsedTime;
-        this.gravityForce = force.cpy();
+
         force = force.scl(elapsedTimeInLastFrame);
+        this.gravityForce = force.cpy();
         this.getBody().applyForce(force, body.getPosition(), true);
 
     }
@@ -281,6 +286,14 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         Vector2 impulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
         //System.out.println("Applying Impulse: " + impulse);
         getBody().applyLinearImpulse(impulse, getBody().getPosition(), true);
+    }
+
+    /**
+     * Returns the gravity force vector, useful for the gravity force indicator
+     * @return
+     */
+    public Vector2 getGravityForce(){
+        return gravityForce;
     }
 
 }

@@ -216,6 +216,9 @@ public class INGAMEScreen extends Screen{
         batch.end();
 
         renderGoal(timeElapsed, batch);
+        renderGravityIndicator(batch);
+        renderVelocityIndicator(batch);
+        renderNearestPlanetIndicator(batch);
         //stage.act(timeElapsed);
         // stage.draw();
 
@@ -230,6 +233,128 @@ public class INGAMEScreen extends Screen{
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+
+    }
+
+    private void renderVelocityIndicator(SpriteBatch batch){
+        Player p = parent.parent.levelManager.getPlayer();
+        Vector2 velocityVector = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity();
+        Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+        Vector2 goalPos = velocityVector.add(startPos);
+        //Vector2 goalPos =new Vector2(0,0);
+
+        Vector2 endLine = goalPos.sub(startPos);
+        endLine.setLength(75f);
+
+        Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
+        Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
+
+        perpLine1.setLength(15f); //set length of perpLineVector
+        perpLine2.setLength(15f); //set length of perpLineVector
+
+        endLine = startPos.cpy().add(endLine); //convert back to point
+        perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
+        perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setProjectionMatrix(shapeCamera.combined);
+        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
+
+        shapeRenderer.setColor(Color.YELLOW);
+
+        shapeRenderer.rectLine(endLine, perpLine1, 3);
+        shapeRenderer.rectLine(endLine, perpLine2, 3);
+
+        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.end();
+    }
+
+    private void renderGravityIndicator(SpriteBatch batch){
+        Player p = parent.parent.levelManager.getPlayer();
+        Vector2 gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
+        Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+        Vector2 goalPos = gravityVector.add(startPos);
+        //Vector2 goalPos =new Vector2(0,0);
+
+        Vector2 endLine = goalPos.sub(startPos);
+        endLine.setLength(85f);
+
+        Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
+        Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
+
+        perpLine1.setLength(15f); //set length of perpLineVector
+        perpLine2.setLength(15f); //set length of perpLineVector
+
+        endLine = startPos.cpy().add(endLine); //convert back to point
+        perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
+        perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setProjectionMatrix(shapeCamera.combined);
+        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
+
+        shapeRenderer.setColor(Color.WHITE);
+
+        shapeRenderer.rectLine(endLine, perpLine1, 3);
+        shapeRenderer.rectLine(endLine, perpLine2, 3);
+
+        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.end();
+    }
+
+    private void renderNearestPlanetIndicator(SpriteBatch batch){
+
+        Player p = parent.parent.levelManager.getPlayer();
+
+
+            Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
+            float goalRadius = ((Planet)planet).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
+
+            Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+            Vector2 goalPos = new Vector2(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
+
+            Vector2 middleOfGoal = new Vector2(planet.getX()+(goalRadius/2), planet.getY()+(goalRadius/2));
+            Vector2 endLine = middleOfGoal.cpy().sub(startPos); //get difference vector
+            Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
+            Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
+
+
+            endLine.setLength(70f); // set length of distance vector
+            perpLine1.setLength(15f); //set length of perpLineVector
+            perpLine2.setLength(15f); //set length of perpLineVector
+
+            endLine = startPos.cpy().add(endLine); //convert back to point
+            perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
+            perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
+
+
+
+
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setProjectionMatrix(shapeCamera.combined);
+                shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
+
+                shapeRenderer.setColor(Color.RED);
+                shapeRenderer.rectLine(endLine, perpLine1, 3);
+                shapeRenderer.rectLine(endLine, perpLine2, 3);
+
+                 shapeRenderer.setColor(Color.GREEN);
+                shapeRenderer.end();
+
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+                shapeRenderer.setProjectionMatrix(camera.combined);
+
+                Gdx.gl.glLineWidth(100);
+
+                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), goalRadius / 2);
+
+                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), 2);
+
+                Gdx.gl.glLineWidth(2);
+
+                shapeRenderer.setProjectionMatrix(shapeCamera.combined);
+                shapeRenderer.end();
+
 
     }
 
@@ -265,31 +390,15 @@ public class INGAMEScreen extends Screen{
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                 shapeRenderer.setProjectionMatrix(shapeCamera.combined);
                 shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
+
                 shapeRenderer.setColor(Color.GREEN);
-
-                //shapeRenderer.line(startPos, endLine);
                 shapeRenderer.rectLine(endLine, perpLine1, 3);
-
                 shapeRenderer.rectLine(endLine, perpLine2, 3);
-
-               // shapeRenderer.setColor(Color.RED);
-                //shapeRenderer.rectLine(endLine, middleOfGoal, 3);
 
                 shapeRenderer.end();
 
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                // shapeRenderer.set(ShapeRenderer.ShapeType.Line);
                 shapeRenderer.setProjectionMatrix(camera.combined);
-
-               /* RadialGradientPaint rgp = new RadialGradientPaint(
-                        new Point((int)(0+0 / 2), (int) (0 + 0 / 2)),
-                        (float) 0,
-                        new float[]{.01f, .5f},
-                        new java.awt.Color[]{java.awt.green, java.awt.green}
-                );
-                */
-
-
 
                 Gdx.gl.glLineWidth(100);
 
@@ -301,7 +410,6 @@ public class INGAMEScreen extends Screen{
 
                 shapeRenderer.setProjectionMatrix(shapeCamera.combined);
                 shapeRenderer.end();
-                //Gdx.gl2
             }
         }
 

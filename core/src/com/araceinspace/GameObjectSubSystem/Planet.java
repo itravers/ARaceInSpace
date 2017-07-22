@@ -90,4 +90,12 @@ public class Planet extends TwoDGameObject{
     public float getGravityRadius(){
         return getPhysics().getGravityRadius();
     }
+
+    public float getWidth(){
+        return ((PlanetGraphicsComponent)graphics).getWidth();
+    }
+
+    public float getHeight(){
+        return ((PlanetGraphicsComponent)graphics).getHeight();
+    }
 }
