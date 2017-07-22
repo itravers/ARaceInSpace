@@ -4,7 +4,7 @@
     "atlas": "Moon",
     "xLoc": 0,
     "yLoc": -3000,
-    "mass": 400000,
+    "mass": 500000,
     "size": 1400,
     "gravityRadius": 5000,
     "extraInfo": ""
@@ -14,7 +14,7 @@
     "atlas": "Planet 02",
     "xLoc": 0,
     "yLoc": 3000,
-    "mass": 400000,
+    "mass": 500000,
     "size": 1400,
     "gravityRadius": 4000,
     "extraInfo": ""

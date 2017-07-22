@@ -46,7 +46,7 @@ public class GameStateManager {
             System.out.println("    nextState: " + state.name());
         }
 
-        if(getCurrentState() == GAME_STATE.TITLE_SCREEN){
+        if(getCurrentState() == GAME_STATE.TITLE_SCREEN || getCurrentState() == GAME_STATE.SCOREBOARD){
             parent.elapsedTime = 0;
         }
 
