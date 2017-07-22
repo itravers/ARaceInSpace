@@ -376,19 +376,6 @@ public class INGAMEScreen extends Screen implements EventSender{
                  shapeRenderer.setColor(Color.GREEN);
                 shapeRenderer.end();
 
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                shapeRenderer.setProjectionMatrix(camera.combined);
-
-                Gdx.gl.glLineWidth(100);
-
-                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), goalRadius / 2);
-
-                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), 2);
-
-                Gdx.gl.glLineWidth(2);
-
-                shapeRenderer.setProjectionMatrix(shapeCamera.combined);
-                shapeRenderer.end();
 
 
     }
