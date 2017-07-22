@@ -189,8 +189,8 @@ public class INGAMEScreen extends Screen{
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
         batch.setProjectionMatrix(camera.combined);
 
-        shapeCamera.position.set(p.getX() + p.getWidth(),
-                p.getY() + p.getHeight(), 0);
+        shapeCamera.zoom = parent.getCameraZoom();
+        shapeCamera.position.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2, 0);
 
         shapeCamera.setToAngle(p.getPhysics().getBody().getAngle());
         shapeCamera.update();
@@ -241,7 +241,7 @@ public class INGAMEScreen extends Screen{
             Planet goal = (Planet)g;
             float goalRadius = ((Planet)goal).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
 
-            Vector2 startPos = new Vector2(p.getX()+p.getWidth(), p.getY()+p.getHeight());
+            Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
             Vector2 goalPos = new Vector2(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
 
             Vector2 middleOfGoal = new Vector2(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
@@ -250,7 +250,7 @@ public class INGAMEScreen extends Screen{
             Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
 
 
-            endLine.setLength(105f); // set length of distance vector
+            endLine.setLength(80f); // set length of distance vector
             perpLine1.setLength(15f); //set length of perpLineVector
             perpLine2.setLength(15f); //set length of perpLineVector
 
@@ -269,7 +269,12 @@ public class INGAMEScreen extends Screen{
 
                 //shapeRenderer.line(startPos, endLine);
                 shapeRenderer.rectLine(endLine, perpLine1, 3);
+
                 shapeRenderer.rectLine(endLine, perpLine2, 3);
+
+               // shapeRenderer.setColor(Color.RED);
+                //shapeRenderer.rectLine(endLine, middleOfGoal, 3);
+
                 shapeRenderer.end();
 
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -290,7 +295,7 @@ public class INGAMEScreen extends Screen{
 
                 shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), goalRadius / 2);
 
-                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), 10);
+                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), 2);
 
                 Gdx.gl.glLineWidth(2);
 
