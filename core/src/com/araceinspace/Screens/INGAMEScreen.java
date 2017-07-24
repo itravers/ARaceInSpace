@@ -274,6 +274,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         //don't render velocity indicator if player  is standing still forward
         if(p.getState().getCurrentState() == PlayerState.STAND_STILL_FORWARD)return;
         Vector2 velocityVector = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity();
+        float velocityPower = velocityVector.len();
         Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
         Vector2 goalPos = velocityVector.add(startPos);
         //Vector2 goalPos =new Vector2(0,0);
@@ -284,8 +285,13 @@ public class INGAMEScreen extends Screen implements EventSender{
         Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
         Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
 
-        perpLine1.setLength(15f); //set length of perpLineVector
-        perpLine2.setLength(15f); //set length of perpLineVector
+        float lineLength = 15f;
+
+        lineLength = 15f + (velocityPower/1);
+
+
+        perpLine1.setLength(lineLength); //set length of perpLineVector
+        perpLine2.setLength(lineLength); //set length of perpLineVector
 
         endLine = startPos.cpy().add(endLine); //convert back to point
         perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
@@ -307,18 +313,30 @@ public class INGAMEScreen extends Screen implements EventSender{
     private void renderGravityIndicator(SpriteBatch batch){
         Player p = parent.parent.levelManager.getPlayer();
         Vector2 gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
+        float gravityPower = gravityVector.len();
+       // System.out.println("gravityPower: " + gravityPower);
         Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
         Vector2 goalPos = gravityVector.add(startPos);
         //Vector2 goalPos =new Vector2(0,0);
 
+
+
         Vector2 endLine = goalPos.sub(startPos);
         endLine.setLength(85f);
+
+        float lineLength = 15f;
+
+        //if(gravityPower >= 300){
+            lineLength = 15f + (gravityPower/16);
+       // }
 
         Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
         Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
 
-        perpLine1.setLength(15f); //set length of perpLineVector
-        perpLine2.setLength(15f); //set length of perpLineVector
+
+
+        perpLine1.setLength(lineLength); //set length of perpLineVector
+        perpLine2.setLength(lineLength); //set length of perpLineVector
 
         endLine = startPos.cpy().add(endLine); //convert back to point
         perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
@@ -354,9 +372,19 @@ public class INGAMEScreen extends Screen implements EventSender{
             Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
 
 
+            float distanceToItem = (startPos.cpy().sub(goalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
+           // System.out.println("distanceToGoal: " +distanceToItem);
+
+            float lineLength = 15f;
+
+             if(distanceToItem <= 100){
+                lineLength = 15f + ((100-distanceToItem)/4);
+             }
+
+
             endLine.setLength(70f); // set length of distance vector
-            perpLine1.setLength(15f); //set length of perpLineVector
-            perpLine2.setLength(15f); //set length of perpLineVector
+            perpLine1.setLength(lineLength); //set length of perpLineVector
+            perpLine2.setLength(lineLength); //set length of perpLineVector
 
             endLine = startPos.cpy().add(endLine); //convert back to point
             perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
@@ -391,15 +419,23 @@ public class INGAMEScreen extends Screen implements EventSender{
             Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
             Vector2 goalPos = new Vector2(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
 
+
             Vector2 middleOfGoal = new Vector2(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
             Vector2 endLine = middleOfGoal.cpy().sub(startPos); //get difference vector
             Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
             Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
 
+            float distanceToItem = (startPos.cpy().sub(goalPos).len()-(goal.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
+
+            float lineLength = 15f;
+
+            if(distanceToItem <= 100){
+                lineLength = 15f + ((100-distanceToItem)/4);
+            }
 
             endLine.setLength(80f); // set length of distance vector
-            perpLine1.setLength(15f); //set length of perpLineVector
-            perpLine2.setLength(15f); //set length of perpLineVector
+            perpLine1.setLength(lineLength); //set length of perpLineVector
+            perpLine2.setLength(lineLength); //set length of perpLineVector
 
             endLine = startPos.cpy().add(endLine); //convert back to point
             perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
