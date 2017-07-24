@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.Managers.GameStateManager;
 import com.badlogic.gdx.Gdx;
 import  com.araceinspace.misc.Animation;
 import com.badlogic.gdx.math.Vector2;
@@ -151,6 +152,8 @@ public class PlayerStateComponent extends StateComponent{
             setState(PlayerState.JUMP_SIDEWAYS);
         }else if((currentState == PlayerState.JUMP_SIDEWAYS || currentState == PlayerState.JUMP_FORWARD) && currentAnimation.getLoops(stateTime) >= 1){
             parent.getPhysics().jumpImpulse();
+        }else if(currentState == PlayerState.EXPLODING && currentAnimation.getLoops(stateTime) >=.9f){
+            parent.parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
         }
 
 
