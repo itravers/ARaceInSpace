@@ -15,17 +15,22 @@ import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -33,7 +38,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.ArrayList;
@@ -62,6 +69,15 @@ public class INGAMEScreen extends Screen implements EventSender{
     private Touchpad touchPad;
     private ImageButton boostButton;
     private InputListener boostButtonListener;
+
+    private Image ghostIndicatorOutline;
+    private TextureRegion ghostIndicatorOutlineTexture;
+
+    private TextureRegion ghostIndicatorTexture;
+    private TextureRegion ghostIndicatorGreenTexture;
+
+    private SpriteBatch healthBatch;
+    Rectangle clipBounds;
 
     /* Constructors */
 
@@ -92,6 +108,10 @@ public class INGAMEScreen extends Screen implements EventSender{
         menuCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         backgroundBatch = new SpriteBatch();
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
+
+        healthBatch = new SpriteBatch();
+        healthBatch.setProjectionMatrix(menuCamera.combined);
+
         debugRenderer = new Box2DDebugRenderer();
         shapeRenderer = new ShapeRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
@@ -183,13 +203,48 @@ public class INGAMEScreen extends Screen implements EventSender{
         headerTable = new Table();
         headerTable.setDebug(parent.parent.devMode);
         headerTable.align(Align.center | Align.top);
-        headerTable.add(rewardButton).padLeft(spacer).padTop(0).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
-        headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
+       // headerTable.add(rewardButton).padLeft(spacer).padTop(0).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
+        //headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
         mainTable.add(headerTable).fill().expandX();
         stage.addActor(mainTable);
         stage.addActor(touchPad);
         stage.addActor(boostButton);
+
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorOutlineRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_empty");
+        ghostIndicatorOutlineTexture = ghostIndicatorOutlineRegion.get(0);
+        ghostIndicatorOutline = new Image(ghostIndicatorOutlineTexture);
+       // ghostIndicatorOutline.setPosition((viewport.getScreenWidth()/2)-ghostIndicatorOutline.getWidth()/2, viewport.getScreenHeight()-ghostIndicatorOutline.getHeight());
+        ghostIndicatorOutline.setPosition(-ghostIndicatorOutline.getWidth()/2,(viewport.getScreenHeight()/2)-ghostIndicatorOutline.getHeight());
+
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill");
+        ghostIndicatorTexture = ghostIndicatorRegion.get(0);
+
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorGreenRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill_green");
+        ghostIndicatorGreenTexture = ghostIndicatorGreenRegion.get(0);
+
+
+        float clipWidth = ghostIndicatorOutline.getWidth()+4;
+        float clipX = (viewport.getScreenWidth()/2)-clipWidth/2;
+        float clipHeight = 50;
+        float clipY = viewport.getScreenHeight()-clipHeight;
+        clipBounds = new Rectangle(clipX,clipY, clipWidth, clipHeight);
+
+
+
+
+
+
+       // stage.addActor(test);
+        //stage.addActor(ghostIndicatorOutline);
+       // stage.addActor(ghostIndicator);
+
+
+
+
+
+
         parent.parent.inputManager.addInputProcessor(stage);
+
 
 
 
@@ -264,6 +319,65 @@ public class INGAMEScreen extends Screen implements EventSender{
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
 
+        renderHealth(healthBatch);
+
+    }
+
+    /**
+     * Returns the height of the ghost timer based on the amount of time until ghost timer resets
+     * @return
+     */
+    public float getGhostTimerHeight(){
+        float timer = parent.parent.getGhostTimer();
+      //  System.out.println("ghostTimer: " + timer);
+      //  if(timer <= 0)timer = parent.parent.GHOST_TIMER_LIMIT-.001f;
+        return parent.map(timer, parent.parent.GHOST_TIMER_LIMIT, 0, 0, ghostIndicatorOutline.getHeight());
+    }
+
+    private void renderHealth(SpriteBatch batch){
+
+        float clipWidth = ghostIndicatorOutline.getWidth()+4;
+        float clipX = (viewport.getScreenWidth()/2)-clipWidth/2;
+
+        float clipHeight = getGhostTimerHeight();
+
+        float clipY = viewport.getScreenHeight()-ghostIndicatorOutline.getHeight();
+        //clipHeight = - clipHeight;
+
+        //if(clipHeight > ghostIndicatorOutline.getHeight())clipHeight = ghostIndicatorOutline.getHeight();
+
+
+
+        clipBounds = new Rectangle(clipX,clipY, clipWidth, clipHeight);
+        batch.begin();
+        Rectangle scissors = new Rectangle();
+
+        ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), clipBounds, scissors);
+        ScissorStack.pushScissors(scissors);
+        if(parent.parent.getGhostTimer() <= 0){
+            batch.draw(ghostIndicatorGreenTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
+        }else{
+            batch.draw(ghostIndicatorTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
+        }
+
+
+        batch.flush();
+        ScissorStack.popScissors();
+
+
+        batch.draw(ghostIndicatorOutlineTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
+        batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setProjectionMatrix(menuCamera.combined);
+        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
+
+        shapeRenderer.setColor(Color.YELLOW);
+
+       if(parent.parent.devMode) shapeRenderer.rect(clipBounds.getX(), clipBounds.getY(), clipBounds.getWidth(), clipBounds.getHeight());
+
+        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.end();
     }
 
     private void renderVelocityIndicator(SpriteBatch batch){
@@ -484,4 +598,6 @@ public class INGAMEScreen extends Screen implements EventSender{
     public void sendEvent(Event e) {
         EventDispatcher.getSingletonDispatcher().dispatch(e);
     }
+
+
 }

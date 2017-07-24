@@ -9,6 +9,7 @@ import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.Managers.SoundManager;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -18,6 +19,9 @@ import com.badlogic.gdx.physics.box2d.World;
  * the central controller of what happens in the game.
  */
 public class GameWorld {
+    /* Static Objects */
+    public static float GHOST_TIMER_LIMIT = 60;
+
     /* Field Variables & Objects */
     public ApplicationAdapter parent;
     public GameStateManager gameStateManager;
@@ -30,11 +34,18 @@ public class GameWorld {
     public World world;
     public float elapsedTime;
     public boolean devMode = false;
+    Preferences prefs;
+    private float ghostTimer;
+    public boolean countGhostTimer = true;
+
 
 
     /* Constructors */
     public GameWorld(ApplicationAdapter p){
         parent = p;
+        prefs = Gdx.app.getPreferences("Saved_Items");
+
+        ghostTimer = prefs.getFloat("ghostTimer", GHOST_TIMER_LIMIT);
 
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
@@ -79,6 +90,28 @@ public class GameWorld {
             world.step(1f / 60f, 6, 2);
         }
 
+        if(countGhostTimer){
+            ghostTimer = ghostTimer - delta;
+            if(ghostTimer <= 0){
+                ghostTimer = 0;
+                countGhostTimer = false;
+            }
+        }
+
+        if(countGhostTimer && renderManager.getFrameNum() % 1000 == 0){
+            prefs.putFloat("ghostTimer", ghostTimer);
+        }
+
     }
+
+    /**
+     * Return the amount of seconds until ghost timer resets
+     * @return
+     */
+    public float getGhostTimer(){
+        return ghostTimer;
+    }
+
+
 
 }

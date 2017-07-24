@@ -78,7 +78,7 @@ public class AnimationManager {
 
 
 
-    private TextureAtlas heroAtlas;
+    public TextureAtlas heroAtlas;
 
     //Planet Animation data
     private TextureAtlas planetAtlas = null;
