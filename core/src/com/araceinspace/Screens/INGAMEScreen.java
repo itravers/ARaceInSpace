@@ -72,12 +72,21 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     private Image ghostIndicatorOutline;
     private TextureRegion ghostIndicatorOutlineTexture;
-
     private TextureRegion ghostIndicatorTexture;
     private TextureRegion ghostIndicatorGreenTexture;
 
+    private TextureRegion healthMeterEmpty;
+    private TextureRegion healthMeterBlue;
+    private TextureRegion healthMeterRed;
+
+    private TextureRegion boostMeterEmpty;
+    private TextureRegion boostMeterBlue;
+    private TextureRegion boostMeterRed;
+
     private SpriteBatch healthBatch;
-    Rectangle clipBounds;
+    Rectangle ghostMeterClip;
+    Rectangle healthClip;
+    Rectangle boostClip;
 
     /* Constructors */
 
@@ -223,18 +232,44 @@ public class INGAMEScreen extends Screen implements EventSender{
         ghostIndicatorGreenTexture = ghostIndicatorGreenRegion.get(0);
 
 
-        float clipWidth = ghostIndicatorOutline.getWidth()+4;
-        float clipX = (viewport.getScreenWidth()/2)-clipWidth/2;
-        float clipHeight = 50;
-        float clipY = viewport.getScreenHeight()-clipHeight;
-        clipBounds = new Rectangle(clipX,clipY, clipWidth, clipHeight);
+        float gclipWidth = ghostIndicatorOutline.getWidth()+4;
+        float gclipX = (viewport.getScreenWidth()/2)-gclipWidth/2;
+        float gclipHeight = 50;
+        float gclipY = viewport.getScreenHeight()-gclipHeight;
+        ghostMeterClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
+
+
+        Array<TextureAtlas.AtlasRegion> healthMeterEmptyRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
+        healthMeterEmpty = healthMeterEmptyRegion.get(0);
+        healthMeterEmpty.setRegionWidth(2+viewport.getScreenWidth()/2);
+       // healthMeterEmpty
+
+        Array<TextureAtlas.AtlasRegion> healthMeterBlueRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
+        healthMeterBlue = healthMeterBlueRegion.get(0);
+        healthMeterBlue.setRegionWidth(2+viewport.getScreenWidth()/2);
+
+        Array<TextureAtlas.AtlasRegion> healthMeterRedRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
+        healthMeterRed = healthMeterRedRegion.get(0);
+        healthMeterRed.setRegionWidth(2+viewport.getScreenWidth()/2);
+
+        Array<TextureAtlas.AtlasRegion> boostMeterEmptyRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
+        boostMeterEmpty = boostMeterEmptyRegion.get(0);
+        boostMeterEmpty.flip(true, false);
+
+        Array<TextureAtlas.AtlasRegion> boostMeterBlueRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
+        boostMeterBlue = boostMeterBlueRegion.get(0);
+        boostMeterBlue.flip(true, false);
+
+        Array<TextureAtlas.AtlasRegion> boostMeterRedRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
+        boostMeterRed = boostMeterRedRegion.get(0);
+        boostMeterRed.flip(true, false);
 
 
 
 
 
 
-       // stage.addActor(test);
+        // stage.addActor(test);
         //stage.addActor(ghostIndicatorOutline);
        // stage.addActor(ghostIndicator);
 
@@ -334,38 +369,84 @@ public class INGAMEScreen extends Screen implements EventSender{
         return parent.map(timer, parent.parent.GHOST_TIMER_LIMIT, 0, 0, ghostIndicatorOutline.getHeight());
     }
 
+    public float getHealthMeterWidth(){
+        float health = parent.parent.levelManager.getPlayer().getHealth();
+        return parent.map(health, 0, 100, ghostIndicatorOutline.getWidth()/2, healthMeterEmpty.getRegionWidth());
+    }
+
+    public float getBoostMeterWidth(){
+        float boost = parent.parent.levelManager.getPlayer().getBoost();
+        return parent.map(boost, 0, parent.parent.levelManager.getPlayer().BOOST_TOTAL, ghostIndicatorOutline.getWidth()/2, boostMeterEmpty.getRegionWidth());
+    }
+
     private void renderHealth(SpriteBatch batch){
 
-        float clipWidth = ghostIndicatorOutline.getWidth()+4;
-        float clipX = (viewport.getScreenWidth()/2)-clipWidth/2;
-
-        float clipHeight = getGhostTimerHeight();
-
-        float clipY = viewport.getScreenHeight()-ghostIndicatorOutline.getHeight();
-        //clipHeight = - clipHeight;
-
-        //if(clipHeight > ghostIndicatorOutline.getHeight())clipHeight = ghostIndicatorOutline.getHeight();
+        float gclipWidth = ghostIndicatorOutline.getWidth()+4;
+        float gclipX = (viewport.getScreenWidth()/2)-gclipWidth/2;
+        float gclipHeight = getGhostTimerHeight();
+        float gclipY = viewport.getScreenHeight()-ghostIndicatorOutline.getHeight();
+        ghostMeterClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
 
 
+        float hclipWidth = getHealthMeterWidth();
+        float hclipX = (viewport.getScreenWidth()/2);
+        float hclipHeight = healthMeterEmpty.getRegionHeight();
+        float hclipY = viewport.getScreenHeight()-healthMeterEmpty.getRegionHeight();
+        healthClip = new Rectangle(hclipX, hclipY, hclipWidth, hclipHeight);
 
-        clipBounds = new Rectangle(clipX,clipY, clipWidth, clipHeight);
+        float bclipWidth =  getBoostMeterWidth();
+        float bclipX =  (viewport.getScreenWidth()/2)-bclipWidth;
+        float bclipHeight = 100;
+        float bclipY = viewport.getScreenHeight()-boostMeterEmpty.getRegionHeight();
+        boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
+
+
         batch.begin();
-        Rectangle scissors = new Rectangle();
 
-        ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), clipBounds, scissors);
+        //draw ghostMeter
+        Rectangle scissors = new Rectangle();
+        ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), ghostMeterClip, scissors);
         ScissorStack.pushScissors(scissors);
         if(parent.parent.getGhostTimer() <= 0){
             batch.draw(ghostIndicatorGreenTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
         }else{
             batch.draw(ghostIndicatorTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
         }
+        batch.flush();
+        ScissorStack.popScissors();
 
+
+        //draw healthMeter
+        scissors = new Rectangle();
+        ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), healthClip, scissors);
+        ScissorStack.pushScissors(scissors);
+        if(parent.parent.levelManager.getPlayer().getHealth() > 40){
+            batch.draw(healthMeterBlue,  (ghostIndicatorOutline.getX()+ghostIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
+        }else{
+            batch.draw(healthMeterRed,  (ghostIndicatorOutline.getX()+ghostIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
+        }
+
+        batch.flush();
+        ScissorStack.popScissors();
+
+        //draw boostMeter
+        scissors = new Rectangle();
+        ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), boostClip, scissors);
+        ScissorStack.pushScissors(scissors);
+        if(parent.parent.levelManager.getPlayer().getBoost() > 1){
+            batch.draw(boostMeterBlue,  -boostMeterBlue.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterBlue.getRegionHeight()+2);
+        }else{
+            batch.draw(boostMeterRed,  -boostMeterRed.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterRed.getRegionHeight()+2);
+        }
 
         batch.flush();
         ScissorStack.popScissors();
 
 
         batch.draw(ghostIndicatorOutlineTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
+        batch.draw(healthMeterEmpty,  (ghostIndicatorOutline.getX()+ghostIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
+        batch.draw(boostMeterEmpty,  -boostMeterEmpty.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterEmpty.getRegionHeight()+2);
+
         batch.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -374,7 +455,11 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         shapeRenderer.setColor(Color.YELLOW);
 
-       if(parent.parent.devMode) shapeRenderer.rect(clipBounds.getX(), clipBounds.getY(), clipBounds.getWidth(), clipBounds.getHeight());
+       if(parent.parent.devMode){
+           shapeRenderer.rect(ghostMeterClip.getX(), ghostMeterClip.getY(), ghostMeterClip.getWidth(), ghostMeterClip.getHeight());
+           shapeRenderer.rect(healthClip.getX(), healthClip.getY(), healthClip.getWidth(), healthClip.getHeight());
+           shapeRenderer.rect(boostClip.getX(), boostClip.getY(), boostClip.getWidth(), boostClip.getHeight());
+       }
 
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.end();

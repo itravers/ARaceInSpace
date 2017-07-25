@@ -1661,7 +1661,7 @@ WalkingFast/WalkingFast
   index: 15
 
 HeroAnimations13.png
-size: 1024,128
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -1681,9 +1681,30 @@ GhostIndicator/ghostIndicator_fill
   index: -1
 GhostIndicator/ghostIndicator_fill_green
   rotate: false
-  xy: 406, 2
+  xy: 409, 64
   size: 200, 109
   orig: 200, 109
+  offset: 0, 0
+  index: -1
+GhostIndicator/healthMeter_blue
+  rotate: false
+  xy: 2, 175
+  size: 405, 60
+  orig: 405, 60
+  offset: 0, 0
+  index: -1
+GhostIndicator/healthMeter_empty
+  rotate: false
+  xy: 2, 113
+  size: 405, 60
+  orig: 405, 60
+  offset: 0, 0
+  index: -1
+GhostIndicator/healthMeter_red
+  rotate: false
+  xy: 409, 175
+  size: 405, 60
+  orig: 405, 60
   offset: 0, 0
   index: -1
 

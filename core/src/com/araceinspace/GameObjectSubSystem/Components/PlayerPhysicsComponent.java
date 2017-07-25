@@ -139,8 +139,10 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         Vector2 pos = body.getPosition();
 
         //check if boost is pressed and change impulse accordingly
-        if(parent.getInput().boostPressed){
+        if(parent.getInput().boostPressed && parent.getBoost() > 0){
             impulse = baseImpulse.scl(2f);
+            parent.setBoost(parent.getBoost() - deltaTime);
+            System.out.println("boost: " + parent.getBoost());
         }else{
             impulse = baseImpulse;
         }
