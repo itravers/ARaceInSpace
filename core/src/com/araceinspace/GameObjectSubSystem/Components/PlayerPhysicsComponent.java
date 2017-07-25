@@ -142,7 +142,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         if(parent.getInput().boostPressed && parent.getBoost() > 0){
             impulse = baseImpulse.scl(2f);
             parent.setBoost(parent.getBoost() - deltaTime);
-            System.out.println("boost: " + parent.getBoost());
+           // System.out.println("boost: " + parent.getBoost());
         }else{
             impulse = baseImpulse;
         }
