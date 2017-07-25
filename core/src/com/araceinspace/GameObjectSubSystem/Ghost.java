@@ -2,6 +2,7 @@ package com.araceinspace.GameObjectSubSystem;
 
 import com.araceinspace.GameObjectSubSystem.Components.GhostInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.misc.Animation;
@@ -26,11 +27,11 @@ public class Ghost extends Player{
      * @param atlas
      * @param animations
      */
-    public Ghost(LevelManager levelManager, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
-        super(levelManager, loc, world, region, animations);
+    public Ghost(LevelManager levelManager, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
+        super(levelManager, firstState, loc, world, region, animations);
         input = new GhostInputComponent();
         physics = new PlayerPhysicsComponent((Player)this, world);
-        state = new PlayerStateComponent(this);
+        state = new PlayerStateComponent(this, firstState);
     }
 
     @Override

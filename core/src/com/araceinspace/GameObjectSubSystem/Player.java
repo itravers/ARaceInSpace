@@ -3,6 +3,7 @@ package com.araceinspace.GameObjectSubSystem;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.misc.Animation;
@@ -32,14 +33,14 @@ public class Player extends TwoDGameObject{
      * @param region
      * @param animations
      */
-    public Player(LevelManager p, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
+    public Player(LevelManager p, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
         parent = p;
         health = 100;
         boost = BOOST_TOTAL;
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent();
         physics = new PlayerPhysicsComponent(this, world);
-        state = new PlayerStateComponent(this);
+        state = new PlayerStateComponent(this, firstState);
 
 
     }

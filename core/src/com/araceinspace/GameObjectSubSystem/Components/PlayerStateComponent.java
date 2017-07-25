@@ -32,9 +32,9 @@ public class PlayerStateComponent extends StateComponent{
 
 
     /* Constructors */
-    public PlayerStateComponent(Player p){
+    public PlayerStateComponent(Player p, PlayerState state){
         parent = p;
-        setState(PlayerState.STAND_STILL_FORWARD); //The Game Starts, the Avatar is in this state.
+        setState(state); //The Game Starts, the Avatar is in this state.
     }
 
     /* Private Methods */

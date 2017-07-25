@@ -1,5 +1,6 @@
 package com.araceinspace.Managers;
 
+import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
@@ -240,10 +241,13 @@ public class LevelManager {
             if(item.getType().equals("player")){
                 float xLoc = item.getxLoc();
                 float yLoc = item.getyLoc();
+                String extra = item.getExtraInfo();
+                PlayerState state = PlayerState.STAND_STILL_FORWARD;
+                if(extra.equals("flying"))state = PlayerState.FLYING;
                // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
                 TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
                 Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
-                player = new Player(this, new Vector2(xLoc, yLoc), parent.world, region, animation);
+                player = new Player(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation);
             }
         }
     }
