@@ -288,26 +288,11 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
                 break;
             case UP:
                 if(playerInput.touchUp)break;
-                System.out.println("touchPadChanged");
                 sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_UP));
                 break;
             case UP_LEFT:
-                if(parent.levelManager.getPlayer().getPhysics().onPlanet()){//if player is on planet we jump and don't press left at all
-                    //Make sure this event wasn't the last one processed, if it is we don't need it twice
-                    if(!playerInput.upPressed && ! playerInput.leftPressed && playerInput.jumpPressed && !playerInput.rightPressed && !playerInput.downPressed)break;
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_PRESSED));
-                }else{
-                    //Make sure this event wasn't the last one processed, if it is we don't need it twice
-                    if(!playerInput.jumpPressed && playerInput.upPressed)
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_PRESSED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_PRESSED));
-                }
-
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
+               if(playerInput.touchUpLeft)break;
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_UP_LEFT));
                 break;
             case LEFT:
                 sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));

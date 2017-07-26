@@ -139,6 +139,20 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 downPressed = false;
                 rightPressed = false;
                 break;
+            case TOUCH_UP_LEFT:
+                setTouched("touchUpLeft");
+                if(parent.getPhysics().onPlanet()){
+                    upPressed = false;
+                    leftPressed = false;
+                    jumpPressed = true;
+                }else{
+                    jumpPressed = false;
+                    upPressed = true;
+                    leftPressed = true;
+                }
+                rightPressed = false;
+                downPressed = false;
+                break;
             default:
                 break;
         }
