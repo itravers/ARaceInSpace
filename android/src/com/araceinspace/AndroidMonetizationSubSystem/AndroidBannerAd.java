@@ -209,6 +209,7 @@ public class AndroidBannerAd extends GameAd{
     @Override
     public void destroy(){
         bannerAd.destroy();
+
     }
 
     /**

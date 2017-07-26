@@ -4,6 +4,7 @@ import com.araceinspace.ARaceInSpace;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
+import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -271,5 +272,10 @@ public class LEVELSELECTScreen extends Screen {
         skin.dispose();
         batch.dispose();
 
+    }
+
+    @Override
+    public OrthCamera getBackgroundCamera() {
+        return null;
     }
 }

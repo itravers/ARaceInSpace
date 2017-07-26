@@ -2,6 +2,7 @@ package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -160,5 +161,10 @@ public class SCOREScreen extends Screen {
         skin.dispose();
         batch.dispose();
 
+    }
+
+    @Override
+    public OrthCamera getBackgroundCamera() {
+        return null;
     }
 }

@@ -88,6 +88,8 @@ public class GameWorld {
         if(currentState == GameStateManager.GAME_STATE.INGAME || currentState == GameStateManager.GAME_STATE.TITLE_SCREEN){
             elapsedTime += delta;
             world.step(1f / 60f, 6, 2);
+
+
         }
 
         if(countGhostTimer){

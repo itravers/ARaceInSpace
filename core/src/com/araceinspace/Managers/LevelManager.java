@@ -90,30 +90,7 @@ public class LevelManager {
         return fileHandle;
     }
 
-    public void setupBackground() {
-        System.out.println("SetupBackground");
-        Texture background = new Texture(Gdx.files.internal("data/tiledBackground.png"));
-        Texture starscape1 = new Texture(Gdx.files.internal("data/stars1.png"));
-        Texture starscape2 = new Texture(Gdx.files.internal("data/starscape2.png"));
-        Texture starscape3 = new Texture(Gdx.files.internal("data/starscape3.png"));
-        background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        starscape1.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        starscape2.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        starscape3.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        TextureRegion[] backgroundLayers = new TextureRegion[4];
-        Texture[] backGroundTextures = new Texture[4];
-        backGroundTextures[0] = background;
-        backGroundTextures[1] = starscape1;
-        backGroundTextures[2] = starscape2;
-        backGroundTextures[3] = starscape3;
 
-        backgroundLayers[0] = new TextureRegion(background, 0, 0, Gdx.graphics.getHeight()*2, Gdx.graphics.getHeight()*2);
-        backgroundLayers[1] = new TextureRegion(starscape1, 0, 0, 110000, 110000);
-        backgroundLayers[2] = new TextureRegion(starscape2, 0, 0, 60000, 60000);
-        backgroundLayers[3] = new TextureRegion(starscape3, 0, 0, 20000, 20000);
-        mainBackground = new Background(this, backgroundLayers);
-        //mainBackground = new Background(this, backGroundTextures);
-    }
 
     private void updateInGame(float elapsedTime){
         player.update(elapsedTime);

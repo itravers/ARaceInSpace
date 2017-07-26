@@ -2,6 +2,7 @@ package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -48,6 +49,11 @@ public class STOREScreen extends Screen{
         batch.dispose();
         skin.dispose();
 
+    }
+
+    @Override
+    public OrthCamera getBackgroundCamera() {
+        return null;
     }
 
     @Override

@@ -14,9 +14,13 @@ import com.araceinspace.Screens.SCOREScreen;
 import com.araceinspace.Screens.STOREScreen;
 import com.araceinspace.Screens.Screen;
 import com.araceinspace.Screens.TITLEScreen;
+import com.araceinspace.misc.Background;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
 
@@ -38,6 +42,7 @@ public class RenderManager {
     private Screen currentScreen;
     private INGAMEScreen ingameScreen;
     public MonetizationController monetizationController;
+    FPSLogger fpsLogger;
 
     /* Constructor */
     public RenderManager(GameWorld p){
@@ -45,6 +50,7 @@ public class RenderManager {
         parent = p;
         monetizationController =( (ARaceInSpace)parent.parent).monetizationController;
         frameNum = 0;
+        fpsLogger = new FPSLogger();
         setupRendering();
     }
 
@@ -57,6 +63,7 @@ public class RenderManager {
         resetFrameNum();
         monetizationController.loadBannerAd();
         parent.animationManager.setupAnimations();
+        //setupBackground();
         currentScreen = new TITLEScreen(this);//default screen when game is loaded
         setupScreenSizeDependantItems();//must come after screens are constructed
     }
@@ -130,6 +137,31 @@ public class RenderManager {
        // parent.levelManager.getBackground().render(backgroundCamera, timeElapsed, b);
     }
 
+    public void setupBackground() {
+        System.out.println("SetupBackground");
+        //Texture background = new Texture(Gdx.files.internal("data/tiledBackground.png"));
+        Texture starscape1 = new Texture(Gdx.files.internal("data/stars1.png"));
+        //Texture starscape2 = new Texture(Gdx.files.internal("data/stars1.png"));
+        //Texture starscape3 = new Texture(Gdx.files.internal("data/stars1.png"));
+        //background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        //starscape1.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+       // starscape2.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+       // starscape3.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        TextureRegion[] backgroundLayers = new TextureRegion[4];
+        //Texture[] backGroundTextures = new Texture[4];
+        //backGroundTextures[0] = background;
+        //backGroundTextures[1] = starscape1;
+        //backGroundTextures[2] = starscape1;
+       // backGroundTextures[3] = starscape1;
+
+        //backgroundLayers[0] = new TextureRegion(background, 0, 0, Gdx.graphics.getHeight()*2, Gdx.graphics.getHeight()*2);
+        backgroundLayers[0] = new TextureRegion(starscape1, 0, 0, starscape1.getWidth(), starscape1.getHeight());
+       // backgroundLayers[1] = new TextureRegion(starscape1, 0, 0, starscape1.getWidth(), starscape1.getHeight());
+       // backgroundLayers[2] = new TextureRegion(starscape1, 0, 0,  starscape1.getWidth(), starscape1.getHeight());
+        parent.levelManager.mainBackground = new Background(this, backgroundLayers);
+        //mainBackground = new Background(this, backGroundTextures);
+    }
+
     /**
      * Renders the player to the screen
      */
@@ -174,6 +206,8 @@ public class RenderManager {
 
         //Increase the amound of frameNum's we have used (used for ghost recordings)
         frameNum ++;
+        fpsLogger.log();
+
     }
 
     public void resetFrameNum(){
@@ -206,6 +240,10 @@ public class RenderManager {
    public float map(float x, float in_min, float in_max, float out_min, float out_max)
     {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    public Screen getCurrentScreen(){
+        return currentScreen;
     }
 
 }

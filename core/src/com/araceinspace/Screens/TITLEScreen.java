@@ -10,6 +10,7 @@ import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -74,6 +75,11 @@ public class TITLEScreen extends Screen implements EventSender {
         batch.dispose();
         backgroundBatch.dispose();
         menuBatch.dispose();
+    }
+
+    @Override
+    public OrthCamera getBackgroundCamera() {
+        return backgroundCamera;
     }
 
     /* Private Methods */
@@ -189,6 +195,7 @@ public class TITLEScreen extends Screen implements EventSender {
 
     @Override
     public void render(float elapsedTime) {
+
 
        // if(monetizationController.isBannerAdShowing()) monetizationController.hideBannerAd();
         mainTable.setDebug(parent.parent.devMode);

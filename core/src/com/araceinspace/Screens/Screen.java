@@ -43,4 +43,5 @@ public abstract class Screen {
     public abstract void setup();
     public abstract void render(float elapsedTime);
     public abstract void dispose();
+    public abstract OrthCamera getBackgroundCamera();
 }

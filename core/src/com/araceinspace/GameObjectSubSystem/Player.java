@@ -36,6 +36,7 @@ public class Player extends TwoDGameObject{
     public Player(LevelManager p, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
         parent = p;
         health = 100;
+
         boost = BOOST_TOTAL;
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent();
@@ -55,6 +56,7 @@ public class Player extends TwoDGameObject{
     @Override
     void dispose() {
         //TODO create player dispose code
+
     }
 
     @Override

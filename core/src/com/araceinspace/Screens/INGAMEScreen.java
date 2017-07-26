@@ -87,6 +87,29 @@ public class INGAMEScreen extends Screen implements EventSender{
     Rectangle ghostMeterClip;
     Rectangle healthClip;
     Rectangle boostClip;
+    Rectangle scissors;
+
+    //Vectors
+    Vector2 renderVelStartPos;
+    Vector2 renderVelGoalPos;
+    Vector2 renderVelEndLine;
+    Vector2 renderVelPerpLine1;
+    Vector2 renderVelPerpLine2;
+    Vector2 gravityVector;
+    Vector2 renderGravityStartPos;
+    Vector2  renderGravityGoalPos;
+    Vector2 renderGravityEndLine;
+    Vector2 renderGravityPerpLine1;
+    Vector2 renderGravityPerpLine2;
+    Vector2 renderNearestStartPos;
+    Vector2 renderNearestGoalPos;
+    Vector2 renderGoalStartPos;
+    Vector2 renderGoalGoalPos;
+    Vector2 renderGoalMiddleOfGoal;
+    Vector2 renderGoalEndLine;
+    Vector2 renderGoalPerpLine1;
+    Vector2 renderGoalPerpLine2;
+    Vector2 tmp;
 
     /* Constructors */
 
@@ -109,8 +132,14 @@ public class INGAMEScreen extends Screen implements EventSender{
     }
 
     @Override
+    public OrthCamera getBackgroundCamera() {
+        return backgroundCamera;
+    }
+
+    @Override
     public void setup() {
        // stage = new Stage(menuCamera)
+        setupVectors();
         font = new BitmapFont();
         backgroundCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         shapeCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -124,14 +153,36 @@ public class INGAMEScreen extends Screen implements EventSender{
         debugRenderer = new Box2DDebugRenderer();
         shapeRenderer = new ShapeRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
-        monetizationController.loadRewardAd();
-        monetizationController.hideBannerAd();
+       // monetizationController.loadRewardAd();
+       // monetizationController.hideBannerAd();
         setupStage();
     }
 
 
 
     /* Private Methods */
+
+    private void setupVectors(){
+        renderVelStartPos = new Vector2();
+        renderVelGoalPos = new Vector2();
+        renderVelEndLine = new Vector2();
+        renderVelPerpLine1 = new Vector2();
+        renderVelPerpLine2 = new Vector2();
+        renderGravityStartPos = new Vector2();
+        renderGravityGoalPos = new Vector2();
+        renderGravityEndLine = new Vector2();
+        renderGravityPerpLine1 = new Vector2();
+        renderGravityPerpLine2 = new Vector2();
+        renderNearestStartPos = new Vector2();
+        renderNearestGoalPos = new Vector2();
+        renderGoalStartPos = new Vector2();
+        renderGoalGoalPos = new Vector2();
+        renderGoalMiddleOfGoal = new Vector2();
+        renderGoalEndLine = new Vector2();
+        renderGoalPerpLine1  = new Vector2();
+        renderGoalPerpLine2 = new Vector2();
+        tmp = new Vector2();
+    }
 
     private void setupStage(){
         viewport = new ScreenViewport(menuCamera);
@@ -239,6 +290,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         ghostMeterClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
 
 
+
         Array<TextureAtlas.AtlasRegion> healthMeterEmptyRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
         healthMeterEmpty = healthMeterEmptyRegion.get(0);
         healthMeterEmpty.setRegionWidth(2+viewport.getScreenWidth()/2);
@@ -263,6 +315,20 @@ public class INGAMEScreen extends Screen implements EventSender{
         Array<TextureAtlas.AtlasRegion> boostMeterRedRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
         boostMeterRed = boostMeterRedRegion.get(0);
         boostMeterRed.flip(true, false);
+
+        float hclipWidth = getHealthMeterWidth();
+        float hclipX = (viewport.getScreenWidth()/2);
+        float hclipHeight = healthMeterEmpty.getRegionHeight();
+        float hclipY = viewport.getScreenHeight()-healthMeterEmpty.getRegionHeight();
+        healthClip = new Rectangle(hclipX, hclipY, hclipWidth, hclipHeight);
+
+        float bclipWidth =  getBoostMeterWidth();
+        float bclipX =  (viewport.getScreenWidth()/2)-bclipWidth;
+        float bclipHeight = 100;
+        float bclipY = viewport.getScreenHeight()-boostMeterEmpty.getRegionHeight();
+         boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
+
+        scissors = new Rectangle();
 
 
 
@@ -385,26 +451,27 @@ public class INGAMEScreen extends Screen implements EventSender{
         float gclipX = (viewport.getScreenWidth()/2)-gclipWidth/2;
         float gclipHeight = getGhostTimerHeight();
         float gclipY = viewport.getScreenHeight()-ghostIndicatorOutline.getHeight();
-        ghostMeterClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
-
+        //ghostMeterClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
+        ghostMeterClip.set(gclipX,gclipY, gclipWidth, gclipHeight);
 
         float hclipWidth = getHealthMeterWidth();
         float hclipX = (viewport.getScreenWidth()/2);
         float hclipHeight = healthMeterEmpty.getRegionHeight();
         float hclipY = viewport.getScreenHeight()-healthMeterEmpty.getRegionHeight();
-        healthClip = new Rectangle(hclipX, hclipY, hclipWidth, hclipHeight);
+       // healthClip = new Rectangle(hclipX, hclipY, hclipWidth, hclipHeight);
+        healthClip.set(hclipX, hclipY, hclipWidth, hclipHeight);
 
         float bclipWidth =  getBoostMeterWidth();
         float bclipX =  (viewport.getScreenWidth()/2)-bclipWidth;
         float bclipHeight = 100;
         float bclipY = viewport.getScreenHeight()-boostMeterEmpty.getRegionHeight();
-        boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
-
+       // boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
+        boostClip.set(bclipX, bclipY, bclipWidth, bclipHeight);
 
         batch.begin();
 
         //draw ghostMeter
-        Rectangle scissors = new Rectangle();
+        //Rectangle scissors = new Rectangle();
         ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), ghostMeterClip, scissors);
         ScissorStack.pushScissors(scissors);
         if(parent.parent.getGhostTimer() <= 0){
@@ -417,7 +484,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
 
         //draw healthMeter
-        scissors = new Rectangle();
+       // scissors = new Rectangle();
         ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), healthClip, scissors);
         ScissorStack.pushScissors(scissors);
         if(parent.parent.levelManager.getPlayer().getHealth() > 40){
@@ -430,7 +497,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         ScissorStack.popScissors();
 
         //draw boostMeter
-        scissors = new Rectangle();
+        //scissors = new Rectangle();
         ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), boostClip, scissors);
         ScissorStack.pushScissors(scissors);
         if(parent.parent.levelManager.getPlayer().getBoost() > 1){
@@ -474,27 +541,28 @@ public class INGAMEScreen extends Screen implements EventSender{
         if(p.getState().getCurrentState() == PlayerState.STAND_STILL_FORWARD)return;
         Vector2 velocityVector = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity();
         float velocityPower = velocityVector.len();
-        Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-        Vector2 goalPos = velocityVector.add(startPos);
+        //Vector2 renderVelStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+        renderVelStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+        renderVelGoalPos = velocityVector.add(renderVelStartPos);
         //Vector2 goalPos =new Vector2(0,0);
 
-        Vector2 endLine = goalPos.sub(startPos);
-        endLine.setLength(75f);
+        renderVelEndLine = renderVelGoalPos.sub(renderVelStartPos);
+        renderVelEndLine.setLength(75f);
 
-        Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
-        Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
+        renderVelPerpLine1 = renderVelEndLine.cpy().rotate(135f); //get rotated difference vector
+        renderVelPerpLine2 = renderVelEndLine.cpy().rotate(-135f); //get rotated difference vector
 
         float lineLength = 15f;
 
         lineLength = 15f + (velocityPower/1);
 
 
-        perpLine1.setLength(lineLength); //set length of perpLineVector
-        perpLine2.setLength(lineLength); //set length of perpLineVector
+        renderVelPerpLine1.setLength(lineLength); //set length of perpLineVector
+        renderVelPerpLine2.setLength(lineLength); //set length of perpLineVector
 
-        endLine = startPos.cpy().add(endLine); //convert back to point
-        perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
-        perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
+        renderVelEndLine = renderVelStartPos.cpy().add(renderVelEndLine); //convert back to point
+        renderVelPerpLine1 = renderVelEndLine.cpy().add(renderVelPerpLine1); // convert back to point
+        renderVelPerpLine2 = renderVelEndLine.cpy().add(renderVelPerpLine2); // convert back to point
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(shapeCamera.combined);
@@ -502,8 +570,8 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         shapeRenderer.setColor(Color.YELLOW);
 
-        shapeRenderer.rectLine(endLine, perpLine1, 3);
-        shapeRenderer.rectLine(endLine, perpLine2, 3);
+        shapeRenderer.rectLine(renderVelEndLine, renderVelPerpLine1, 3);
+        shapeRenderer.rectLine(renderVelEndLine, renderVelPerpLine2, 3);
 
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.end();
@@ -511,17 +579,18 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     private void renderGravityIndicator(SpriteBatch batch){
         Player p = parent.parent.levelManager.getPlayer();
-        Vector2 gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
+        gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
         float gravityPower = gravityVector.len();
        // System.out.println("gravityPower: " + gravityPower);
-        Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-        Vector2 goalPos = gravityVector.add(startPos);
+        //Vector2 renderGravityStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+        renderGravityStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+        renderGravityGoalPos = gravityVector.add(renderGravityStartPos);
         //Vector2 goalPos =new Vector2(0,0);
 
 
 
-        Vector2 endLine = goalPos.sub(startPos);
-        endLine.setLength(85f);
+        renderGravityEndLine = renderGravityGoalPos.sub(renderGravityStartPos);
+        renderGravityEndLine.setLength(85f);
 
         float lineLength = 15f;
 
@@ -529,17 +598,17 @@ public class INGAMEScreen extends Screen implements EventSender{
             lineLength = 15f + (gravityPower/16);
        // }
 
-        Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
-        Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
+        renderGravityPerpLine1 = renderGravityEndLine.cpy().rotate(135f); //get rotated difference vector
+        renderGravityPerpLine2 = renderGravityEndLine.cpy().rotate(-135f); //get rotated difference vector
 
 
 
-        perpLine1.setLength(lineLength); //set length of perpLineVector
-        perpLine2.setLength(lineLength); //set length of perpLineVector
+        renderGravityPerpLine1.setLength(lineLength); //set length of perpLineVector
+        renderGravityPerpLine2.setLength(lineLength); //set length of perpLineVector
 
-        endLine = startPos.cpy().add(endLine); //convert back to point
-        perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
-        perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
+        renderGravityEndLine = renderGravityStartPos.cpy().add(renderGravityEndLine); //convert back to point
+        renderGravityPerpLine1 = renderGravityEndLine.cpy().add(renderGravityPerpLine1); // convert back to point
+        renderGravityPerpLine2 = renderGravityEndLine.cpy().add(renderGravityPerpLine2); // convert back to point
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(shapeCamera.combined);
@@ -547,8 +616,8 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         shapeRenderer.setColor(Color.WHITE);
 
-        shapeRenderer.rectLine(endLine, perpLine1, 3);
-        shapeRenderer.rectLine(endLine, perpLine2, 3);
+        shapeRenderer.rectLine(renderGravityEndLine, renderGravityPerpLine1, 3);
+        shapeRenderer.rectLine(renderGravityEndLine, renderGravityPerpLine2, 3);
 
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.end();
@@ -562,16 +631,18 @@ public class INGAMEScreen extends Screen implements EventSender{
             Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
             float goalRadius = ((Planet)planet).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
 
-            Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-            Vector2 goalPos = new Vector2(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
+           // Vector2 renderNearestStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+            //Vector2 renderNearestGoalPos = new Vector2(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
+            renderNearestStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+            renderNearestGoalPos.set(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
 
             Vector2 middleOfGoal = new Vector2(planet.getX()+(goalRadius/2), planet.getY()+(goalRadius/2));
-            Vector2 endLine = middleOfGoal.cpy().sub(startPos); //get difference vector
+            Vector2 endLine = middleOfGoal.cpy().sub(renderNearestStartPos); //get difference vector
             Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
             Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
 
 
-            float distanceToItem = (startPos.cpy().sub(goalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
+            float distanceToItem = (renderNearestStartPos.cpy().sub(renderNearestGoalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
            // System.out.println("distanceToGoal: " +distanceToItem);
 
             float lineLength = 15f;
@@ -585,7 +656,7 @@ public class INGAMEScreen extends Screen implements EventSender{
             perpLine1.setLength(lineLength); //set length of perpLineVector
             perpLine2.setLength(lineLength); //set length of perpLineVector
 
-            endLine = startPos.cpy().add(endLine); //convert back to point
+            endLine = renderNearestStartPos.cpy().add(endLine); //convert back to point
             perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
             perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
 
@@ -615,16 +686,19 @@ public class INGAMEScreen extends Screen implements EventSender{
             Planet goal = (Planet)g;
             float goalRadius = ((Planet)goal).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
 
-            Vector2 startPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-            Vector2 goalPos = new Vector2(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
+            //Vector2 renderGoalStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+            //Vector2 renderGoalGoalPos = new Vector2(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
+            renderGoalStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+            renderGoalGoalPos.set(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
 
+            //Vector2 renderGoalMiddleOfGoal = new Vector2(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
+            renderGoalMiddleOfGoal.set(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
 
-            Vector2 middleOfGoal = new Vector2(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
-            Vector2 endLine = middleOfGoal.cpy().sub(startPos); //get difference vector
-            Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
-            Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
+            renderGoalEndLine = renderGoalMiddleOfGoal.cpy().sub(renderGoalStartPos); //get difference vector
+            renderGoalPerpLine1 = renderGoalEndLine.cpy().rotate(135f); //get rotated difference vector
+            renderGoalPerpLine2 = renderGoalEndLine.cpy().rotate(-135f); //get rotated difference vector
 
-            float distanceToItem = (startPos.cpy().sub(goalPos).len()-(goal.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
+            float distanceToItem = (renderGoalStartPos.cpy().sub(renderGoalGoalPos).len()-(goal.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
 
             float lineLength = 15f;
 
@@ -632,13 +706,13 @@ public class INGAMEScreen extends Screen implements EventSender{
                 lineLength = 15f + ((100-distanceToItem)/4);
             }
 
-            endLine.setLength(80f); // set length of distance vector
-            perpLine1.setLength(lineLength); //set length of perpLineVector
-            perpLine2.setLength(lineLength); //set length of perpLineVector
+            renderGoalEndLine.setLength(80f); // set length of distance vector
+            renderGoalPerpLine1.setLength(lineLength); //set length of perpLineVector
+            renderGoalPerpLine2.setLength(lineLength); //set length of perpLineVector
 
-            endLine = startPos.cpy().add(endLine); //convert back to point
-            perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
-            perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
+            renderGoalEndLine = renderGoalStartPos.cpy().add(renderGoalEndLine); //convert back to point
+            renderGoalPerpLine1 = renderGoalEndLine.cpy().add(renderGoalPerpLine1); // convert back to point
+            renderGoalPerpLine2 = renderGoalEndLine.cpy().add(renderGoalPerpLine2); // convert back to point
 
 
             if(g != null){ /* The goal can be null, make sure it isn't here. */
@@ -649,8 +723,8 @@ public class INGAMEScreen extends Screen implements EventSender{
                 shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
                 shapeRenderer.setColor(Color.GREEN);
-                shapeRenderer.rectLine(endLine, perpLine1, 3);
-                shapeRenderer.rectLine(endLine, perpLine2, 3);
+                shapeRenderer.rectLine(renderGoalEndLine, renderGoalPerpLine1, 3);
+                shapeRenderer.rectLine(renderGoalEndLine, renderGoalPerpLine2, 3);
 
                 shapeRenderer.end();
 
@@ -659,9 +733,9 @@ public class INGAMEScreen extends Screen implements EventSender{
 
                 Gdx.gl.glLineWidth(100);
 
-                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), goalRadius / 2);
+                shapeRenderer.circle((renderGoalMiddleOfGoal.x), (renderGoalMiddleOfGoal.y), goalRadius / 2);
 
-                shapeRenderer.circle((middleOfGoal.x), (middleOfGoal.y), 2);
+                shapeRenderer.circle((renderGoalMiddleOfGoal.x), (renderGoalMiddleOfGoal.y), 2);
 
                 Gdx.gl.glLineWidth(2);
 
