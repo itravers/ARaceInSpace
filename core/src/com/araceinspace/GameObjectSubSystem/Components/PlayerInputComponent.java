@@ -115,6 +115,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_UP_RIGHT:
                 setTouched("touchUpRight");
+                lastWalkInput = currentInput;
                 if(parent.getPhysics().onPlanet()){
                     upPressed = false;
                     rightPressed = false;
@@ -142,6 +143,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_UP_LEFT:
                 setTouched("touchUpLeft");
+                lastWalkInput = currentInput;
                 if(parent.getPhysics().onPlanet()){
                     upPressed = false;
                     leftPressed = false;
@@ -188,6 +190,19 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 upPressed = false;
                 jumpPressed = false;
                 break;
+            case TOUCH_DOWN_RIGHT:
+                setTouched("touchDownRight");
+                lastWalkInput = currentInput;
+                if(parent.getPhysics().onPlanet()){ //if player is on planet don't press down, but only righ
+                    downPressed = false;
+                }else{
+                    downPressed = true;
+                }
+                rightPressed = true;
+                leftPressed = false;
+                jumpPressed = false;
+                upPressed = false;
+                break;
             default:
                 break;
         }
@@ -196,6 +211,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
     /**
      * Sets the given touched boolean to true
      * sets all other touched booleans to false
+     * Used to keep touchpad events from spawning duplicates
      * @param touched
      */
     private void setTouched(String touched){
@@ -287,7 +303,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      * @return
      */
     public boolean flip(){
-        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT){
+        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT){
             return true;
         }else{
             return false;

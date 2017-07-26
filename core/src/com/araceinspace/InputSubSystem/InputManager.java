@@ -238,8 +238,12 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
 
     }
 
+    /**
+     * Called when the user moves a finger on the touchpad.
+     * @param event
+     * @param actor //The touchpad being touched
+     */
     private void touchPadChanged(ChangeEvent event, Actor actor){
-
         playerInput = parent.levelManager.getPlayer().getInput();
         Touchpad pad = ((Touchpad) actor);
         float x = pad.getKnobPercentX();
@@ -254,8 +258,7 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
         double angle = Math.atan2(y, x);
         if(angle < 0)angle += 2*Math.PI;
 
-
-
+        //Calculate which sector of the touchpad is currently touched.
         if(angle >= -Math.PI/6 && angle < Math.PI/6){//right pressed
             currentSectorPressed = Sectors.RIGHT;
         }else if(angle >= Math.PI/6 && angle < Math.PI/3){//upright pressed
@@ -307,61 +310,11 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
                 sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_DOWN));
                 break;
             case DOWN_RIGHT:
-                if(parent.levelManager.getPlayer().getPhysics().onPlanet()){//if player is on planet don't press down, but only right
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_PRESSED));
-                }else{
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_PRESSED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_PRESSED));
-                }
-
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-
+                if(playerInput.touchDownRight)break;
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_DOWN_RIGHT));
                 break;
             default:
-
                 break;
         }
-
-
-
-            /*
-            //upsection
-            if( (x < .5f && x > -.5f) && (y < 1 && y > .25f)){
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-                if(parent.levelManager.getPlayer().getPhysics().onPlanet()){
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_PRESSED));
-                }else{
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_PRESSED));
-                }
-
-            //right section
-            }else if( (x >= .1)  ){
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_PRESSED));
-
-
-            //left section
-            }else if(x <= -.1){
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_PRESSED));
-            }else{
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-            }*/
-
-
-
     }
 }
