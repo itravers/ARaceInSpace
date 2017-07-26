@@ -22,6 +22,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
     InputRecorder inputRecorder;
     GameInput lastWalkInput =  null;
     Player parent;
+    GameInput currentInput;
 
     /* Constructors */
     public PlayerInputComponent(Player parent){
@@ -51,15 +52,17 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
         System.out.println("inputEvent Received: " + e.getData());
         String id = e.getId();
         Event.TYPE type = e.getType();
-        GameInput currentInput = (GameInput)e.getData();
+        currentInput = (GameInput)e.getData();
+        handleCurrentInput();
+    }
 
+    public void handleCurrentInput(){
         //handle undefined input error
         if(currentInput == null)return;
 
-
         switch(currentInput){
             case BOOST_PRESSED:
-                    boostPressed = true;
+                boostPressed = true;
                 break;
             case RIGHT_PRESSED:
                 rightPressed = true;

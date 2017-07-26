@@ -3,6 +3,7 @@ package com.araceinspace.GameObjectSubSystem.Components;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.InputSubSystem.GameInput;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -54,6 +55,10 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     Vector2 baseImpulse;
     Vector2 jumpImpulse;
 
+    boolean lastOnPlanet; //set to what the last on planet status was, used to see if onPlanet changes.
+
+
+
     /**
      * Create a new PlayerPhysicsComponent
      */
@@ -96,6 +101,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         fixture = body.createFixture(fixtureDef);
         body.setUserData(this);
         shape.dispose();
+
     }
 
     /**
@@ -200,12 +206,26 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      * @return
      */
     public boolean onPlanet(){
+        boolean returnVal = false;
+        GameInput currentInput = parent.getInput().currentInput;
         PlayerState state = parent.getState().getCurrentState();
-        if((state == PlayerState.FLYING || state == PlayerState.FLOAT_SIDEWAYS) && getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
-            return false;
+        if((state == PlayerState.FLYING || state == PlayerState.FLOAT_SIDEWAYS || state == PlayerState.JUMP_FORWARD) && getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
+       // if(getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
+            returnVal = false;
         }else{
-            return true;
+            returnVal = true;
         }
+/*
+        if(lastOnPlanet != returnVal){
+            //our on planet status has changed, we wan't to check currentInputs to see if there is up/jump input, if there is we want to process inputs again
+            if(currentInput == GameInput.TOUCH_UP || currentInput == GameInput.TOUCH_UP_LEFT || currentInput == GameInput.TOUCH_UP_RIGHT){
+                parent.getInput().handleCurrentInput();
+            }
+        }
+        */
+
+        lastOnPlanet = returnVal;
+        return returnVal;
     }
 
     /**

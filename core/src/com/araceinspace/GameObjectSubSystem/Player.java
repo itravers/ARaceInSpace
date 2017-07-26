@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Player extends TwoDGameObject{
     /* Static Variables */
     public static float BOOST_TOTAL = 10;
+    public static float HEALTH_TOTAL = 1000;
 
     /* Field Variables & Objects */
     public LevelManager parent;
@@ -35,13 +36,15 @@ public class Player extends TwoDGameObject{
      */
     public Player(LevelManager p, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
         parent = p;
-        health = 100;
+        health = HEALTH_TOTAL;
 
         boost = BOOST_TOTAL;
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent(this);
         physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent(this, firstState);
+        boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();
+        ((PlayerStateComponent)state).isLanded = onPlanet;
 
 
     }

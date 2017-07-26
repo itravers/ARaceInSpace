@@ -453,7 +453,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     public float getHealthMeterWidth(){
         float health = parent.parent.levelManager.getPlayer().getHealth();
-        return parent.map(health, 0, 100, ghostIndicatorOutline.getWidth()/2, healthMeterEmpty.getRegionWidth());
+        return parent.map(health, 0, parent.parent.levelManager.getPlayer().HEALTH_TOTAL, ghostIndicatorOutline.getWidth()/2, healthMeterEmpty.getRegionWidth());
     }
 
     public float getBoostMeterWidth(){

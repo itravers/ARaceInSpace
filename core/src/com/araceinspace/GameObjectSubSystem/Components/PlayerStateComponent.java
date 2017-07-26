@@ -85,11 +85,13 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.JUMP_FORWARD && parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE){
             //Transition from JUMP_FORWARD to FLYING
             setState(PlayerState.FLYING);
+            parent.getInput().handleCurrentInput();//we want the touchpad to continue having us fly when we change state
             isLanded = false;
         }else if(currentState == PlayerState.FLOAT_SIDEWAYS && parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE &&
                  parent.getInput().thrustPressed()){
             //Transition from FLOAT_SIDEWAYS to FLYING
             setState(PlayerState.FLYING);
+            parent.getInput().handleCurrentInput();//we want the touchpad to continue having us fly when we change state
             isLanded = false;
         }else if(currentState == PlayerState.FLYING && parent.getPhysics().getDistanceFromClosestPlanet() <= LANDING_DISTANCE &&
                  parent.getPhysics().movingTowardsClosestPlanet()){
