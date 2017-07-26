@@ -4,6 +4,7 @@ import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.InputSubSystem.InputRecorder;
 
@@ -20,9 +21,11 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
     /* Field Variables & Objects */
     InputRecorder inputRecorder;
     GameInput lastWalkInput =  null;
+    Player parent;
 
     /* Constructors */
-    public PlayerInputComponent(){
+    public PlayerInputComponent(Player parent){
+        this.parent = parent;
         registerReceiver();
         inputRecorder = new InputRecorder();
     }
@@ -45,6 +48,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      */
     @Override
     public void receiveEvent(Event e) {
+        System.out.println("inputEvent Received: " + e.getData());
         String id = e.getId();
         Event.TYPE type = e.getType();
         GameInput currentInput = (GameInput)e.getData();
@@ -92,10 +96,89 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
             case JUMP_RELEASED:
                 jumpPressed = false;
                 break;
+            case TOUCH_NONE:
+                setTouched("touchNone");
+                upPressed = false;
+                jumpPressed = false;
+                leftPressed = false;
+                downPressed = false;
+                rightPressed = false;
+                break;
+            case TOUCH_RIGHT:
+                setTouched("touchRight");
+                upPressed = false;
+                jumpPressed = false;
+                leftPressed = false;
+                downPressed = false;
+                rightPressed = true;
+                break;
+            case TOUCH_UP_RIGHT:
+                setTouched("touchUpRight");
+                if(parent.getPhysics().onPlanet()){
+                    upPressed = false;
+                    rightPressed = false;
+                    jumpPressed = true;
+                }else{
+                    jumpPressed = false;
+                    upPressed = true;
+                    rightPressed = true;
+                }
+                leftPressed = false;
+                downPressed = false;
+                break;
+            case TOUCH_UP:
+                setTouched("touchUp");
+                if(parent.getPhysics().onPlanet()){
+                    upPressed = false;
+                    jumpPressed = true;
+                }else{
+                    jumpPressed = false;
+                    upPressed = true;
+                }
+                leftPressed = false;
+                downPressed = false;
+                rightPressed = false;
+                break;
             default:
                 break;
         }
+    }
 
+    /**
+     * Sets the given touched boolean to true
+     * sets all other touched booleans to false
+     * @param touched
+     */
+    private void setTouched(String touched){
+        touchRight = false;
+        touchUpRight = false;
+        touchUp = false;
+        touchUpLeft = false;
+        touchLeft = false;
+        touchDownLeft = false;
+        touchDown = false;
+        touchDownRight = false;
+        touchNone = false;
+
+        if(touched.equals("touchRight")){
+            touchRight = true;
+        }else if(touched.equals("touchUpRight")){
+            touchUpRight = true;
+        }else if(touched.equals("touchUp")){
+            touchUp = true;
+        }else if(touched.equals("touchUpLeft")){
+            touchUpLeft = true;
+        }else if(touched.equals("touchLeft")){
+            touchLeft = true;
+        }else if(touched.equals("touchDownLeft")){
+            touchDownLeft = true;
+        }else if(touched.equals("touchDown")){
+            touchDown = true;
+        }else if(touched.equals("touchDownRight")){
+            touchDownRight = true;
+        }else if(touched.equals("touchNone")){
+            touchNone = true;
+        }
     }
 
     /**

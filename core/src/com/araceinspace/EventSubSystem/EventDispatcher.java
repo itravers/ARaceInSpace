@@ -1,5 +1,7 @@
 package com.araceinspace.EventSubSystem;
 
+import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
+
 import java.util.ArrayList;
 
 /**
@@ -96,6 +98,20 @@ public class EventDispatcher {
      * @param receiver The receiver being registered.
      */
     public void registerReceiver(Event.TYPE type, EventReceiver receiver){
+       // System.out.println("registerReceiver: " + receiver);
+
+        //If a similar receiver has already been registered, we want to remove the one previously
+        // registered before adding this one.
+        if(map.containsKey(type)){
+            ArrayList<EventReceiver>list = map.get(type);
+            for(int i = 0; i < list.size(); i++){
+                EventReceiver r = list.get(i);
+                if(r instanceof PlayerInputComponent){
+                    list.remove(list.get(i));
+                }
+            }
+        }
+
         map.put(type, receiver);
     }
 
@@ -108,6 +124,7 @@ public class EventDispatcher {
     public void dispatch(Event e){
         //First we will need the Type of the Event
         Event.TYPE type = e.getType();
+       // System.out.println("dispatch :" +e);
 
         //Next we get an ArrayList of all the EventReceivers registered under this type.
         ArrayList<EventReceiver>list = map.get(type);

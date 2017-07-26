@@ -3,6 +3,8 @@ package com.araceinspace.InputSubSystem;
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventSender;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
+import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
 import com.araceinspace.Managers.GameStateManager;
 import com.badlogic.gdx.Gdx;
@@ -34,6 +36,7 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
 
     /* Field Variables & Objects */
     GameWorld parent;
+    PlayerInputComponent playerInput;
     InputMultiplexer multiplexer;
     Sectors currentSectorPressed = null;
 
@@ -42,6 +45,7 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
 
     public InputManager(GameWorld p){
         parent = p;
+       // playerInput = parent.levelManager.getPlayer().getInput();
         Gdx.input.setCatchBackKey(true);
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
@@ -235,16 +239,15 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
     }
 
     private void touchPadChanged(ChangeEvent event, Actor actor){
+
+        playerInput = parent.levelManager.getPlayer().getInput();
         Touchpad pad = ((Touchpad) actor);
         float x = pad.getKnobPercentX();
         float y = pad.getKnobPercentY();
         if(x == 0 && y == 0){
-            //System.out.println("joystick released");
-            sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-            sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-            sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-            sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-            sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
+            //Make sure this event wasn't the last one processed, if it is we don't need it twice
+            if(playerInput.touchNone) return;
+            sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_NONE));
             return;
         }
 
@@ -275,45 +278,29 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
 
         switch(currentSectorPressed){
             case RIGHT:
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_PRESSED));
+                //Make sure this event wasn't the last one processed, if it is we don't need it twice
+                if(playerInput.touchRight) break;
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_RIGHT));
                 break;
             case UP_RIGHT:
-                if(parent.levelManager.getPlayer().getPhysics().onPlanet()){//if player is on planet we jump and don't press right at all
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_PRESSED));
-                }else{
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_PRESSED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_PRESSED));
-                }
-
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
+               if(playerInput.touchUpRight)break;
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_UP_RIGHT));
                 break;
             case UP:
-                if(parent.levelManager.getPlayer().getPhysics().onPlanet()) {//if on planet we jump, instead of press up
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_PRESSED));
-                }else{
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_PRESSED));
-                }
-
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
+                if(playerInput.touchUp)break;
+                System.out.println("touchPadChanged");
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_UP));
                 break;
             case UP_LEFT:
                 if(parent.levelManager.getPlayer().getPhysics().onPlanet()){//if player is on planet we jump and don't press left at all
+                    //Make sure this event wasn't the last one processed, if it is we don't need it twice
+                    if(!playerInput.upPressed && ! playerInput.leftPressed && playerInput.jumpPressed && !playerInput.rightPressed && !playerInput.downPressed)break;
                     sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
                     sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
                     sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_PRESSED));
                 }else{
+                    //Make sure this event wasn't the last one processed, if it is we don't need it twice
+                    if(!playerInput.jumpPressed && playerInput.upPressed)
                     sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
                     sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_PRESSED));
                     sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_PRESSED));

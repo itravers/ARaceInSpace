@@ -20,6 +20,17 @@ public abstract class InputComponent implements Component{
     public boolean downPressed = false;
     public boolean rightPressed = false;
     public boolean jumpPressed = false;
+    public boolean touchRight = false;
+    public boolean touchUpRight = false;
+    public boolean touchUp = false;
+    public boolean touchUpLeft = false;
+    public boolean touchLeft = false;
+    public boolean touchDownLeft = false;
+    public boolean touchDown = false;
+    public boolean touchDownRight = false;
+    public boolean touchNone = false;
+
+
     abstract public void update(float timeElapsed);
 
 

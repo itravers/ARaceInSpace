@@ -209,6 +209,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         touchPad.getStyle().knob.setMinWidth(touchPad.getWidth()/4);
         touchPad.getStyle().knob.setMinHeight(touchPad.getHeight()/4);
         touchPad.addListener(parent.parent.inputManager);
+        touchPad.setDeadzone(touchPad.getWidth()/5);
 
         boostButton = new ImageButton(skin, "boostButton");
         boostButton.setWidth(Gdx.graphics.getWidth()/3-20);

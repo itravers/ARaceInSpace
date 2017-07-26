@@ -39,7 +39,7 @@ public class Player extends TwoDGameObject{
 
         boost = BOOST_TOTAL;
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
-        input = new PlayerInputComponent();
+        input = new PlayerInputComponent(this);
         physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent(this, firstState);
 
