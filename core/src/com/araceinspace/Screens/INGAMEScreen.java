@@ -110,6 +110,10 @@ public class INGAMEScreen extends Screen implements EventSender{
     Vector2 renderGoalPerpLine1;
     Vector2 renderGoalPerpLine2;
     Vector2 tmp;
+    Vector2 renderNearestMiddleOfGoal;
+    Vector2 renderNearestEndLine;
+    Vector2 renderNearestPerpLine1;
+    Vector2  renderNearestPerpLine2;
 
     /* Constructors */
 
@@ -181,6 +185,10 @@ public class INGAMEScreen extends Screen implements EventSender{
         renderGoalEndLine = new Vector2();
         renderGoalPerpLine1  = new Vector2();
         renderGoalPerpLine2 = new Vector2();
+        renderNearestMiddleOfGoal = new Vector2();
+        renderNearestEndLine = new Vector2();
+        renderNearestPerpLine1 = new Vector2();
+        renderNearestPerpLine2 = new Vector2();
         tmp = new Vector2();
     }
 
@@ -411,6 +419,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
 
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
+
         if(parent.parent.devMode){
             debugRenderer.render(parent.parent.levelManager.getWorld(), debugMatrix);
 
@@ -549,8 +558,10 @@ public class INGAMEScreen extends Screen implements EventSender{
         renderVelEndLine = renderVelGoalPos.sub(renderVelStartPos);
         renderVelEndLine.setLength(75f);
 
-        renderVelPerpLine1 = renderVelEndLine.cpy().rotate(135f); //get rotated difference vector
-        renderVelPerpLine2 = renderVelEndLine.cpy().rotate(-135f); //get rotated difference vector
+        renderVelPerpLine1.set(renderVelEndLine.x, renderVelEndLine.y).rotate(135f);
+        //renderVelPerpLine1 = renderVelEndLine.cpy().rotate(135f); //get rotated difference vector
+        renderVelPerpLine2.set(renderVelEndLine.x, renderVelEndLine.y).rotate(-135f);
+        //renderVelPerpLine2 = renderVelEndLine.cpy().rotate(-135f); //get rotated difference vector
 
         float lineLength = 15f;
 
@@ -560,9 +571,17 @@ public class INGAMEScreen extends Screen implements EventSender{
         renderVelPerpLine1.setLength(lineLength); //set length of perpLineVector
         renderVelPerpLine2.setLength(lineLength); //set length of perpLineVector
 
-        renderVelEndLine = renderVelStartPos.cpy().add(renderVelEndLine); //convert back to point
-        renderVelPerpLine1 = renderVelEndLine.cpy().add(renderVelPerpLine1); // convert back to point
-        renderVelPerpLine2 = renderVelEndLine.cpy().add(renderVelPerpLine2); // convert back to point
+        tmp.set(renderVelEndLine.x, renderVelEndLine.y);
+        renderVelEndLine.set(renderVelStartPos.x, renderVelStartPos.y).add(tmp); //convert back to point
+        //renderVelEndLine = renderVelStartPos.cpy().add(renderVelEndLine); //convert back to point
+
+        tmp.set(renderVelPerpLine1.x, renderVelPerpLine1.y);
+        renderVelPerpLine1.set(renderVelEndLine.x, renderVelEndLine.y).add(tmp); // convert back to point
+        //renderVelPerpLine1 = renderVelEndLine.cpy().add(renderVelPerpLine1); // convert back to point
+
+        tmp.set(renderVelPerpLine2.x, renderVelPerpLine2.y);
+        renderVelPerpLine2.set(renderVelEndLine.x, renderVelEndLine.y).add(tmp);// convert back to point
+       // renderVelPerpLine2 = renderVelEndLine.cpy().add(renderVelPerpLine2); // convert back to point
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(shapeCamera.combined);
@@ -598,7 +617,10 @@ public class INGAMEScreen extends Screen implements EventSender{
             lineLength = 15f + (gravityPower/16);
        // }
 
-        renderGravityPerpLine1 = renderGravityEndLine.cpy().rotate(135f); //get rotated difference vector
+        renderGravityPerpLine1.set(renderGravityEndLine.x, renderGravityEndLine.y).rotate(135f);
+        //renderGravityPerpLine1 = renderGravityEndLine.cpy().rotate(135f); //get rotated difference vector
+
+        renderGravityPerpLine2.set(renderGravityEndLine.x, renderGravityEndLine.y).rotate(-135f);
         renderGravityPerpLine2 = renderGravityEndLine.cpy().rotate(-135f); //get rotated difference vector
 
 
@@ -606,9 +628,17 @@ public class INGAMEScreen extends Screen implements EventSender{
         renderGravityPerpLine1.setLength(lineLength); //set length of perpLineVector
         renderGravityPerpLine2.setLength(lineLength); //set length of perpLineVector
 
-        renderGravityEndLine = renderGravityStartPos.cpy().add(renderGravityEndLine); //convert back to point
-        renderGravityPerpLine1 = renderGravityEndLine.cpy().add(renderGravityPerpLine1); // convert back to point
-        renderGravityPerpLine2 = renderGravityEndLine.cpy().add(renderGravityPerpLine2); // convert back to point
+        tmp.set(renderGravityEndLine.x, renderGravityEndLine.y);
+        renderGravityEndLine.set(renderGravityStartPos.x, renderGravityStartPos.y).add(tmp);
+        //renderGravityEndLine = renderGravityStartPos.cpy().add(renderGravityEndLine); //convert back to point
+
+        tmp.set(renderGravityPerpLine1.x, renderGravityPerpLine1.y);
+        renderGravityPerpLine1.set(renderGravityEndLine.x, renderGravityEndLine.y).add(tmp);
+        //renderGravityPerpLine1 = renderGravityEndLine.cpy().add(renderGravityPerpLine1); // convert back to point
+
+        tmp.set(renderGravityPerpLine2.x, renderGravityPerpLine2.y);
+        renderGravityPerpLine2.set(renderGravityEndLine.x, renderGravityEndLine.y).add(tmp);
+       // renderGravityPerpLine2 = renderGravityEndLine.cpy().add(renderGravityPerpLine2); // convert back to point
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(shapeCamera.combined);
@@ -628,21 +658,30 @@ public class INGAMEScreen extends Screen implements EventSender{
         Player p = parent.parent.levelManager.getPlayer();
 
 
-            Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
-            float goalRadius = ((Planet)planet).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
+        Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
+        float goalRadius = ((Planet)planet).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
 
            // Vector2 renderNearestStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
             //Vector2 renderNearestGoalPos = new Vector2(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
-            renderNearestStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-            renderNearestGoalPos.set(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
+        renderNearestStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
+        renderNearestGoalPos.set(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
 
-            Vector2 middleOfGoal = new Vector2(planet.getX()+(goalRadius/2), planet.getY()+(goalRadius/2));
-            Vector2 endLine = middleOfGoal.cpy().sub(renderNearestStartPos); //get difference vector
-            Vector2 perpLine1 = endLine.cpy().rotate(135f); //get rotated difference vector
-            Vector2 perpLine2 = endLine.cpy().rotate(-135f); //get rotated difference vector
+            //renderNearestPlanetMiddleOfGoal = new Vector2(planet.getX()+(goalRadius/2), planet.getY()+(goalRadius/2));
+        renderNearestMiddleOfGoal.set(planet.getX()+(goalRadius/2), planet.getY()+(goalRadius/2));
 
+        tmp.set(renderNearestStartPos.x, renderNearestStartPos.y);
+        renderNearestEndLine.set(renderNearestMiddleOfGoal.x, renderNearestMiddleOfGoal.y).sub(tmp);
+        //renderNearestEndLine = renderNearestMiddleOfGoal.cpy().sub(renderNearestStartPos); //get difference vector
 
-            float distanceToItem = (renderNearestStartPos.cpy().sub(renderNearestGoalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
+        renderNearestPerpLine1.set(renderNearestEndLine.x, renderNearestEndLine.y).rotate(135f);
+        //renderNearestPerpLine1 = renderNearestEndLine.cpy().rotate(135f); //get rotated difference vector
+
+        renderNearestPerpLine2.set(renderNearestEndLine.x, renderNearestEndLine.y).rotate(-135f);
+        //renderNearestPerpLine2 = renderNearestEndLine.cpy().rotate(-135f); //get rotated difference vector
+
+        tmp.set(renderNearestStartPos.x, renderNearestStartPos.y);
+        float distanceToItem = ((tmp.sub(renderNearestGoalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS);
+        //float distanceToItem = (renderNearestStartPos.cpy().sub(renderNearestGoalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
            // System.out.println("distanceToGoal: " +distanceToItem);
 
             float lineLength = 15f;
@@ -652,13 +691,21 @@ public class INGAMEScreen extends Screen implements EventSender{
              }
 
 
-            endLine.setLength(70f); // set length of distance vector
-            perpLine1.setLength(lineLength); //set length of perpLineVector
-            perpLine2.setLength(lineLength); //set length of perpLineVector
+        renderNearestEndLine.setLength(70f); // set length of distance vector
+        renderNearestPerpLine1.setLength(lineLength); //set length of perpLineVector
+        renderNearestPerpLine2.setLength(lineLength); //set length of perpLineVector
 
-            endLine = renderNearestStartPos.cpy().add(endLine); //convert back to point
-            perpLine1 = endLine.cpy().add(perpLine1); // convert back to point
-            perpLine2 = endLine.cpy().add(perpLine2); // convert back to point
+        tmp.set(renderNearestEndLine.x, renderNearestEndLine.y);
+        renderNearestEndLine.set(renderNearestStartPos.x, renderNearestStartPos.y).add(tmp);
+       // renderNearestEndLine = renderNearestStartPos.cpy().add(renderNearestEndLine); //convert back to point
+
+        tmp.set(renderNearestPerpLine1.x, renderNearestPerpLine1.y);
+        renderNearestPerpLine1.set(renderNearestEndLine.x, renderNearestEndLine.y).add(tmp);
+        //renderNearestPerpLine1 = renderNearestEndLine.cpy().add(renderNearestPerpLine1); // convert back to point
+
+        tmp.set(renderNearestPerpLine2.x, renderNearestPerpLine2.y);
+        renderNearestPerpLine2.set(renderNearestEndLine.x, renderNearestEndLine.y).add(tmp);
+        //renderNearestPerpLine2 = renderNearestEndLine.cpy().add(renderNearestPerpLine2); // convert back to point
 
 
 
@@ -668,8 +715,8 @@ public class INGAMEScreen extends Screen implements EventSender{
                 shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
                 shapeRenderer.setColor(Color.RED);
-                shapeRenderer.rectLine(endLine, perpLine1, 3);
-                shapeRenderer.rectLine(endLine, perpLine2, 3);
+                shapeRenderer.rectLine(renderNearestEndLine, renderNearestPerpLine1, 3);
+                shapeRenderer.rectLine(renderNearestEndLine, renderNearestPerpLine2, 3);
 
                  shapeRenderer.setColor(Color.GREEN);
                 shapeRenderer.end();
@@ -694,11 +741,19 @@ public class INGAMEScreen extends Screen implements EventSender{
             //Vector2 renderGoalMiddleOfGoal = new Vector2(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
             renderGoalMiddleOfGoal.set(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
 
-            renderGoalEndLine = renderGoalMiddleOfGoal.cpy().sub(renderGoalStartPos); //get difference vector
-            renderGoalPerpLine1 = renderGoalEndLine.cpy().rotate(135f); //get rotated difference vector
-            renderGoalPerpLine2 = renderGoalEndLine.cpy().rotate(-135f); //get rotated difference vector
+            tmp.set(renderGoalStartPos.x, renderGoalStartPos.y);
+            renderGoalEndLine.set(renderGoalMiddleOfGoal.x, renderGoalMiddleOfGoal.y).sub(tmp);
+            //renderGoalEndLine = renderGoalMiddleOfGoal.cpy().sub(renderGoalStartPos); //get difference vector
 
-            float distanceToItem = (renderGoalStartPos.cpy().sub(renderGoalGoalPos).len()-(goal.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
+            renderGoalPerpLine1.set(renderGoalEndLine.x, renderGoalEndLine.y).rotate(135f);
+            //renderGoalPerpLine1 = renderGoalEndLine.cpy().rotate(135f); //get rotated difference vector
+
+            renderGoalPerpLine2.set(renderGoalEndLine.x, renderGoalEndLine.y).rotate(-135f);
+            //renderGoalPerpLine2 = renderGoalEndLine.cpy().rotate(-135f); //get rotated difference vector
+
+            tmp.set(renderGoalStartPos.x, renderGoalStartPos.y);
+            float distanceToItem = ((tmp.sub(renderGoalGoalPos).len()-(goal.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS);
+            //float distanceToItem = (renderGoalStartPos.cpy().sub(renderGoalGoalPos).len()-(goal.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
 
             float lineLength = 15f;
 
@@ -710,9 +765,17 @@ public class INGAMEScreen extends Screen implements EventSender{
             renderGoalPerpLine1.setLength(lineLength); //set length of perpLineVector
             renderGoalPerpLine2.setLength(lineLength); //set length of perpLineVector
 
-            renderGoalEndLine = renderGoalStartPos.cpy().add(renderGoalEndLine); //convert back to point
-            renderGoalPerpLine1 = renderGoalEndLine.cpy().add(renderGoalPerpLine1); // convert back to point
-            renderGoalPerpLine2 = renderGoalEndLine.cpy().add(renderGoalPerpLine2); // convert back to point
+            tmp.set(renderGoalEndLine.x, renderGoalEndLine.y);
+            renderGoalEndLine.set(renderGoalStartPos.x, renderGoalStartPos.y).add(tmp);
+            //renderGoalEndLine = renderGoalStartPos.cpy().add(renderGoalEndLine); //convert back to point
+
+            tmp.set(renderGoalPerpLine1.x, renderGoalPerpLine1.y);
+            renderGoalPerpLine1.set(renderGoalEndLine.x, renderGoalEndLine.y).add(tmp);
+            //renderGoalPerpLine1 = renderGoalEndLine.cpy().add(renderGoalPerpLine1); // convert back to point
+
+            tmp.set(renderGoalPerpLine2.x, renderGoalPerpLine2.y);
+            renderGoalPerpLine2.set(renderGoalEndLine.x, renderGoalEndLine.y).add(tmp);
+            //renderGoalPerpLine2 = renderGoalEndLine.cpy().add(renderGoalPerpLine2); // convert back to point
 
 
             if(g != null){ /* The goal can be null, make sure it isn't here. */
