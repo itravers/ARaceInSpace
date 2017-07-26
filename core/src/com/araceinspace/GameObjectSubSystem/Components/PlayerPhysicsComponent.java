@@ -49,6 +49,11 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     private Vector2 gravityForce;
     private float lastFrameTime = 0; //Used by gravity to calculate time since last frame
 
+    Vector2 force;
+    Vector2 preForce;
+    Vector2 baseImpulse;
+    Vector2 jumpImpulse;
+
     /**
      * Create a new PlayerPhysicsComponent
      */
@@ -59,10 +64,19 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
     /* Private Methods */
 
+    private void setupVectors(){
+        force = new Vector2(0,0);
+        preForce = new Vector2(0,0);
+        gravityForce = new Vector2(0,0);
+        baseImpulse = new Vector2(0,0);
+        jumpImpulse = new Vector2(0,0);
+    }
+
     private void setupPhysics(World world){
         this.world = world;
         CRASH_VELOCITY = MAX_VELOCITY / 3.25f;
-        gravityForce = new Vector2(0,0);
+        setupVectors();
+
         bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         float PIXELS_TO_METERS = parent.parent.parent.renderManager.PIXELS_TO_METERS;
@@ -92,8 +106,9 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      */
     private void applyGravity(float elapsedTime){
         ArrayList<Planet> planets = parent.parent.parent.levelManager.getPlanets();
-        Vector2 force = new Vector2(0,0); // The total force of all the planets
-        Vector2 preForce = new Vector2(0,0);// The force of a single planet
+        //force = new Vector2(0,0); // The total force of all the planets
+        force.set(0,0);
+        preForce.set(0,0);
         float PIXELS_TO_METER = parent.parent.parent.renderManager.PIXELS_TO_METERS;
 
         for(int i = 0; i < planets.size(); i++){
@@ -105,8 +120,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
            // System.out.println("smass: " + sMass);
             Vector2 pCenter = p.getBody().getPosition();
-          // // pCenter = new Vector2(pCenter.x + pRadius/2, pCenter.y +pRadius/2);
-           // pCenter = new Vector2(p.getX() + (pRadius/2), p.getY() +(pRadius/2));
             Vector2 sCenter = this.getBody().getPosition();
             float distanceSQ = sCenter.dst2(pCenter);
             float distance = sCenter.dst(pCenter);
@@ -127,7 +140,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         lastFrameTime = elapsedTime;
 
         force = force.scl(elapsedTimeInLastFrame);
-        this.gravityForce = force.cpy();
+        this.gravityForce.set(force.x, force.y);
+        //this.gravityForce = force.cpy();
         this.getBody().applyForce(force, body.getPosition(), true);
 
     }
@@ -135,7 +149,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     private void applyMovement(float elapsedTime){
         float deltaTime = Gdx.graphics.getDeltaTime();
         Vector2 impulse;
-        Vector2 baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
+        baseImpulse.set(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
+        //baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
         Vector2 pos = body.getPosition();
 
         //check if boost is pressed and change impulse accordingly
@@ -285,9 +300,10 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      * Makes the player have a jump impulse, should only be called after the jump animation is done.
      */
     public void jumpImpulse(){
-        Vector2 impulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
+        jumpImpulse.set(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
+       // jumpImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
         //System.out.println("Applying Impulse: " + impulse);
-        getBody().applyLinearImpulse(impulse, getBody().getPosition(), true);
+        getBody().applyLinearImpulse(jumpImpulse, getBody().getPosition(), true);
     }
 
     /**

@@ -64,6 +64,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
      */
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
+		System.out.println("onCreate()");
 		super.onCreate(savedInstanceState);
 		me = this;
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();

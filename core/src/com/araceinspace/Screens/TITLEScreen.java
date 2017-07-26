@@ -188,7 +188,7 @@ public class TITLEScreen extends Screen implements EventSender {
         stage.addActor(mainTable);
         parent.parent.inputManager.addInputProcessor(stage);
         menuBatch.enableBlending();
-        monetizationController.loadBannerAd();
+       // monetizationController.loadBannerAd();
 
 
     }

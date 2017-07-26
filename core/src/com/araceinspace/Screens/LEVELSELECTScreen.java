@@ -92,12 +92,8 @@ public class LEVELSELECTScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("levelButtonListener");
-                monetizationController.hideBannerAd();
                 parent.parent.levelManager.setLevel(1);
-
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
-
-
             }
         };
 
@@ -105,12 +101,8 @@ public class LEVELSELECTScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("levelButtonListener");
-                monetizationController.hideBannerAd();
                 parent.parent.levelManager.setLevel(2);
-
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
-
-
             }
         };
 
@@ -118,12 +110,8 @@ public class LEVELSELECTScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("levelButtonListener");
-                monetizationController.hideBannerAd();
                 parent.parent.levelManager.setLevel(3);
-
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
-
-
             }
         };
 
@@ -131,12 +119,8 @@ public class LEVELSELECTScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("levelButtonListener");
-                monetizationController.hideBannerAd();
                 parent.parent.levelManager.setLevel(4);
-
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
-
-
             }
         };
 
@@ -144,12 +128,8 @@ public class LEVELSELECTScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("levelButtonListener");
-                monetizationController.hideBannerAd();
                 parent.parent.levelManager.setLevel(5);
-
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
-
-
             }
         };
 
@@ -157,12 +137,8 @@ public class LEVELSELECTScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("levelButtonListener");
-                monetizationController.hideBannerAd();
                 parent.parent.levelManager.setLevel(6);
-
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
-
-
             }
         };
 
@@ -251,6 +227,7 @@ public class LEVELSELECTScreen extends Screen {
 
         stage.addActor(mainTable);
         parent.parent.inputManager.addInputProcessor(stage);
+        monetizationController.loadBannerAd();
     }
 
     /**

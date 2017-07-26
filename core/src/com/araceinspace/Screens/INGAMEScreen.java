@@ -11,6 +11,7 @@ import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -115,10 +116,13 @@ public class INGAMEScreen extends Screen implements EventSender{
     Vector2 renderNearestPerpLine1;
     Vector2  renderNearestPerpLine2;
 
+    MonetizationController monetizationController;
+
     /* Constructors */
 
     public INGAMEScreen(RenderManager p) {
         super(p);
+
        // parent.parent.elapsedTime = 0;//reset elapsed time
         Touchpad t;
     }
@@ -142,6 +146,8 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     @Override
     public void setup() {
+        monetizationController= parent.monetizationController;
+        monetizationController.hideBannerAd();
        // stage = new Stage(menuCamera)
         setupVectors();
         font = new BitmapFont();

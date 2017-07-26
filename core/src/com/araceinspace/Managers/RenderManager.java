@@ -202,7 +202,7 @@ public class RenderManager {
         }*/
         currentScreen.render(elapsedTime);
 
-        monetizationController.updateVisibility();//used for banner ads to know whether to show
+        monetizationController.updateVisibility();//used for banner ads to know whether to show /**  This was causing a new banner ad to show every frame, causing huge garabage collection*/
 
         //Increase the amound of frameNum's we have used (used for ghost recordings)
         frameNum ++;
