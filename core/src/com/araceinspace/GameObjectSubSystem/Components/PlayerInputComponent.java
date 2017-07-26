@@ -153,6 +153,14 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 rightPressed = false;
                 downPressed = false;
                 break;
+            case TOUCH_LEFT:
+                setTouched("touchLeft");
+                upPressed = false;
+                jumpPressed = false;
+                rightPressed = false;
+                downPressed = false;
+                leftPressed = true;
+                break;
             default:
                 break;
         }

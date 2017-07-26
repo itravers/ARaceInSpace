@@ -295,11 +295,8 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
                 sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_UP_LEFT));
                 break;
             case LEFT:
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_PRESSED));
+                if(playerInput.touchLeft)break;
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_LEFT));
                 break;
             case DOWN_LEFT:
                 if(parent.levelManager.getPlayer().getPhysics().onPlanet()){//if player is on planet don't press down, but only left
