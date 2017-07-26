@@ -14,6 +14,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -233,9 +234,32 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
         if(actor instanceof Touchpad) {
             touchPadChanged(event, actor);
         }else if(actor instanceof ImageButton){
-            System.out.println("Button changed");
+            buttonChanged(event, actor);
         }
 
+    }
+
+    private void buttonChanged(ChangeEvent event, Actor actor){
+        if(actor instanceof ImageButton){
+            String name = ((ImageButton)actor).getName();
+           // System.out.println("Button Changed " + name);
+            if(name.startsWith("Level")){
+                levelSelectButtonPressed(name);
+            }
+        }
+    }
+
+    private void levelSelectButtonPressed(String name){
+        name = name.replace("Level", "");
+        name = name.trim();
+        int level =  Integer.valueOf(name);
+       // System.out.println(level);
+        if(level == 6){
+            parent.devMode = !parent.devMode;
+            return;
+        }
+        parent.levelManager.setLevel(level);
+        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
     }
 
     /**

@@ -129,6 +129,34 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageUp: boost_up
 		imageDown: boost_down
 	}
+	buyLevelsButton: {
+		imageUp: buyLevelsButton
+		imageDown: buyLevelsButton_down
+	}
+	nextLevelButton: {
+		imageUp: nextLevelButton_Unpressed
+		imageDown: nextLevelButton_Pressed
+	}
+	previousLevelButton: {
+		imageUp: previousLevelButton_Unpressed
+		imageDown: previousLevelButton_Pressed
+	}
+	starBronze: {
+		imageUp: star_bronze
+		imageDown: star_bronze
+	}
+	starSilver: {
+		imageUp: star_silver
+		imageDown: star_silver
+	}
+	starGold: {
+		imageUp: star_gold
+		imageDown: star_gold
+	}
+	starEmpty: {
+		imageUp: star_empty
+		imageDown: star_empty
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
@@ -154,13 +182,13 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font
 	}
 	button_title: {
-		font: font_raavi_48pt
+		font: font_d_estroy__24pt
 	}
 	Store_Title: {
 		font: font_d_estroy__48pt
 	}
 	taunt_small: {
-		font: font_raavi_28pt
+		font: font_d_estroy__20pt
 	}
 	title: {
 		font: font_d_estroy__48pt

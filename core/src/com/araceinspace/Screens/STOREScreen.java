@@ -97,8 +97,8 @@ public class STOREScreen extends Screen{
             }
 
         };
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("uiskin.json"), atlas);
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
