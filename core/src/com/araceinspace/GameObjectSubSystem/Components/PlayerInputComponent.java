@@ -106,6 +106,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_RIGHT:
                 setTouched("touchRight");
+                lastWalkInput = currentInput;
                 upPressed = false;
                 jumpPressed = false;
                 leftPressed = false;
@@ -155,6 +156,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_LEFT:
                 setTouched("touchLeft");
+                lastWalkInput = currentInput;
                 upPressed = false;
                 jumpPressed = false;
                 rightPressed = false;
@@ -260,12 +262,10 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      * @return
      */
     public boolean flip(){
-        if(lastWalkInput == GameInput.LEFT_PRESSED){
+        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT){
             return true;
         }else{
             return false;
         }
-
     }
-
 }
