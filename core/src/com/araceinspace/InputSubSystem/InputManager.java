@@ -299,30 +299,12 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
                 sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_LEFT));
                 break;
             case DOWN_LEFT:
-                if(parent.levelManager.getPlayer().getPhysics().onPlanet()){//if player is on planet don't press down, but only left
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_PRESSED));
-                }else{
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_PRESSED));
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_PRESSED));
-                }
-
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
+                if(playerInput.touchDownLeft)break;
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_DOWN_LEFT));
                 break;
             case DOWN:
-                if(parent.levelManager.getPlayer().getPhysics().onPlanet()) {//if on planet we do nothing
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_RELEASED));
-
-                }else{
-                    sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.DOWN_PRESSED));
-                }
-
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.LEFT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.RIGHT_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.UP_RELEASED));
-                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.JUMP_RELEASED));
+                if(playerInput.touchDown)break;
+                sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", GameInput.TOUCH_DOWN));
                 break;
             case DOWN_RIGHT:
                 if(parent.levelManager.getPlayer().getPhysics().onPlanet()){//if player is on planet don't press down, but only right

@@ -163,6 +163,31 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 downPressed = false;
                 leftPressed = true;
                 break;
+            case TOUCH_DOWN_LEFT:
+                setTouched("touchDownLeft");
+                lastWalkInput = currentInput;
+                if(parent.getPhysics().onPlanet()){
+                    downPressed = false;
+                }else{
+                    downPressed = true;
+                }
+                leftPressed = true;
+                rightPressed = false;
+                jumpPressed = false;
+                upPressed = false;
+                break;
+            case TOUCH_DOWN:
+                setTouched("touchDown");
+                if(parent.getPhysics().onPlanet()){
+                    downPressed = false; //if on planet we do nothing
+                }else{
+                    downPressed = true;
+                }
+                leftPressed = false;
+                rightPressed = false;
+                upPressed = false;
+                jumpPressed = false;
+                break;
             default:
                 break;
         }
@@ -262,7 +287,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      * @return
      */
     public boolean flip(){
-        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT){
+        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT){
             return true;
         }else{
             return false;
