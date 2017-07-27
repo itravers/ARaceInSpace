@@ -271,6 +271,16 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		checked: default-round-down
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: font_d_estroy__20pt
+		fontColor: GRAY
+		focusedFontColor: white
+		background: TextImageButton
+		cursor: default-rect
+		selection: default-round-down
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
 		label: default

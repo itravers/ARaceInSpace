@@ -5,167 +5,63 @@ import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
 
 /**
- * Created by Isaac Assegai on 7/18/17.
+ * Created by Isaac Assegai on 7/17/17.
+ * Lets the user choose which challenge to try on this particular level
  */
 public class PREGAMEScreen extends Screen{
-     /* Static Variables */
 
-    /* Field Variables & Objects */
-    private Skin skin;
-    private Table mainTable;
-    private Label titleLabel;
-    private ClickListener menuButtonListener;
-    private ClickListener storeButtonListener;
-    private ClickListener backButtonListener;
-    private ClickListener bronzeListener;
+    int xCoords = 0;
+    ArrayList<ImageButton> buyButtons;
+    Skin skin;
+    int spacer;
+    ClickListener coinButtonListener;
+    ClickListener backButtonListener;
+    ClickListener rewardAdButtonListener;
+    ClickListener menuButtonListener;
 
+    Stage landscapeStage;
+    boolean stageLoaded;
 
-
-    private TextButton menuButton;
-    private TextButton backButton;
-    private TextButton storeButton;
-    private TextButton bronzeButton;
-
-    /* Constructors */
+    Image starEmpty;
+    ImageButton starBronze;
+    ImageButton starSilver;
+    ImageButton starGold;
+    ImageButton buyLevelsButton;
+    String nextLevelPrice;
+    Label nextLevelPriceLabel;
 
     public PREGAMEScreen(RenderManager parent) {
         super(parent);
     }
 
-    /* Private Methods */
-
-    private void setupSkin(){
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("uiskin_default.atlas"));
-        skin = new Skin(Gdx.files.internal("uiskin_default.json"), atlas);
-
-    }
-
-    private void setupButtons(){
-        menuButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
-            }
-        };
-
-        storeButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("storeButtonListener");
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
-            }
-        };
-
-        backButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("backButtonListener");
-                parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
-            }
-        };
-
-        bronzeListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("levelButtonListener");
-                monetizationController.hideBannerAd();
-               // parent.parent.levelManager.setLevel(1);
-
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
-
-
-            }
-        };
-
-
-
-        menuButton = new TextButton("Menu", skin);
-        menuButton.addListener(menuButtonListener);
-
-        backButton = new TextButton("Back", skin);
-        backButton.setName("back");
-        backButton.addListener(backButtonListener);
-
-
-        storeButton = new TextButton("Store", skin);
-        storeButton.addListener(storeButtonListener);
-
-        bronzeButton = new TextButton("Bronze Challenge", skin);
-        bronzeButton.addListener(bronzeListener);
-
-    }
-
-    private void setupLabels(){
-        titleLabel = new Label("Pregame Lvl: " + parent.parent.levelManager.getCurrentLevel(), skin);
-    }
-
-    private void setupTables(){
-        mainTable = new Table();
-        mainTable.setFillParent(true);
-        mainTable.setDebug(parent.parent.devMode);
-
-        mainTable.add(titleLabel);
-        mainTable.row();
-
-        mainTable.add(menuButton);
-        mainTable.row();
-
-        mainTable.add(backButton);
-        mainTable.row();
-
-        mainTable.add(storeButton);
-        mainTable.row();
-
-        mainTable.add(bronzeButton);
-        mainTable.row();
-
-    }
-
-    /* Public Methods */
-
-    /**
-     * Automatically gets called from extended class.
-     */
-    @Override
-    public void setup() {
-        stage = new Stage(viewport, batch);
-        setupSkin();
-        setupButtons();
-        setupLabels();
-        setupTables();
-
-        stage.addActor(mainTable);
-        parent.parent.inputManager.addInputProcessor(stage);
-    }
-
-    /**
-     * Gets called from render manager
-     * @param elapsedTime
-     */
-    @Override
-    public void render(float elapsedTime) {
-        if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
-    }
-
     @Override
     public void dispose() {
         stage.dispose();
-        skin.dispose();
         batch.dispose();
+        skin.dispose();
 
     }
 
@@ -173,4 +69,428 @@ public class PREGAMEScreen extends Screen{
     public OrthCamera getBackgroundCamera() {
         return null;
     }
+
+    @Override
+    public void setup() {
+        System.out.println("Settingup LevelSelectScreen");
+
+        stage = new Stage(viewport, batch);
+        // updateOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        coinButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+                //System.out.println("Button Clicked: " + event);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
+            }
+
+        };
+
+        backButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+                parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
+            }
+
+        };
+
+        rewardAdButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
+                monetizationController.loadRewardAd();
+                monetizationController.showRewardAd();
+            }
+
+        };
+
+        menuButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
+            }
+
+        };
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+
+
+
+        BitmapFont font = skin.getFont("default-font");
+        font.getData().setScale(.13f, .66f);
+        spacer = 25;
+
+
+
+        setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
+
+
+
+        monetizationController.showBannerAd();
+    }
+
+
+
+
+    @Override
+    public void render(float elapsedTime) {
+        xCoords++;
+        if(xCoords >= Gdx.graphics.getWidth()){
+            xCoords = 0;
+        }
+        Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
+
+        // guiStage = new Stage(viewport, batch);
+        // System.out.println("drawing portrait");
+        // Gdx.input.setInputProcessor(stage);
+        parent.parent.inputManager.addInputProcessor(stage);
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+
+    }
+
+
+
+    private Stack makeButtonStack(String title, String s_taunt1, String s_taunt2){
+        boolean devMode = parent.parent.devMode;
+        //create buttons to buy iap
+        // final Button storeTestButton = new Button(skin, "white");
+        //storeTestButton.setColor(Color.WHITE);
+        ImageButton levelButton = new ImageButton(skin, "storeButton");
+        levelButton.setName(title);
+        levelButton.addListener(parent.parent.inputManager);
+
+        //create stuff to put in table button
+        Label titleLabel = new Label(title, skin, "button_title");
+        titleLabel.setTouchable(Touchable.disabled);
+        //titleLabel.setFontScale(.7f); //WORKS for rizing font, but we also change table container
+
+        ImageButton button_image;
+
+        button_image = new ImageButton(skin, "coinButton_small");
+        button_image.setTouchable(Touchable.disabled);
+
+        starBronze = new ImageButton(skin, "starBronze");
+        starBronze.setTouchable(Touchable.disabled);
+
+        starSilver = new ImageButton(skin, "starSilver");
+        starSilver.setTouchable(Touchable.disabled);
+
+        starGold = new ImageButton(skin, "starGold");
+        starGold.setTouchable(Touchable.disabled);
+
+        Table starTable = new Table();
+        starTable.setDebug(devMode);
+        starTable.align(Align.center);
+
+        starTable.add(starBronze).padRight(spacer);
+        starTable.add(starSilver);
+        starTable.add(starGold).padLeft(spacer);
+
+        /*
+        Label priceLabel = new Label(price, skin, "button_title");
+        priceLabel.setTouchable(Touchable.disabled);
+        priceLabel.setFontScale(.8f);
+        //priceLabel.setFontScale(Gdx.graphics.getDensity()); //WORKS for rizing font
+        */
+
+        Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
+        taunt1.setTouchable(Touchable.disabled);
+        taunt1.setFontScale(.7f);
+        //taunt1.setFontScale(Gdx.graphics.getDensity());
+
+        Label taunt2 = new Label(s_taunt2, skin, "button_title");
+        taunt2.setTouchable(Touchable.disabled);
+        taunt2.setAlignment(Align.top);
+        //taunt2.setFontScale(2f);
+        //taunt2.setFontScale(Gdx.graphics.getDensity());
+
+        /*
+        Label taunt3 = new Label(s_taunt3, skin, "taunt_small");
+        taunt3.setTouchable(Touchable.disabled);
+        taunt3.setFontScale(.8f);
+        */
+
+        //create table in buttons
+        Table purchaseTable = new Table();
+        purchaseTable.setDebug(devMode);
+        purchaseTable.align(Align.center);
+
+        //Header for purchase table
+        Table purchaseHeaderTable = new Table();
+        purchaseHeaderTable.setDebug(devMode);
+        purchaseHeaderTable.align(Align.top|Align.center);
+        purchaseHeaderTable.add(titleLabel).padTop(spacer/4).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
+        // if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(width/13, width/13).align(Align.top);
+        purchaseTable.add(purchaseHeaderTable).align(Align.top);
+        purchaseTable.row();
+
+        Table purchaseBodyTable = new Table();
+        purchaseBodyTable.setDebug(devMode);
+        purchaseBodyTable.align(Align.top|Align.center);
+        purchaseBodyTable.add(starTable).expandX().padBottom(spacer/8).align(Align.top);
+        //purchaseBodyTable.add(starBronze);//.size(starBronze.getWidth(), starBronze.getHeight());
+        // purchaseBodyTable.add(starSilver);//.size(starBronze.getWidth(), starBronze.getHeight());
+        // purchaseBodyTable.add(starGold);//.size(starBronze.getWidth(), starBronze.getHeight());
+        purchaseBodyTable.row();
+        purchaseBodyTable.add(taunt1).expandX().padTop(10).padRight(spacer/2);
+        purchaseBodyTable.row();
+        purchaseBodyTable.add(taunt2).expandX().align(Align.top).padBottom(30);
+        purchaseBodyTable.row();
+        // purchaseBodyTable.add(taunt3).expandX().padBottom(spacer/2);
+
+        purchaseTable.add(purchaseBodyTable);
+
+
+        Stack buttonStack;
+        buttonStack = new Stack();
+        buttonStack.add(levelButton);
+        buttonStack.add(purchaseTable);
+        return buttonStack;
+    }
+
+
+
+    public void setupPortraitGUI(float width, float height){
+        boolean devMode = parent.parent.devMode;
+        stageLoaded = false;
+        float butWidth = width/3.2f;
+        float butHeight = height/5f;
+
+
+        System.out.println("setup portrait    stage w:h " + width + ":" + height);
+        // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
+        Table storeTable;
+
+        //scene2d.ui items
+        Table table;
+        Table headerTable;
+        Table bodyTable;
+
+        ScrollPane scrollPane;
+
+        Label storeTitleLabel;
+        ImageButton backButton;
+        ImageButton menuButton;
+        Label coinLabel;
+        ImageButton coinButton;
+
+        ImageButton rewardButton;
+
+        table = new Table();
+        table.setDebug(devMode);
+        table.setWidth(width);
+        table.align(Align.center|Align.top);
+        table.setPosition(0, height);
+
+
+        backButton = new ImageButton(skin, "backButton");
+        backButton.setDebug(devMode);
+        backButton.addListener(backButtonListener);
+
+        menuButton = new ImageButton(skin, "menuButton");
+        menuButton.setDebug(devMode);
+        menuButton.addListener(menuButtonListener);
+
+        rewardButton = new ImageButton(skin, "rewardButton");
+        rewardButton.setDebug(devMode);
+        rewardButton.addListener(rewardAdButtonListener);
+
+        System.out.println("density: portrait, " + Gdx.graphics.getDensity());
+        storeTitleLabel = new Label("Choose", skin, "Store_Title");
+        storeTitleLabel.setDebug(devMode);
+        coinLabel = new Label("25", skin, "coinLabel");
+
+        coinButton = new ImageButton(skin, "coinButton");
+        coinButton.addListener(coinButtonListener);
+
+        headerTable = new Table();
+        headerTable.setDebug(devMode);
+        headerTable.align(Align.center|Align.top);
+
+        headerTable.add(backButton).padLeft(spacer).padTop(0).size(width/8, height/10);
+        headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(width/8, height/10);
+        headerTable.add(storeTitleLabel).expandX().align(Align.left).size(width/3.2f, height/12);
+
+        float fontWidth = storeTitleLabel.getStyle().font.getSpaceWidth()*storeTitleLabel.getText().length();
+
+        headerTable.add(coinLabel).size(width/11, height/12).align(Align.right);
+        headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
+
+        headerTable.row();
+        //headerTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.top).spaceLeft(0);
+
+        Table extraTable = new Table();
+        extraTable.setDebug(devMode);
+        extraTable.align(Align.center|Align.top);
+        extraTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.top).spaceLeft(0);
+
+        Table extraTable2 = new Table();
+        extraTable2.setDebug(devMode);
+        extraTable2.align(Align.center|Align.top);
+        Label taunt1 = new Label(" Your    ", skin, "extra_small");
+        extraTable2.add(taunt1).height(height/30).align(Align.left);
+
+        Label taunt2 = new Label(" Challenge!!!", skin, "coinLabel");
+        extraTable2.row();
+        extraTable2.add(taunt2).height(height/30).align(Align.top);
+
+        extraTable.add(extraTable2).fill().expandX();
+
+
+
+        table.add(headerTable).fill().expandX();
+        table.row();
+        table.add(extraTable).fill().expandX();
+        table.row();
+
+        bodyTable = new Table();
+        bodyTable.setDebug(devMode);
+
+        bodyTable.align(Align.top|Align.center); //aligns reward video with back button
+
+        buyButtons = new ArrayList<ImageButton>();
+
+        storeTable = new Table();
+        storeTable.setDebug(devMode);
+        storeTable.align(Align.top|Align.center);
+
+        Table buttonTable = new Table();
+        buttonTable.setDebug(devMode);
+        buttonTable.align(Align.top|Align.center);
+
+
+        Stack buttonStack1 = makeButtonStack("Bronze", "1:03:41", "Slack");
+        Stack buttonStack2 = makeButtonStack("Silver",  "52:23", "Slack");
+        Stack buttonStack3 = makeButtonStack("Gold",  "43:17", "Zenrix");
+
+        buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
+        buttonTable.add(buttonStack2).pad(0).size(butWidth, butHeight).align(Align.top);
+        buttonTable.add(buttonStack3).pad(0).size(butWidth, butHeight).align(Align.top);
+
+        storeTable.add(buttonTable).align(Align.center);
+
+
+       // storeTable.add(buttonStack).pad(0).size(butWidth, butHeight).align(Align.top);//sets the button size
+       // buttonStack = makeButtonStack("Silver",  "52:23", "Slack");
+       // storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+        //buttonStack = makeButtonStack("Gold",  "43:17", "Zenrix");
+        //storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+
+        storeTable.row();
+
+        Table t1 = new Table();
+        t1.setDebug(devMode);
+        Label firstPlaceLabel = new Label("First Place", skin, "taunt_small");
+        firstPlaceLabel.setTouchable(Touchable.disabled);
+        firstPlaceLabel.setFontScale(.7f);
+        t1.add(firstPlaceLabel);
+
+        ImageButton coin1 = new ImageButton(skin, "coinButton_small");
+        coin1.setTouchable(Touchable.disabled);
+        t1.add(coin1);
+        t1.row();
+
+        ImageButton gold = new ImageButton(skin, "starGold");
+        t1.add(gold).align(Align.center);
+
+        Table t2 = new Table();
+        t2.setDebug(devMode);
+        Label secondPlaceLabel = new Label("Second Place", skin, "taunt_small");
+        secondPlaceLabel.setTouchable(Touchable.disabled);
+        secondPlaceLabel.setFontScale(.7f);
+        t2.add(secondPlaceLabel);
+
+        ImageButton coin2 = new ImageButton(skin, "coinButton_small");
+        coin2.setTouchable(Touchable.disabled);
+        t2.add(coin2);
+        t2.row();
+
+        ImageButton silver = new ImageButton(skin, "starSilver");
+        t2.add(silver).align(Align.center);
+
+        Table t3 = new Table();
+        t3.setDebug(devMode);
+        Label thirdPlaceLabel = new Label("Third Place", skin, "taunt_small");
+        thirdPlaceLabel.setTouchable(Touchable.disabled);
+        thirdPlaceLabel.setFontScale(.7f);
+        t3.add(thirdPlaceLabel);
+
+        ImageButton coin3 = new ImageButton(skin, "coinButton_small");
+        coin3.setTouchable(Touchable.disabled);
+        t3.add(coin3);
+        t3.row();
+
+        ImageButton bronze = new ImageButton(skin, "starBronze");
+        t3.add(bronze).align(Align.center);
+
+        Table placeTable = new Table();
+        placeTable.setDebug(devMode);
+        placeTable.align(Align.top|Align.center);
+        placeTable.add(t1);
+        placeTable.add(t2);
+        placeTable.add(t3);
+
+
+        Table customPlayTable = new Table();
+        customPlayTable.align(Align.top|Align.center);
+        customPlayTable.setDebug(devMode);
+
+        Label customTitle = new Label("Custom", skin);
+        ImageButton coin = new ImageButton(skin, "coinButton_small");
+        Label inputLabel = new Label("Input Game ID", skin, "button_title");
+        TextField textField = new TextField("", skin);
+        textField.setAlignment(Align.center);
+        ImageTextButton playButton = new ImageTextButton("Play", skin);
+
+        customPlayTable.add(customTitle);
+        customPlayTable.add(coin);
+        customPlayTable.row();
+        customPlayTable.add(inputLabel);
+        customPlayTable.row();
+        customPlayTable.add(textField).width(viewport.getScreenWidth()/2);
+        customPlayTable.row();
+        customPlayTable.add(playButton).width(viewport.getScreenWidth()/2);
+
+
+
+        storeTable.add(placeTable);
+       // storeTable.add(t1);
+       // storeTable.add(t2);
+       // storeTable.add(t3);
+       storeTable.row();
+        storeTable.add(customPlayTable);
+
+
+
+
+
+
+
+
+        scrollPane = new ScrollPane(storeTable, skin, "default");
+
+
+
+        bodyTable.add(scrollPane).width(width*.99f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
+
+
+
+        table.add(bodyTable).fill().expandX();
+        //table.add(nextLevelPriceLabel);
+        // table.setPosition(camera.position.x, camera.position.y);
+        stage.addActor(table);
+
+
+
+        stageLoaded = true;
+    }
+
+
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 7/17/17.
- * Lets the user buy items from the in-app purchase store.
+ * Lets the user choose which level to play
  */
 public class LEVELSELECTScreen extends Screen{
 
@@ -46,6 +47,9 @@ public class LEVELSELECTScreen extends Screen{
     ImageButton starBronze;
     ImageButton starSilver;
     ImageButton starGold;
+    ImageButton buyLevelsButton;
+    String nextLevelPrice;
+    Label nextLevelPriceLabel;
 
     public LEVELSELECTScreen(RenderManager parent) {
         super(parent);
@@ -110,6 +114,8 @@ public class LEVELSELECTScreen extends Screen{
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
 
+
+
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
@@ -143,6 +149,11 @@ public class LEVELSELECTScreen extends Screen{
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+
+
+        batch.begin();
+        nextLevelPriceLabel.draw(batch, .5f);
+        batch.end();
 
 
     }
@@ -406,17 +417,31 @@ public class LEVELSELECTScreen extends Screen{
         previousLevelButton.setWidth(width*.10f);
         //nextLevelButton.rotateBy(180);
 
-        ImageButton buyLevelsButton = new ImageButton(skin, "buyLevelsButton");
+        buyLevelsButton = new ImageButton(skin, "buyLevelsButton");
         buyLevelsButton.setWidth(width*.10f);
+
+
 
         bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
         bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
 
+        nextLevelPrice = "15";
+        nextLevelPriceLabel = new Label(nextLevelPrice, skin, "button_title");
+        nextLevelPriceLabel.setTouchable(Touchable.disabled);
+        nextLevelPriceLabel.setRotation(45);
+        nextLevelPriceLabel.setPosition(
+                viewport.getScreenWidth()-buyLevelsButton.getWidth()+buyLevelsButton.getWidth()/6,
+                (viewport.getScreenHeight()/2)-(buttonStack.getHeight()/2)-buyLevelsButton.getHeight()/10);
+
+
 
         table.add(bodyTable).fill().expandX();
+        //table.add(nextLevelPriceLabel);
         // table.setPosition(camera.position.x, camera.position.y);
         stage.addActor(table);
+
+
 
         stageLoaded = true;
     }

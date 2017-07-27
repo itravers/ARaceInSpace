@@ -245,8 +245,18 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
            // System.out.println("Button Changed " + name);
             if(name.startsWith("Level")){
                 levelSelectButtonPressed(name);
+            }else if(name.startsWith("Bronze") || name.startsWith("Silver") || name.startsWith("Gold")){
+                challengeSelectButtonPressed(name);
             }
         }
+    }
+
+    private void challengeSelectButtonPressed(String name){
+        if(name.startsWith("Gold")){
+            parent.devMode = !parent.devMode;
+            return;
+        }
+        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
     }
 
     private void levelSelectButtonPressed(String name){
@@ -259,7 +269,7 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
             return;
         }
         parent.levelManager.setLevel(level);
-        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
     }
 
     /**
