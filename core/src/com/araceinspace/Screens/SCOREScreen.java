@@ -38,6 +38,9 @@ public class SCOREScreen extends Screen{
     ClickListener backButtonListener;
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
+    ClickListener leaderBoardListener;
+    ClickListener challengeListener;
+    ClickListener tryAgainListener;
 
     boolean stageLoaded;
 
@@ -92,6 +95,32 @@ public class SCOREScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
+            }
+
+        };
+
+        leaderBoardListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEADERBOARDS);
+            }
+
+        };
+
+        challengeListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEADERBOARDS);
+                System.out.println("Challenge Listener not implemented yet");
+                //TODO implement challenge listner in score screen
+            }
+
+        };
+
+        tryAgainListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
             }
 
         };
@@ -327,17 +356,33 @@ public class SCOREScreen extends Screen{
         Table bTable = new Table();
         bTable.setDebug(devMode);
         ImageTextButton lButton = new ImageTextButton("LeaderBoards", skin);
+        lButton.addListener(leaderBoardListener);
 
         Table challengeButtonTable = new Table();
         challengeButtonTable.setDebug(devMode);
 
-        ImageTextButton cButton = new ImageTextButton("Challenge", skin);
-        ImageB
+        ImageTextButton cButton = new ImageTextButton("Challenge First", skin);
+        cButton.addListener(challengeListener);
+        ImageButton c = new ImageButton(skin, "coinSmall10");
+        c.setTouchable(Touchable.disabled);
+
+        challengeButtonTable.add(cButton).width((viewport.getScreenWidth()*.6f)-c.getWidth());
+        challengeButtonTable.add(c);
+
+        ImageTextButton tryAgainButton = new ImageTextButton("Try Again", skin);
+        tryAgainButton.addListener(tryAgainListener);
 
 
         bTable.add(lButton).width(viewport.getScreenWidth()*.6f);
+        bTable.row();
+        bTable.add(challengeButtonTable);
+        bTable.row();
+        bTable.add(tryAgainButton).width(viewport.getScreenWidth()*.6f);
 
         storeTable.add(bTable).padTop(spacer/2);
+
+
+
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
 
