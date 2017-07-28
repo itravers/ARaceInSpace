@@ -7,8 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -23,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
 
@@ -42,16 +39,7 @@ public class PREGAMEScreen extends Screen{
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
 
-    Stage landscapeStage;
     boolean stageLoaded;
-
-    Image starEmpty;
-    ImageButton starBronze;
-    ImageButton starSilver;
-    ImageButton starGold;
-    ImageButton buyLevelsButton;
-    String nextLevelPrice;
-    Label nextLevelPriceLabel;
 
     public PREGAMEScreen(RenderManager parent) {
         super(parent);
@@ -62,7 +50,6 @@ public class PREGAMEScreen extends Screen{
         stage.dispose();
         batch.dispose();
         skin.dispose();
-
     }
 
     @Override
@@ -75,12 +62,9 @@ public class PREGAMEScreen extends Screen{
         System.out.println("Settingup LevelSelectScreen");
 
         stage = new Stage(viewport, batch);
-        // updateOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //System.out.println("Button Clicked: " + event);
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
             }
 
@@ -89,7 +73,6 @@ public class PREGAMEScreen extends Screen{
         backButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
                 parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
             }
 
@@ -98,8 +81,6 @@ public class PREGAMEScreen extends Screen{
         rewardAdButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
                 monetizationController.loadRewardAd();
                 monetizationController.showRewardAd();
             }
@@ -113,26 +94,17 @@ public class PREGAMEScreen extends Screen{
             }
 
         };
+
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
-
-
 
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
 
-
-
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
-
-
-
         monetizationController.showBannerAd();
     }
-
-
-
 
     @Override
     public void render(float elapsedTime) {
@@ -143,24 +115,13 @@ public class PREGAMEScreen extends Screen{
         Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-
-        // guiStage = new Stage(viewport, batch);
-        // System.out.println("drawing portrait");
-        // Gdx.input.setInputProcessor(stage);
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
     }
-
-
 
     private Stack makeButtonStack(String title, ImageButton star, String s_taunt1, String s_taunt2){
         boolean devMode = parent.parent.devMode;
-        //create buttons to buy iap
-        // final Button storeTestButton = new Button(skin, "white");
-        //storeTestButton.setColor(Color.WHITE);
         ImageButton levelButton = new ImageButton(skin, "storeButton");
         levelButton.setName(title);
         levelButton.addListener(parent.parent.inputManager);
@@ -183,18 +144,11 @@ public class PREGAMEScreen extends Screen{
 
         starTable.add(star);
 
-        /*
-        Label priceLabel = new Label(price, skin, "button_title");
-        priceLabel.setTouchable(Touchable.disabled);
-        priceLabel.setFontScale(.8f);
-        //priceLabel.setFontScale(Gdx.graphics.getDensity()); //WORKS for rizing font
-        */
 
         Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
         taunt1.setAlignment(Align.top);
         taunt1.setTouchable(Touchable.disabled);
         taunt1.setFontScale(.7f);
-        //taunt1.setFontScale(Gdx.graphics.getDensity());
 
         Label yourTime = new Label("Your Time", skin, "taunt_small");
         yourTime.setAlignment(Align.bottom);
@@ -205,14 +159,6 @@ public class PREGAMEScreen extends Screen{
         taunt2.setTouchable(Touchable.disabled);
         taunt2.setAlignment(Align.top);
         taunt2.setFontScale(.6f);
-        //taunt2.setFontScale(2f);
-        //taunt2.setFontScale(Gdx.graphics.getDensity());
-
-        /*
-        Label taunt3 = new Label(s_taunt3, skin, "taunt_small");
-        taunt3.setTouchable(Touchable.disabled);
-        taunt3.setFontScale(.8f);
-        */
 
         //create table in buttons
         Table purchaseTable = new Table();
@@ -224,7 +170,6 @@ public class PREGAMEScreen extends Screen{
         purchaseHeaderTable.setDebug(devMode);
         purchaseHeaderTable.align(Align.top|Align.center);
         purchaseHeaderTable.add(titleLabel).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
-        // if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(width/13, width/13).align(Align.top);
         purchaseTable.add(purchaseHeaderTable).align(Align.top);
         purchaseTable.row();
 
@@ -243,10 +188,8 @@ public class PREGAMEScreen extends Screen{
 
         purchaseBodyTable.add(taunt2).expandX().align(Align.top).padBottom(30);
         purchaseBodyTable.row();
-        // purchaseBodyTable.add(taunt3).expandX().padBottom(spacer/2);
 
         purchaseTable.add(purchaseBodyTable).align(Align.top);
-
 
         Stack buttonStack;
         buttonStack = new Stack();
@@ -255,14 +198,11 @@ public class PREGAMEScreen extends Screen{
         return buttonStack;
     }
 
-
-
     public void setupPortraitGUI(float width, float height){
         boolean devMode = parent.parent.devMode;
         stageLoaded = false;
         float butWidth = width/3.2f;
         float butHeight = height/5f;
-
 
         System.out.println("setup portrait    stage w:h " + width + ":" + height);
         // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
@@ -287,7 +227,6 @@ public class PREGAMEScreen extends Screen{
         table.setWidth(width);
         table.align(Align.center|Align.top);
         table.setPosition(0, height);
-
 
         backButton = new ImageButton(skin, "backButton");
         backButton.setDebug(devMode);
@@ -325,7 +264,6 @@ public class PREGAMEScreen extends Screen{
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
 
         headerTable.row();
-        //headerTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.top).spaceLeft(0);
 
         Table extraTable = new Table();
         extraTable.setDebug(devMode);
@@ -343,8 +281,6 @@ public class PREGAMEScreen extends Screen{
         extraTable2.add(taunt2).height(height/30).align(Align.top);
 
         extraTable.add(extraTable2).fill().expandX();
-
-
 
         table.add(headerTable).fill().expandX();
         table.row();
@@ -384,16 +320,8 @@ public class PREGAMEScreen extends Screen{
         buttonTable.add(buttonStack3).pad(0).size(butWidth, butHeight).align(Align.top);
 
         storeTable.add(buttonTable).align(Align.center);
-
-
-       // storeTable.add(buttonStack).pad(0).size(butWidth, butHeight).align(Align.top);//sets the button size
-       // buttonStack = makeButtonStack("Silver",  "52:23", "Slack");
-       // storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-        //buttonStack = makeButtonStack("Gold",  "43:17", "Zenrix");
-        //storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-
         storeTable.row();
+
 
         Table t1 = new Table();
         t1.setDebug(devMode);
@@ -498,39 +426,16 @@ public class PREGAMEScreen extends Screen{
         customPlayTable.row();
         customPlayTable.add(playButton).width(viewport.getScreenWidth()/2);
 
-
-
         storeTable.add(placeTable);
-       // storeTable.add(t1);
-       // storeTable.add(t2);
-       // storeTable.add(t3);
-       storeTable.row();
+        storeTable.row();
         storeTable.add(customPlayTable);
-
-
-
-
-
-
-
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
 
-
-
         bodyTable.add(scrollPane).width(width*.99f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
 
-
-
         table.add(bodyTable).fill().expandX();
-        //table.add(nextLevelPriceLabel);
-        // table.setPosition(camera.position.x, camera.position.y);
         stage.addActor(table);
-
-
-
         stageLoaded = true;
     }
-
-
 }

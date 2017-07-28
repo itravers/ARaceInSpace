@@ -1463,6 +1463,19 @@ atlasData: {
 			tintName: null
 			name: star3_up
 		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/Link to Game Design/Sprite Work/window.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: window
+		}
 	]
 }
 jsonData: {
@@ -5606,7 +5619,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColorSelected
 						optional: false
-						value: GRAY
+						value: white
 					}
 					fontColorUnselected: {
 						class: com.ray3k.skincomposer.data.StyleProperty
