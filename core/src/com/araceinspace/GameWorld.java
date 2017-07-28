@@ -37,6 +37,7 @@ public class GameWorld {
     Preferences prefs;
     private float ghostTimer;
     public boolean countGhostTimer = true;
+    private int coins;
 
 
 
@@ -46,6 +47,7 @@ public class GameWorld {
         prefs = Gdx.app.getPreferences("Saved_Items");
 
         ghostTimer = prefs.getFloat("ghostTimer", GHOST_TIMER_LIMIT);
+        coins = prefs.getInteger("coins", 0);
 
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
@@ -114,6 +116,15 @@ public class GameWorld {
         return ghostTimer;
     }
 
+    public int getCoins(){
+        return coins;
+    }
+
+    public void setCoins(int c){
+        coins = c;
+        prefs.putInteger("coins", coins);
+        renderManager.getCurrentScreen().updateCoins();
+    }
 
 
 }

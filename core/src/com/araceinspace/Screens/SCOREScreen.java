@@ -167,4 +167,5 @@ public class SCOREScreen extends Screen {
     public OrthCamera getBackgroundCamera() {
         return null;
     }
+
 }

@@ -23,6 +23,8 @@ public class ARaceInSpace extends ApplicationAdapter {
 
 
 
+
+
 	public ARaceInSpace(MonetizationController monetizationController, ToastInterface toastInterface){
 		this.monetizationController = monetizationController;
 		this.toastInterface = toastInterface;

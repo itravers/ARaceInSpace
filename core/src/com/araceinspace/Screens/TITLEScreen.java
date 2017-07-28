@@ -82,6 +82,7 @@ public class TITLEScreen extends Screen implements EventSender {
         return backgroundCamera;
     }
 
+
     /* Private Methods */
 
     private void setupButtons(){

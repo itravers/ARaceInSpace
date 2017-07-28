@@ -56,6 +56,8 @@ public class STOREScreen extends Screen{
         return null;
     }
 
+
+
     @Override
     public void setup() {
         System.out.println("Settingup Store");
@@ -154,7 +156,6 @@ public class STOREScreen extends Screen{
         Label storeTitleLabel;
         ImageButton backButton;
         ImageButton menuButton;
-        Label coinLabel;
         ImageButton coinButton;
 
         ImageButton rewardButton;
@@ -182,7 +183,8 @@ public class STOREScreen extends Screen{
         System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("STORE", skin, "Store_Title");
         storeTitleLabel.setDebug(false);
-        coinLabel = new Label("25", skin, "coinLabel");
+        String coins = Integer.toString(parent.parent.getCoins());
+        coinLabel = new Label(coins, skin, "coinLabel");
 
         coinButton = new ImageButton(skin, "coinButton");
 

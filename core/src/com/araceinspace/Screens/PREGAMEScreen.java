@@ -278,7 +278,6 @@ public class PREGAMEScreen extends Screen{
         Label storeTitleLabel;
         ImageButton backButton;
         ImageButton menuButton;
-        Label coinLabel;
         ImageButton coinButton;
 
         ImageButton rewardButton;
@@ -305,7 +304,8 @@ public class PREGAMEScreen extends Screen{
         System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("Choose", skin, "Store_Title");
         storeTitleLabel.setDebug(devMode);
-        coinLabel = new Label("215", skin, "coinLabel");
+        String coins = Integer.toString(parent.parent.getCoins());
+        coinLabel = new Label(coins, skin, "coinLabel");
         coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");

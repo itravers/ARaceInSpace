@@ -40,7 +40,6 @@ public class MENUScreen extends Screen {
     Table levelSectionTable;
 
     private Label titleLabel;
-    private Label coinLabel;
 
     private ClickListener coinButtonListener;
     private  ClickListener backButtonListener;
@@ -165,7 +164,8 @@ public class MENUScreen extends Screen {
 
     private void setupLabels(){
         titleLabel = new Label("Menu", skin, "Store_Title");
-        coinLabel = new Label("25", skin, "coinLabel");
+        String coins = Integer.toString(parent.parent.getCoins());
+        coinLabel = new Label(coins, skin, "coinLabel");
     }
 
     private void setupSliders(){
@@ -351,4 +351,5 @@ public class MENUScreen extends Screen {
     public OrthCamera getBackgroundCamera() {
         return null;
     }
+
 }
