@@ -256,7 +256,7 @@ public class LEVELSELECTScreen extends Screen{
         boolean devMode = parent.parent.devMode;
         stageLoaded = false;
         float butWidth = width/2.6f;
-        float butHeight = height/3.955f;
+        float butHeight = height/4.5f;
 
 
         System.out.println("setup portrait    stage w:h " + width + ":" + height);
