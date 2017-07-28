@@ -447,7 +447,7 @@ default-round-large
   index: -1
 default-scroll
   rotate: false
-  xy: 822, 784
+  xy: 990, 884
   size: 20, 20
   split: 2, 2, 2, 2
   orig: 20, 20
@@ -479,7 +479,7 @@ default-slider
   index: -1
 default-slider-knob
   rotate: false
-  xy: 844, 786
+  xy: 990, 864
   size: 9, 18
   orig: 9, 18
   offset: 0, 0
@@ -598,7 +598,7 @@ white-up
   index: -1
 uiskin.9
   rotate: false
-  xy: 990, 882
+  xy: 850, 782
   size: 14, 22
   split: 2, 3, 4, 5
   orig: 14, 22
@@ -728,6 +728,15 @@ star_silver
   xy: 191, 514
   size: 37, 35
   orig: 37, 35
+  offset: 0, 0
+  index: -1
+window
+  rotate: false
+  xy: 822, 780
+  size: 26, 24
+  split: 3, 3, 0, 0
+  pad: 0, 0, 3, 3
+  orig: 26, 24
   offset: 0, 0
   index: -1
 blank

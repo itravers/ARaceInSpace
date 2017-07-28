@@ -68,8 +68,8 @@ public class SCOREScreen extends Screen{
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-               // parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
-                parent.parent.devMode = !parent.parent.devMode;
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
+                //parent.parent.devMode = !parent.parent.devMode;
             }
 
         };
@@ -332,7 +332,7 @@ public class SCOREScreen extends Screen{
 
         w.add(t).align(Align.top).padTop(spacer/2);
 
-        buttonTable.add(w).width(viewport.getScreenWidth()*.80f).height( viewport.getScreenHeight()/5).padTop(spacer/2);
+        buttonTable.add(w).width(viewport.getScreenWidth()*.80f).height( viewport.getScreenHeight()/4).padTop(spacer);
 
         storeTable.add(buttonTable).align(Align.center);
         storeTable.row();
@@ -350,7 +350,7 @@ public class SCOREScreen extends Screen{
         infoTable.row();
         infoTable.add(info3).height(info3.getHeight()*.65f);
 
-        storeTable.add(infoTable).padTop(spacer/2);
+        storeTable.add(infoTable).padTop(spacer);
         storeTable.row();
 
         Table bTable = new Table();
@@ -366,20 +366,20 @@ public class SCOREScreen extends Screen{
         ImageButton c = new ImageButton(skin, "coinSmall10");
         c.setTouchable(Touchable.disabled);
 
-        challengeButtonTable.add(cButton).width((viewport.getScreenWidth()*.6f)-c.getWidth());
+        challengeButtonTable.add(cButton).width((viewport.getScreenWidth()*.80f)-c.getWidth()).height(viewport.getScreenHeight()/14);;
         challengeButtonTable.add(c);
 
         ImageTextButton tryAgainButton = new ImageTextButton("Try Again", skin);
         tryAgainButton.addListener(tryAgainListener);
 
 
-        bTable.add(lButton).width(viewport.getScreenWidth()*.6f);
+        bTable.add(lButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
         bTable.row();
         bTable.add(challengeButtonTable);
         bTable.row();
-        bTable.add(tryAgainButton).width(viewport.getScreenWidth()*.6f);
+        bTable.add(tryAgainButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);;
 
-        storeTable.add(bTable).padTop(spacer/2);
+        storeTable.add(bTable).padTop(spacer);
 
 
 

@@ -231,7 +231,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
 		font: font_d_estroy__20pt
-		fontColorSelected: GRAY
+		fontColorSelected: white
 		fontColorUnselected: GRAY
 		selection: blank
 		background: select_box_open
@@ -327,7 +327,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	default: {
-		background: default-window
+		background: window
 		titleFont: default-font
 	}
 	dialog: {

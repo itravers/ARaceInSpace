@@ -1464,7 +1464,7 @@ atlasData: {
 			name: star3_up
 		}
 		{
-			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/Link to Game Design/Sprite Work/window.png"
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/Link to Game Design/Sprite Work/window.9.png"
 			bgColor: {
 				r: 1
 				g: 1
@@ -6637,7 +6637,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: default-window
+						value: window
 					}
 					titleFont: {
 						class: com.ray3k.skincomposer.data.StyleProperty
