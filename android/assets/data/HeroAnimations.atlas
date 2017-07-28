@@ -1100,6 +1100,453 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+explosion/explosion
+  rotate: false
+  xy: 2, 891
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 0
+explosion/explosion
+  rotate: false
+  xy: 2, 764
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 1
+explosion/explosion
+  rotate: false
+  xy: 129, 891
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 2
+explosion/explosion
+  rotate: false
+  xy: 2, 637
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 3
+explosion/explosion
+  rotate: false
+  xy: 129, 764
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 4
+explosion/explosion
+  rotate: false
+  xy: 256, 891
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 5
+explosion/explosion
+  rotate: false
+  xy: 2, 510
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 6
+explosion/explosion
+  rotate: false
+  xy: 129, 637
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 7
+explosion/explosion
+  rotate: false
+  xy: 256, 764
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 8
+explosion/explosion
+  rotate: false
+  xy: 383, 891
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 9
+explosion/explosion
+  rotate: false
+  xy: 2, 383
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 10
+explosion/explosion
+  rotate: false
+  xy: 129, 510
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 11
+explosion/explosion
+  rotate: false
+  xy: 256, 637
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 12
+explosion/explosion
+  rotate: false
+  xy: 383, 764
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 13
+explosion/explosion
+  rotate: false
+  xy: 510, 891
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 14
+explosion/explosion
+  rotate: false
+  xy: 2, 256
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 15
+explosion/explosion
+  rotate: false
+  xy: 129, 383
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 16
+explosion/explosion
+  rotate: false
+  xy: 256, 510
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 17
+explosion/explosion
+  rotate: false
+  xy: 383, 637
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 18
+explosion/explosion
+  rotate: false
+  xy: 510, 764
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 19
+explosion/explosion
+  rotate: false
+  xy: 637, 891
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 20
+explosion/explosion
+  rotate: false
+  xy: 2, 129
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 21
+explosion/explosion
+  rotate: false
+  xy: 129, 256
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 22
+explosion/explosion
+  rotate: false
+  xy: 256, 383
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 23
+explosion/explosion
+  rotate: false
+  xy: 383, 510
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 24
+explosion/explosion
+  rotate: false
+  xy: 510, 637
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 25
+explosion/explosion
+  rotate: false
+  xy: 637, 764
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 26
+explosion/explosion
+  rotate: false
+  xy: 764, 891
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 27
+explosion/explosion
+  rotate: false
+  xy: 2, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 28
+explosion/explosion
+  rotate: false
+  xy: 129, 129
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 29
+explosion/explosion
+  rotate: false
+  xy: 256, 256
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 30
+explosion/explosion
+  rotate: false
+  xy: 383, 383
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 31
+explosion/explosion
+  rotate: false
+  xy: 510, 510
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 32
+explosion/explosion
+  rotate: false
+  xy: 637, 637
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 33
+explosion/explosion
+  rotate: false
+  xy: 764, 764
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 34
+explosion/explosion
+  rotate: false
+  xy: 891, 891
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 35
+explosion/explosion
+  rotate: false
+  xy: 129, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 36
+explosion/explosion
+  rotate: false
+  xy: 256, 129
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 37
+explosion/explosion
+  rotate: false
+  xy: 383, 256
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 38
+explosion/explosion
+  rotate: false
+  xy: 510, 383
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 39
+explosion/explosion
+  rotate: false
+  xy: 637, 510
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 40
+explosion/explosion
+  rotate: false
+  xy: 764, 637
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 41
+explosion/explosion
+  rotate: false
+  xy: 891, 764
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 42
+explosion/explosion
+  rotate: false
+  xy: 256, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 43
+explosion/explosion
+  rotate: false
+  xy: 383, 129
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 44
+explosion/explosion
+  rotate: false
+  xy: 510, 256
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 45
+explosion/explosion
+  rotate: false
+  xy: 637, 383
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 46
+explosion/explosion
+  rotate: false
+  xy: 764, 510
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 47
+explosion/explosion
+  rotate: false
+  xy: 891, 637
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 48
+explosion/explosion
+  rotate: false
+  xy: 383, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 49
+explosion/explosion
+  rotate: false
+  xy: 510, 129
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 50
+explosion/explosion
+  rotate: false
+  xy: 637, 256
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 51
+explosion/explosion
+  rotate: false
+  xy: 764, 383
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 52
+explosion/explosion
+  rotate: false
+  xy: 891, 510
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 53
+explosion/explosion
+  rotate: false
+  xy: 510, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 54
+explosion/explosion
+  rotate: false
+  xy: 637, 129
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 55
+explosion/explosion
+  rotate: false
+  xy: 764, 256
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 56
+explosion/explosion
+  rotate: false
+  xy: 891, 383
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 57
+explosion/explosion
+  rotate: false
+  xy: 637, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 58
+explosion/explosion
+  rotate: false
+  xy: 764, 129
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 59
+explosion/explosion
+  rotate: false
+  xy: 891, 256
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 60
+explosion/explosion
+  rotate: false
+  xy: 764, 2
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 61
+explosion/explosion
+  rotate: false
+  xy: 891, 129
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: 62
+
+HeroAnimations12.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 WalkingFast/WalkingFast
   rotate: false
   xy: 2, 638
@@ -1213,7 +1660,55 @@ WalkingFast/WalkingFast
   offset: 0, 0
   index: 15
 
-HeroAnimations12.png
+HeroAnimations13.png
+size: 1024,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+GhostIndicator/ghostIndicator_empty
+  rotate: false
+  xy: 2, 2
+  size: 200, 109
+  orig: 200, 109
+  offset: 0, 0
+  index: -1
+GhostIndicator/ghostIndicator_fill
+  rotate: false
+  xy: 204, 2
+  size: 200, 109
+  orig: 200, 109
+  offset: 0, 0
+  index: -1
+GhostIndicator/ghostIndicator_fill_green
+  rotate: false
+  xy: 409, 64
+  size: 200, 109
+  orig: 200, 109
+  offset: 0, 0
+  index: -1
+GhostIndicator/healthMeter_blue
+  rotate: false
+  xy: 2, 175
+  size: 405, 60
+  orig: 405, 60
+  offset: 0, 0
+  index: -1
+GhostIndicator/healthMeter_empty
+  rotate: false
+  xy: 2, 113
+  size: 405, 60
+  orig: 405, 60
+  offset: 0, 0
+  index: -1
+GhostIndicator/healthMeter_red
+  rotate: false
+  xy: 409, 175
+  size: 405, 60
+  orig: 405, 60
+  offset: 0, 0
+  index: -1
+
+HeroAnimations14.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1303,7 +1798,7 @@ RunFast/RunFast
   offset: 0, 0
   index: 11
 
-HeroAnimations13.png
+HeroAnimations15.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1421,7 +1916,41 @@ FloatingSideways/FloatingSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations14.png
+HeroAnimations16.png
+size: 256,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+GUI/star_bronze
+  rotate: false
+  xy: 42, 4
+  size: 37, 35
+  orig: 37, 35
+  offset: 0, 0
+  index: -1
+GUI/star_empty
+  rotate: false
+  xy: 81, 4
+  size: 37, 35
+  orig: 37, 35
+  offset: 0, 0
+  index: -1
+GUI/star_gold
+  rotate: false
+  xy: 2, 2
+  size: 38, 37
+  orig: 38, 37
+  offset: 0, 0
+  index: -1
+GUI/star_silver
+  rotate: false
+  xy: 120, 4
+  size: 37, 35
+  orig: 37, 35
+  offset: 0, 0
+  index: -1
+
+HeroAnimations17.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1539,7 +2068,7 @@ JumpSideways/JumpSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations15.png
+HeroAnimations18.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1657,7 +2186,7 @@ LandingSideways/LandingSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations16.png
+HeroAnimations19.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1775,7 +2304,7 @@ FlyingRight/FlyingRight
   offset: 0, 0
   index: 15
 
-HeroAnimations17.png
+HeroAnimations20.png
 size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1837,7 +2366,7 @@ FlyingToFlyRightTransition/FlyingToRightTransition
   offset: 0, 0
   index: 7
 
-HeroAnimations18.png
+HeroAnimations21.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest

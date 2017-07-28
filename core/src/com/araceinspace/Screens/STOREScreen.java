@@ -2,6 +2,7 @@ package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -51,6 +52,13 @@ public class STOREScreen extends Screen{
     }
 
     @Override
+    public OrthCamera getBackgroundCamera() {
+        return null;
+    }
+
+
+
+    @Override
     public void setup() {
         System.out.println("Settingup Store");
         stage = new Stage(viewport, batch);
@@ -91,8 +99,8 @@ public class STOREScreen extends Screen{
             }
 
         };
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("uiskin.json"), atlas);
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
@@ -148,7 +156,6 @@ public class STOREScreen extends Screen{
         Label storeTitleLabel;
         ImageButton backButton;
         ImageButton menuButton;
-        Label coinLabel;
         ImageButton coinButton;
 
         ImageButton rewardButton;
@@ -176,7 +183,8 @@ public class STOREScreen extends Screen{
         System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("STORE", skin, "Store_Title");
         storeTitleLabel.setDebug(false);
-        coinLabel = new Label("25", skin, "coinLabel");
+        String coins = Integer.toString(parent.parent.getCoins());
+        coinLabel = new Label(coins, skin, "coinLabel");
 
         coinButton = new ImageButton(skin, "coinButton");
 

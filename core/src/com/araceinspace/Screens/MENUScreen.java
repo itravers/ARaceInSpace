@@ -2,6 +2,7 @@ package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -39,7 +40,6 @@ public class MENUScreen extends Screen {
     Table levelSectionTable;
 
     private Label titleLabel;
-    private Label coinLabel;
 
     private ClickListener coinButtonListener;
     private  ClickListener backButtonListener;
@@ -164,7 +164,8 @@ public class MENUScreen extends Screen {
 
     private void setupLabels(){
         titleLabel = new Label("Menu", skin, "Store_Title");
-        coinLabel = new Label("25", skin, "coinLabel");
+        String coins = Integer.toString(parent.parent.getCoins());
+        coinLabel = new Label(coins, skin, "coinLabel");
     }
 
     private void setupSliders(){
@@ -345,4 +346,10 @@ public class MENUScreen extends Screen {
         batch.dispose();
 
     }
+
+    @Override
+    public OrthCamera getBackgroundCamera() {
+        return null;
+    }
+
 }

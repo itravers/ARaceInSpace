@@ -60,6 +60,13 @@ public class AndroidMonetizationController implements MonetizationController {
      */
     AndroidLauncher app;
 
+    /**
+     * When show ad or hide ad is called, this is set to true. The code that
+     * does that actual showing or hiding sets it back to false.
+     * This is because updateVisibility was causing thousands of ad views to be allocated.
+     */
+    private boolean bannerVisibilityChanged = true;
+
 
 /* Constructors. */
 
@@ -124,11 +131,15 @@ public class AndroidMonetizationController implements MonetizationController {
      */
     @Override
     public void updateVisibility(){
-        if(bannerAd.isShowing()){
-            bannerAd.setVisibility(View.VISIBLE);
-           // System.out.println("game ads: setting ad visible");
-        }else{
-            bannerAd.setVisibility(View.INVISIBLE);
+        if(bannerVisibilityChanged){
+            System.out.println("game ads: monetizationController.updateVisibility()");
+            if(bannerAd.isShowing()){
+                bannerAd.setVisibility(View.VISIBLE);
+                // System.out.println("game ads: setting ad visible");
+            }else{
+                bannerAd.setVisibility(View.INVISIBLE);
+            }
+            bannerVisibilityChanged = false;
         }
     }
 
@@ -177,8 +188,11 @@ public class AndroidMonetizationController implements MonetizationController {
     @Override
     public void showBannerAd(){
       //  System.out.println("game ads: showBannerAd() called");
-        if(!isBannerAdShowing())
+        if(!isBannerAdShowing()){
             bannerAd.setShowing(true);
+            bannerVisibilityChanged = true;
+        }
+
     }
 
     /**
@@ -189,6 +203,7 @@ public class AndroidMonetizationController implements MonetizationController {
     @Override
     public void hideBannerAd(){
         bannerAd.setShowing(false);
+        bannerVisibilityChanged = true;
         bannerAd.loadAd(); //we may want to load another ad as soon as the previous was hidden.
     }
 

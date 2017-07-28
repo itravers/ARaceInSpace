@@ -64,6 +64,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
      */
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
+		System.out.println("onCreate()");
 		super.onCreate(savedInstanceState);
 		me = this;
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
@@ -119,6 +120,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 					toast(message);
 				}else if(action.equals("Add1Credit")){
 					toast("Adding a credit for watching video");
+					mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 1);
 				//	mainGame.add1Credit();
 				}
 				else if(action.equals("Add10Credits")){

@@ -129,6 +129,61 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageUp: boost_up
 		imageDown: boost_down
 	}
+	buyLevelsButton: {
+		imageUp: buyLevelsButton
+		imageDown: buyLevelsButton_down
+	}
+	nextLevelButton: {
+		imageUp: nextLevelButton_Unpressed
+		imageDown: nextLevelButton_Pressed
+	}
+	previousLevelButton: {
+		imageUp: previousLevelButton_Unpressed
+		imageDown: previousLevelButton_Pressed
+	}
+	starBronze: {
+		imageUp: star_bronze
+		imageDown: star_bronze
+	}
+	starSilver: {
+		imageUp: star_silver
+		imageDown: star_silver
+	}
+	starGold: {
+		imageUp: star_gold
+		imageDown: star_gold
+	}
+	starEmpty: {
+		imageUp: star_empty
+		imageDown: star_empty
+	}
+	coinMedium15: {
+		imageUp: coin_medium_15
+	}
+	coinSmall15: {
+		imageUp: coin_small_15
+	}
+	coinSmall10: {
+		imageUp: coin_small_10
+	}
+	coinSmall9: {
+		imageUp: coin_small_9
+	}
+	coinSmall8: {
+		imageUp: coin_small_8
+	}
+	star1: {
+		imageUp: star1_up
+		imageDown: star1_down
+	}
+	star2: {
+		imageUp: star2_up
+		imageDown: star2_down
+	}
+	star3: {
+		imageUp: star3_up
+		imageDown: star3_down
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
@@ -154,13 +209,13 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font
 	}
 	button_title: {
-		font: font_raavi_48pt
+		font: font_d_estroy__24pt
 	}
 	Store_Title: {
 		font: font_d_estroy__48pt
 	}
 	taunt_small: {
-		font: font_raavi_28pt
+		font: font_d_estroy__20pt
 	}
 	title: {
 		font: font_d_estroy__48pt
@@ -176,7 +231,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
 		font: font_d_estroy__20pt
-		fontColorSelected: GRAY
+		fontColorSelected: white
 		fontColorUnselected: GRAY
 		selection: blank
 		background: select_box_open
@@ -243,6 +298,16 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		checked: default-round-down
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: font_d_estroy__20pt
+		fontColor: GRAY
+		focusedFontColor: white
+		background: TextImageButton
+		cursor: default-rect
+		selection: default-round-down
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
 		label: default
@@ -262,7 +327,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	default: {
-		background: default-window
+		background: window
 		titleFont: default-font
 	}
 	dialog: {

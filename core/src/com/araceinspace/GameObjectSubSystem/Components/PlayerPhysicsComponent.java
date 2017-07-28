@@ -3,6 +3,7 @@ package com.araceinspace.GameObjectSubSystem.Components;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.InputSubSystem.GameInput;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -49,6 +50,15 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     private Vector2 gravityForce;
     private float lastFrameTime = 0; //Used by gravity to calculate time since last frame
 
+    Vector2 force;
+    Vector2 preForce;
+    Vector2 baseImpulse;
+    Vector2 jumpImpulse;
+
+    boolean lastOnPlanet; //set to what the last on planet status was, used to see if onPlanet changes.
+
+
+
     /**
      * Create a new PlayerPhysicsComponent
      */
@@ -59,10 +69,19 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
     /* Private Methods */
 
+    private void setupVectors(){
+        force = new Vector2(0,0);
+        preForce = new Vector2(0,0);
+        gravityForce = new Vector2(0,0);
+        baseImpulse = new Vector2(0,0);
+        jumpImpulse = new Vector2(0,0);
+    }
+
     private void setupPhysics(World world){
         this.world = world;
         CRASH_VELOCITY = MAX_VELOCITY / 3.25f;
-        gravityForce = new Vector2(0,0);
+        setupVectors();
+
         bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         float PIXELS_TO_METERS = parent.parent.parent.renderManager.PIXELS_TO_METERS;
@@ -82,6 +101,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         fixture = body.createFixture(fixtureDef);
         body.setUserData(this);
         shape.dispose();
+
     }
 
     /**
@@ -92,8 +112,9 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      */
     private void applyGravity(float elapsedTime){
         ArrayList<Planet> planets = parent.parent.parent.levelManager.getPlanets();
-        Vector2 force = new Vector2(0,0); // The total force of all the planets
-        Vector2 preForce = new Vector2(0,0);// The force of a single planet
+        //force = new Vector2(0,0); // The total force of all the planets
+        force.set(0,0);
+        preForce.set(0,0);
         float PIXELS_TO_METER = parent.parent.parent.renderManager.PIXELS_TO_METERS;
 
         for(int i = 0; i < planets.size(); i++){
@@ -105,8 +126,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
            // System.out.println("smass: " + sMass);
             Vector2 pCenter = p.getBody().getPosition();
-          // // pCenter = new Vector2(pCenter.x + pRadius/2, pCenter.y +pRadius/2);
-           // pCenter = new Vector2(p.getX() + (pRadius/2), p.getY() +(pRadius/2));
             Vector2 sCenter = this.getBody().getPosition();
             float distanceSQ = sCenter.dst2(pCenter);
             float distance = sCenter.dst(pCenter);
@@ -127,7 +146,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         lastFrameTime = elapsedTime;
 
         force = force.scl(elapsedTimeInLastFrame);
-        this.gravityForce = force.cpy();
+        this.gravityForce.set(force.x, force.y);
+        //this.gravityForce = force.cpy();
         this.getBody().applyForce(force, body.getPosition(), true);
 
     }
@@ -135,12 +155,15 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     private void applyMovement(float elapsedTime){
         float deltaTime = Gdx.graphics.getDeltaTime();
         Vector2 impulse;
-        Vector2 baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
+        baseImpulse.set(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
+        //baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
         Vector2 pos = body.getPosition();
 
         //check if boost is pressed and change impulse accordingly
-        if(parent.getInput().boostPressed){
+        if(parent.getInput().boostPressed && parent.getBoost() > 0){
             impulse = baseImpulse.scl(2f);
+            parent.setBoost(parent.getBoost() - deltaTime);
+           // System.out.println("boost: " + parent.getBoost());
         }else{
             impulse = baseImpulse;
         }
@@ -183,12 +206,26 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      * @return
      */
     public boolean onPlanet(){
+        boolean returnVal = false;
+        GameInput currentInput = parent.getInput().currentInput;
         PlayerState state = parent.getState().getCurrentState();
-        if((state == PlayerState.FLYING || state == PlayerState.FLOAT_SIDEWAYS) && getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
-            return false;
+        if((state == PlayerState.FLYING || state == PlayerState.FLOAT_SIDEWAYS || state == PlayerState.JUMP_FORWARD) && getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
+       // if(getDistanceFromClosestPlanet() >= parent.getState().FLYING_DISTANCE / 2){
+            returnVal = false;
         }else{
-            return true;
+            returnVal = true;
         }
+/*
+        if(lastOnPlanet != returnVal){
+            //our on planet status has changed, we wan't to check currentInputs to see if there is up/jump input, if there is we want to process inputs again
+            if(currentInput == GameInput.TOUCH_UP || currentInput == GameInput.TOUCH_UP_LEFT || currentInput == GameInput.TOUCH_UP_RIGHT){
+                parent.getInput().handleCurrentInput();
+            }
+        }
+        */
+
+        lastOnPlanet = returnVal;
+        return returnVal;
     }
 
     /**
@@ -283,9 +320,10 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      * Makes the player have a jump impulse, should only be called after the jump animation is done.
      */
     public void jumpImpulse(){
-        Vector2 impulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
+        jumpImpulse.set(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
+       // jumpImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
         //System.out.println("Applying Impulse: " + impulse);
-        getBody().applyLinearImpulse(impulse, getBody().getPosition(), true);
+        getBody().applyLinearImpulse(jumpImpulse, getBody().getPosition(), true);
     }
 
     /**

@@ -8,6 +8,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -23,6 +25,7 @@ public abstract class Screen {
     protected SpriteBatch batch;
     protected Stage stage;
     protected MonetizationController monetizationController;
+    Label coinLabel = null;
 
     public Screen(RenderManager parent){
         this.parent = parent;
@@ -43,4 +46,9 @@ public abstract class Screen {
     public abstract void setup();
     public abstract void render(float elapsedTime);
     public abstract void dispose();
+    public abstract OrthCamera getBackgroundCamera();
+
+    public void updateCoins() {
+        if(coinLabel != null) coinLabel.setText(Integer.toString(parent.parent.getCoins()));
+    }
 }

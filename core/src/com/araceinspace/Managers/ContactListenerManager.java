@@ -60,12 +60,12 @@ public class ContactListenerManager implements ContactListener {
              */
        // System.out.println(player.getState().getCurrentState());
             if(player.getState().getCurrentState() == PlayerState.FLYING){
-                //if(didPlayerCrash(player, planet)){
-                   // player.getState().setState(PlayerState.EXPLODING);
-                //}else{
+                if(didPlayerCrash(player, planet)){
+                    player.getState().setState(PlayerState.EXPLODING);
+                }else{
                 player.getState().isLanded = true;
                     player.getState().setState(PlayerState.LAND_FORWARD);
-               // }
+                }
             }else if(player.getState().getCurrentState() == PlayerState.FLOAT_SIDEWAYS){
                 player.getState().setState(PlayerState.LAND_SIDEWAYS);
             }
@@ -73,6 +73,8 @@ public class ContactListenerManager implements ContactListener {
         }
 
     }
+
+
 
     /**
      * Checks to see if the given player - s crashed into the given
@@ -93,9 +95,8 @@ public class ContactListenerManager implements ContactListener {
         float angleDif = planetToPlayer.angle(playerDir);
         angleDif = Math.abs(angleDif);
         if(angleDif >= 45f || 360 - angleDif <= 45){
-            //the player will only crash into the planet if his health is gone
-            //otherwise the players heath will reduce
-            float newHealth = s.getHealth();
+            //The player didn't land on his feet, so he crashes.
+           /* float newHealth = s.getHealth();
             newHealth = newHealth - s.getPhysics().getBody().getLinearVelocity().len()*15;
             s.setHealth(newHealth);
             System.out.println("newhealth: " + newHealth);
@@ -104,6 +105,8 @@ public class ContactListenerManager implements ContactListener {
             }else{
                 returnVal = false;
             }
+            */
+            return true;
 
         }else{
             /*the player hit the planet while facing the opposite direction.
@@ -119,12 +122,7 @@ public class ContactListenerManager implements ContactListener {
             }else{
                 returnVal = false;
             }
-            // }else{
-            //     returnVal = false;
-            //}
-
         }
-
         return returnVal;
     }
 

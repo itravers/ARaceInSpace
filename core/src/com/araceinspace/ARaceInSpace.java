@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 
 public class ARaceInSpace extends ApplicationAdapter {
 	/* Static Variables */
-	public static String version = "0.0.4";
+	public static String version = "0.0.5";
 	static int frameNum = 0;
 
 	/* Field Variables & Objects */
@@ -20,6 +20,8 @@ public class ARaceInSpace extends ApplicationAdapter {
 	public MonetizationController monetizationController;
 	public static EventDispatcher eventDispatcher;
 	public GameWorld gameWorld;
+
+
 
 
 

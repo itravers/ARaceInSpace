@@ -4,6 +4,7 @@ import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.InputSubSystem.InputRecorder;
 
@@ -20,9 +21,12 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
     /* Field Variables & Objects */
     InputRecorder inputRecorder;
     GameInput lastWalkInput =  null;
+    Player parent;
+    GameInput currentInput;
 
     /* Constructors */
-    public PlayerInputComponent(){
+    public PlayerInputComponent(Player parent){
+        this.parent = parent;
         registerReceiver();
         inputRecorder = new InputRecorder();
     }
@@ -45,17 +49,20 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      */
     @Override
     public void receiveEvent(Event e) {
+        System.out.println("inputEvent Received: " + e.getData());
         String id = e.getId();
         Event.TYPE type = e.getType();
-        GameInput currentInput = (GameInput)e.getData();
+        currentInput = (GameInput)e.getData();
+        handleCurrentInput();
+    }
 
+    public void handleCurrentInput(){
         //handle undefined input error
         if(currentInput == null)return;
 
-
         switch(currentInput){
             case BOOST_PRESSED:
-                    boostPressed = true;
+                boostPressed = true;
                 break;
             case RIGHT_PRESSED:
                 rightPressed = true;
@@ -92,10 +99,154 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
             case JUMP_RELEASED:
                 jumpPressed = false;
                 break;
+            case TOUCH_NONE:
+                setTouched("touchNone");
+                upPressed = false;
+                jumpPressed = false;
+                leftPressed = false;
+                downPressed = false;
+                rightPressed = false;
+                break;
+            case TOUCH_RIGHT:
+                setTouched("touchRight");
+                lastWalkInput = currentInput;
+                upPressed = false;
+                jumpPressed = false;
+                leftPressed = false;
+                downPressed = false;
+                rightPressed = true;
+                break;
+            case TOUCH_UP_RIGHT:
+                setTouched("touchUpRight");
+                lastWalkInput = currentInput;
+                if(parent.getPhysics().onPlanet()){
+                    upPressed = false;
+                    rightPressed = false;
+                    jumpPressed = true;
+                }else{
+                    jumpPressed = false;
+                    upPressed = true;
+                    rightPressed = true;
+                }
+                leftPressed = false;
+                downPressed = false;
+                break;
+            case TOUCH_UP:
+                setTouched("touchUp");
+                if(parent.getPhysics().onPlanet()){
+                    upPressed = false;
+                    jumpPressed = true;
+                }else{
+                    jumpPressed = false;
+                    upPressed = true;
+                }
+                leftPressed = false;
+                downPressed = false;
+                rightPressed = false;
+                break;
+            case TOUCH_UP_LEFT:
+                setTouched("touchUpLeft");
+                lastWalkInput = currentInput;
+                if(parent.getPhysics().onPlanet()){
+                    upPressed = false;
+                    leftPressed = false;
+                    jumpPressed = true;
+                }else{
+                    jumpPressed = false;
+                    upPressed = true;
+                    leftPressed = true;
+                }
+                rightPressed = false;
+                downPressed = false;
+                break;
+            case TOUCH_LEFT:
+                setTouched("touchLeft");
+                lastWalkInput = currentInput;
+                upPressed = false;
+                jumpPressed = false;
+                rightPressed = false;
+                downPressed = false;
+                leftPressed = true;
+                break;
+            case TOUCH_DOWN_LEFT:
+                setTouched("touchDownLeft");
+                lastWalkInput = currentInput;
+                if(parent.getPhysics().onPlanet()){
+                    downPressed = false;
+                }else{
+                    downPressed = true;
+                }
+                leftPressed = true;
+                rightPressed = false;
+                jumpPressed = false;
+                upPressed = false;
+                break;
+            case TOUCH_DOWN:
+                setTouched("touchDown");
+                if(parent.getPhysics().onPlanet()){
+                    downPressed = false; //if on planet we do nothing
+                }else{
+                    downPressed = true;
+                }
+                leftPressed = false;
+                rightPressed = false;
+                upPressed = false;
+                jumpPressed = false;
+                break;
+            case TOUCH_DOWN_RIGHT:
+                setTouched("touchDownRight");
+                lastWalkInput = currentInput;
+                if(parent.getPhysics().onPlanet()){ //if player is on planet don't press down, but only righ
+                    downPressed = false;
+                }else{
+                    downPressed = true;
+                }
+                rightPressed = true;
+                leftPressed = false;
+                jumpPressed = false;
+                upPressed = false;
+                break;
             default:
                 break;
         }
+    }
 
+    /**
+     * Sets the given touched boolean to true
+     * sets all other touched booleans to false
+     * Used to keep touchpad events from spawning duplicates
+     * @param touched
+     */
+    private void setTouched(String touched){
+        touchRight = false;
+        touchUpRight = false;
+        touchUp = false;
+        touchUpLeft = false;
+        touchLeft = false;
+        touchDownLeft = false;
+        touchDown = false;
+        touchDownRight = false;
+        touchNone = false;
+
+        if(touched.equals("touchRight")){
+            touchRight = true;
+        }else if(touched.equals("touchUpRight")){
+            touchUpRight = true;
+        }else if(touched.equals("touchUp")){
+            touchUp = true;
+        }else if(touched.equals("touchUpLeft")){
+            touchUpLeft = true;
+        }else if(touched.equals("touchLeft")){
+            touchLeft = true;
+        }else if(touched.equals("touchDownLeft")){
+            touchDownLeft = true;
+        }else if(touched.equals("touchDown")){
+            touchDown = true;
+        }else if(touched.equals("touchDownRight")){
+            touchDownRight = true;
+        }else if(touched.equals("touchNone")){
+            touchNone = true;
+        }
     }
 
     /**
@@ -155,12 +306,10 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      * @return
      */
     public boolean flip(){
-        if(lastWalkInput == GameInput.LEFT_PRESSED){
+        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT){
             return true;
         }else{
             return false;
         }
-
     }
-
 }

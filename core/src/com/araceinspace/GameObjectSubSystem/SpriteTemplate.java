@@ -1,5 +1,7 @@
 package com.araceinspace.GameObjectSubSystem;
 
+import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
+import com.araceinspace.Managers.GameStateManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
@@ -76,7 +78,6 @@ public class SpriteTemplate {
         this.yLoc = yLoc;
     }
 
-
     public float getGravityRadius() {
         return gravityRadius;
     }
@@ -84,5 +85,6 @@ public class SpriteTemplate {
     public void setGravityRadius(float gravityRadius) {
         this.gravityRadius = gravityRadius;
     }
+
 
 }

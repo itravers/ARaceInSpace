@@ -87,6 +87,7 @@ public class AndroidBannerAd extends GameAd{
         //bannerAd.setBackgroundColor(0xff000000);
         bannerAd.setAdSize(AdSize.SMART_BANNER);
         bannerAd.setAdListener(new BannerListener(me));
+
     }
 
     /**
@@ -209,6 +210,7 @@ public class AndroidBannerAd extends GameAd{
     @Override
     public void destroy(){
         bannerAd.destroy();
+
     }
 
     /**
@@ -253,10 +255,10 @@ public class AndroidBannerAd extends GameAd{
         @Override
         public void onAdFailedToLoad(int i) {
             super.onAdFailedToLoad(i);
-            if(i == AdRequest.ERROR_CODE_INTERNAL_ERROR)System.out.println("Error ERROR_CODE_INTERNAL_ERROR");
-            if(i == AdRequest.ERROR_CODE_INVALID_REQUEST)System.out.println("Error ERROR_CODE_INVALID_REQUEST");
-            if(i == AdRequest.ERROR_CODE_NETWORK_ERROR)System.out.println("Error ERROR_CODE_NETWORK_ERROR");
-            if(i == AdRequest.ERROR_CODE_NO_FILL)System.out.println("Error ERROR_CODE_NO_FILL");
+            if(i == AdRequest.ERROR_CODE_INTERNAL_ERROR)System.out.println("game ads : Error ERROR_CODE_INTERNAL_ERROR");
+            if(i == AdRequest.ERROR_CODE_INVALID_REQUEST)System.out.println("game ads : Error ERROR_CODE_INVALID_REQUEST");
+            if(i == AdRequest.ERROR_CODE_NETWORK_ERROR)System.out.println("game ads : Error ERROR_CODE_NETWORK_ERROR");
+            if(i == AdRequest.ERROR_CODE_NO_FILL)System.out.println("game ads : Error ERROR_CODE_NO_FILL");
         }
 
         /**

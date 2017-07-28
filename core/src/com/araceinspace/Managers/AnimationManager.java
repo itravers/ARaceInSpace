@@ -74,10 +74,11 @@ public class AnimationManager {
    // private Array<TextureAtlas.AtlasRegion>jumpSidewaysRegion;
     private Animation  jumpSidewaysAnimation;
     private Animation flyingNoThrustAnimation;
+    private Animation explosionAnimation;
 
 
 
-    private TextureAtlas heroAtlas;
+    public TextureAtlas heroAtlas;
 
     //Planet Animation data
     private TextureAtlas planetAtlas = null;
@@ -92,6 +93,12 @@ public class AnimationManager {
     }
 
     /* Private Methods */
+
+    private void setupExplosionAnimation(){
+        Array<TextureAtlas.AtlasRegion> explosionRegion = heroAtlas.findRegions("explosion/explosion");
+        explosionAnimation = new Animation(1/60f, explosionRegion);
+
+    }
 
     private void setFlyingNoThrustAnimation(){
         Array<TextureAtlas.AtlasRegion> flyingNoThrustRegion = heroAtlas.findRegions("FlyingNoThrust/FlyingNoThrust");
@@ -264,6 +271,7 @@ public class AnimationManager {
         setupRunFastAnimation();
         setupJumpSidewaysAnimation();
         setFlyingNoThrustAnimation();
+        setupExplosionAnimation();
     }
 
 
@@ -325,6 +333,10 @@ public class AnimationManager {
 
     public Animation getFlyingNoThrustAnimation(){
         return flyingNoThrustAnimation;
+    }
+
+    public Animation getExploadingAnimation(){
+        return explosionAnimation;
     }
 
     public Animation getJumpSidewaysAnimation(){

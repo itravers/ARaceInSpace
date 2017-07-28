@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.Managers.GameStateManager;
 import com.badlogic.gdx.Gdx;
 import  com.araceinspace.misc.Animation;
 import com.badlogic.gdx.math.Vector2;
@@ -31,9 +32,9 @@ public class PlayerStateComponent extends StateComponent{
 
 
     /* Constructors */
-    public PlayerStateComponent(Player p){
+    public PlayerStateComponent(Player p, PlayerState state){
         parent = p;
-        setState(PlayerState.STAND_STILL_FORWARD); //The Game Starts, the Avatar is in this state.
+        setState(state); //The Game Starts, the Avatar is in this state.
     }
 
     /* Private Methods */
@@ -84,11 +85,13 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.JUMP_FORWARD && parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE){
             //Transition from JUMP_FORWARD to FLYING
             setState(PlayerState.FLYING);
+            parent.getInput().handleCurrentInput();//we want the touchpad to continue having us fly when we change state
             isLanded = false;
         }else if(currentState == PlayerState.FLOAT_SIDEWAYS && parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE &&
                  parent.getInput().thrustPressed()){
             //Transition from FLOAT_SIDEWAYS to FLYING
             setState(PlayerState.FLYING);
+            parent.getInput().handleCurrentInput();//we want the touchpad to continue having us fly when we change state
             isLanded = false;
         }else if(currentState == PlayerState.FLYING && parent.getPhysics().getDistanceFromClosestPlanet() <= LANDING_DISTANCE &&
                  parent.getPhysics().movingTowardsClosestPlanet()){
@@ -151,6 +154,8 @@ public class PlayerStateComponent extends StateComponent{
             setState(PlayerState.JUMP_SIDEWAYS);
         }else if((currentState == PlayerState.JUMP_SIDEWAYS || currentState == PlayerState.JUMP_FORWARD) && currentAnimation.getLoops(stateTime) >= 1){
             parent.getPhysics().jumpImpulse();
+        }else if(currentState == PlayerState.EXPLODING && currentAnimation.getLoops(stateTime) >=.9f){
+            parent.parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
         }
 
 

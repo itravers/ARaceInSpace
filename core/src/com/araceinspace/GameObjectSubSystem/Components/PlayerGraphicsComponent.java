@@ -97,6 +97,8 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
             case JUMP_SIDEWAYS:
                 setAnimation(animationManager.getJumpSidewaysAnimation());
                 break;
+            case EXPLODING:
+                setAnimation(animationManager.getExploadingAnimation());
         }
     }
 

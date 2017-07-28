@@ -21,6 +21,7 @@ public class GameStateManager {
     public GameStateManager(GameWorld p){
         parent = p;
         stateStack = new Stack<GAME_STATE>();
+        //parent.levelManager.setLevel(1);
         setCurrentState(GAME_STATE.TITLE_SCREEN);
 
     }

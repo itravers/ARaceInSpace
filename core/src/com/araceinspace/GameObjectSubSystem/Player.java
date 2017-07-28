@@ -3,6 +3,7 @@ package com.araceinspace.GameObjectSubSystem;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.misc.Animation;
@@ -20,23 +21,30 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class Player extends TwoDGameObject{
     /* Static Variables */
+    public static float BOOST_TOTAL = 10;
+    public static float HEALTH_TOTAL = 1000;
 
     /* Field Variables & Objects */
     public LevelManager parent;
     private float health;
+    private float boost;
 
     /**
      * Constructor
      * @param region
      * @param animations
      */
-    public Player(LevelManager p, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
+    public Player(LevelManager p, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
         parent = p;
-        health = 100;
+        health = HEALTH_TOTAL;
+
+        boost = BOOST_TOTAL;
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
-        input = new PlayerInputComponent();
+        input = new PlayerInputComponent(this);
         physics = new PlayerPhysicsComponent(this, world);
-        state = new PlayerStateComponent(this);
+        state = new PlayerStateComponent(this, firstState);
+        boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();
+        ((PlayerStateComponent)state).isLanded = onPlanet;
 
 
     }
@@ -51,6 +59,7 @@ public class Player extends TwoDGameObject{
     @Override
     void dispose() {
         //TODO create player dispose code
+
     }
 
     @Override
@@ -113,6 +122,15 @@ public class Player extends TwoDGameObject{
 
     public void setHealth(float health){
         this.health = health;
+    }
+
+    public void setBoost(float boost){
+        if(boost <= 0)boost = 0;
+        this.boost = boost;
+    }
+
+    public float getBoost(){
+        return boost;
     }
 
 
