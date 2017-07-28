@@ -48,8 +48,6 @@ public class LEVELSELECTScreen extends Screen{
     ImageButton starSilver;
     ImageButton starGold;
     ImageButton buyLevelsButton;
-    String nextLevelPrice;
-    Label nextLevelPriceLabel;
 
     public LEVELSELECTScreen(RenderManager parent) {
         super(parent);
@@ -149,12 +147,6 @@ public class LEVELSELECTScreen extends Screen{
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
-
-        batch.begin();
-        nextLevelPriceLabel.draw(batch, .5f);
-        batch.end();
-
 
     }
 
@@ -426,13 +418,6 @@ public class LEVELSELECTScreen extends Screen{
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
         bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
 
-        nextLevelPrice = "15";
-        nextLevelPriceLabel = new Label(nextLevelPrice, skin, "button_title");
-        nextLevelPriceLabel.setTouchable(Touchable.disabled);
-        nextLevelPriceLabel.setRotation(45);
-        nextLevelPriceLabel.setPosition(
-                viewport.getScreenWidth()-buyLevelsButton.getWidth()+buyLevelsButton.getWidth()/6,
-                (viewport.getScreenHeight()/2)-(buttonStack.getHeight()/2)-buyLevelsButton.getHeight()/10);
 
 
 

@@ -157,6 +157,33 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageUp: star_empty
 		imageDown: star_empty
 	}
+	coinMedium15: {
+		imageUp: coin_medium_15
+	}
+	coinSmall15: {
+		imageUp: coin_small_15
+	}
+	coinSmall10: {
+		imageUp: coin_small_10
+	}
+	coinSmall9: {
+		imageUp: coin_small_9
+	}
+	coinSmall8: {
+		imageUp: coin_small_8
+	}
+	star1: {
+		imageUp: star1_up
+		imageDown: star1_down
+	}
+	star2: {
+		imageUp: star2_up
+		imageDown: star2_down
+	}
+	star3: {
+		imageUp: star3_up
+		imageDown: star3_down
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {

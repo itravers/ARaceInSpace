@@ -156,7 +156,7 @@ public class PREGAMEScreen extends Screen{
 
 
 
-    private Stack makeButtonStack(String title, String s_taunt1, String s_taunt2){
+    private Stack makeButtonStack(String title, ImageButton star, String s_taunt1, String s_taunt2){
         boolean devMode = parent.parent.devMode;
         //create buttons to buy iap
         // final Button storeTestButton = new Button(skin, "white");
@@ -168,29 +168,20 @@ public class PREGAMEScreen extends Screen{
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
         titleLabel.setTouchable(Touchable.disabled);
-        //titleLabel.setFontScale(.7f); //WORKS for rizing font, but we also change table container
+        titleLabel.setFontScale(.9f); //WORKS for rizing font, but we also change table container
 
         ImageButton button_image;
 
         button_image = new ImageButton(skin, "coinButton_small");
         button_image.setTouchable(Touchable.disabled);
 
-        starBronze = new ImageButton(skin, "starBronze");
-        starBronze.setTouchable(Touchable.disabled);
 
-        starSilver = new ImageButton(skin, "starSilver");
-        starSilver.setTouchable(Touchable.disabled);
-
-        starGold = new ImageButton(skin, "starGold");
-        starGold.setTouchable(Touchable.disabled);
 
         Table starTable = new Table();
         starTable.setDebug(devMode);
         starTable.align(Align.center);
 
-        starTable.add(starBronze).padRight(spacer);
-        starTable.add(starSilver);
-        starTable.add(starGold).padLeft(spacer);
+        starTable.add(star);
 
         /*
         Label priceLabel = new Label(price, skin, "button_title");
@@ -200,13 +191,20 @@ public class PREGAMEScreen extends Screen{
         */
 
         Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
+        taunt1.setAlignment(Align.top);
         taunt1.setTouchable(Touchable.disabled);
         taunt1.setFontScale(.7f);
         //taunt1.setFontScale(Gdx.graphics.getDensity());
 
-        Label taunt2 = new Label(s_taunt2, skin, "button_title");
+        Label yourTime = new Label("Your Time", skin, "taunt_small");
+        yourTime.setAlignment(Align.bottom);
+        yourTime.setTouchable(Touchable.disabled);
+        yourTime.setFontScale(.8f);
+
+        Label taunt2 = new Label(s_taunt2, skin, "taunt_small");
         taunt2.setTouchable(Touchable.disabled);
         taunt2.setAlignment(Align.top);
+        taunt2.setFontScale(.6f);
         //taunt2.setFontScale(2f);
         //taunt2.setFontScale(Gdx.graphics.getDensity());
 
@@ -225,7 +223,7 @@ public class PREGAMEScreen extends Screen{
         Table purchaseHeaderTable = new Table();
         purchaseHeaderTable.setDebug(devMode);
         purchaseHeaderTable.align(Align.top|Align.center);
-        purchaseHeaderTable.add(titleLabel).padTop(spacer/4).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
+        purchaseHeaderTable.add(titleLabel).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
         // if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(width/13, width/13).align(Align.top);
         purchaseTable.add(purchaseHeaderTable).align(Align.top);
         purchaseTable.row();
@@ -233,18 +231,21 @@ public class PREGAMEScreen extends Screen{
         Table purchaseBodyTable = new Table();
         purchaseBodyTable.setDebug(devMode);
         purchaseBodyTable.align(Align.top|Align.center);
-        purchaseBodyTable.add(starTable).expandX().padBottom(spacer/8).align(Align.top);
-        //purchaseBodyTable.add(starBronze);//.size(starBronze.getWidth(), starBronze.getHeight());
-        // purchaseBodyTable.add(starSilver);//.size(starBronze.getWidth(), starBronze.getHeight());
-        // purchaseBodyTable.add(starGold);//.size(starBronze.getWidth(), starBronze.getHeight());
+
+        purchaseBodyTable.add(taunt1).expandX().align(Align.top);
         purchaseBodyTable.row();
-        purchaseBodyTable.add(taunt1).expandX().padTop(10).padRight(spacer/2);
+
+        purchaseBodyTable.add(starTable).expandX().align(Align.top);
         purchaseBodyTable.row();
+
+        purchaseBodyTable.add(yourTime).expandX();
+        purchaseBodyTable.row();
+
         purchaseBodyTable.add(taunt2).expandX().align(Align.top).padBottom(30);
         purchaseBodyTable.row();
         // purchaseBodyTable.add(taunt3).expandX().padBottom(spacer/2);
 
-        purchaseTable.add(purchaseBodyTable);
+        purchaseTable.add(purchaseBodyTable).align(Align.top);
 
 
         Stack buttonStack;
@@ -304,7 +305,8 @@ public class PREGAMEScreen extends Screen{
         System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("Choose", skin, "Store_Title");
         storeTitleLabel.setDebug(devMode);
-        coinLabel = new Label("25", skin, "coinLabel");
+        coinLabel = new Label("215", skin, "coinLabel");
+        coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");
         coinButton.addListener(coinButtonListener);
@@ -313,13 +315,13 @@ public class PREGAMEScreen extends Screen{
         headerTable.setDebug(devMode);
         headerTable.align(Align.center|Align.top);
 
-        headerTable.add(backButton).padLeft(spacer).padTop(0).size(width/8, height/10);
-        headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(width/8, height/10);
-        headerTable.add(storeTitleLabel).expandX().align(Align.left).size(width/3.2f, height/12);
+        headerTable.add(backButton).padLeft(spacer/4).padTop(0).size(width/8, height/10);
+        headerTable.add(menuButton).padLeft(spacer/4).padTop(0).align(Align.left).size(width/8, height/10);
+        headerTable.add(storeTitleLabel).expandX().align(Align.left).size(width/3.5f, height/12);
 
         float fontWidth = storeTitleLabel.getStyle().font.getSpaceWidth()*storeTitleLabel.getText().length();
 
-        headerTable.add(coinLabel).size(width/11, height/12).align(Align.right);
+        headerTable.add(coinLabel).size(width/6, height/12).align(Align.right);
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
 
         headerTable.row();
@@ -365,9 +367,17 @@ public class PREGAMEScreen extends Screen{
         buttonTable.align(Align.top|Align.center);
 
 
-        Stack buttonStack1 = makeButtonStack("Bronze", "1:03:41", "Slack");
-        Stack buttonStack2 = makeButtonStack("Silver",  "52:23", "Slack");
-        Stack buttonStack3 = makeButtonStack("Gold",  "43:17", "Zenrix");
+        ImageButton starBronze = new ImageButton(skin, "starBronze");
+        starBronze.setTouchable(Touchable.disabled);
+        Stack buttonStack1 = makeButtonStack("Bronze", starBronze, "taunt1", "taunt2");
+
+        ImageButton starSilver = new ImageButton(skin, "starSilver");
+        starSilver.setTouchable(Touchable.disabled);
+        Stack buttonStack2 = makeButtonStack("Silver", starSilver, "52:23", "52:21");
+
+        ImageButton starGold = new ImageButton(skin, "starGold");
+        starGold.setTouchable(Touchable.disabled);
+        Stack buttonStack3 = makeButtonStack("Gold",  starGold, "43:17", "52:17");
 
         buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
         buttonTable.add(buttonStack2).pad(0).size(butWidth, butHeight).align(Align.top);
@@ -390,52 +400,75 @@ public class PREGAMEScreen extends Screen{
         Label firstPlaceLabel = new Label("First Place", skin, "taunt_small");
         firstPlaceLabel.setTouchable(Touchable.disabled);
         firstPlaceLabel.setFontScale(.7f);
-        t1.add(firstPlaceLabel);
 
-        ImageButton coin1 = new ImageButton(skin, "coinButton_small");
+        ImageButton coin1 = new ImageButton(skin, "coinSmall10");
         coin1.setTouchable(Touchable.disabled);
-        t1.add(coin1);
+
+        Table t1Header = new Table();
+        t1Header.setDebug(devMode);
+        t1Header.align(Align.top|Align.center);
+
+        t1Header.add(firstPlaceLabel);
+        t1Header.add(coin1);
+        t1.add(t1Header);
         t1.row();
 
-        ImageButton gold = new ImageButton(skin, "starGold");
+        ImageButton gold = new ImageButton(skin, "star1");
         t1.add(gold).align(Align.center);
+
+
 
         Table t2 = new Table();
         t2.setDebug(devMode);
         Label secondPlaceLabel = new Label("Second Place", skin, "taunt_small");
         secondPlaceLabel.setTouchable(Touchable.disabled);
         secondPlaceLabel.setFontScale(.7f);
-        t2.add(secondPlaceLabel);
 
-        ImageButton coin2 = new ImageButton(skin, "coinButton_small");
+        ImageButton coin2 = new ImageButton(skin, "coinSmall9");
         coin2.setTouchable(Touchable.disabled);
-        t2.add(coin2);
+
+        Table t2Header = new Table();
+        t2Header.setDebug(devMode);
+        t2Header.align(Align.top|Align.center);
+
+        t2Header.add(secondPlaceLabel);
+        t2Header.add(coin2);
+        t2.add(t2Header);
         t2.row();
 
-        ImageButton silver = new ImageButton(skin, "starSilver");
+        ImageButton silver = new ImageButton(skin, "star2");
         t2.add(silver).align(Align.center);
+
+
 
         Table t3 = new Table();
         t3.setDebug(devMode);
         Label thirdPlaceLabel = new Label("Third Place", skin, "taunt_small");
         thirdPlaceLabel.setTouchable(Touchable.disabled);
         thirdPlaceLabel.setFontScale(.7f);
-        t3.add(thirdPlaceLabel);
 
-        ImageButton coin3 = new ImageButton(skin, "coinButton_small");
+        ImageButton coin3 = new ImageButton(skin, "coinSmall8");
         coin3.setTouchable(Touchable.disabled);
-        t3.add(coin3);
+
+        Table t3Header = new Table();
+        t3Header.setDebug(devMode);
+        t3Header.align(Align.top|Align.center);
+
+        t3Header.add(thirdPlaceLabel);
+        t3Header.add(coin3);
+        t3.add(t3Header);
         t3.row();
 
-        ImageButton bronze = new ImageButton(skin, "starBronze");
+
+        ImageButton bronze = new ImageButton(skin, "star3");
         t3.add(bronze).align(Align.center);
 
         Table placeTable = new Table();
         placeTable.setDebug(devMode);
         placeTable.align(Align.top|Align.center);
-        placeTable.add(t1);
-        placeTable.add(t2);
-        placeTable.add(t3);
+        placeTable.add(t1).width(butWidth);
+        placeTable.add(t2).width(butWidth);
+        placeTable.add(t3).width(butWidth);
 
 
         Table customPlayTable = new Table();
@@ -443,14 +476,21 @@ public class PREGAMEScreen extends Screen{
         customPlayTable.setDebug(devMode);
 
         Label customTitle = new Label("Custom", skin);
-        ImageButton coin = new ImageButton(skin, "coinButton_small");
+        ImageButton coin = new ImageButton(skin, "coinMedium15");
+
+        Table customHeader = new Table();
+        customHeader.setDebug(devMode);
+        customHeader.align(Align.top|Align.center);
+
+        customHeader.add(customTitle);
+        customHeader.add(coin);
+
         Label inputLabel = new Label("Input Game ID", skin, "button_title");
         TextField textField = new TextField("", skin);
         textField.setAlignment(Align.center);
         ImageTextButton playButton = new ImageTextButton("Play", skin);
 
-        customPlayTable.add(customTitle);
-        customPlayTable.add(coin);
+        customPlayTable.add(customHeader);
         customPlayTable.row();
         customPlayTable.add(inputLabel);
         customPlayTable.row();
