@@ -44,10 +44,10 @@ public class GameWorld {
     /* Constructors */
     public GameWorld(ApplicationAdapter p){
         parent = p;
-        prefs = Gdx.app.getPreferences("Saved_Items");
+        prefs = Gdx.app.getPreferences("com.araceinspace.Saved_Items");
 
-        ghostTimer = prefs.getFloat("ghostTimer", GHOST_TIMER_LIMIT);
-        coins = prefs.getInteger("coins", 0);
+        ghostTimer = prefs.getFloat("com.araceinspace.ghostTimer", GHOST_TIMER_LIMIT);
+        coins = prefs.getInteger("com.araceinspace.coins");
 
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
@@ -103,7 +103,8 @@ public class GameWorld {
         }
 
         if(countGhostTimer && renderManager.getFrameNum() % 1000 == 0){
-            prefs.putFloat("ghostTimer", ghostTimer);
+            prefs.putFloat("com.araceinspace.ghostTimer", ghostTimer);
+            prefs.flush();
         }
 
     }
@@ -122,7 +123,8 @@ public class GameWorld {
 
     public void setCoins(int c){
         coins = c;
-        prefs.putInteger("coins", coins);
+        prefs.putInteger("com.araceinspace.coins", coins);
+        prefs.flush();
         renderManager.getCurrentScreen().updateCoins();
     }
 

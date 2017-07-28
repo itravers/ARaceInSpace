@@ -267,6 +267,9 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
         if(level == 6){
             parent.devMode = !parent.devMode;
             return;
+        }else if(level == 7){
+            parent.setCoins(parent.getCoins() + 1);
+            return;
         }
         parent.levelManager.setLevel(level);
         parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
