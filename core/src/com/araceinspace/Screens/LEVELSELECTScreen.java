@@ -40,10 +40,8 @@ public class LEVELSELECTScreen extends Screen{
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
 
-    Stage landscapeStage;
     boolean stageLoaded;
 
-    Image starEmpty;
     ImageButton starBronze;
     ImageButton starSilver;
     ImageButton starGold;
@@ -58,7 +56,6 @@ public class LEVELSELECTScreen extends Screen{
         stage.dispose();
         batch.dispose();
         skin.dispose();
-
     }
 
     @Override
@@ -111,19 +108,10 @@ public class LEVELSELECTScreen extends Screen{
         };
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
-
-
-
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
-
-
-
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
-
-
-
         monetizationController.showBannerAd();
     }
 
@@ -139,11 +127,6 @@ public class LEVELSELECTScreen extends Screen{
         Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-
-        // guiStage = new Stage(viewport, batch);
-        // System.out.println("drawing portrait");
-        // Gdx.input.setInputProcessor(stage);
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -188,12 +171,6 @@ public class LEVELSELECTScreen extends Screen{
         starTable.add(starSilver);
         starTable.add(starGold).padLeft(spacer);
 
-        /*
-        Label priceLabel = new Label(price, skin, "button_title");
-        priceLabel.setTouchable(Touchable.disabled);
-        priceLabel.setFontScale(.8f);
-        //priceLabel.setFontScale(Gdx.graphics.getDensity()); //WORKS for rizing font
-        */
 
         Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
         taunt1.setTouchable(Touchable.disabled);
@@ -203,14 +180,6 @@ public class LEVELSELECTScreen extends Screen{
         Label taunt2 = new Label(s_taunt2, skin, "button_title");
         taunt2.setTouchable(Touchable.disabled);
         taunt2.setAlignment(Align.top);
-        //taunt2.setFontScale(2f);
-        //taunt2.setFontScale(Gdx.graphics.getDensity());
-
-        /*
-        Label taunt3 = new Label(s_taunt3, skin, "taunt_small");
-        taunt3.setTouchable(Touchable.disabled);
-        taunt3.setFontScale(.8f);
-        */
 
         //create table in buttons
         Table purchaseTable = new Table();
@@ -222,7 +191,6 @@ public class LEVELSELECTScreen extends Screen{
         purchaseHeaderTable.setDebug(devMode);
         purchaseHeaderTable.align(Align.top|Align.center);
         purchaseHeaderTable.add(titleLabel).padTop(spacer/4).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
-       // if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(width/13, width/13).align(Align.top);
         purchaseTable.add(purchaseHeaderTable).align(Align.top);
         purchaseTable.row();
 
@@ -230,15 +198,11 @@ public class LEVELSELECTScreen extends Screen{
         purchaseBodyTable.setDebug(devMode);
         purchaseBodyTable.align(Align.top|Align.center);
         purchaseBodyTable.add(starTable).expandX().padBottom(spacer/8).align(Align.top);
-        //purchaseBodyTable.add(starBronze);//.size(starBronze.getWidth(), starBronze.getHeight());
-       // purchaseBodyTable.add(starSilver);//.size(starBronze.getWidth(), starBronze.getHeight());
-       // purchaseBodyTable.add(starGold);//.size(starBronze.getWidth(), starBronze.getHeight());
         purchaseBodyTable.row();
         purchaseBodyTable.add(taunt1).expandX().padTop(10).padRight(spacer/2);
         purchaseBodyTable.row();
         purchaseBodyTable.add(taunt2).expandX().align(Align.top).padBottom(30);
         purchaseBodyTable.row();
-       // purchaseBodyTable.add(taunt3).expandX().padBottom(spacer/2);
 
         purchaseTable.add(purchaseBodyTable);
 
@@ -418,18 +382,9 @@ public class LEVELSELECTScreen extends Screen{
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
         bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
 
-
-
-
         table.add(bodyTable).fill().expandX();
-        //table.add(nextLevelPriceLabel);
-        // table.setPosition(camera.position.x, camera.position.y);
         stage.addActor(table);
-
-
 
         stageLoaded = true;
     }
-
-
 }

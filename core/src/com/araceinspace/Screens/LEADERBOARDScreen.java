@@ -5,152 +5,362 @@ import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Tree;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+
+import java.util.ArrayList;
 
 /**
- * Created by Isaac Assegai on 7/16/17.
- * This screen will contain everything needed to implement the Level Select Functionality
+ * Created by Isaac Assegai on 7/17/17.
+ * Lets the user choose which level to play
  */
-public class LEADERBOARDScreen extends Screen {
-    /* Static Variables */
+public class LEADERBOARDScreen extends Screen{
 
-    /* Field Variables & Objects */
-    private Skin skin;
-    private Table mainTable;
-    private Label titleLabel;
-    private ClickListener backButtonListener;
-    private ClickListener tryAgainButtonListener;
-    private ClickListener continueButtonListener;
+    int xCoords = 0;
+    ArrayList<ImageButton> buyButtons;
+    Skin skin;
+    int spacer;
+    ClickListener coinButtonListener;
+    ClickListener backButtonListener;
+    ClickListener rewardAdButtonListener;
+    ClickListener menuButtonListener;
+    ClickListener nextButtonListener;
+    ClickListener continueButtonListener;
 
-    private TextButton backButton;
-    private TextButton tryAgainButton;
-    private TextButton continueButton;
+    boolean stageLoaded;
 
-    /* Constructors */
+    ImageButton starBronze;
+    ImageButton starSilver;
+    ImageButton starGold;
+    ImageButton buyLevelsButton;
+
+    JsonValue leaderBoardLevels;
 
     public LEADERBOARDScreen(RenderManager parent) {
         super(parent);
     }
 
-    /* Private Methods */
-
-    private void setupSkin(){
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("uiskin_default.atlas"));
-        skin = new Skin(Gdx.files.internal("uiskin_default.json"), atlas);
-
-    }
-
-    private void setupButtons(){
-
-
-        backButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("backButtonListener");
-                parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
-            }
-        };
-
-
-        tryAgainButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("backButtonListener");
-                parent.parent.levelManager.setLevel(parent.parent.levelManager.getCurrentLevel());
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
-            }
-        };
-
-        continueButtonListener = new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("backButtonListener");
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
-            }
-        };
-
-
-
-        backButton = new TextButton("Back", skin);
-        backButton.addListener(backButtonListener);
-
-        tryAgainButton = new TextButton("Try Again", skin);
-        tryAgainButton.addListener(tryAgainButtonListener);
-
-        continueButton = new TextButton("Continue", skin);
-        continueButton.addListener(continueButtonListener);
-
-    }
-
-    private void setupLabels(){
-        titleLabel = new Label("LeaderBoards", skin);
-    }
-
-    private void setupTables(){
-        mainTable = new Table();
-        mainTable.setFillParent(true);
-        mainTable.setDebug(parent.parent.devMode);
-
-        mainTable.add(titleLabel);
-        mainTable.row();
-
-
-        mainTable.add(backButton);
-        mainTable.row();
-        mainTable.add(tryAgainButton);
-        mainTable.row();
-        mainTable.add(continueButton);
-        mainTable.row();
-
-    }
-
-    /* Public Methods */
-
-    /**
-     * Automatically gets called from extended class.
-     */
-    @Override
-    public void setup() {
-        stage = new Stage(viewport, batch);
-        setupSkin();
-        setupButtons();
-        setupLabels();
-        setupTables();
-
-        stage.addActor(mainTable);
-        parent.parent.inputManager.addInputProcessor(stage);
-    }
-
-    /**
-     * Gets called from render manager
-     * @param elapsedTime
-     */
-    @Override
-    public void render(float elapsedTime) {
-        if(monetizationController.isBannerAdLoaded())monetizationController.showBannerAd();
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
-    }
-
     @Override
     public void dispose() {
         stage.dispose();
-        skin.dispose();
         batch.dispose();
-
+        skin.dispose();
     }
 
     @Override
     public OrthCamera getBackgroundCamera() {
         return null;
+    }
+
+    @Override
+    public void setup() {
+        System.out.println("Settingup LeaderBoardScreen");
+        JsonReader json = new JsonReader();
+        JsonValue jsonValue = json.parse(Gdx.files.internal("levels/LeaderBoard.json"));
+        leaderBoardLevels = jsonValue.get("levels");
+
+
+       // System.out.println(jsonValue);
+
+        stage = new Stage(viewport, batch);
+        // updateOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        coinButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+                //System.out.println("Button Clicked: " + event);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
+            }
+
+        };
+
+        backButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+                parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
+            }
+
+        };
+
+        rewardAdButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
+                monetizationController.loadRewardAd();
+                monetizationController.showRewardAd();
+            }
+
+        };
+
+        menuButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
+            }
+
+        };
+        nextButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.devMode = ! parent.parent.devMode;
+            }
+
+        };
+        continueButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+            }
+
+        };
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        BitmapFont font = skin.getFont("default-font");
+        font.getData().setScale(.13f, .66f);
+        spacer = 25;
+        setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
+        monetizationController.showBannerAd();
+    }
+
+
+
+
+    @Override
+    public void render(float elapsedTime) {
+        xCoords++;
+        if(xCoords >= Gdx.graphics.getWidth()){
+            xCoords = 0;
+        }
+        Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        parent.parent.inputManager.addInputProcessor(stage);
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+    }
+
+    public void setupPortraitGUI(float width, float height){
+        boolean devMode = parent.parent.devMode;
+        stageLoaded = false;
+        float butWidth = width/2.6f;
+        float butHeight = height/4.5f;
+
+
+        System.out.println("setup portrait    stage w:h " + width + ":" + height);
+        Table storeTable;
+
+        //scene2d.ui items
+        Table table;
+        Table headerTable;
+        Table bodyTable;
+
+        ScrollPane scrollPane;
+
+        Label storeTitleLabel1;
+        Label storeTitleLabel2;
+        ImageButton backButton;
+        ImageButton menuButton;
+        ImageButton coinButton;
+
+        ImageButton rewardButton;
+
+        table = new Table();
+        table.setDebug(devMode);
+        table.setWidth(width);
+        table.align(Align.center|Align.top);
+        table.setPosition(0, height);
+
+
+        backButton = new ImageButton(skin, "backButton");
+        backButton.setDebug(devMode);
+        backButton.addListener(backButtonListener);
+
+        menuButton = new ImageButton(skin, "menuButton");
+        menuButton.setDebug(devMode);
+        menuButton.addListener(menuButtonListener);
+
+        rewardButton = new ImageButton(skin, "rewardButton");
+        rewardButton.setDebug(devMode);
+        rewardButton.addListener(rewardAdButtonListener);
+
+        System.out.println("density: portrait, " + Gdx.graphics.getDensity());
+        storeTitleLabel1 = new Label("LEADER", skin, "coinLabel");
+        storeTitleLabel1.setDebug(devMode);
+        storeTitleLabel2 = new Label("BOARDS", skin, "coinLabel");
+        storeTitleLabel2.setDebug(devMode);
+
+        Table titleTable = new Table();
+        titleTable.setDebug(devMode);
+        titleTable.add(storeTitleLabel1).align(Align.bottom|Align.center).height(storeTitleLabel1.getHeight()*.65f);
+        titleTable.row();
+        titleTable.add(storeTitleLabel2).align(Align.top|Align.center).height(storeTitleLabel2.getHeight()*.65f);;
+
+        String coins = Integer.toString(parent.parent.getCoins());
+        coinLabel = new Label(coins, skin, "coinLabel");
+
+        coinButton = new ImageButton(skin, "coinButton");
+        coinButton.addListener(coinButtonListener);
+
+        headerTable = new Table();
+        headerTable.setDebug(devMode);
+        headerTable.align(Align.center|Align.top);
+
+        headerTable.add(backButton).padLeft(spacer).padTop(0).size(width/8, height/10);
+        headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(width/8, height/10);
+        headerTable.add(titleTable).expandX().align(Align.center).size(width/3.2f, height/12);
+
+
+        headerTable.add(coinLabel).size(width/11, height/12).align(Align.right);
+        headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
+
+        headerTable.row();
+        //headerTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.top).spaceLeft(0);
+
+        Table extraTable = new Table();
+        extraTable.setDebug(devMode);
+        extraTable.align(Align.center|Align.top);
+        extraTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.top).spaceLeft(0);
+
+        Table extraTable2 = new Table();
+        extraTable2.setDebug(devMode);
+        extraTable2.align(Align.center|Align.top);
+        Label taunt1 = new Label("Win A Challenge and become", skin, "extra_small");
+        extraTable2.add(taunt1).height(height/30).align(Align.left);
+
+        Label taunt2 = new Label("The New CHAMP!!!", skin, "coinLabel");
+        extraTable2.row();
+        extraTable2.add(taunt2).height(height/30).align(Align.top);
+
+        extraTable.add(extraTable2).fill().expandX();
+
+
+
+        table.add(headerTable).fill().expandX();
+        table.row();
+        table.add(extraTable).fill().expandX();
+        table.row();
+
+        bodyTable = new Table();
+        bodyTable.setDebug(devMode);
+
+        bodyTable.align(Align.center); //aligns reward video with back button
+
+        buyButtons = new ArrayList<ImageButton>();
+
+        storeTable = new Table();
+        storeTable.setDebug(devMode);
+        storeTable.align(Align.top|Align.left);
+
+
+
+        Tree tree = new Tree(skin, "default");
+        for(int i = 0; i < leaderBoardLevels.size; i++){
+            JsonValue level = leaderBoardLevels.get(i);
+            String levelName = level.get("name").asString();
+            JsonValue data = level.get("data");
+
+            Table parentTable = new Table();
+            parentTable.setDebug(devMode);
+            ImageTextButton challengeButton = new ImageTextButton("Challenge",skin);
+            Label l = new   Label(levelName, skin, "tree_header");
+            ImageButton coin10 = new ImageButton(skin, "coinSmall10");
+            parentTable.add(l).width(l.getWidth()*1.0f).padLeft(spacer).padRight(spacer);
+            parentTable.add(challengeButton).align(Align.right).width(challengeButton.getWidth()*1.0f);
+            parentTable.add(coin10);
+
+
+            Tree.Node node = new Tree.Node(parentTable);
+
+
+            Table tableChild = new Table();
+            tableChild.align(Align.left);
+            tableChild.setDebug(devMode);
+
+            for(int j = 0; j < data.size; j++){
+                String place = data.get(j).get("place").asString();
+                String name = data.get(j).get("name").asString();
+                String time = data.get(j).get("time").asString();
+                String id = data.get(j).get("id").asString();
+
+                //inner for loop here
+                Table tablePlace = new Table();
+                tablePlace.setDebug(devMode);
+                Label labelPlace = new Label(place, skin, "extra_small");
+                tablePlace.add(labelPlace).align(Align.left);
+                tablePlace.padRight(spacer);
+
+                Table tableName = new Table();
+                tableName.setDebug(devMode);
+                Label labelName = new Label(name + " - ", skin, "extra_small");
+                tableName.add(labelName).align(Align.right);
+
+                Table tableTime = new Table();
+                tableTime.setDebug(devMode);
+                Label labelTime = new Label(time, skin, "extra_small");
+                tableTime.add(labelTime).align(Align.left);
+
+
+                tableChild.add(tablePlace).align(Align.left);
+                tableChild.add(tableName).align(Align.right);
+                tableChild.add(tableTime).align(Align.left);
+                tableChild.row();
+
+            }
+
+
+
+
+            //end inner for loop here
+
+            Tree.Node nodeChild = new Tree.Node(tableChild);
+            node.add(nodeChild);
+            tree.add(node);
+        }
+
+
+        storeTable.add(tree).align(Align.top|Align.left).expandX();
+
+       // storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        scrollPane = new ScrollPane(storeTable, skin, "default");
+
+        ImageButton previousLevelButton = new ImageButton(skin, "previousLevelButton");
+        previousLevelButton.setWidth(width*.10f);
+        //nextLevelButton.rotateBy(180);
+
+        buyLevelsButton = new ImageButton(skin, "nextLevelButton");
+        buyLevelsButton.setWidth(width*.10f);
+        buyLevelsButton.addListener(nextButtonListener);
+
+
+
+        bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);
+        bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
+        bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+
+
+        ImageTextButton continueButton = new ImageTextButton("Continue", skin);
+        continueButton.addListener(continueButtonListener);
+        table.add(continueButton).width(viewport.getScreenWidth()/2);
+        table.row();
+        table.add(bodyTable).fill().expandX();
+        stage.addActor(table);
+
+        stageLoaded = true;
     }
 }
