@@ -41,6 +41,7 @@ public class SCOREScreen extends Screen{
     ClickListener leaderBoardListener;
     ClickListener challengeListener;
     ClickListener tryAgainListener;
+    ClickListener continueListener;
 
     boolean stageLoaded;
 
@@ -120,7 +121,16 @@ public class SCOREScreen extends Screen{
         tryAgainListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.PREGAME);
+                parent.parent.levelManager.setLevel(parent.parent.levelManager.getCurrentLevel());
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
+
+        continueListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
             }
 
         };
@@ -353,6 +363,9 @@ public class SCOREScreen extends Screen{
         storeTable.add(infoTable).padTop(spacer);
         storeTable.row();
 
+        ImageTextButton continueButton = new ImageTextButton("Continue", skin);
+        continueButton.addListener(continueListener);
+
         Table bTable = new Table();
         bTable.setDebug(devMode);
         ImageTextButton lButton = new ImageTextButton("LeaderBoards", skin);
@@ -361,7 +374,7 @@ public class SCOREScreen extends Screen{
         Table challengeButtonTable = new Table();
         challengeButtonTable.setDebug(devMode);
 
-        ImageTextButton cButton = new ImageTextButton("Challenge First", skin);
+        ImageTextButton cButton = new ImageTextButton("Challenge First Place", skin);
         cButton.addListener(challengeListener);
         ImageButton c = new ImageButton(skin, "coinSmall10");
         c.setTouchable(Touchable.disabled);
@@ -372,12 +385,17 @@ public class SCOREScreen extends Screen{
         ImageTextButton tryAgainButton = new ImageTextButton("Try Again", skin);
         tryAgainButton.addListener(tryAgainListener);
 
-
-        bTable.add(lButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
+        bTable.add(continueButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
+        bTable.row();
+        bTable.add(tryAgainButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
         bTable.row();
         bTable.add(challengeButtonTable);
         bTable.row();
-        bTable.add(tryAgainButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);;
+        bTable.add(lButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
+
+
+
+
 
         storeTable.add(bTable).padTop(spacer);
 

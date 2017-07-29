@@ -13,7 +13,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
         DummyController controller = new DummyController();
-        return new IOSApplication(new ARaceInSpace(controller), config);
+        return new IOSApplication(new ARaceInSpace(controller, null), config);
     }
 
     public static void main(String[] argv) {
