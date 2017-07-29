@@ -734,8 +734,8 @@ window
   rotate: false
   xy: 822, 780
   size: 26, 24
-  split: 3, 3, 0, 0
-  pad: 0, 0, 3, 3
+  split: 4, 5, 4, 4
+  pad: 3, 4, 3, 3
   orig: 26, 24
   offset: 0, 0
   index: -1

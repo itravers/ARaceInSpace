@@ -5226,7 +5226,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: up
 						optional: true
-						value: TextImageButton
+						value: window
 					}
 					down: {
 						class: com.ray3k.skincomposer.data.StyleProperty

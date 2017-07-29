@@ -190,7 +190,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		font: font_d_estroy__24pt
 		fontColor: GRAY
 		downFontColor: white
-		up: TextImageButton
+		up: window
 		down: TextImageButton
 	}
 }
