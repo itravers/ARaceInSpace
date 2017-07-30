@@ -1,6 +1,7 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
+import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
@@ -38,6 +39,9 @@ public class PREGAMEScreen extends Screen{
     ClickListener backButtonListener;
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
+    ClickListener bronzeListener;
+    ClickListener silverListener;
+    ClickListener goldListener;
 
     boolean stageLoaded;
 
@@ -94,6 +98,30 @@ public class PREGAMEScreen extends Screen{
             }
 
         };
+        bronzeListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.bronze);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
+        silverListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.silver);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
+        goldListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.gold);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
 
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
@@ -120,11 +148,11 @@ public class PREGAMEScreen extends Screen{
         stage.draw();
     }
 
-    private Stack makeButtonStack(String title, ImageButton star, String s_taunt1, String s_taunt2){
+    private Stack makeButtonStack(String title, ClickListener listener, ImageButton star, String s_taunt1, String s_taunt2){
         boolean devMode = parent.parent.devMode;
         ImageButton levelButton = new ImageButton(skin, "storeButton");
         levelButton.setName(title);
-        levelButton.addListener(parent.parent.inputManager);
+        levelButton.addListener(listener);
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
@@ -305,15 +333,15 @@ public class PREGAMEScreen extends Screen{
 
         ImageButton starBronze = new ImageButton(skin, "starBronze");
         starBronze.setTouchable(Touchable.disabled);
-        Stack buttonStack1 = makeButtonStack("Bronze", starBronze, "taunt1", "taunt2");
+        Stack buttonStack1 = makeButtonStack("Bronze", bronzeListener, starBronze, "taunt1", "taunt2");
 
         ImageButton starSilver = new ImageButton(skin, "starSilver");
         starSilver.setTouchable(Touchable.disabled);
-        Stack buttonStack2 = makeButtonStack("Silver", starSilver, "52:23", "52:21");
+        Stack buttonStack2 = makeButtonStack("Silver", silverListener, starSilver, "52:23", "52:21");
 
         ImageButton starGold = new ImageButton(skin, "starGold");
         starGold.setTouchable(Touchable.disabled);
-        Stack buttonStack3 = makeButtonStack("Gold",  starGold, "43:17", "52:17");
+        Stack buttonStack3 = makeButtonStack("Gold",  goldListener, starGold, "43:17", "52:17");
 
         buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
         buttonTable.add(buttonStack2).pad(0).size(butWidth, butHeight).align(Align.top);

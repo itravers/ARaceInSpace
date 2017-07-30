@@ -344,26 +344,7 @@ public class INGAMEScreen extends Screen implements EventSender{
          boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
 
         scissors = new Rectangle();
-
-
-
-
-
-
-        // stage.addActor(test);
-        //stage.addActor(ghostIndicatorOutline);
-       // stage.addActor(ghostIndicator);
-
-
-
-
-
-
         parent.parent.inputManager.addInputProcessor(stage);
-
-
-
-
     }
 
     private void renderVersion(SpriteBatch batch){

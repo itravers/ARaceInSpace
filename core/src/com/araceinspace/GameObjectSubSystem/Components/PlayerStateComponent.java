@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.Managers.GameStateManager;
 import com.badlogic.gdx.Gdx;
 import  com.araceinspace.misc.Animation;
@@ -24,7 +25,7 @@ public class PlayerStateComponent extends StateComponent{
 
     /* Field Variables & Objects */
     PlayerState currentState;
-    Player parent;
+    PlayerPrototype parent;
     float stateTime = 0; //The amount of time we have been in current State
     public  boolean isLanded = onPlanet();
 
@@ -32,7 +33,7 @@ public class PlayerStateComponent extends StateComponent{
 
 
     /* Constructors */
-    public PlayerStateComponent(Player p, PlayerState state){
+    public PlayerStateComponent(PlayerPrototype p, PlayerState state){
         parent = p;
         setState(state); //The Game Starts, the Avatar is in this state.
     }

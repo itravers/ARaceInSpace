@@ -20,6 +20,13 @@ public class Action {
         this.input = input;
     }
 
+    /*
+    Construct an empty action.
+     */
+    public Action(){
+
+    }
+
     /* Methods */
     public int getFrameNum(){
         return frameNum;

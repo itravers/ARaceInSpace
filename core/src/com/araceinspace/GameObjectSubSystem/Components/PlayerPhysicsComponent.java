@@ -3,6 +3,7 @@ package com.araceinspace.GameObjectSubSystem.Components;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -38,7 +39,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public static float FRICTION = .5f;
 
     /* Field Variables & Objects */
-    public Player parent;
+    public PlayerPrototype parent;
     BodyDef bodyDef;
     FixtureDef fixtureDef;
     Fixture fixture;
@@ -62,7 +63,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     /**
      * Create a new PlayerPhysicsComponent
      */
-    public PlayerPhysicsComponent(Player p, World world){
+    public PlayerPhysicsComponent(PlayerPrototype p, World world){
         parent = p;
         setupPhysics(world);
     }

@@ -1,6 +1,9 @@
 package com.araceinspace.InputSubSystem;
 
 import com.araceinspace.Managers.RenderManager;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Json;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,10 @@ public class InputRecorder{
         actions = new ArrayList<Action>();
     }
 
+    public InputRecorder(ArrayList<Action>a){
+        actions = a;
+    }
+
     /* Methods */
 
     /**
@@ -38,6 +45,13 @@ public class InputRecorder{
     public void record(GameInput input){
         actions.add(new Action(RenderManager.frameNum, input));
         //TODO need to add keyframe recording, will need access to physics component
+    }
+
+    public void writeToFile(String fileName){
+        Json json = new Json();
+        //System.out.println(json.toJson(json.prettyPrint(actions)));
+        FileHandle file = Gdx.files.local(fileName);
+        file.writeString(json.toJson(actions, ArrayList.class), false);
     }
 
     /**

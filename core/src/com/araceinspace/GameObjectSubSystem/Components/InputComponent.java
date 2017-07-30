@@ -30,8 +30,23 @@ public abstract class InputComponent implements Component{
     public boolean touchDownRight = false;
     public boolean touchNone = false;
 
+    GameInput currentInput;
+    GameInput lastWalkInput =  null;
+
 
     abstract public void update(float timeElapsed);
+
+    /**
+     * returns true if players leftINput is pressed
+     * @return
+     */
+    public boolean flip(){
+        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 }

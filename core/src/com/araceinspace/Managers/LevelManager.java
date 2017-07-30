@@ -2,10 +2,13 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.GameObjectSubSystem.Ghost;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.GameObjectSubSystem.SpriteTemplate;
 import com.araceinspace.GameWorld;
+import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.misc.Background;
 import com.badlogic.gdx.Gdx;
 import com.araceinspace.misc.Animation;
@@ -14,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
 
@@ -26,15 +30,18 @@ public class LevelManager {
     /* Static Variables */
     public static final short CATEGORY_PLAYER = -1;
     public static final short CATEGORY_PLANET = -2;
+    public enum CHALLENGES {bronze, silver, gold};
 
     /* Field Variables & Objects */
     public GameWorld parent;
     private int currentLevel;
     private Player player;
+    private Ghost ghost;
     private ArrayList<Planet> planets;
     public Background mainBackground;
     private Boolean levelGoalCompleted;
     private GameObject goal; /* The goal planet to land on */
+    public CHALLENGES currentChallenge;
 
     /* Constructors */
     public LevelManager(GameWorld p){
@@ -46,6 +53,36 @@ public class LevelManager {
     }
 
     /* Private Methods */
+
+    private void setupGhost(CHALLENGES currentChallenge){
+        Json json = new Json();
+        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+        String fileName = "ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+        boolean exists = Gdx.files.local(fileName).exists();
+        if(!exists){
+            System.out.println("File " + fileName + " does not exist, not making ghost.");
+            return;
+        }
+        ArrayList<Action>actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.local(fileName));//read an array list of JsonValues
+
+
+
+        //go through all the level items, find the player item and initialze him
+        for(int i = 0; i < levelItems.size(); i++){
+            SpriteTemplate item = levelItems.get(i);
+            if(item.getType().equals("player")){
+                float xLoc = item.getxLoc();
+                float yLoc = item.getyLoc();
+                String extra = item.getExtraInfo();
+                PlayerState state = PlayerState.STAND_STILL_FORWARD;
+                if(extra.equals("flying"))state = PlayerState.FLYING;
+                // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+                TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
+                Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+                ghost = new Ghost(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation, actions);
+            }
+        }
+    }
 
     /**
      * Reads the level file and gets the planets to setup.
@@ -91,6 +128,7 @@ public class LevelManager {
 
     private void updateInGame(float elapsedTime){
         player.update(elapsedTime);
+        if(ghost != null)ghost.update(elapsedTime);
 
         //update all planets
         for(int i = 0; i < planets.size(); i++){
@@ -126,7 +164,9 @@ public class LevelManager {
 
     private void completeLevel(){
         setGoalCompleted(true);
+        getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json");
         parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
+
     }
 
     private void setGoalCompleted(Boolean levelGoalCompleted) {
@@ -138,7 +178,8 @@ public class LevelManager {
      * We have completed the goal if we are landed, and the
      * nearest planet is the goal planet.
      */
-    public void checkGoal(Planet planet, Player p){
+    public void checkGoal(Planet planet, PlayerPrototype p){
+        if(!(p instanceof Player))return;
         //we only do this if the levelGoal has not been completed
         if(!levelGoalCompleted){
 
@@ -154,6 +195,11 @@ public class LevelManager {
     }
 
     /* Public Methods */
+    public void setChallenge(CHALLENGES c){
+        currentChallenge = c;
+        setupGhost(currentChallenge);
+    }
+
     public void setCurrentLevel(int level){
         currentLevel = level;
     }
@@ -187,6 +233,10 @@ public class LevelManager {
      */
     public Player getPlayer(){
         return player;
+    }
+
+    public Ghost getGhost(){
+        return ghost;
     }
 
     /**

@@ -5,6 +5,7 @@ import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.GameWorld;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -42,7 +43,7 @@ public class ContactListenerManager implements ContactListener {
         Collision happened between planet and player
          */
         if((a instanceof PlanetPhysicsComponent && b instanceof PlayerPhysicsComponent) || b instanceof PlanetPhysicsComponent && a instanceof PlayerPhysicsComponent){
-            Player player;
+            PlayerPrototype player;
             Planet planet;
             if(a instanceof PlayerPhysicsComponent){
                 player = ((PlayerPhysicsComponent)a).parent;
@@ -85,7 +86,7 @@ public class ContactListenerManager implements ContactListener {
      * @param p The Planet that we are checking
      * @return True if the player crashed, false if not.
      */
-    private boolean didPlayerCrash(Player s, Planet p){
+    private boolean didPlayerCrash(PlayerPrototype s, Planet p){
         boolean returnVal = false;
         Vector2 playerPos = new Vector2(s.getPhysics().getBody().getPosition());
         Vector2 planetPos = new Vector2(p.getBody().getPosition());

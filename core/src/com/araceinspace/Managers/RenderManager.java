@@ -166,6 +166,8 @@ public class RenderManager {
      * Renders the player to the screen
      */
     public void renderPlayer(Player p, float timeElapsed, SpriteBatch batch){
+
+        if(parent.levelManager.getGhost() != null)parent.levelManager.getGhost().getGraphics().render(timeElapsed, batch);
         parent.levelManager.getPlayer().getGraphics().render(timeElapsed, batch);
     }
 
@@ -190,23 +192,12 @@ public class RenderManager {
      * Finds what state the game is currently in and calls the pertinent render method.
      */
     public void render(float elapsedTime){
-        //Call appropriate render method based on game state
-      /*  if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
-            renderInGame(elapsedTime);
-        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
-            renderTitleScreen(elapsedTime);
-        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.LEVEL_SELECT){
-            levelselectScreen.render(elapsedTime);
-        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.STORE){
-            storeScreen.render(elapsedTime);
-        }*/
         currentScreen.render(elapsedTime);
-
         monetizationController.updateVisibility();//used for banner ads to know whether to show /**  This was causing a new banner ad to show every frame, causing huge garabage collection*/
 
         //Increase the amound of frameNum's we have used (used for ghost recordings)
         frameNum ++;
-        fpsLogger.log();
+       // fpsLogger.log();
 
     }
 
@@ -228,17 +219,10 @@ public class RenderManager {
 
     public void setCameraZoom(float cameraZoom) {
         this.cameraZoom = cameraZoom;
-       /* if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
-            ingameScreen.setCameraZoom(cameraZoom);
-        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
-            titleScreen.setCameraZoom(cameraZoom);
-        }
-        */
         currentScreen.setCameraZoom(cameraZoom);
     }
 
-   public float map(float x, float in_min, float in_max, float out_min, float out_max)
-    {
+   public float map(float x, float in_min, float in_max, float out_min, float out_max) {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 

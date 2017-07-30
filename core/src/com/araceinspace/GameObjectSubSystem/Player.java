@@ -19,15 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  * It has PlayerInputComponent as its input component, which allows it to be controlled by
  * the player and to save all inputs to replay a game. It uses a PlayerPhysicsComponent.
  */
-public class Player extends TwoDGameObject{
-    /* Static Variables */
-    public static float BOOST_TOTAL = 10;
-    public static float HEALTH_TOTAL = 1000;
+public class Player extends PlayerPrototype{
 
-    /* Field Variables & Objects */
-    public LevelManager parent;
-    private float health;
-    private float boost;
 
     /**
      * Constructor
@@ -35,103 +28,32 @@ public class Player extends TwoDGameObject{
      * @param animations
      */
     public Player(LevelManager p, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
-        parent = p;
-        health = HEALTH_TOTAL;
-
-        boost = BOOST_TOTAL;
+       super(p);
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent(this);
         physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent(this, firstState);
         boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();
         ((PlayerStateComponent)state).isLanded = onPlanet;
-
-
     }
 
-    @Override
-    public void update(float elapsedTime) {
-        state.update(elapsedTime);
-        graphics.update(elapsedTime);
-        physics.update(elapsedTime);
-    }
 
-    @Override
-    void dispose() {
-        //TODO create player dispose code
-
-    }
-
-    @Override
-    public void onEnd(AnimationController.AnimationDesc animation) {
-
-    }
-
-    @Override
-    public void onLoop(AnimationController.AnimationDesc animation) {
-
-    }
 
     public PlayerGraphicsComponent getGraphics(){
         return (PlayerGraphicsComponent)graphics;
     }
 
-    public PlayerPhysicsComponent getPhysics(){
-        return (PlayerPhysicsComponent)physics;
-    }
 
-    public PlayerInputComponent getInput(){
-        return (PlayerInputComponent)input;
-    }
 
-    public PlayerStateComponent getState(){
-        return (PlayerStateComponent)state;
-    }
 
-    public float getX(){
-        return ((PlayerGraphicsComponent)graphics).getX();
-    }
 
-    public float getY(){
-        return ((PlayerGraphicsComponent)graphics).getY();
-    }
-
-    public float getWidth(){
-        return ((PlayerGraphicsComponent)graphics).getWidth();
-    }
-
-    public float getHeight(){
-        return ((PlayerGraphicsComponent)graphics).getHeight();
-    }
 
     public void setRotation(float rotation){
         getGraphics().setRotation(rotation);
     }
 
-    public boolean isAlive(){
-        if(health > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
-    public float getHealth(){
-        return health;
-    }
 
-    public void setHealth(float health){
-        this.health = health;
-    }
-
-    public void setBoost(float boost){
-        if(boost <= 0)boost = 0;
-        this.boost = boost;
-    }
-
-    public float getBoost(){
-        return boost;
-    }
 
 
 }

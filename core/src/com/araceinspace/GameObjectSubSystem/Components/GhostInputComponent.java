@@ -1,10 +1,17 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
+import com.araceinspace.EventSubSystem.Event;
+import com.araceinspace.EventSubSystem.EventDispatcher;
+import com.araceinspace.EventSubSystem.EventSender;
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.GameObjectSubSystem.Ghost;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.InputSubSystem.InputRecorder;
 import com.araceinspace.Managers.RenderManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -15,14 +22,17 @@ import com.araceinspace.Managers.RenderManager;
  * It will use the EventDispatcher to get the event to the GhostInputComponent.
  * Note, this is different than how a PlayerInputComponent processes Input Events
  */
-public class GhostInputComponent extends InputComponent{
+public class GhostInputComponent extends PlayerInputComponent implements EventSender{
 
     /* Field Variables & Objects */
     InputRecorder inputRecorder;
+    PlayerPrototype parent;
 
     /* Constructors */
-    public GhostInputComponent(){
-        inputRecorder = new InputRecorder();
+    public GhostInputComponent(PlayerPrototype p, ArrayList<Action>actions){
+        super(p);
+        parent = p;
+        inputRecorder = new InputRecorder(actions);
     }
 
     /* Methods */
@@ -35,6 +45,23 @@ public class GhostInputComponent extends InputComponent{
         Action nextAction = inputRecorder.getNextAction(RenderManager.frameNum);
         if(nextAction != null){
             GameInput input = nextAction.getInput();
+            sendEvent(new Event(Event.TYPE.GHOST_INPUT, "PlayerInput", input));
         }
+    }
+
+    @Override
+    public void receiveEvent(Event e) {
+        System.out.println("ghost inputEvent Received: " + e.getData());
+        currentInput = (GameInput)e.getData();
+        handleCurrentInput();
+    }
+
+    @Override
+    public void registerReceiver() {
+        EventDispatcher.getSingletonDispatcher().registerReceiver(Event.TYPE.GHOST_INPUT, this);
+    }
+
+    public void sendEvent(Event e) {
+        EventDispatcher.getSingletonDispatcher().dispatch(e);
     }
 }
