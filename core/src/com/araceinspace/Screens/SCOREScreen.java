@@ -1,6 +1,7 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
+import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
@@ -44,9 +45,16 @@ public class SCOREScreen extends Screen{
     ClickListener continueListener;
 
     boolean stageLoaded;
+    int challengerTime;
+    int playerTime;
+    enum WIN {WIN, LOSE, TIE, NONE}
+    WIN win;
+    LevelManager.CHALLENGES currentChallenge;
+
 
     public SCOREScreen(RenderManager parent) {
         super(parent);
+
     }
 
     @Override
@@ -64,6 +72,20 @@ public class SCOREScreen extends Screen{
     @Override
     public void setup() {
         System.out.println("Settingup LevelSelectScreen");
+        currentChallenge = parent.parent.levelManager.currentChallenge;
+
+        challengerTime = parent.parent.levelManager.ghostTime;
+        playerTime = parent.parent.levelManager.playerTime;
+        if(challengerTime == 0){
+            //there was no challenger, didn't win or lose
+            win = WIN.NONE;
+        }else if(challengerTime < playerTime){
+            win = WIN.LOSE;
+        }else if(challengerTime > playerTime){
+            win = WIN.WIN;
+        }else if(playerTime == challengerTime){
+            win = WIN.TIE;
+        }
 
         stage = new Stage(viewport, batch);
         coinButtonListener = new ClickListener(){
@@ -236,14 +258,42 @@ public class SCOREScreen extends Screen{
         Table extraTable2 = new Table();
         extraTable2.setDebug(devMode);
         extraTable2.align(Align.center|Align.top);
-        Label taunt1 = new Label(" Awww..   ", skin, "extra_small");
+
+        String taunt1_S = "";
+        String taunt2_S = "";
+        String taunt3_S = "";
+        String info1S = "";
+
+        if(win == WIN.WIN){
+            taunt1_S = " Nice..   ";
+            taunt2_S = " You Conquered";
+            taunt3_S = " That Level!!!";
+            info1S = "You Won Against the";
+        }else if(win == WIN.LOSE){
+            taunt1_S = " Awww..   ";
+            taunt2_S = " You Bombed";
+            taunt3_S = " That Level!!!";
+            info1S = "You Lost Against the";
+        }else if(win == WIN.TIE){
+            taunt1_S = "  Wow..   ";
+            taunt2_S = " You Tied";
+            taunt3_S = " That Level!!!";
+            info1S = "You Tied Against the";
+        }else if(win == WIN.NONE){
+            taunt1_S = "  Hmm..   ";
+            taunt2_S = " Playing With";
+            taunt3_S = " Yourself again";
+            info1S = "You Played against";
+        }
+
+        Label taunt1 = new Label( taunt1_S, skin, "extra_small");
         extraTable2.add(taunt1).height(height/30).align(Align.left);
 
-        Label taunt2 = new Label(" You Bombed", skin, "coinLabel");
+        Label taunt2 = new Label(taunt2_S, skin, "coinLabel");
         extraTable2.row();
         extraTable2.add(taunt2).height(height/30).align(Align.top);
 
-        Label taunt3 = new Label(" That Level!!!", skin, "extra_small");
+        Label taunt3 = new Label(taunt3_S, skin, "extra_small");
         extraTable2.row();
         extraTable2.add(taunt3).height(height/30).align(Align.top);
 
@@ -300,9 +350,22 @@ public class SCOREScreen extends Screen{
 
         Table t1B = new Table();
         t1B.setDebug(devMode);
-        Label minLabel1 = new Label("4   Minutes", skin, "taunt_small");
-        Label secLabel1 = new Label("32  Seconds", skin, "taunt_small");
-        Label msLabel1 = new Label( "134 MS", skin, "taunt_small");
+
+
+        //Calculate player time min, sec and ms.
+        int time = playerTime;
+        int min = (time / 1000) / 60;
+        time -= (min * 60 * 1000);
+        int sec = time / 1000;
+        time -= (sec * 1000);
+        int ms = time;
+        String playerMin = Integer.toString(min);
+        String playerSec = Integer.toString(sec);
+        String playerms = Integer.toString(ms);
+
+        Label minLabel1 = new Label(playerMin + "  Minutes", skin, "taunt_small");
+        Label secLabel1 = new Label(playerSec + "  Seconds", skin, "taunt_small");
+        Label msLabel1 = new Label( playerms + " MS", skin, "taunt_small");
 
         t1B.add(minLabel1).align(Align.left).height(minLabel1.getHeight()*.62f);
         t1B.row();
@@ -320,11 +383,22 @@ public class SCOREScreen extends Screen{
 
         Label competitorTime = new Label("Challenger Time:", skin, "taunt_small");
 
+        //Calculate ghost time min, sec and ms.
+        time = challengerTime;
+        min = (time / 1000) / 60;
+        time -= (min * 60 * 1000);
+        sec = time / 1000;
+        time -= (sec * 1000);
+        ms = time;
+        String ghostMin = Integer.toString(min);
+        String ghostSec = Integer.toString(sec);
+        String ghostms = Integer.toString(ms);
+
         Table t2B = new Table();
         t2B.setDebug(devMode);
-        Label minLabel2 = new Label("4   Minutes", skin, "taunt_small");
-        Label secLabel2 = new Label("31  Seconds", skin, "taunt_small");
-        Label msLabel2 = new Label( "10  MS", skin, "taunt_small");
+        Label minLabel2 = new Label(ghostMin + " Minutes", skin, "taunt_small");
+        Label secLabel2 = new Label(ghostSec + " Seconds", skin, "taunt_small");
+        Label msLabel2 = new Label( ghostms  + " MS", skin, "taunt_small");
 
         t2B.add(minLabel2).align(Align.left).height(minLabel2.getHeight()*.62f);
         t2B.row();
@@ -350,8 +424,19 @@ public class SCOREScreen extends Screen{
         Table infoTable = new Table();
         infoTable.setDebug(devMode);
 
-        Label info1 = new Label("You Lost Against the", skin, "taunt_small");
-        Label info2 = new Label("Bronze", skin, "coinLabel");
+        String challenger = "";
+
+        if(currentChallenge == LevelManager.CHALLENGES.bronze){
+            challenger = "Bronze";
+        }else if(currentChallenge == LevelManager.CHALLENGES.silver){
+            challenger = "Silver";
+        }else if(currentChallenge == LevelManager.CHALLENGES.gold){
+            challenger = "Gold";
+        }
+
+
+        Label info1 = new Label(info1S, skin, "taunt_small");
+        Label info2 = new Label(challenger, skin, "coinLabel");
         Label info3 = new Label("Challenger", skin, "taunt_small");
 
         infoTable.add(info1).height(info1.getHeight()*.60f);

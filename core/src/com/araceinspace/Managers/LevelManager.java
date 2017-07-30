@@ -42,8 +42,8 @@ public class LevelManager {
     private Boolean levelGoalCompleted;
     private GameObject goal; /* The goal planet to land on */
     public CHALLENGES currentChallenge;
-    int playerTime;
-    int ghostTime;
+    public int playerTime;
+    public int ghostTime;
 
     /* Constructors */
     public LevelManager(GameWorld p){
@@ -63,6 +63,7 @@ public class LevelManager {
         boolean exists = Gdx.files.local(fileName).exists();
         if(!exists){
             System.out.println("File " + fileName + " does not exist, not making ghost.");
+            ghost = null;
             return;
         }
         ArrayList<Action>actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.local(fileName));//read an array list of JsonValues
