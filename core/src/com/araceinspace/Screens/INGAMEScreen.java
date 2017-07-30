@@ -146,6 +146,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     @Override
     public void setup() {
+        parent.resetFrameNum();
         monetizationController= parent.monetizationController;
         monetizationController.hideBannerAd();
        // stage = new Stage(menuCamera)

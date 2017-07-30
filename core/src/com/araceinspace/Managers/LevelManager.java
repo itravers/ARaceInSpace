@@ -42,6 +42,8 @@ public class LevelManager {
     private Boolean levelGoalCompleted;
     private GameObject goal; /* The goal planet to land on */
     public CHALLENGES currentChallenge;
+    int playerTime;
+    int ghostTime;
 
     /* Constructors */
     public LevelManager(GameWorld p){
@@ -164,7 +166,20 @@ public class LevelManager {
 
     private void completeLevel(){
         setGoalCompleted(true);
-        getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json");
+        System.out.println("play time: " + getPlayer().getPlayTime());
+        //int playtime = (int)(getPlayer().getPlayTime()*1000);
+        playerTime = (int)(getPlayer().getPlayTime()*1000);
+        if(ghost == null){
+            getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+        }else{
+           ghostTime = ghost.playtime;
+
+            if(playerTime < ghostTime){
+                getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+            }
+        }
+
+
         parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
 
     }
@@ -178,8 +193,11 @@ public class LevelManager {
      * We have completed the goal if we are landed, and the
      * nearest planet is the goal planet.
      */
-    public void checkGoal(Planet planet, PlayerPrototype p){
-        if(!(p instanceof Player))return;
+    public void checkGoal(Planet planet, PlayerPrototype p, float timeElapsed){
+        if(!(p instanceof Player)){
+            p.setUpdateable(false);
+            return;
+        }
         //we only do this if the levelGoal has not been completed
         if(!levelGoalCompleted){
 
@@ -188,7 +206,7 @@ public class LevelManager {
             boolean playerTypeGood = true; //(!(p instanceof Ghost));
             //we know the goal is completed if the player has landed on the goal planet and he is not a ghost.
             if(stateGood && goalGood && playerTypeGood){
-
+                p.endTime = timeElapsed;
                 completeLevel();
             }
         }
@@ -219,6 +237,8 @@ public class LevelManager {
      * @param level The Level we are setting to
      */
     public void setLevel(int level){
+        ghostTime = 0;
+        playerTime = 0;
         currentLevel = level;
         parent.setupPhysics();
         setGoalCompleted(false);

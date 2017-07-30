@@ -42,8 +42,8 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
         //TODO write update code
     }
 
-    public void saveInputs(String fileName){
-        inputRecorder.writeToFile(fileName);
+    public void saveInputs(String fileName, int playTime){
+        inputRecorder.writeToFile(fileName, playTime);
     }
 
     /**

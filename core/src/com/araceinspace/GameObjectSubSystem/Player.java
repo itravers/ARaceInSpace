@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Player extends PlayerPrototype{
 
 
+
     /**
      * Constructor
      * @param region
@@ -29,6 +30,7 @@ public class Player extends PlayerPrototype{
      */
     public Player(LevelManager p, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
        super(p);
+        this.startTime = 0;
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent(this);
         physics = new PlayerPhysicsComponent(this, world);
@@ -37,23 +39,18 @@ public class Player extends PlayerPrototype{
         ((PlayerStateComponent)state).isLanded = onPlanet;
     }
 
-
-
     public PlayerGraphicsComponent getGraphics(){
         return (PlayerGraphicsComponent)graphics;
     }
-
-
-
-
-
 
     public void setRotation(float rotation){
         getGraphics().setRotation(rotation);
     }
 
-
-
+    public float getPlayTime(){
+       float playTime =  (float)Math.round((endTime-startTime) * 1000f) / 1000f; //round to 3 decimal places
+        return playTime;
+    }
 
 
 }

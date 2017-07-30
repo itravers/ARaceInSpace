@@ -64,4 +64,8 @@ public class GhostInputComponent extends PlayerInputComponent implements EventSe
     public void sendEvent(Event e) {
         EventDispatcher.getSingletonDispatcher().dispatch(e);
     }
+
+    public int getPlayTime(){
+        return inputRecorder.getPlayTime();
+    }
 }

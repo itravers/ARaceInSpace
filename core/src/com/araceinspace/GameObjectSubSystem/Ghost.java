@@ -26,6 +26,7 @@ import java.util.ArrayList;
  * with the world in EXACTLY the same way the players does.
  */
 public class Ghost extends PlayerPrototype{
+    public int playtime;
 
     /**
      * Constructor
@@ -39,6 +40,7 @@ public class Ghost extends PlayerPrototype{
         state = new PlayerStateComponent(this, firstState);
         boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();
         ((PlayerStateComponent)state).isLanded = onPlanet;
+        playtime = ((GhostInputComponent)input).getPlayTime();
     }
 
     public PlayerGraphicsComponent getGraphics(){

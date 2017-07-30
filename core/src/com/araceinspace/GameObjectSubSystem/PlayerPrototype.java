@@ -22,6 +22,9 @@ public abstract class PlayerPrototype extends TwoDGameObject{
     public LevelManager parent;
     private float health;
     private float boost;
+    private boolean updateable = true;
+    public float startTime;
+    public float endTime;
 
     public PlayerPrototype(LevelManager p){
         parent = p;
@@ -41,10 +44,13 @@ public abstract class PlayerPrototype extends TwoDGameObject{
 
     @Override
     public void update(float elapsedTime) {
-        state.update(elapsedTime);
-        graphics.update(elapsedTime);
-        physics.update(elapsedTime);
-        input.update(elapsedTime);
+        if(updateable){
+            state.update(elapsedTime);
+            graphics.update(elapsedTime);
+            physics.update(elapsedTime);
+            input.update(elapsedTime);
+        }
+
     }
 
     @Override
@@ -109,6 +115,9 @@ public abstract class PlayerPrototype extends TwoDGameObject{
         return (PlayerStateComponent)state;
     }
 
+    public void setUpdateable(boolean u){
+        updateable = u;
+    }
 
 
 }

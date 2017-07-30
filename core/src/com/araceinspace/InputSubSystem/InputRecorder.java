@@ -47,7 +47,8 @@ public class InputRecorder{
         //TODO need to add keyframe recording, will need access to physics component
     }
 
-    public void writeToFile(String fileName){
+    public void writeToFile(String fileName, int playTime){
+        actions.add(new Action(playTime, GameInput.PLAYTIME));
         Json json = new Json();
         //System.out.println(json.toJson(json.prettyPrint(actions)));
         FileHandle file = Gdx.files.local(fileName);
@@ -62,11 +63,19 @@ public class InputRecorder{
     public Action getNextAction(int currentFrame){
         Action returnVal = null;
         for(int i = 0; i < actions.size(); i++){
-            if(actions.get(i).getFrameNum() <= currentFrame){
+            if(actions.get(i).getFrameNum() <= currentFrame && actions.get(i).getInput() != GameInput.PLAYTIME){//we don't process PLAYTIME INPUTS
                 returnVal =  actions.remove(i);
                 break;
             }
         }
         return returnVal;
+    }
+
+    /**
+     * The last input in every record file will be the ghosts playtime, the framenum will reflect the ms of playtime
+     * @return
+     */
+    public int getPlayTime(){
+        return actions.get(actions.size()-1).getFrameNum();
     }
 }
