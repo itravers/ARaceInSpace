@@ -47,12 +47,9 @@ public class PREGAMEScreen extends Screen{
     ClickListener firstPlaceListener;
     ClickListener secondPlaceListener;
     ClickListener thirdPlaceListener;
-    Dialog purchaseDialog;
-    Dialog notEnoughCoinsDialog;
-    boolean dialogQuestion = false;
-    int coinsToSpend;
-    enum PLACES {first, second, third};
-    PLACES placeClicked;
+
+
+
 
     boolean stageLoaded;
 
@@ -64,7 +61,6 @@ public class PREGAMEScreen extends Screen{
     public void dispose() {
         stage.dispose();
         batch.dispose();
-        skin.dispose();
     }
 
     @Override
@@ -75,10 +71,10 @@ public class PREGAMEScreen extends Screen{
     @Override
     public void setup() {
         System.out.println("Settingup LevelSelectScreen");
-
-
-
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         stage = new Stage(viewport, batch);
+        parent.setupDialogs(skin, stage, this);
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -138,41 +134,40 @@ public class PREGAMEScreen extends Screen{
         firstPlaceListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                placeClicked = PLACES.first;
-                coinsToSpend = 10;
-                purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + coinsToSpend + " coins?");
-                purchaseDialog.show(stage);
+                parent.placeClicked = RenderManager.PLACES.first;
+                parent.coinsToSpend = 10;
+                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.purchaseDialog.show(stage);
             }
         };
         secondPlaceListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                placeClicked = PLACES.second;
-                coinsToSpend = 9;
-                purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + coinsToSpend + " coins?");
-                purchaseDialog.show(stage);
+                parent.placeClicked = RenderManager.PLACES.second;
+                parent.coinsToSpend = 9;
+                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.purchaseDialog.show(stage);
             }
 
         };
         thirdPlaceListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                placeClicked = PLACES.third;
-                coinsToSpend = 8;
-                purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + coinsToSpend + " coins?");
-                purchaseDialog.show(stage);
+                parent.placeClicked = RenderManager.PLACES.third;
+                parent.coinsToSpend = 8;
+                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.purchaseDialog.show(stage);
             }
 
         };
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+
 
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
 
-        setupDialogs();
+
 
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         monetizationController.showBannerAd();
@@ -194,43 +189,8 @@ public class PREGAMEScreen extends Screen{
         stage.draw();
     }
 
-    private void setupDialogs(){
-        purchaseDialog = new Dialog("Are you sure you want to spend "+coinsToSpend+" coins?", skin) {
-            protected void result(Object object) {
-                if(object.toString().equals("true")){
-                    dialogQuestion = true;
-                }else{
-                    dialogQuestion = false;
-                }
-                if(dialogQuestion){
-                    if(parent.parent.getCoins() >= coinsToSpend){
-                        if(placeClicked == PLACES.first){
-                            parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
-                        }else if(placeClicked == PLACES.second){
-                            parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
-                        }else if(placeClicked == PLACES.third){
-                            parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
-                        }
-                        parent.parent.setCoins(parent.parent.getCoins() - coinsToSpend);
-                        parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
-                    }else{
-                        notEnoughCoinsDialog.show(stage);
-                    }
 
-                    dialogQuestion = false;//reset the boolean
-                }
-            }
-        };
 
-        ImageTextButton yes = new ImageTextButton("YES", skin);
-        ImageTextButton no = new ImageTextButton("NO", skin);
-        purchaseDialog.button(yes, "true");
-        purchaseDialog.button(no, "false");
-
-        notEnoughCoinsDialog = new Dialog("Not Enough Coins", skin);
-        ImageTextButton oh = new ImageTextButton("Oh...", skin);
-        notEnoughCoinsDialog.button(oh);
-    }
 
     private Stack makeButtonStack(String title, ClickListener listener, ImageButton star, String s_taunt1, String s_taunt2){
         boolean devMode = parent.parent.devMode;

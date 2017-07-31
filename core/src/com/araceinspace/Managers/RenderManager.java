@@ -20,7 +20,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import java.util.ArrayList;
 
@@ -36,6 +41,7 @@ public class RenderManager {
 
     /* Field Variables & Objects */
     public GameWorld parent;
+    public GameWorld p;
     private float baseZoom;
     private float cameraZoom;
 
@@ -44,14 +50,23 @@ public class RenderManager {
     public MonetizationController monetizationController;
     FPSLogger fpsLogger;
 
+   public Dialog purchaseDialog;
+    public Dialog notEnoughCoinsDialog;
+    public boolean dialogQuestion = false;
+   public int coinsToSpend;
+   public static enum PLACES {first, second, third};
+    public PLACES placeClicked;
+
     /* Constructor */
     public RenderManager(GameWorld p){
         System.out.println("RenderManager Constructor");
         parent = p;
+        this.p = p;
         monetizationController =( (ARaceInSpace)parent.parent).monetizationController;
         frameNum = 0;
         fpsLogger = new FPSLogger();
         setupRendering();
+
     }
 
     /* Private Methods */
@@ -228,6 +243,47 @@ public class RenderManager {
 
     public Screen getCurrentScreen(){
         return currentScreen;
+    }
+
+    public void setupDialogs(Skin skin, final Stage stage, final Screen screen) {
+        purchaseDialog = new Dialog("Are you sure you want to spend " + coinsToSpend + " coins?", skin) {
+            protected void result(Object object) {
+                if (object.toString().equals("true")) {
+                    dialogQuestion = true;
+                } else {
+                    dialogQuestion = false;
+                }
+                if (dialogQuestion) {
+                    if (parent.getCoins() >= coinsToSpend) {
+                        if(screen instanceof SCOREScreen){
+                            parent.levelManager.setLevel(parent.levelManager.getCurrentLevel());
+                        }
+                        if (placeClicked == PLACES.first) {
+                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
+                        } else if (placeClicked == PLACES.second) {
+                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
+                        } else if (placeClicked == PLACES.third) {
+                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
+                        }
+                        parent.setCoins(parent.getCoins() - coinsToSpend);
+
+                        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                    } else {
+                        notEnoughCoinsDialog.show(stage);
+                    }
+
+                    dialogQuestion = false;//reset the boolean
+                }
+            }
+        };
+        ImageTextButton yes = new ImageTextButton("YES", skin);
+        ImageTextButton no = new ImageTextButton("NO", skin);
+        purchaseDialog.button(yes, "true");
+        purchaseDialog.button(no, "false");
+
+        notEnoughCoinsDialog = new Dialog("Not Enough Coins", skin);
+        ImageTextButton oh = new ImageTextButton("Oh...", skin);
+        notEnoughCoinsDialog.button(oh);
     }
 
 }

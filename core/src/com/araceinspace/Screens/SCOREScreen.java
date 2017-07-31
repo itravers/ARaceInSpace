@@ -145,9 +145,15 @@ public class SCOREScreen extends Screen{
         tryAgainListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+               // parent.placeClicked = RenderManager.PLACES.second;
+                //parent.coinsToSpend = 9;
+                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.purchaseDialog.show(stage);
+                /*
                 parent.parent.levelManager.setLevel(parent.parent.levelManager.getCurrentLevel());
                 parent.parent.levelManager.setChallenge(parent.parent.levelManager.getCurrentChallenge());
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                */
             }
 
         };
@@ -162,6 +168,7 @@ public class SCOREScreen extends Screen{
 
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        parent.setupDialogs(skin, stage, this);
 
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
