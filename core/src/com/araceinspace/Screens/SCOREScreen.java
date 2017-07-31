@@ -365,6 +365,12 @@ public class SCOREScreen extends Screen{
         String playerSec = Integer.toString(sec);
         String playerms = Integer.toString(ms);
 
+        if(win == WIN.FAIL){
+            playerMin = "XX";
+            playerSec = "XX";
+            playerms  = "XX ";
+        }
+
         Label minLabel1 = new Label(playerMin + "  Minutes", skin, "taunt_small");
         Label secLabel1 = new Label(playerSec + "  Seconds", skin, "taunt_small");
         Label msLabel1 = new Label( playerms + " MS", skin, "taunt_small");
