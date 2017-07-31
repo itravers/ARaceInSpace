@@ -44,6 +44,7 @@ public class LevelManager {
     public CHALLENGES currentChallenge;
     public int playerTime;
     public int ghostTime;
+    public boolean didFail; // set to true if the player exploads in contact listener checked by score screen
 
     /* Constructors */
     public LevelManager(GameWorld p){
@@ -85,6 +86,7 @@ public class LevelManager {
                 ghost = new Ghost(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation, actions);
             }
         }
+       ghostTime =  ghost.getInput().getPlayTime();
     }
 
     /**

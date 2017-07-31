@@ -63,6 +63,7 @@ public class ContactListenerManager implements ContactListener {
             if(player.getState().getCurrentState() == PlayerState.FLYING){
                 if(didPlayerCrash(player, planet)){
                     player.getState().setState(PlayerState.EXPLODING);
+                    parent.levelManager.didFail = true; //set levelManager did fail to true, score screen will check this to display a fail
                 }else{
                 player.getState().isLanded = true;
                     player.getState().setState(PlayerState.LAND_FORWARD);

@@ -47,7 +47,7 @@ public class SCOREScreen extends Screen{
     boolean stageLoaded;
     int challengerTime;
     int playerTime;
-    enum WIN {WIN, LOSE, TIE, NONE}
+    enum WIN {WIN, LOSE, TIE, NONE, FAIL}
     WIN win;
     LevelManager.CHALLENGES currentChallenge;
 
@@ -76,7 +76,9 @@ public class SCOREScreen extends Screen{
 
         challengerTime = parent.parent.levelManager.ghostTime;
         playerTime = parent.parent.levelManager.playerTime;
-        if(challengerTime == 0){
+        if(parent.parent.levelManager.didFail){
+            win = WIN.FAIL;
+        }else if(challengerTime == 0){
             //there was no challenger, didn't win or lose
             win = WIN.NONE;
         }else if(challengerTime < playerTime){
@@ -269,7 +271,7 @@ public class SCOREScreen extends Screen{
             taunt2_S = " You Conquered";
             taunt3_S = " That Level!!!";
             info1S = "You Won Against the";
-        }else if(win == WIN.LOSE){
+        }else if(win == WIN.LOSE || win == WIN.FAIL){
             taunt1_S = " Awww..   ";
             taunt2_S = " You Bombed";
             taunt3_S = " That Level!!!";
@@ -385,6 +387,7 @@ public class SCOREScreen extends Screen{
 
         //Calculate ghost time min, sec and ms.
         time = challengerTime;
+        if(win == WIN.FAIL)time = parent.parent.levelManager.ghostTime;
         min = (time / 1000) / 60;
         time -= (min * 60 * 1000);
         sec = time / 1000;
