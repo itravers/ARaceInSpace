@@ -57,19 +57,42 @@ public class LevelManager {
 
     /* Private Methods */
 
+    private String readGhostFromServer(CHALLENGES currentChallenge){
+        String returnval = "";
+        //Gdx.net.openURI("192.168.1.197");
+        String url = "http://192.168.1.197/html/araceinspace/";
+        url += "level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+        parent.httpManager.sendRequest(url, null, "GET");
+        returnval = parent.httpManager.waitForResponse();
+        return returnval;
+    }
+
     private void setupGhost(CHALLENGES currentChallenge){
+        ArrayList<Action>actions;
+        ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
-        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
-        String fileName = "ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
-        boolean exists = Gdx.files.local(fileName).exists();
-        if(!exists){
-            System.out.println("File " + fileName + " does not exist, not making ghost.");
-            ghost = null;
-            return;
+        if(currentChallenge == CHALLENGES.first || currentChallenge == CHALLENGES.second || currentChallenge == CHALLENGES.third){
+            String ghostJson = readGhostFromServer(currentChallenge);//reads the ghost file from the server backend instead of locally
+            levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+            if(ghostJson == null){//ghost json was not found on server, return ghost=null ghost will not be displayed this level
+                ghost = null;
+                return;
+            }
+            actions = json.fromJson(ArrayList.class, Action.class, ghostJson);//read an array list of JsonValues
+
+
+        }else{
+
+            levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+            String fileName = "ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+            boolean exists = Gdx.files.local(fileName).exists();
+            if(!exists){
+                System.out.println("File " + fileName + " does not exist, not making ghost.");
+                ghost = null;
+                return;
+            }
+            actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.local(fileName));//read an array list of JsonValues
         }
-        ArrayList<Action>actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.local(fileName));//read an array list of JsonValues
-
-
 
         //go through all the level items, find the player item and initialze him
         for(int i = 0; i < levelItems.size(); i++){
@@ -219,6 +242,10 @@ public class LevelManager {
     public void setChallenge(CHALLENGES c){
         currentChallenge = c;
         setupGhost(currentChallenge);
+    }
+
+    public CHALLENGES getCurrentChallenge(){
+        return currentChallenge;
     }
 
     public void setCurrentLevel(int level){

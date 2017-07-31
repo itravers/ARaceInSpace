@@ -146,6 +146,7 @@ public class SCOREScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setLevel(parent.parent.levelManager.getCurrentLevel());
+                parent.parent.levelManager.setChallenge(parent.parent.levelManager.getCurrentChallenge());
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
             }
 

@@ -4,6 +4,7 @@ import com.araceinspace.InputSubSystem.InputManager;
 import com.araceinspace.Managers.AnimationManager;
 import com.araceinspace.Managers.ContactListenerManager;
 import com.araceinspace.Managers.GameStateManager;
+import com.araceinspace.Managers.HttpManager;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.Managers.SoundManager;
@@ -24,6 +25,7 @@ public class GameWorld {
 
     /* Field Variables & Objects */
     public ApplicationAdapter parent;
+    public HttpManager httpManager;
     public GameStateManager gameStateManager;
     public AnimationManager animationManager; //Must be constructed before renderManager
     public RenderManager renderManager;
@@ -48,7 +50,7 @@ public class GameWorld {
 
         ghostTimer = prefs.getFloat("com.araceinspace.ghostTimer", GHOST_TIMER_LIMIT);
         coins = prefs.getInteger("com.araceinspace.coins");
-
+        httpManager = new HttpManager();
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
         inputManager = new InputManager(this);
