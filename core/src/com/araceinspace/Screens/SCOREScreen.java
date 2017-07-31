@@ -217,7 +217,7 @@ public class SCOREScreen extends Screen{
 
         backButton = new ImageButton(skin, "backButton");
         backButton.setDebug(devMode);
-        backButton.addListener(backButtonListener);
+        backButton.addListener(tryAgainListener);
 
         menuButton = new ImageButton(skin, "menuButton");
         menuButton.setDebug(devMode);
