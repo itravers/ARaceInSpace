@@ -321,23 +321,6 @@ public class SCOREScreen extends Screen{
         buttonTable.setDebug(devMode);
         buttonTable.align(Align.top|Align.center);
 
-/*
-        ImageButton starBronze = new ImageButton(skin, "starBronze");
-        starBronze.setTouchable(Touchable.disabled);
-        Stack buttonStack1 = makeButtonStack("Bronze", starBronze, "taunt1", "taunt2");
-
-        ImageButton starSilver = new ImageButton(skin, "starSilver");
-        starSilver.setTouchable(Touchable.disabled);
-        Stack buttonStack2 = makeButtonStack("Silver", starSilver, "52:23", "52:21");
-
-        ImageButton starGold = new ImageButton(skin, "starGold");
-        starGold.setTouchable(Touchable.disabled);
-        Stack buttonStack3 = makeButtonStack("Gold",  starGold, "43:17", "52:17");
-
-        buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
-        buttonTable.add(buttonStack2).pad(0).size(butWidth, butHeight).align(Align.top);
-        buttonTable.add(buttonStack3).pad(0).size(butWidth, butHeight).align(Align.top);
-        */
         Window w = new Window("", skin);
         //w.setSize(viewport.getScreenWidth()*.95f, viewport.getScreenHeight()/5);
         w.setMovable(false);
@@ -365,6 +348,7 @@ public class SCOREScreen extends Screen{
         String playerSec = Integer.toString(sec);
         String playerms = Integer.toString(ms);
 
+        // The user exploading during last level, display xx as users time
         if(win == WIN.FAIL){
             playerMin = "XX";
             playerSec = "XX";
@@ -487,14 +471,7 @@ public class SCOREScreen extends Screen{
         bTable.row();
         bTable.add(lButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
 
-
-
-
-
         storeTable.add(bTable).padTop(spacer);
-
-
-
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
 

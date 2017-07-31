@@ -30,7 +30,7 @@ public class LevelManager {
     /* Static Variables */
     public static final short CATEGORY_PLAYER = -1;
     public static final short CATEGORY_PLANET = -2;
-    public enum CHALLENGES {bronze, silver, gold};
+    public enum CHALLENGES {bronze, silver, gold, first, second, third, custom};
 
     /* Field Variables & Objects */
     public GameWorld parent;

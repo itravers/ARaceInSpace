@@ -42,6 +42,9 @@ public class PREGAMEScreen extends Screen{
     ClickListener bronzeListener;
     ClickListener silverListener;
     ClickListener goldListener;
+    ClickListener firstPlaceListener;
+    ClickListener secondPlaceListener;
+    ClickListener thirdPlaceListener;
 
     boolean stageLoaded;
 
@@ -118,6 +121,30 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.gold);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
+        firstPlaceListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
+        secondPlaceListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
+        thirdPlaceListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
             }
 
@@ -370,6 +397,7 @@ public class PREGAMEScreen extends Screen{
         t1.row();
 
         ImageButton gold = new ImageButton(skin, "star1");
+        gold.addListener(firstPlaceListener);
         t1.add(gold).align(Align.center);
 
 
@@ -393,6 +421,7 @@ public class PREGAMEScreen extends Screen{
         t2.row();
 
         ImageButton silver = new ImageButton(skin, "star2");
+        silver.addListener(secondPlaceListener);
         t2.add(silver).align(Align.center);
 
 
@@ -417,6 +446,7 @@ public class PREGAMEScreen extends Screen{
 
 
         ImageButton bronze = new ImageButton(skin, "star3");
+        bronze.addListener(thirdPlaceListener);
         t3.add(bronze).align(Align.center);
 
         Table placeTable = new Table();
