@@ -264,6 +264,8 @@ public class RenderManager {
                             parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
                         } else if (placeClicked == PLACES.third) {
                             parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
+                        } else{
+                            parent.levelManager.setChallenge(parent.levelManager.getCurrentChallenge());
                         }
                         parent.setCoins(parent.getCoins() - coinsToSpend);
 

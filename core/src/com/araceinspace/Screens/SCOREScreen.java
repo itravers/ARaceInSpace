@@ -43,6 +43,7 @@ public class SCOREScreen extends Screen{
     ClickListener challengeListener;
     ClickListener tryAgainListener;
     ClickListener continueListener;
+    ClickListener submitGhostButtonListener;
 
     boolean stageLoaded;
     int challengerTime;
@@ -132,6 +133,15 @@ public class SCOREScreen extends Screen{
 
         };
 
+        submitGhostButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+               //TODO implement submitghostbutton in score screen
+                System.out.println("Submit Ghost Button hit");
+            }
+
+        };
+
         challengeListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -147,13 +157,15 @@ public class SCOREScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                // parent.placeClicked = RenderManager.PLACES.second;
                 //parent.coinsToSpend = 9;
-                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
-                parent.purchaseDialog.show(stage);
-                /*
-                parent.parent.levelManager.setLevel(parent.parent.levelManager.getCurrentLevel());
-                parent.parent.levelManager.setChallenge(parent.parent.levelManager.getCurrentChallenge());
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
-                */
+                LevelManager.CHALLENGES currentChallenge = parent.parent.levelManager.getCurrentChallenge();
+                if(currentChallenge == LevelManager.CHALLENGES.bronze || currentChallenge == LevelManager.CHALLENGES.silver || currentChallenge == LevelManager.CHALLENGES.gold){
+                    parent.parent.levelManager.setLevel(parent.parent.levelManager.getCurrentLevel());
+                    parent.parent.levelManager.setChallenge(parent.parent.levelManager.getCurrentChallenge());
+                    parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                }else{//fir first second and third place challenges
+                    parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                    parent.purchaseDialog.show(stage);
+                }
             }
 
         };
@@ -433,6 +445,12 @@ public class SCOREScreen extends Screen{
             challenger = "Silver";
         }else if(currentChallenge == LevelManager.CHALLENGES.gold){
             challenger = "Gold";
+        }else if(currentChallenge == LevelManager.CHALLENGES.first){
+            challenger = "First Place";
+        }else if(currentChallenge == LevelManager.CHALLENGES.second){
+            challenger = "Second Place";
+        }else if(currentChallenge == LevelManager.CHALLENGES.third){
+            challenger = "Third Place";
         }
 
 
@@ -449,6 +467,9 @@ public class SCOREScreen extends Screen{
         storeTable.add(infoTable).padTop(spacer);
         storeTable.row();
 
+        ImageTextButton submitGhostButton = new ImageTextButton("Submit Score", skin);
+        submitGhostButton.addListener(submitGhostButtonListener);
+
         ImageTextButton continueButton = new ImageTextButton("Continue", skin);
         continueButton.addListener(continueListener);
 
@@ -457,26 +478,32 @@ public class SCOREScreen extends Screen{
         ImageTextButton lButton = new ImageTextButton("LeaderBoards", skin);
         lButton.addListener(leaderBoardListener);
 
-        Table challengeButtonTable = new Table();
-        challengeButtonTable.setDebug(devMode);
+       // Table challengeButtonTable = new Table();
+       // challengeButtonTable.setDebug(devMode);
 
-        ImageTextButton cButton = new ImageTextButton("Challenge First Place", skin);
-        cButton.addListener(challengeListener);
-        ImageButton c = new ImageButton(skin, "coinSmall10");
-        c.setTouchable(Touchable.disabled);
+       // ImageTextButton cButton = new ImageTextButton("Challenge First Place", skin);
+       // cButton.addListener(challengeListener);
+        //ImageButton c = new ImageButton(skin, "coinSmall10");
+       // c.setTouchable(Touchable.disabled);
 
-        challengeButtonTable.add(cButton).width((viewport.getScreenWidth()*.80f)-c.getWidth()).height(viewport.getScreenHeight()/14);;
-        challengeButtonTable.add(c);
+       // challengeButtonTable.add(cButton).width((viewport.getScreenWidth()*.80f)-c.getWidth()).height(viewport.getScreenHeight()/14);;
+       // challengeButtonTable.add(c);
 
         ImageTextButton tryAgainButton = new ImageTextButton("Try Again", skin);
         tryAgainButton.addListener(tryAgainListener);
+
+        if(win == WIN.WIN && (currentChallenge == LevelManager.CHALLENGES.first || currentChallenge == LevelManager.CHALLENGES.second || currentChallenge == LevelManager.CHALLENGES.third)){
+            //give player the option to submit score if he won a first second or third place challenge
+            bTable.add(submitGhostButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
+            bTable.row();
+        }
 
         bTable.add(continueButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
         bTable.row();
         bTable.add(tryAgainButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
         bTable.row();
-        bTable.add(challengeButtonTable);
-        bTable.row();
+       // bTable.add(challengeButtonTable);
+       // bTable.row();
         bTable.add(lButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
 
         storeTable.add(bTable).padTop(spacer);
@@ -488,5 +515,6 @@ public class SCOREScreen extends Screen{
         table.add(bodyTable).fill().expandX();
         stage.addActor(table);
         stageLoaded = true;
+        parent.parent.levelManager.didFail = false;//reset the didfail boolean
     }
 }
