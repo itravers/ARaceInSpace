@@ -69,8 +69,16 @@ public class LEADERBOARDScreen extends Screen{
     public void setup() {
         System.out.println("Settingup LeaderBoardScreen");
         JsonReader json = new JsonReader();
-        JsonValue jsonValue = json.parse(Gdx.files.internal("levels/LeaderBoard.json"));
-        leaderBoardLevels = jsonValue.get("levels");
+        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer();
+        JsonValue jsonValue;
+
+        if(jsonFromServer == null){//the server is offline, read from generic leaderboards file
+            jsonValue = json.parse(Gdx.files.internal("levels/LeaderBoard.json"));
+            leaderBoardLevels = jsonValue.get("levels");
+        }else{
+            jsonValue = json.parse(jsonFromServer);
+            leaderBoardLevels = jsonValue.get(0).get("levels");
+        }
 
 
        // System.out.println(jsonValue);

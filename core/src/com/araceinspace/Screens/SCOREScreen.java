@@ -138,6 +138,9 @@ public class SCOREScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                //TODO implement submitghostbutton in score screen
                 System.out.println("Submit Ghost Button hit");
+                int level = parent.parent.levelManager.getCurrentLevel();
+
+                parent.parent.httpManager.submitScore(level, 1, "TESTNAME", 241, "TESTID");
             }
 
         };

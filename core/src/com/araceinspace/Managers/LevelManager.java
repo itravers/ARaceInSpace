@@ -57,15 +57,7 @@ public class LevelManager {
 
     /* Private Methods */
 
-    private String readGhostFromServer(CHALLENGES currentChallenge){
-        String returnval = "";
-        //Gdx.net.openURI("192.168.1.197");
-        String url = "http://192.168.1.197/html/araceinspace/";
-        url += "level"+currentLevel + "-" + currentChallenge + "-ghost.json";
-        parent.httpManager.sendRequest(url, null, "GET");
-        returnval = parent.httpManager.waitForResponse();
-        return returnval;
-    }
+
 
     private void setupGhost(CHALLENGES currentChallenge){
         System.out.println("SETUPGHOST");
@@ -73,7 +65,7 @@ public class LevelManager {
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
         if(currentChallenge == CHALLENGES.first || currentChallenge == CHALLENGES.second || currentChallenge == CHALLENGES.third){
-            String ghostJson = readGhostFromServer(currentChallenge);//reads the ghost file from the server backend instead of locally
+            String ghostJson = parent.httpManager.readGhostFromServer(currentChallenge, currentLevel);//reads the ghost file from the server backend instead of locally
             levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
             if(ghostJson == null){//ghost json was not found on server, return ghost=null ghost will not be displayed this level
                 ghost = null;

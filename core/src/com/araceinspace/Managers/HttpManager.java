@@ -27,7 +27,10 @@ public class HttpManager {
         Net.HttpRequest request = new Net.HttpRequest(method);
         request.setUrl(url);
 
-        request.setContent(requestJson);
+        if(requestObject != null){
+            request.setContent(requestJson);
+        }
+
 
         request.setHeader("Content-Type", "application/json");
         request.setHeader("Accept", "application/json");
@@ -84,5 +87,35 @@ public class HttpManager {
         }
         responseReady = false; //reset responseready boolean
         return responseJson;
+    }
+
+    public String readGhostFromServer(LevelManager.CHALLENGES currentChallenge, int currentLevel){
+        String returnval = "";
+        //Gdx.net.openURI("192.168.1.197");
+        String url = "http://192.168.1.197/html/araceinspace/";
+        url += "level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+        sendRequest(url, null, "GET");
+        returnval = waitForResponse();
+        return returnval;
+    }
+
+    public String readLeaderBoardFromServer(){
+        String returnval = "";
+        //Gdx.net.openURI("192.168.1.197");
+        String url = "http://192.168.1.197:3001/leaderboards/json/";
+
+        sendRequest(url, null, "GET");
+        returnval = waitForResponse();
+        return returnval;
+    }
+
+    public String submitScore(int level, int place, String name, int time, String id){
+        String returnval = "";
+        //Gdx.net.openURI("192.168.1.197");
+        String url = "http://192.168.1.197:3001/leaderboards/update/"+level+"/"+place+"/"+name+"/"+time+"/"+id;
+
+        sendRequest(url, null, "GET");
+        returnval = waitForResponse();
+        return returnval;
     }
 }
