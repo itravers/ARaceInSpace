@@ -72,7 +72,7 @@ public class SCOREScreen extends Screen{
 
     @Override
     public void setup() {
-        System.out.println("Settingup LevelSelectScreen");
+        System.out.println("Settingup storeScreen");
         currentChallenge = parent.parent.levelManager.currentChallenge;
 
         challengerTime = parent.parent.levelManager.ghostTime;

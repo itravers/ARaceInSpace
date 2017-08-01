@@ -146,6 +146,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     @Override
     public void setup() {
+        System.out.println("SETUP INGAME SCREEN");
         parent.resetFrameNum();
         monetizationController= parent.monetizationController;
         monetizationController.hideBannerAd();

@@ -68,6 +68,7 @@ public class LevelManager {
     }
 
     private void setupGhost(CHALLENGES currentChallenge){
+        System.out.println("SETUPGHOST");
         ArrayList<Action>actions;
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();

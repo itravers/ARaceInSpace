@@ -51,7 +51,7 @@ public class GhostInputComponent extends PlayerInputComponent implements EventSe
 
     @Override
     public void receiveEvent(Event e) {
-        System.out.println("ghost inputEvent Received: " + e.getData());
+      //  System.out.println("ghost inputEvent Received: " + e.getData());
         currentInput = (GameInput)e.getData();
         handleCurrentInput();
     }
