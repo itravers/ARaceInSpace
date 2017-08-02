@@ -4,6 +4,7 @@ import com.araceinspace.Managers.RenderManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,14 @@ public class InputRecorder{
         //System.out.println(json.toJson(json.prettyPrint(actions)));
         FileHandle file = Gdx.files.local(fileName);
         file.writeString(json.toJson(actions, ArrayList.class), false);
+    }
+
+    public String getReplay(int playTime){
+        actions.add(new Action(playTime, GameInput.PLAYTIME));
+        Json json = new Json(JsonWriter.OutputType.json);
+        String jsonString = json.toJson(actions, ArrayList.class);
+
+        return jsonString;
     }
 
     /**

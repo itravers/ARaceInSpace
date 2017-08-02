@@ -197,10 +197,12 @@ public class LevelManager {
                 getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
             }
         }
-
-
         parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
+    }
 
+    public String getGhostReplay(){
+        playerTime = (int)(getPlayer().getPlayTime()*1000);
+        return getPlayer().getInput().getReplay(playerTime);
     }
 
     private void setGoalCompleted(Boolean levelGoalCompleted) {

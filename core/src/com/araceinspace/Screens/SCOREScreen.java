@@ -157,6 +157,7 @@ public class SCOREScreen extends Screen{
                     parent.infoDialog.getTitleLabel().setText("Couldn't Connect To Backend Server");
                     parent.infoDialog.show(stage);
                 }if(submitVal.equals("success")){
+                    parent.parent.httpManager.submitGhostReplay(parent.parent.levelManager.getGhostReplay());
                     parent.infoDialog.getTitleLabel().setText("Success!");
                     parent.infoDialog.show(stage);
                     submitGhostButton.setVisible(false);

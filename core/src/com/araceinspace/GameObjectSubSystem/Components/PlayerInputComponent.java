@@ -46,6 +46,10 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
         inputRecorder.writeToFile(fileName, playTime);
     }
 
+    public String getReplay(int playTime){
+        return inputRecorder.getReplay(playTime);
+    }
+
     /**
      * Receives keyboard event from the InputSubSystem
      * This event should be processed by the Player Object, as well

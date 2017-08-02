@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpStatus;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 
 /**
  * Created by Isaac Assegai on 7/31/17.
@@ -18,16 +19,16 @@ public class HttpManager {
         responseReady = false;
         requestFailed = false;
     }
-    public  void sendRequest(String url, Object requestObject, String method) {
+    public  void sendRequest(String url, String requestJson, String method) {
 
-        final Json json = new Json();
+      //  final Json json = new Json();
 
-        String requestJson = json.toJson(requestObject); // this is just an example
+       // String requestJson = json.toJson(requestObject); // this is just an example
 
         Net.HttpRequest request = new Net.HttpRequest(method);
         request.setUrl(url);
 
-        if(requestObject != null){
+        if(requestJson != null){
             request.setContent(requestJson);
         }
 
@@ -115,6 +116,19 @@ public class HttpManager {
         String url = "http://192.168.1.197:3001/leaderboards/update/"+level+"/"+place+"/"+name+"/"+time+"/"+id;
 
         sendRequest(url, null, "GET");
+        returnval = waitForResponse();
+        return returnval;
+    }
+
+    public String submitGhostReplay(String replay){
+        System.out.println("Submit Ghost");
+        String returnval = "";
+        //Gdx.net.openURI("192.168.1.197");
+        String url = "http://192.168.1.197:3001/leaderboards/submitGhost/";
+        //Json json = new Json(JsonWriter.OutputType.json);
+        //replay = json.toJson("test");
+
+        sendRequest(url, replay, "POST");
         returnval = waitForResponse();
         return returnval;
     }
