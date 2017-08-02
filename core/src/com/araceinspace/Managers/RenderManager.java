@@ -52,7 +52,7 @@ public class RenderManager {
 
    public Dialog purchaseDialog;
     public Dialog notEnoughCoinsDialog;
-    public Dialog offlineDialog;
+    public Dialog infoDialog;
 
     public boolean dialogQuestion = false;
    public int coinsToSpend;
@@ -292,10 +292,14 @@ public class RenderManager {
         ImageTextButton oh = new ImageTextButton("Oh...", skin);
         notEnoughCoinsDialog.button(oh);
 
-        offlineDialog = new Dialog("You Are Offline", skin, "dialog");
-        ImageTextButton okButton = new ImageTextButton("OK...", skin);
-        offlineDialog.button(okButton);
 
+
+    }
+
+    public void setupInfoDialog(Skin skin, Stage stage, Screen scren){
+        infoDialog = new Dialog("You Are Offline", skin, "dialog");
+        ImageTextButton okButton = new ImageTextButton("OK...", skin);
+        infoDialog.button(okButton);
     }
 
 }

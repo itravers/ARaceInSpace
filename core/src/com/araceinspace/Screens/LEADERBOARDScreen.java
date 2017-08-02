@@ -75,7 +75,7 @@ public class LEADERBOARDScreen extends Screen{
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         stage = new Stage(viewport, batch);
 
-        parent.setupDialogs(skin, stage, this);
+        parent.setupInfoDialog(skin, stage, this);
 
 
         JsonReader json = new JsonReader();
@@ -167,8 +167,8 @@ public class LEADERBOARDScreen extends Screen{
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         if(jsonFromServer == null){
-            parent.offlineDialog.getTitleLabel().setText("Can't Connect to LeaderBoard");
-            parent.offlineDialog.show(stage);//if can't connect to leaderboard, show dialog after everything else has been printed
+            parent.infoDialog.getTitleLabel().setText("Can't Connect to LeaderBoard");
+            parent.infoDialog.show(stage);//if can't connect to leaderboard, show dialog after everything else has been printed
         }
 
         monetizationController.showBannerAd();

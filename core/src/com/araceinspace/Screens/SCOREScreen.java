@@ -44,10 +44,13 @@ public class SCOREScreen extends Screen{
     ClickListener tryAgainListener;
     ClickListener continueListener;
     ClickListener submitGhostButtonListener;
+    ImageTextButton submitGhostButton;//must be global so we can hide it
+    String challenger; //must be global so we can reference it in buttonpress
 
     boolean stageLoaded;
     int challengerTime;
     int playerTime;
+    int place;
     enum WIN {WIN, LOSE, TIE, NONE, FAIL}
     WIN win;
     LevelManager.CHALLENGES currentChallenge;
@@ -73,7 +76,15 @@ public class SCOREScreen extends Screen{
     @Override
     public void setup() {
         System.out.println("Settingup storeScreen");
+
         currentChallenge = parent.parent.levelManager.currentChallenge;
+        if(currentChallenge == LevelManager.CHALLENGES.first){
+            place = 1;
+        }else if(currentChallenge == LevelManager.CHALLENGES.second){
+            place = 2;
+        }else if(currentChallenge == LevelManager.CHALLENGES.third){
+            place = 3;
+        }
 
         challengerTime = parent.parent.levelManager.ghostTime;
         playerTime = parent.parent.levelManager.playerTime;
@@ -140,7 +151,21 @@ public class SCOREScreen extends Screen{
                 System.out.println("Submit Ghost Button hit");
                 int level = parent.parent.levelManager.getCurrentLevel();
 
-                parent.parent.httpManager.submitScore(level, 1, "TESTNAME", 241, "TESTID");
+                String submitVal = parent.parent.httpManager.submitScore(level, place, "TESTNAME", playerTime, "TESTID");
+
+                if(submitVal == null){
+                    parent.infoDialog.getTitleLabel().setText("Couldn't Connect To Backend Server");
+                    parent.infoDialog.show(stage);
+                }if(submitVal.equals("success")){
+                    parent.infoDialog.getTitleLabel().setText("Success!");
+                    parent.infoDialog.show(stage);
+                    submitGhostButton.setVisible(false);
+                }else if(submitVal.equals("Not Fast Enough")){
+                    parent.infoDialog.getTitleLabel().setText("You weren't fast enough to place " + challenger + " in Leaderboards!");
+                    parent.infoDialog.show(stage);
+                    submitGhostButton.setVisible(false);
+                }
+                System.out.println(submitVal);
             }
 
         };
@@ -183,7 +208,7 @@ public class SCOREScreen extends Screen{
 
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
-        parent.setupDialogs(skin, stage, this);
+        parent.setupInfoDialog(skin, stage, this);
 
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
@@ -440,7 +465,7 @@ public class SCOREScreen extends Screen{
         Table infoTable = new Table();
         infoTable.setDebug(devMode);
 
-        String challenger = "";
+        challenger = "";
 
         if(currentChallenge == LevelManager.CHALLENGES.bronze){
             challenger = "Bronze";
@@ -470,7 +495,7 @@ public class SCOREScreen extends Screen{
         storeTable.add(infoTable).padTop(spacer);
         storeTable.row();
 
-        ImageTextButton submitGhostButton = new ImageTextButton("Submit Score", skin);
+        submitGhostButton = new ImageTextButton("Submit "+challenger+" Score", skin);
         submitGhostButton.addListener(submitGhostButtonListener);
 
         ImageTextButton continueButton = new ImageTextButton("Continue", skin);
