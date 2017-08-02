@@ -16,6 +16,7 @@ import com.araceinspace.Screens.Screen;
 import com.araceinspace.Screens.TITLEScreen;
 import com.araceinspace.misc.Background;
 import com.araceinspace.misc.OrthCamera;
+import com.araceinspace.misc.RandomString;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 
 import java.util.ArrayList;
 
@@ -53,6 +55,7 @@ public class RenderManager {
    public Dialog purchaseDialog;
     public Dialog notEnoughCoinsDialog;
     public Dialog infoDialog;
+    public Dialog nameDialog;
 
     public boolean dialogQuestion = false;
    public int coinsToSpend;
@@ -300,6 +303,29 @@ public class RenderManager {
         infoDialog = new Dialog("You Are Offline", skin, "dialog");
         ImageTextButton okButton = new ImageTextButton("OK...", skin);
         infoDialog.button(okButton);
+    }
+
+    public void setupNameDialog(Skin skin, Stage stage, Screen screen){
+        final TextArea textArea = new TextArea("", skin);
+        ImageTextButton submitButton = new ImageTextButton("Submit", skin);
+        final RandomString randomString = new RandomString(4);
+        nameDialog = new Dialog("What Is Your Name?", skin, "dialog"){
+            protected void result(Object object) {
+                String name = textArea.getText();
+                if(name.isEmpty()){
+                    name = "Guest "+randomString.nextString();
+                }
+                name = name.replaceAll("\\s", "-");
+                parent.playerName = name;
+                System.out.println("Name is set to: " + parent.playerName);
+                parent.prefs.putString("com.araceinspace.playerName", name);
+                parent.prefs.flush();
+            }
+        };
+
+       // nameDialog.add(textArea);
+        nameDialog.getContentTable().add(textArea);
+        nameDialog.button(submitButton);
     }
 
 }

@@ -46,6 +46,7 @@ public class MENUScreen extends Screen {
     private ClickListener rewardAdButtonListener;
     private ClickListener muteMusicButtonListener;
     private ChangeListener musicVolumeSliderListener;
+    private ClickListener changeNameButtonListener;
 
     private ImageButton backButton;
     private ImageButton coinButton;
@@ -56,6 +57,7 @@ public class MENUScreen extends Screen {
     private ImageTextButton sfxMuteButton;
     private ImageTextButton resolutionApplyButton;
     private ImageTextButton creditsButton;
+    private ImageTextButton changeNameButton;
     private SelectBox selectBox;
 
     private Slider musicVolumeSlider;
@@ -126,6 +128,14 @@ public class MENUScreen extends Screen {
                     musicVolumeSlider.setValue(0);
                 }
             }
+        };
+
+        changeNameButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+               parent.nameDialog.show(stage);
+            }
+
         };
 
         backButton = new ImageButton(skin, "backButton");
@@ -234,6 +244,16 @@ public class MENUScreen extends Screen {
         Tree.Node levelSectionChild = new Tree.Node(levelSectionTable);
         levelSectionNode.add(levelSectionChild);
 
+        Tree.Node optionsSection = new Tree.Node(new Label("   Options Section", skin, "tree_header"));
+        Table optionsSectionTable = new Table();
+        optionsSectionTable.setDebug(parent.parent.devMode);
+        optionsSectionTable.align(Align.left|Align.top);
+        changeNameButton = new ImageTextButton("Change Name", skin);
+        changeNameButton.addListener(changeNameButtonListener);
+        optionsSectionTable.add(changeNameButton).width(width/2).fill().expandX();
+        Tree.Node optionSectionChild = new Tree.Node(optionsSectionTable);
+        optionsSection.add(optionSectionChild);
+
         Tree.Node soundSelectionNode = new Tree.Node(new Label("    Sound Section", skin, "tree_header"));
         Table soundSectionTable = new Table();
         soundSectionTable.setDebug(parent.parent.devMode);
@@ -274,6 +294,7 @@ public class MENUScreen extends Screen {
         Tree.Node moo3 = new Tree.Node(new TextButton("moo3", skin));
         Tree.Node moo4 = new Tree.Node(new TextButton("moo4", skin));
         tree.add(levelSectionNode);
+        tree.add(optionsSection);
         tree.add(soundSelectionNode);
         tree.add(videoSectionNode);
         tree.add(creditsSectionNode);
@@ -319,6 +340,8 @@ public class MENUScreen extends Screen {
         setupLabels();
         setupSliders();
         setupTables();
+
+        parent.setupNameDialog(skin, stage, this);
 
         //stage.addActor(mainTable);
         parent.parent.inputManager.addInputProcessor(stage);

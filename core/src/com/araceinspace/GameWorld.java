@@ -36,10 +36,11 @@ public class GameWorld {
     public World world;
     public float elapsedTime;
     public boolean devMode = false;
-    Preferences prefs;
+    public Preferences prefs;
     private float ghostTimer;
     public boolean countGhostTimer = true;
     private int coins;
+    public String playerName;
 
 
 
@@ -49,6 +50,7 @@ public class GameWorld {
         prefs = Gdx.app.getPreferences("com.araceinspace.Saved_Items");
 
         ghostTimer = prefs.getFloat("com.araceinspace.ghostTimer", GHOST_TIMER_LIMIT);
+        playerName = prefs.getString("com.araceinspace.playerName", null);
         coins = prefs.getInteger("com.araceinspace.coins");
         httpManager = new HttpManager();
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics

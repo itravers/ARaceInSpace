@@ -150,7 +150,7 @@ public class SCOREScreen extends Screen{
                //TODO implement submitghostbutton in score screen
                 System.out.println("Submit Ghost Button hit");
                 int level = parent.parent.levelManager.getCurrentLevel();
-                String name = "TESTNAME2";
+                String name = parent.parent.playerName;
                 String submitVal = parent.parent.httpManager.submitScore(level, place, name, playerTime);
 
                 if(submitVal == null){

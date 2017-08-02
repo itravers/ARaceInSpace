@@ -112,6 +112,8 @@ public class LEVELSELECTScreen extends Screen{
         font.getData().setScale(.13f, .66f);
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
+        parent.setupNameDialog(skin, stage, this);
+        if(parent.parent.playerName == null)parent.nameDialog.show(stage);
         monetizationController.showBannerAd();
     }
 
