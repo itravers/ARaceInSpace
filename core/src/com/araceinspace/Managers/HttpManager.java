@@ -120,11 +120,11 @@ public class HttpManager {
         return returnval;
     }
 
-    public String submitGhostReplay(String replay, String id){
+    public String submitGhostReplay(String replay, String id, int level, int place, String name, int time){
         System.out.println("Submit Ghost");
         String returnval = "";
         //Gdx.net.openURI("192.168.1.197");
-        String url = "http://192.168.1.197:3001/leaderboards/submitGhost/"+id;
+        String url = "http://192.168.1.197:3001/leaderboards/submitGhost/"+id+"/"+level+"/"+place+"/"+time+"/"+name;
         //Json json = new Json(JsonWriter.OutputType.json);
         //replay = json.toJson("test");
 
