@@ -110,21 +110,21 @@ public class HttpManager {
         return returnval;
     }
 
-    public String submitScore(int level, int place, String name, int time, String id){
+    public String submitScore(int level, int place, String name, int time){
         String returnval = "";
         //Gdx.net.openURI("192.168.1.197");
-        String url = "http://192.168.1.197:3001/leaderboards/update/"+level+"/"+place+"/"+name+"/"+time+"/"+id;
+        String url = "http://192.168.1.197:3001/leaderboards/update/"+level+"/"+place+"/"+name+"/"+time;
 
         sendRequest(url, null, "GET");
         returnval = waitForResponse();
         return returnval;
     }
 
-    public String submitGhostReplay(String replay){
+    public String submitGhostReplay(String replay, String id){
         System.out.println("Submit Ghost");
         String returnval = "";
         //Gdx.net.openURI("192.168.1.197");
-        String url = "http://192.168.1.197:3001/leaderboards/submitGhost/";
+        String url = "http://192.168.1.197:3001/leaderboards/submitGhost/"+id;
         //Json json = new Json(JsonWriter.OutputType.json);
         //replay = json.toJson("test");
 

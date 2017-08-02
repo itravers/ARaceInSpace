@@ -151,13 +151,14 @@ public class SCOREScreen extends Screen{
                 System.out.println("Submit Ghost Button hit");
                 int level = parent.parent.levelManager.getCurrentLevel();
 
-                String submitVal = parent.parent.httpManager.submitScore(level, place, "TESTNAME", playerTime, "TESTID");
+                String submitVal = parent.parent.httpManager.submitScore(level, place, "TESTNAME", playerTime);
 
                 if(submitVal == null){
                     parent.infoDialog.getTitleLabel().setText("Couldn't Connect To Backend Server");
                     parent.infoDialog.show(stage);
-                }if(submitVal.equals("success")){
-                    parent.parent.httpManager.submitGhostReplay(parent.parent.levelManager.getGhostReplay());
+                }if(submitVal.startsWith("success")){
+                    String id = submitVal.replace("success:", "");
+                    parent.parent.httpManager.submitGhostReplay(parent.parent.levelManager.getGhostReplay(), id);
                     parent.infoDialog.getTitleLabel().setText("Success!");
                     parent.infoDialog.show(stage);
                     submitGhostButton.setVisible(false);
