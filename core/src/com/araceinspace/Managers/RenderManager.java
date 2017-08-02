@@ -52,6 +52,8 @@ public class RenderManager {
 
    public Dialog purchaseDialog;
     public Dialog notEnoughCoinsDialog;
+    public Dialog offlineDialog;
+
     public boolean dialogQuestion = false;
    public int coinsToSpend;
    public static enum PLACES {first, second, third};
@@ -286,6 +288,11 @@ public class RenderManager {
         notEnoughCoinsDialog = new Dialog("Not Enough Coins", skin);
         ImageTextButton oh = new ImageTextButton("Oh...", skin);
         notEnoughCoinsDialog.button(oh);
+
+        offlineDialog = new Dialog("You Are Offline", skin, "dialog");
+        ImageTextButton okButton = new ImageTextButton("OK...", skin);
+        offlineDialog.button(okButton);
+
     }
 
 }

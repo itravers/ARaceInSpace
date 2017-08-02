@@ -68,6 +68,13 @@ public class LEADERBOARDScreen extends Screen{
     @Override
     public void setup() {
         System.out.println("Settingup LeaderBoardScreen");
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        stage = new Stage(viewport, batch);
+
+        parent.setupDialogs(skin, stage, this);
+
+
         JsonReader json = new JsonReader();
         String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer();
         JsonValue jsonValue;
@@ -75,6 +82,7 @@ public class LEADERBOARDScreen extends Screen{
         if(jsonFromServer == null){//the server is offline, read from generic leaderboards file
             jsonValue = json.parse(Gdx.files.internal("levels/LeaderBoard.json"));
             leaderBoardLevels = jsonValue.get("levels");
+
         }else{
             jsonValue = json.parse(jsonFromServer);
             leaderBoardLevels = jsonValue.get(0).get("levels");
@@ -83,7 +91,7 @@ public class LEADERBOARDScreen extends Screen{
 
        // System.out.println(jsonValue);
 
-        stage = new Stage(viewport, batch);
+
         // updateOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         coinButtonListener = new ClickListener(){
             @Override
@@ -136,12 +144,16 @@ public class LEADERBOARDScreen extends Screen{
             }
 
         };
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
+        if(jsonFromServer == null){
+            parent.offlineDialog.getTitleLabel().setText("Can't Connect to LeaderBoard");
+            parent.offlineDialog.show(stage);//if can't connect to leaderboard, show dialog after everything else has been printed
+        }
+
         monetizationController.showBannerAd();
     }
 
