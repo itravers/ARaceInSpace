@@ -156,7 +156,7 @@ public class SCOREScreen extends Screen{
                 if(submitVal == null){
                     parent.infoDialog.getTitleLabel().setText("Couldn't Connect To Backend Server");
                     parent.infoDialog.show(stage);
-                }if(submitVal.startsWith("success")){
+                }else if(submitVal.startsWith("success")){
                     String id = submitVal.replace("success:", "");
                     parent.parent.httpManager.submitGhostReplay(parent.parent.levelManager.getGhostReplay(), id, level, place, name, playerTime);
                     parent.infoDialog.getTitleLabel().setText("Success!");
