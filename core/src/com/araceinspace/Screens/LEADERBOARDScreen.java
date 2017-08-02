@@ -28,6 +28,8 @@ import java.util.ArrayList;
  * Lets the user choose which level to play
  */
 public class LEADERBOARDScreen extends Screen{
+    /* Static variables */
+    public static int levelClicked;
 
     int xCoords = 0;
     ArrayList<ImageButton> buyButtons;
@@ -39,6 +41,7 @@ public class LEADERBOARDScreen extends Screen{
     ClickListener menuButtonListener;
     ClickListener nextButtonListener;
     ClickListener continueButtonListener;
+    ClickListener challengeListener;
 
     boolean stageLoaded;
 
@@ -141,6 +144,20 @@ public class LEADERBOARDScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+            }
+
+        };
+        challengeListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                String buttonName = ((ImageTextButton) event.getListenerActor()).getName();
+                buttonName = buttonName.replace("Level ", "");
+                int level = Integer.parseInt(buttonName);
+                levelClicked = level;
+                parent.coinsToSpend = 10;
+                parent.placeClicked = RenderManager.PLACES.first;
+                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.purchaseDialog.show(stage);
             }
 
         };
@@ -297,6 +314,8 @@ public class LEADERBOARDScreen extends Screen{
             Table parentTable = new Table();
             parentTable.setDebug(devMode);
             ImageTextButton challengeButton = new ImageTextButton("Challenge",skin);
+            challengeButton.setName(levelName);
+            challengeButton.addListener(challengeListener);
             Label l = new   Label(levelName, skin, "tree_header");
             ImageButton coin10 = new ImageButton(skin, "coinSmall10");
             parentTable.add(l).width(l.getWidth()*1.0f).padLeft(spacer).padRight(spacer);

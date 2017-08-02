@@ -259,7 +259,10 @@ public class RenderManager {
                     if (parent.getCoins() >= coinsToSpend) {
                         if(screen instanceof SCOREScreen){
                             parent.levelManager.setLevel(parent.levelManager.getCurrentLevel());
+                        }else if(screen instanceof LEADERBOARDScreen){
+                            parent.levelManager.setLevel(LEADERBOARDScreen.levelClicked);//set in leaderboard screen
                         }
+
                         if (placeClicked == PLACES.first) {
                             parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
                         } else if (placeClicked == PLACES.second) {
