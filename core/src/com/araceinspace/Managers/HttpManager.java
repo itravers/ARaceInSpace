@@ -93,10 +93,28 @@ public class HttpManager {
     public String readGhostFromServer(LevelManager.CHALLENGES currentChallenge, int currentLevel){
         String returnval = "";
         //Gdx.net.openURI("192.168.1.197");
-        String url = "http://192.168.1.197/html/araceinspace/";
-        url += "level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+        //String url = "http://192.168.1.197/html/araceinspace/";
+       // url += "level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+        int place = 0;
+        switch(currentChallenge){
+            case first:
+                    place = 1;
+                break;
+            case second:
+                place = 2;
+                break;
+            case third:
+                place = 3;
+                break;
+        }
+        String url = "http://192.168.1.197:3001/leaderboards/getghost/"+currentLevel+"/"+place;
         sendRequest(url, null, "GET");
         returnval = waitForResponse();
+        if(returnval.startsWith("no ghost found")){
+            //ghost was not found on server for some reason, we want to read default ghost from local file system
+            String fileName = "ghosts/level"+currentLevel + "-default-ghost.json";
+            returnval = Gdx.files.internal(fileName).readString();
+        }
         return returnval;
     }
 
