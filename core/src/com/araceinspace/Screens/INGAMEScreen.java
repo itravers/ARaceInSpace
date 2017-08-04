@@ -168,6 +168,8 @@ public class INGAMEScreen extends Screen implements EventSender{
        // monetizationController.loadRewardAd();
        // monetizationController.hideBannerAd();
         setupStage();
+        parent.parent.elapsedTime = 0;
+        parent.parent.renderManager.resetFrameNum();
     }
 
 
