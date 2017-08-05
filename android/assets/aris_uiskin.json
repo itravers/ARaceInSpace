@@ -114,8 +114,8 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageDown: menu_button_down
 	}
 	storeButton: {
-		imageUp: store_button_up
-		imageDown: store_button_down
+		imageUp: window
+		imageDown: window_pressed
 	}
 	rewardButton: {
 		imageUp: rewardvideo_button_up
@@ -191,7 +191,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		fontColor: GRAY
 		downFontColor: white
 		up: window
-		down: TextImageButton
+		down: window_pressed
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {

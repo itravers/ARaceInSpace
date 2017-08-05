@@ -138,13 +138,20 @@ public class LEVELSELECTScreen extends Screen{
 
 
     private Stack makeButtonStack(float width, float height, String title, String s_taunt1, String s_taunt2){
+        height = height - spacer/4;
         boolean devMode = parent.parent.devMode;
         //create buttons to buy iap
         // final Button storeTestButton = new Button(skin, "white");
         //storeTestButton.setColor(Color.WHITE);
         ImageButton levelButton = new ImageButton(skin, "storeButton");
         levelButton.setName(title);
+        //levelButton.setWidth(viewport.getScreenWidth()/2);
         levelButton.addListener(parent.parent.inputManager);
+
+        Table buttonTable = new Table();
+        buttonTable.setDebug(devMode);
+        buttonTable.add(levelButton).size(width, height);
+        levelButton.getImageCell().expand().fill();
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
@@ -224,8 +231,9 @@ public class LEVELSELECTScreen extends Screen{
 
 
         Stack buttonStack;
+
         buttonStack = new Stack();
-        buttonStack.add(levelButton);
+        buttonStack.add(buttonTable);
         buttonStack.add(purchaseTable);
         return buttonStack;
     }
@@ -337,51 +345,51 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.align(Align.top|Align.center);
         ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders();
 
-        Stack buttonStack = makeButtonStack(width, height, "Level 1", "Leaderboard Champ", leaderBoardChamps.get(0));
+        Stack buttonStack = makeButtonStack(butWidth, butHeight, "Level 1", "Leaderboard Champ", leaderBoardChamps.get(0));
 
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
-        buttonStack = makeButtonStack(width, height, "Level 2",  "Leaderboard Champ", leaderBoardChamps.get(1));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 3",  "Leaderboard Champ", leaderBoardChamps.get(2));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack(width, height, "Level 4",  "Leaderboard Champ", leaderBoardChamps.get(3));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 5",  "Leaderboard Champ", leaderBoardChamps.get(4));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack(width, height, "Level 6",  "Leaderboard Champ", leaderBoardChamps.get(5));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 7",  "Leaderboard Champ", leaderBoardChamps.get(6));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-
-        buttonStack = makeButtonStack(width, height, "Level 8",  "Leaderboard Champ", leaderBoardChamps.get(7));
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 2",  "Leaderboard Champ", leaderBoardChamps.get(1));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(width, height, "Level 9",  "Leaderboard Champ", leaderBoardChamps.get(8));
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 3",  "Leaderboard Champ", leaderBoardChamps.get(2));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(width, height, "Level 10",  "Leaderboard Champ", leaderBoardChamps.get(9));
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 4",  "Leaderboard Champ", leaderBoardChamps.get(3));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(width, height, "Level 11", "Leaderboard Champ", leaderBoardChamps.get(10));
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 5",  "Leaderboard Champ", leaderBoardChamps.get(4));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(width, height, "Level 12", "Leaderboard Champ", leaderBoardChamps.get(11));
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 6",  "Leaderboard Champ", leaderBoardChamps.get(5));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 7",  "Leaderboard Champ", leaderBoardChamps.get(6));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 8",  "Leaderboard Champ", leaderBoardChamps.get(7));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 9",  "Leaderboard Champ", leaderBoardChamps.get(8));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 10",  "Leaderboard Champ", leaderBoardChamps.get(9));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 11", "Leaderboard Champ", leaderBoardChamps.get(10));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 12", "Leaderboard Champ", leaderBoardChamps.get(11));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
