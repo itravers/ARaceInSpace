@@ -138,7 +138,7 @@ public class STOREScreen extends Screen{
 
     public void setupPortraitGUI(float width, float height){
         stageLoaded = false;
-        float butWidth = width/2.2f;
+        float butWidth = width/2.4f;
         float butHeight = height/3.955f;
 
 
@@ -262,7 +262,7 @@ public class STOREScreen extends Screen{
 
         buttonStack = makeButtonStack(butWidth, butHeight, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
+/*
         storeTable.row();
 
         buttonStack = makeButtonStack(butWidth, butHeight, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
@@ -286,7 +286,7 @@ public class STOREScreen extends Screen{
 
         buttonStack = makeButtonStack(butWidth, butHeight, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
+*/
         scrollPane = new ScrollPane(storeTable, skin, "default");
 
         bodyTable.add(scrollPane).width(width*.95f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
@@ -303,6 +303,7 @@ public class STOREScreen extends Screen{
 
     private Stack makeButtonStack(float width, float height, String title, String price, String s_taunt1, String s_taunt2, String s_taunt3, boolean showImage){
         height = height - spacer/4;
+       // width = width + spacer/4;
         boolean devMode = parent.parent.devMode;
 
         //create buttons to buy iap
@@ -334,17 +335,17 @@ public class STOREScreen extends Screen{
 
         Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
         taunt1.setTouchable(Touchable.disabled);
-        taunt1.setFontScale(.8f);
+        taunt1.setFontScale(.7f);
         //taunt1.setFontScale(Gdx.graphics.getDensity());
 
         Label taunt2 = new Label(s_taunt2, skin, "taunt_small");
         taunt2.setTouchable(Touchable.disabled);
-        taunt2.setFontScale(.8f);
+        taunt2.setFontScale(.7f);
         //taunt2.setFontScale(Gdx.graphics.getDensity());
 
         Label taunt3 = new Label(s_taunt3, skin, "taunt_small");
         taunt3.setTouchable(Touchable.disabled);
-        taunt3.setFontScale(.8f);
+        taunt3.setFontScale(.7f);
 
         //create table in buttons
         Table purchaseTable = new Table();
@@ -356,7 +357,7 @@ public class STOREScreen extends Screen{
         purchaseHeaderTable.setDebug(false);
         purchaseHeaderTable.align(Align.top|Align.center);
         purchaseHeaderTable.add(titleLabel).padTop(spacer/4).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
-        if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(width/13, width/13).align(Align.top);
+        if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(width/4, width/4).align(Align.top);
         purchaseTable.add(purchaseHeaderTable).align(Align.top);
         purchaseTable.row();
 

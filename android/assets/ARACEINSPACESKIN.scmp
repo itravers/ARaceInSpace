@@ -2332,7 +2332,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: imageUp
 						optional: true
-						value: coin_but_74x68
+						value: coin_button_up
 					}
 					imageDown: {
 						class: com.ray3k.skincomposer.data.StyleProperty

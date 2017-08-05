@@ -107,7 +107,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageDown: coin_button_down
 	}
 	coinButton_small: {
-		imageUp: coin_but_74x68
+		imageUp: coin_button_up
 	}
 	menuButton: {
 		imageUp: menu_button_up
