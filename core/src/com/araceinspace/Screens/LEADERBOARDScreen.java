@@ -249,6 +249,7 @@ public class LEADERBOARDScreen extends Screen{
 
         String coins = Integer.toString(parent.parent.getCoins());
         coinLabel = new Label(coins, skin, "coinLabel");
+        coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");
         coinButton.addListener(coinButtonListener);
@@ -257,12 +258,12 @@ public class LEADERBOARDScreen extends Screen{
         headerTable.setDebug(devMode);
         headerTable.align(Align.center|Align.top);
 
-        headerTable.add(backButton).padLeft(spacer).padTop(0).size(width/8, height/10);
-        headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(width/8, height/10);
-        headerTable.add(titleTable).expandX().align(Align.center).size(width/3.2f, height/12);
+        headerTable.add(backButton).padLeft(spacer/4).padTop(0).size(width/8, height/10);
+        headerTable.add(menuButton).padLeft(spacer/4).padTop(0).align(Align.left).size(width/8, height/10);
+        headerTable.add(titleTable).expandX().align(Align.left).size(width/3.5f, height/12);
 
 
-        headerTable.add(coinLabel).size(width/11, height/12).align(Align.right);
+        headerTable.add(coinLabel).size(width/6, height/12).align(Align.right);
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
 
         headerTable.row();
