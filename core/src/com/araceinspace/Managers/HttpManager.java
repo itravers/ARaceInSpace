@@ -121,6 +121,14 @@ public class HttpManager {
         return returnval;
     }
 
+    public String readCustomGhostFromServer(String ghostID, int level){
+        String returnval = "";
+        String url = "http://192.168.1.197:3001/leaderboards/customghost/"+ghostID+"/"+level;
+        sendRequest(url, null, "GET");
+        returnval = waitForResponse();
+        return returnval;
+    }
+
     public String readLeaderBoardFromServer(){
         String returnval = "";
         //Gdx.net.openURI("192.168.1.197");

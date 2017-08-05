@@ -57,6 +57,37 @@ public class LevelManager {
 
     /* Private Methods */
 
+    public void setupGhostFromJson(String ghostJson){
+        System.out.println("SETUPGHOST");
+        ArrayList<Action>actions;
+        ArrayList<SpriteTemplate>levelItems;
+        Json json = new Json();
+
+        // String ghostJson = parent.httpManager.readGhostFromServer(currentChallenge, currentLevel);//reads the ghost file from the server backend instead of locally
+        levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+        if(ghostJson == null){//ghost json was not found on server, return ghost=null ghost will not be displayed this level
+            ghost = null;
+            return;
+        }
+        actions = json.fromJson(ArrayList.class, Action.class, ghostJson);//read an array list of JsonValues
+
+        //go through all the level items, find the player item and initialze him
+        for(int i = 0; i < levelItems.size(); i++){
+            SpriteTemplate item = levelItems.get(i);
+            if(item.getType().equals("player")){
+                float xLoc = item.getxLoc();
+                float yLoc = item.getyLoc();
+                String extra = item.getExtraInfo();
+                PlayerState state = PlayerState.STAND_STILL_FORWARD;
+                if(extra.equals("flying"))state = PlayerState.FLYING;
+                // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+                TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
+                Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+                ghost = new Ghost(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation, actions);
+            }
+        }
+        ghostTime =  ghost.getInput().getPlayTime();
+    }
 
 
     private void setupGhost(CHALLENGES currentChallenge){

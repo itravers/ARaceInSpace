@@ -47,6 +47,9 @@ public class PREGAMEScreen extends Screen{
     ClickListener firstPlaceListener;
     ClickListener secondPlaceListener;
     ClickListener thirdPlaceListener;
+    ClickListener playButtonListener;
+    TextField textField;
+    private PREGAMEScreen me;
 
 
 
@@ -55,6 +58,7 @@ public class PREGAMEScreen extends Screen{
 
     public PREGAMEScreen(RenderManager parent) {
         super(parent);
+        me = this;
     }
 
     @Override
@@ -157,6 +161,28 @@ public class PREGAMEScreen extends Screen{
                 parent.coinsToSpend = 8;
                 parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
                 parent.purchaseDialog.show(stage);
+            }
+
+        };
+
+        playButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                int level = parent.parent.levelManager.getCurrentLevel();
+                String ghostID = textField.getText();
+
+                String ghostJSON = parent.parent.httpManager.readCustomGhostFromServer(ghostID, level);
+                System.out.println("loading ghost: " + ghostID + " for level: " + level);
+                System.out.println(ghostJSON);
+                if(ghostJSON == null || ghostJSON.startsWith("error:")){
+                    if(ghostJSON == null)ghostJSON = "Error: Problem Connecting to Server";
+                    parent.setupInfoDialog(skin, stage, me);
+                    parent.infoDialog.getTitleLabel().setText(ghostJSON);
+                    parent.infoDialog.show(stage);
+                }else{
+                    parent.parent.levelManager.setupGhostFromJson(ghostJSON);
+                    parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+                }
             }
 
         };
@@ -497,9 +523,10 @@ public class PREGAMEScreen extends Screen{
         customHeader.add(coin);
 
         Label inputLabel = new Label("Input Game ID", skin, "button_title");
-        TextField textField = new TextField("", skin);
+        textField = new TextField("", skin);
         textField.setAlignment(Align.center);
         ImageTextButton playButton = new ImageTextButton("Play", skin);
+        playButton.addListener(playButtonListener);
 
         customPlayTable.add(customHeader);
         customPlayTable.row();
