@@ -193,7 +193,7 @@ public class PREGAMEScreen extends Screen{
 
 
     private Stack makeButtonStack(float butWidth, float butHeight, String title, ClickListener listener, ImageButton star, String s_taunt1, String s_taunt2){
-        butWidth = butWidth - spacer/4;
+        butHeight = butHeight - spacer/4;
 
         boolean devMode = parent.parent.devMode;
         ImageButton levelButton = new ImageButton(skin, "storeButton");

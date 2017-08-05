@@ -241,50 +241,50 @@ public class STOREScreen extends Screen{
         storeTable.setDebug(false);
         storeTable.align(Align.top|Align.center);
 
-        Stack buttonStack = makeButtonStack(width, height, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
+        Stack buttonStack = makeButtonStack(butWidth, butHeight, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
-        buttonStack = makeButtonStack(width, height, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack(width, height, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack(width, height, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-
-        buttonStack = makeButtonStack(width, height, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(width, height, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(width, height, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(width, height, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(width, height, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
@@ -302,10 +302,18 @@ public class STOREScreen extends Screen{
 
 
     private Stack makeButtonStack(float width, float height, String title, String price, String s_taunt1, String s_taunt2, String s_taunt3, boolean showImage){
+        height = height - spacer/4;
+        boolean devMode = parent.parent.devMode;
+
         //create buttons to buy iap
         // final Button storeTestButton = new Button(skin, "white");
         //storeTestButton.setColor(Color.WHITE);
         ImageButton storeButton = new ImageButton(skin, "storeButton");
+
+        Table buttonTable = new Table();
+        buttonTable.setDebug(devMode);
+        buttonTable.add(storeButton).size(width, height);
+        storeButton.getImageCell().expand().fill();
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
@@ -368,7 +376,7 @@ public class STOREScreen extends Screen{
 
         Stack buttonStack;
         buttonStack = new Stack();
-        buttonStack.add(storeButton);
+        buttonStack.add(buttonTable);
         buttonStack.add(purchaseTable);
         return buttonStack;
     }
