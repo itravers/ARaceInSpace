@@ -35,6 +35,12 @@ public class STOREScreen extends Screen{
     ClickListener backButtonListener;
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
+    ClickListener buy15Listener;
+    ClickListener buy30Listener;
+    ClickListener buy100Listener;
+    ClickListener buy5000Listener;
+    ClickListener removeAdsListener;
+    ClickListener unlockEverythingListener;
 
     Stage landscapeStage;
     boolean stageLoaded;
@@ -99,6 +105,56 @@ public class STOREScreen extends Screen{
             }
 
         };
+
+        buy15Listener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                monetizationController.buyItem("buy_15_coins");
+            }
+
+        };
+
+        buy30Listener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                monetizationController.buyItem("buy_30_coins");
+            }
+
+        };
+
+        buy100Listener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                monetizationController.buyItem("buy_100_coins");
+            }
+
+        };
+
+        buy5000Listener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                monetizationController.buyItem("buy_5000_coins");
+            }
+
+        };
+
+        removeAdsListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                monetizationController.buyItem("remove_ads");
+            }
+
+        };
+
+        unlockEverythingListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                monetizationController.buyItem("unlock_everything");
+            }
+
+        };
+
+
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         BitmapFont font = skin.getFont("default-font");
@@ -241,26 +297,26 @@ public class STOREScreen extends Screen{
         storeTable.setDebug(false);
         storeTable.align(Align.top|Align.center);
 
-        Stack buttonStack = makeButtonStack(butWidth, butHeight, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true);
+        Stack buttonStack = makeButtonStack(butWidth, butHeight, "Buy 15", "$0.99", "Like Winning A Challenge", "You", "NO TALENT BUM!!!", true, buy15Listener);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 30", "$1.50", "You Can Compete", "In 3", "Leaderboard Challenges", true, buy30Listener);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 100", "$2.99", "More than 3 times the", "Coins! - Less Than", "Twice the Cost!!!", true, buy100Listener);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Buy 5000", "$9.99", "Maybe you can actually", "Win A Challenge", "HUH???", true, buy5000Listener);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Remove Ads", "$1.99", "Turn Those", "SUCKERS", "OFF!!!", false, removeAdsListener);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false);
+        buttonStack = makeButtonStack(butWidth, butHeight, "Unlock Everything", "$29.99", "Everything is YOURS", "No More Ads!!!", "Unlimited Coins!!!", false, unlockEverythingListener);
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 /*
         storeTable.row();
@@ -301,7 +357,7 @@ public class STOREScreen extends Screen{
 
 
 
-    private Stack makeButtonStack(float width, float height, String title, String price, String s_taunt1, String s_taunt2, String s_taunt3, boolean showImage){
+    private Stack makeButtonStack(float width, float height, String title, String price, String s_taunt1, String s_taunt2, String s_taunt3, boolean showImage, ClickListener listener){
         height = height - spacer/4;
        // width = width + spacer/4;
         boolean devMode = parent.parent.devMode;
@@ -310,6 +366,7 @@ public class STOREScreen extends Screen{
         // final Button storeTestButton = new Button(skin, "white");
         //storeTestButton.setColor(Color.WHITE);
         ImageButton storeButton = new ImageButton(skin, "storeButton");
+        storeButton.addListener(listener);
 
         Table buttonTable = new Table();
         buttonTable.setDebug(devMode);

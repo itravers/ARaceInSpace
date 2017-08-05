@@ -115,10 +115,23 @@ public class PlayPurchaseManager {
         //Create ALL the PurchasableItems that will be available for the app.
         PurchasableItem item1 = new PurchasableItem("test_product_0001", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "test_product_0001_developer_payload");
         PurchasableItem item2 = new PurchasableItem("test_product_0002", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "test_product_0002_developer_payload");
+        PurchasableItem item3 = new PurchasableItem("buy_15_coins", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "buy_15_coins_developer_payload");
+        PurchasableItem item4 = new PurchasableItem("buy_30_coins", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "buy_30_coins_developer_payload");
+        PurchasableItem item5 = new PurchasableItem("buy_100_coins", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "buy_100_coins_developer_payload");
+        PurchasableItem item6 = new PurchasableItem("buy_5000_coins", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "buy_5000_coins_developer_payload");
+        PurchasableItem item7 = new PurchasableItem("remove_ads", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "remove_ads_developer_payload");
+        PurchasableItem item8 = new PurchasableItem("unlock_everything", PurchasableItem.PURCHASE_TYPE.CONSUMABLE, "unlock_everything_developer_payload");
 
         //Add all the items created to the defaultItems map using their skus as keys.
         defaultItems.put(item1.getSku(), item1);
         defaultItems.put(item2.getSku(), item2);
+        defaultItems.put(item3.getSku(), item3);
+        defaultItems.put(item4.getSku(), item4);
+        defaultItems.put(item5.getSku(), item5);
+        defaultItems.put(item6.getSku(), item6);
+        defaultItems.put(item7.getSku(), item7);
+        defaultItems.put(item8.getSku(), item8);
+
     }
 
     /**
@@ -205,7 +218,7 @@ public class PlayPurchaseManager {
      * @param item
      */
     public void consumeItemLocally(PurchasableItem item){
-        Gdx.app.log("PlayPurchaseManager", "consumeItemLocally() called : " + item.toString());
+        Gdx.app.log("PlayPurchaseManager", "consumeItemLocally() called : " + item.getSku());
         //we'll end up sending this via the event dispatcher, but for now we'll show a toast.
 
         //test_product_0001 gets credited with buying 10 credits, test_product_0002 gets credited with 20 credits
@@ -215,6 +228,30 @@ public class PlayPurchaseManager {
             LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
         }else if(item.getSku().equals("test_product_0002")){
             Intent newIntent = new Intent("Add20Credits");
+            newIntent.putExtra("message", "Consumed " + item.getSku());
+            LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
+        }else if(item.getSku().equals("buy_15_coins")){
+            Intent newIntent = new Intent("Add15Credits");
+            newIntent.putExtra("message", "Consumed " + item.getSku());
+            LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
+        }else if(item.getSku().equals("buy_30_coins")){
+            Intent newIntent = new Intent("Add30Credits");
+            newIntent.putExtra("message", "Consumed " + item.getSku());
+            LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
+        }else if(item.getSku().equals("buy_100_coins")){
+            Intent newIntent = new Intent("Add100Credits");
+            newIntent.putExtra("message", "Consumed " + item.getSku());
+            LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
+        }else if(item.getSku().equals("buy_5000_coins")){
+            Intent newIntent = new Intent("Add5000Credits");
+            newIntent.putExtra("message", "Consumed " + item.getSku());
+            LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
+        }else if(item.getSku().equals("remove_ads")){
+            Intent newIntent = new Intent("RemoveAds");
+            newIntent.putExtra("message", "Consumed " + item.getSku());
+            LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
+        }else if(item.getSku().equals("unlock_everything")){
+            Intent newIntent = new Intent("UnlockEverything");
             newIntent.putExtra("message", "Consumed " + item.getSku());
             LocalBroadcastManager.getInstance(app).sendBroadcast(newIntent);
         }
