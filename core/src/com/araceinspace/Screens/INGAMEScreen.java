@@ -4,6 +4,7 @@ import com.araceinspace.ARaceInSpace;
 import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventSender;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
@@ -71,10 +72,11 @@ public class INGAMEScreen extends Screen implements EventSender{
     private ImageButton boostButton;
     private InputListener boostButtonListener;
 
-    private Image ghostIndicatorOutline;
-    private TextureRegion ghostIndicatorOutlineTexture;
-    private TextureRegion ghostIndicatorTexture;
-    private TextureRegion ghostIndicatorGreenTexture;
+    private Image velocityIndicatorOutline;
+    private TextureRegion velocityIndicatorOutlineTexture;
+    private TextureRegion velocityIndicatorTexture;
+    private TextureRegion velocityIndicatorGreenTexture;
+    private TextureRegion velocityIndicatorRedTexture;
 
     private TextureRegion healthMeterEmpty;
     private TextureRegion healthMeterBlue;
@@ -85,7 +87,7 @@ public class INGAMEScreen extends Screen implements EventSender{
     private TextureRegion boostMeterRed;
 
     private SpriteBatch healthBatch;
-    Rectangle ghostMeterClip;
+    Rectangle velocityClip;
     Rectangle healthClip;
     Rectangle boostClip;
     Rectangle scissors;
@@ -290,23 +292,26 @@ public class INGAMEScreen extends Screen implements EventSender{
         stage.addActor(boostButton);
 
         Array<TextureAtlas.AtlasRegion> ghostIndicatorOutlineRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_empty");
-        ghostIndicatorOutlineTexture = ghostIndicatorOutlineRegion.get(0);
-        ghostIndicatorOutline = new Image(ghostIndicatorOutlineTexture);
+        velocityIndicatorOutlineTexture = ghostIndicatorOutlineRegion.get(0);
+        velocityIndicatorOutline = new Image(velocityIndicatorOutlineTexture);
        // ghostIndicatorOutline.setPosition((viewport.getScreenWidth()/2)-ghostIndicatorOutline.getWidth()/2, viewport.getScreenHeight()-ghostIndicatorOutline.getHeight());
-        ghostIndicatorOutline.setPosition(-ghostIndicatorOutline.getWidth()/2,(viewport.getScreenHeight()/2)-ghostIndicatorOutline.getHeight());
+        velocityIndicatorOutline.setPosition(-velocityIndicatorOutline.getWidth()/2,(viewport.getScreenHeight()/2)-velocityIndicatorOutline.getHeight());
 
         Array<TextureAtlas.AtlasRegion> ghostIndicatorRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill");
-        ghostIndicatorTexture = ghostIndicatorRegion.get(0);
+        velocityIndicatorTexture = ghostIndicatorRegion.get(0);
 
         Array<TextureAtlas.AtlasRegion> ghostIndicatorGreenRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill_green");
-        ghostIndicatorGreenTexture = ghostIndicatorGreenRegion.get(0);
+        velocityIndicatorGreenTexture = ghostIndicatorGreenRegion.get(0);
+
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorRedRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_red");
+        velocityIndicatorRedTexture = ghostIndicatorRedRegion.get(0);
 
 
-        float gclipWidth = ghostIndicatorOutline.getWidth()+4;
+        float gclipWidth = velocityIndicatorOutline.getWidth()+4;
         float gclipX = (viewport.getScreenWidth()/2)-gclipWidth/2;
         float gclipHeight = 50;
         float gclipY = viewport.getScreenHeight()-gclipHeight;
-        ghostMeterClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
+        velocityClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
 
 
 
@@ -433,27 +438,35 @@ public class INGAMEScreen extends Screen implements EventSender{
         float timer = parent.parent.getGhostTimer();
       //  System.out.println("ghostTimer: " + timer);
       //  if(timer <= 0)timer = parent.parent.GHOST_TIMER_LIMIT-.001f;
-        return parent.map(timer, parent.parent.GHOST_TIMER_LIMIT, 0, 0, ghostIndicatorOutline.getHeight());
+        return parent.map(timer, parent.parent.GHOST_TIMER_LIMIT, 0, 0, velocityIndicatorOutline.getHeight());
+    }
+
+    public float getVelocityHeight(){
+        float velocity = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity().len();
+        float maxVel = ((PlayerPhysicsComponent)parent.parent.levelManager.getPlayer().getPhysics()).MAX_VELOCITY;
+        return parent.map(velocity, 0, maxVel, 1, velocityIndicatorOutline.getHeight());
     }
 
     public float getHealthMeterWidth(){
         float health = parent.parent.levelManager.getPlayer().getHealth();
-        return parent.map(health, 0, parent.parent.levelManager.getPlayer().HEALTH_TOTAL, ghostIndicatorOutline.getWidth()/2, healthMeterEmpty.getRegionWidth());
+        return parent.map(health, 0, parent.parent.levelManager.getPlayer().HEALTH_TOTAL, velocityIndicatorOutline.getWidth()/2, healthMeterEmpty.getRegionWidth());
     }
 
     public float getBoostMeterWidth(){
         float boost = parent.parent.levelManager.getPlayer().getBoost();
-        return parent.map(boost, 0, parent.parent.levelManager.getPlayer().BOOST_TOTAL, ghostIndicatorOutline.getWidth()/2, boostMeterEmpty.getRegionWidth());
+        return parent.map(boost, 0, parent.parent.levelManager.getPlayer().BOOST_TOTAL, velocityIndicatorOutline.getWidth()/2, boostMeterEmpty.getRegionWidth());
     }
 
     private void renderHealth(SpriteBatch batch){
+        float velocity = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity().len();
+        float crashVel = ((PlayerPhysicsComponent)parent.parent.levelManager.getPlayer().getPhysics()).CRASH_VELOCITY;
 
-        float gclipWidth = ghostIndicatorOutline.getWidth()+4;
+        float gclipWidth = velocityIndicatorOutline.getWidth()+4;
         float gclipX = (viewport.getScreenWidth()/2)-gclipWidth/2;
-        float gclipHeight = getGhostTimerHeight();
-        float gclipY = viewport.getScreenHeight()-ghostIndicatorOutline.getHeight();
+        float gclipHeight = getVelocityHeight();
+        float gclipY = viewport.getScreenHeight()-velocityIndicatorOutline.getHeight();
         //ghostMeterClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
-        ghostMeterClip.set(gclipX,gclipY, gclipWidth, gclipHeight);
+        velocityClip.set(gclipX,gclipY, gclipWidth, gclipHeight);
 
         float hclipWidth = getHealthMeterWidth();
         float hclipX = (viewport.getScreenWidth()/2);
@@ -473,12 +486,14 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         //draw ghostMeter
         //Rectangle scissors = new Rectangle();
-        ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), ghostMeterClip, scissors);
+        ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), velocityClip, scissors);
         ScissorStack.pushScissors(scissors);
-        if(parent.parent.getGhostTimer() <= 0){
-            batch.draw(ghostIndicatorGreenTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
+        if(velocity <= (crashVel/2)){
+            batch.draw(velocityIndicatorGreenTexture, velocityIndicatorOutline.getX(), velocityIndicatorOutline.getY());
+        }else if(velocity >= crashVel){
+            batch.draw(velocityIndicatorRedTexture, velocityIndicatorOutline.getX(), velocityIndicatorOutline.getY());
         }else{
-            batch.draw(ghostIndicatorTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
+            batch.draw(velocityIndicatorTexture, velocityIndicatorOutline.getX(), velocityIndicatorOutline.getY());
         }
         batch.flush();
         ScissorStack.popScissors();
@@ -489,9 +504,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), healthClip, scissors);
         ScissorStack.pushScissors(scissors);
         if(parent.parent.levelManager.getPlayer().getHealth() > 40){
-            batch.draw(healthMeterBlue,  (ghostIndicatorOutline.getX()+ghostIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
+            batch.draw(healthMeterBlue,  (velocityIndicatorOutline.getX()+velocityIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
         }else{
-            batch.draw(healthMeterRed,  (ghostIndicatorOutline.getX()+ghostIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
+            batch.draw(healthMeterRed,  (velocityIndicatorOutline.getX()+velocityIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
         }
 
         batch.flush();
@@ -511,8 +526,8 @@ public class INGAMEScreen extends Screen implements EventSender{
         ScissorStack.popScissors();
 
 
-        batch.draw(ghostIndicatorOutlineTexture, ghostIndicatorOutline.getX(), ghostIndicatorOutline.getY());
-        batch.draw(healthMeterEmpty,  (ghostIndicatorOutline.getX()+ghostIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
+        batch.draw(velocityIndicatorOutlineTexture, velocityIndicatorOutline.getX(), velocityIndicatorOutline.getY());
+        batch.draw(healthMeterEmpty,  (velocityIndicatorOutline.getX()+velocityIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
         batch.draw(boostMeterEmpty,  -boostMeterEmpty.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterEmpty.getRegionHeight()+2);
 
         batch.end();
@@ -524,7 +539,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         shapeRenderer.setColor(Color.YELLOW);
 
        if(parent.parent.devMode){
-           shapeRenderer.rect(ghostMeterClip.getX(), ghostMeterClip.getY(), ghostMeterClip.getWidth(), ghostMeterClip.getHeight());
+           shapeRenderer.rect(velocityClip.getX(), velocityClip.getY(), velocityClip.getWidth(), velocityClip.getHeight());
            shapeRenderer.rect(healthClip.getX(), healthClip.getY(), healthClip.getWidth(), healthClip.getHeight());
            shapeRenderer.rect(boostClip.getX(), boostClip.getY(), boostClip.getWidth(), boostClip.getHeight());
        }
