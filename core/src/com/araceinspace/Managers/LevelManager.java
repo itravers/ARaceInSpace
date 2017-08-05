@@ -109,13 +109,13 @@ public class LevelManager {
 
             levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
             String fileName = "ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
-            boolean exists = Gdx.files.local(fileName).exists();
+            boolean exists = Gdx.files.internal(fileName).exists();
             if(!exists){
                 System.out.println("File " + fileName + " does not exist, not making ghost.");
                 ghost = null;
                 return;
             }
-            actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.local(fileName));//read an array list of JsonValues
+            actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.internal(fileName));//read an array list of JsonValues
         }
 
         //go through all the level items, find the player item and initialze him
@@ -167,7 +167,7 @@ public class LevelManager {
         FileHandle fileHandle = null;
         String fileName = "levels/level"+lvl+".json";
         if(Gdx.files.classpath(fileName).exists()){
-            fileHandle = Gdx.files.local(fileName);
+            fileHandle = Gdx.files.internal(fileName);
             //System.out.println("using external file.");
         }else{
             fileHandle = Gdx.files.internal(fileName);

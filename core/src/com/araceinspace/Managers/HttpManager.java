@@ -116,7 +116,7 @@ public class HttpManager {
         if( returnval == null  || returnval.startsWith("no ghost found")){
             //ghost was not found on server for some reason, we want to read default ghost from local file system
             String fileName = "ghosts/level"+currentLevel + "-default-ghost.json";
-            returnval = Gdx.files.local(fileName).readString();
+            returnval = Gdx.files.internal(fileName).readString();
         }
         return returnval;
     }
