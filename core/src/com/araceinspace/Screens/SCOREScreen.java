@@ -530,8 +530,8 @@ public class SCOREScreen extends Screen{
 
         bTable.add(continueButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
         bTable.row();
-        bTable.add(tryAgainButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
-        bTable.row();
+       // bTable.add(tryAgainButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
+       // bTable.row();
        // bTable.add(challengeButtonTable);
        // bTable.row();
         bTable.add(lButton).width(viewport.getScreenWidth()*.80f).height(viewport.getScreenHeight()/14);
