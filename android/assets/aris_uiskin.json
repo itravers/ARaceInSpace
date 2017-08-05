@@ -107,15 +107,15 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageDown: coin_button_down
 	}
 	coinButton_small: {
-		imageUp: coin_but_74x68
+		imageUp: coin_button_up
 	}
 	menuButton: {
 		imageUp: menu_button_up
 		imageDown: menu_button_down
 	}
 	storeButton: {
-		imageUp: store_button_up
-		imageDown: store_button_down
+		imageUp: window
+		imageDown: window_pressed
 	}
 	rewardButton: {
 		imageUp: rewardvideo_button_up
@@ -190,8 +190,8 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		font: font_d_estroy__24pt
 		fontColor: GRAY
 		downFontColor: white
-		up: TextImageButton
-		down: TextImageButton
+		up: window
+		down: window_pressed
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
@@ -303,9 +303,9 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		font: font_d_estroy__20pt
 		fontColor: GRAY
 		focusedFontColor: white
-		background: TextImageButton
+		background: window_pressed
 		cursor: default-rect
-		selection: default-round-down
+		selection: window
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {

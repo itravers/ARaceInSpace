@@ -121,14 +121,32 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 				}else if(action.equals("Add1Credit")){
 					toast("Adding a credit for watching video");
 					mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 1);
-				//	mainGame.add1Credit();
-				}
-				else if(action.equals("Add10Credits")){
+				}else if(action.equals("Add10Credits")){
 					toast("Adding 10 credits because you purchased them");
-				//	mainGame.addCredits(10);
+					mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 10);
+				}else if(action.equals("Add15Credits")){
+					toast("Adding 15 credits because you purchased them");
+					mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 15);
 				}else if(action.equals("Add20Credits")){
 					toast("Adding 20 credits because you purchased them");
-					//mainGame.addCredits(20);
+					mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 20);
+				}else if(action.equals("Add30Credits")){
+					toast("Adding 30 credits because you purchased them");
+					mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 30);
+				}else if(action.equals("Add100Credits")){
+					toast("Adding 100 credits because you purchased them");
+					mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 100);
+				}else if(action.equals("Add5000Credits")){
+					toast("Adding 5000 credits because you purchased them");
+					mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 5000);
+				}else if(action.equals("RemoveAds")){
+					toast("Removing All Ads");
+					//mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 5000);
+					//todo put remove ads code here
+				}else if(action.equals("UnlockEverything")){
+					toast("Unlocking Everything in Game");
+					//mainGame.gameWorld.setCoins(mainGame.gameWorld.getCoins() + 5000);
+					//todo put unlock everything in game here
 				}
 			}
 		};
@@ -138,7 +156,13 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 		intentFilter.addAction("ShowToast");
 		intentFilter.addAction("Add1Credit");
 		intentFilter.addAction("Add10Credits");
+		intentFilter.addAction("Add15Credits");
 		intentFilter.addAction("Add20Credits");
+		intentFilter.addAction("Add30Credits");
+		intentFilter.addAction("Add100Credits");
+		intentFilter.addAction("Add5000Credits");
+		intentFilter.addAction("RemoveAds");
+		intentFilter.addAction("UnlockEverything");
 		localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter);
 	}
 

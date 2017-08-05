@@ -144,7 +144,7 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
             return true; //don't send event, just toggle devMode
         }else if(keycode == Input.Keys.SPACE){
             input = GameInput.JUMP_PRESSED;
-        }else if(keycode == Input.Keys.BACK) {
+        }else if(keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             System.out.println("KeyDown: " + keycode);
             parent.gameStateManager.setCurrentState(parent.gameStateManager.popState());
 

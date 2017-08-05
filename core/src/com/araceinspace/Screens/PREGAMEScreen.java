@@ -1,6 +1,7 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
+import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
@@ -21,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Timer;
 
 import java.util.ArrayList;
 
@@ -38,18 +41,30 @@ public class PREGAMEScreen extends Screen{
     ClickListener backButtonListener;
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
+    ClickListener bronzeListener;
+    ClickListener silverListener;
+    ClickListener goldListener;
+    ClickListener firstPlaceListener;
+    ClickListener secondPlaceListener;
+    ClickListener thirdPlaceListener;
+    ClickListener playButtonListener;
+    TextField textField;
+    private PREGAMEScreen me;
+
+
+
 
     boolean stageLoaded;
 
     public PREGAMEScreen(RenderManager parent) {
         super(parent);
+        me = this;
     }
 
     @Override
     public void dispose() {
         stage.dispose();
         batch.dispose();
-        skin.dispose();
     }
 
     @Override
@@ -59,9 +74,11 @@ public class PREGAMEScreen extends Screen{
 
     @Override
     public void setup() {
-        System.out.println("Settingup LevelSelectScreen");
-
+        System.out.println("Settingup PregameScreen");
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         stage = new Stage(viewport, batch);
+        parent.setupDialogs(skin, stage, this);
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -94,17 +111,95 @@ public class PREGAMEScreen extends Screen{
             }
 
         };
+        bronzeListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.bronze);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        };
+        silverListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.silver);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
+        goldListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.gold);
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+            }
+
+        };
+        firstPlaceListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.placeClicked = RenderManager.PLACES.first;
+                parent.coinsToSpend = 10;
+                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.purchaseDialog.show(stage);
+            }
+        };
+        secondPlaceListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.placeClicked = RenderManager.PLACES.second;
+                parent.coinsToSpend = 9;
+                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.purchaseDialog.show(stage);
+            }
+
+        };
+        thirdPlaceListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.placeClicked = RenderManager.PLACES.third;
+                parent.coinsToSpend = 8;
+                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.purchaseDialog.show(stage);
+            }
+
+        };
+
+        playButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                int level = parent.parent.levelManager.getCurrentLevel();
+                String ghostID = textField.getText();
+
+                String ghostJSON = parent.parent.httpManager.readCustomGhostFromServer(ghostID, level);
+                System.out.println("loading ghost: " + ghostID + " for level: " + level);
+                System.out.println(ghostJSON);
+                if(ghostJSON == null || ghostJSON.startsWith("error:")){
+                    if(ghostJSON == null)ghostJSON = "Error: Problem Connecting to Server";
+                    parent.setupInfoDialog(skin, stage, me);
+                    parent.infoDialog.getTitleLabel().setText(ghostJSON);
+                    parent.infoDialog.show(stage);
+                }else{
+                    parent.parent.levelManager.setupGhostFromJson(ghostJSON);
+                    parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+                }
+            }
+
+        };
+
+
 
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
 
+
+
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         monetizationController.showBannerAd();
     }
+
+
 
     @Override
     public void render(float elapsedTime) {
@@ -120,11 +215,21 @@ public class PREGAMEScreen extends Screen{
         stage.draw();
     }
 
-    private Stack makeButtonStack(String title, ImageButton star, String s_taunt1, String s_taunt2){
+
+
+
+    private Stack makeButtonStack(float butWidth, float butHeight, String title, ClickListener listener, ImageButton star, String s_taunt1, String s_taunt2){
+        butHeight = butHeight - spacer/4;
+
         boolean devMode = parent.parent.devMode;
         ImageButton levelButton = new ImageButton(skin, "storeButton");
         levelButton.setName(title);
-        levelButton.addListener(parent.parent.inputManager);
+        levelButton.addListener(listener);
+
+        Table buttonTable = new Table();
+        buttonTable.setDebug(devMode);
+        buttonTable.add(levelButton).size(butWidth, butHeight);
+        levelButton.getImageCell().expand().fill();
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
@@ -193,7 +298,7 @@ public class PREGAMEScreen extends Screen{
 
         Stack buttonStack;
         buttonStack = new Stack();
-        buttonStack.add(levelButton);
+        buttonStack.add(buttonTable);
         buttonStack.add(purchaseTable);
         return buttonStack;
     }
@@ -229,6 +334,7 @@ public class PREGAMEScreen extends Screen{
         table.setPosition(0, height);
 
         backButton = new ImageButton(skin, "backButton");
+
         backButton.setDebug(devMode);
         backButton.addListener(backButtonListener);
 
@@ -305,15 +411,15 @@ public class PREGAMEScreen extends Screen{
 
         ImageButton starBronze = new ImageButton(skin, "starBronze");
         starBronze.setTouchable(Touchable.disabled);
-        Stack buttonStack1 = makeButtonStack("Bronze", starBronze, "taunt1", "taunt2");
+        Stack buttonStack1 = makeButtonStack(butWidth, butHeight, "Bronze", bronzeListener, starBronze, "taunt1", "taunt2");
 
         ImageButton starSilver = new ImageButton(skin, "starSilver");
         starSilver.setTouchable(Touchable.disabled);
-        Stack buttonStack2 = makeButtonStack("Silver", starSilver, "52:23", "52:21");
+        Stack buttonStack2 = makeButtonStack(butWidth, butHeight, "Silver", silverListener, starSilver, "52:23", "52:21");
 
         ImageButton starGold = new ImageButton(skin, "starGold");
         starGold.setTouchable(Touchable.disabled);
-        Stack buttonStack3 = makeButtonStack("Gold",  starGold, "43:17", "52:17");
+        Stack buttonStack3 = makeButtonStack(butWidth, butHeight, "Gold",  goldListener, starGold, "43:17", "52:17");
 
         buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
         buttonTable.add(buttonStack2).pad(0).size(butWidth, butHeight).align(Align.top);
@@ -342,6 +448,7 @@ public class PREGAMEScreen extends Screen{
         t1.row();
 
         ImageButton gold = new ImageButton(skin, "star1");
+        gold.addListener(firstPlaceListener);
         t1.add(gold).align(Align.center);
 
 
@@ -365,6 +472,7 @@ public class PREGAMEScreen extends Screen{
         t2.row();
 
         ImageButton silver = new ImageButton(skin, "star2");
+        silver.addListener(secondPlaceListener);
         t2.add(silver).align(Align.center);
 
 
@@ -389,6 +497,7 @@ public class PREGAMEScreen extends Screen{
 
 
         ImageButton bronze = new ImageButton(skin, "star3");
+        bronze.addListener(thirdPlaceListener);
         t3.add(bronze).align(Align.center);
 
         Table placeTable = new Table();
@@ -414,9 +523,10 @@ public class PREGAMEScreen extends Screen{
         customHeader.add(coin);
 
         Label inputLabel = new Label("Input Game ID", skin, "button_title");
-        TextField textField = new TextField("", skin);
+        textField = new TextField("", skin);
         textField.setAlignment(Align.center);
         ImageTextButton playButton = new ImageTextButton("Play", skin);
+        playButton.addListener(playButtonListener);
 
         customPlayTable.add(customHeader);
         customPlayTable.row();

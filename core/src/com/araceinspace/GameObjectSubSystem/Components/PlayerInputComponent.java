@@ -5,6 +5,7 @@ import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.InputSubSystem.InputRecorder;
 
@@ -20,12 +21,12 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
 
     /* Field Variables & Objects */
     InputRecorder inputRecorder;
-    GameInput lastWalkInput =  null;
-    Player parent;
-    GameInput currentInput;
+
+    PlayerPrototype parent;
+
 
     /* Constructors */
-    public PlayerInputComponent(Player parent){
+    public PlayerInputComponent(PlayerPrototype parent){
         this.parent = parent;
         registerReceiver();
         inputRecorder = new InputRecorder();
@@ -41,6 +42,14 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
         //TODO write update code
     }
 
+    public void saveInputs(String fileName, int playTime){
+        inputRecorder.writeToFile(fileName, playTime);
+    }
+
+    public String getReplay(int playTime){
+        return inputRecorder.getReplay(playTime);
+    }
+
     /**
      * Receives keyboard event from the InputSubSystem
      * This event should be processed by the Player Object, as well
@@ -53,6 +62,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
         String id = e.getId();
         Event.TYPE type = e.getType();
         currentInput = (GameInput)e.getData();
+        inputRecorder.record((GameInput)e.getData());
         handleCurrentInput();
     }
 
@@ -301,15 +311,5 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
         }
     }
 
-    /**
-     * returns true if players leftINput is pressed
-     * @return
-     */
-    public boolean flip(){
-        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 }

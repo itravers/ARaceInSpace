@@ -40,10 +40,8 @@ public class LEVELSELECTScreen extends Screen{
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
 
-    Stage landscapeStage;
     boolean stageLoaded;
 
-    Image starEmpty;
     ImageButton starBronze;
     ImageButton starSilver;
     ImageButton starGold;
@@ -58,7 +56,6 @@ public class LEVELSELECTScreen extends Screen{
         stage.dispose();
         batch.dispose();
         skin.dispose();
-
     }
 
     @Override
@@ -111,19 +108,12 @@ public class LEVELSELECTScreen extends Screen{
         };
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
-
-
-
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
-
-
-
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
-
-
-
+        parent.setupNameDialog(skin, stage, this);
+        if(parent.parent.playerName == null)parent.nameDialog.show(stage);
         monetizationController.showBannerAd();
     }
 
@@ -139,11 +129,6 @@ public class LEVELSELECTScreen extends Screen{
         Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-
-        // guiStage = new Stage(viewport, batch);
-        // System.out.println("drawing portrait");
-        // Gdx.input.setInputProcessor(stage);
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -153,13 +138,20 @@ public class LEVELSELECTScreen extends Screen{
 
 
     private Stack makeButtonStack(float width, float height, String title, String s_taunt1, String s_taunt2){
+        height = height - spacer/4;
         boolean devMode = parent.parent.devMode;
         //create buttons to buy iap
         // final Button storeTestButton = new Button(skin, "white");
         //storeTestButton.setColor(Color.WHITE);
         ImageButton levelButton = new ImageButton(skin, "storeButton");
         levelButton.setName(title);
+        //levelButton.setWidth(viewport.getScreenWidth()/2);
         levelButton.addListener(parent.parent.inputManager);
+
+        Table buttonTable = new Table();
+        buttonTable.setDebug(devMode);
+        buttonTable.add(levelButton).size(width, height);
+        levelButton.getImageCell().expand().fill();
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
@@ -171,13 +163,27 @@ public class LEVELSELECTScreen extends Screen{
         button_image = new ImageButton(skin, "coinButton_small");
         button_image.setTouchable(Touchable.disabled);
 
-        starBronze = new ImageButton(skin, "starBronze");
+        ArrayList<Boolean>stars = getLevelStars(title);
+
+        if(stars.get(0)){
+            starBronze = new ImageButton(skin, "starBronze");
+        }else{
+            starBronze = new ImageButton(skin, "starEmpty");
+        }
         starBronze.setTouchable(Touchable.disabled);
 
-        starSilver = new ImageButton(skin, "starSilver");
+        if(stars.get(1)){
+            starSilver = new ImageButton(skin, "starSilver");
+        }else{
+            starSilver = new ImageButton(skin, "starEmpty");
+        }
         starSilver.setTouchable(Touchable.disabled);
 
-        starGold = new ImageButton(skin, "starGold");
+        if(stars.get(2)){
+            starGold = new ImageButton(skin, "starGold");
+        }else{
+            starGold = new ImageButton(skin, "starEmpty");
+        }
         starGold.setTouchable(Touchable.disabled);
 
         Table starTable = new Table();
@@ -188,12 +194,6 @@ public class LEVELSELECTScreen extends Screen{
         starTable.add(starSilver);
         starTable.add(starGold).padLeft(spacer);
 
-        /*
-        Label priceLabel = new Label(price, skin, "button_title");
-        priceLabel.setTouchable(Touchable.disabled);
-        priceLabel.setFontScale(.8f);
-        //priceLabel.setFontScale(Gdx.graphics.getDensity()); //WORKS for rizing font
-        */
 
         Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
         taunt1.setTouchable(Touchable.disabled);
@@ -203,14 +203,6 @@ public class LEVELSELECTScreen extends Screen{
         Label taunt2 = new Label(s_taunt2, skin, "button_title");
         taunt2.setTouchable(Touchable.disabled);
         taunt2.setAlignment(Align.top);
-        //taunt2.setFontScale(2f);
-        //taunt2.setFontScale(Gdx.graphics.getDensity());
-
-        /*
-        Label taunt3 = new Label(s_taunt3, skin, "taunt_small");
-        taunt3.setTouchable(Touchable.disabled);
-        taunt3.setFontScale(.8f);
-        */
 
         //create table in buttons
         Table purchaseTable = new Table();
@@ -222,7 +214,6 @@ public class LEVELSELECTScreen extends Screen{
         purchaseHeaderTable.setDebug(devMode);
         purchaseHeaderTable.align(Align.top|Align.center);
         purchaseHeaderTable.add(titleLabel).padTop(spacer/4).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
-       // if(showImage)purchaseHeaderTable.add(button_image).padTop(0).size(width/13, width/13).align(Align.top);
         purchaseTable.add(purchaseHeaderTable).align(Align.top);
         purchaseTable.row();
 
@@ -230,22 +221,19 @@ public class LEVELSELECTScreen extends Screen{
         purchaseBodyTable.setDebug(devMode);
         purchaseBodyTable.align(Align.top|Align.center);
         purchaseBodyTable.add(starTable).expandX().padBottom(spacer/8).align(Align.top);
-        //purchaseBodyTable.add(starBronze);//.size(starBronze.getWidth(), starBronze.getHeight());
-       // purchaseBodyTable.add(starSilver);//.size(starBronze.getWidth(), starBronze.getHeight());
-       // purchaseBodyTable.add(starGold);//.size(starBronze.getWidth(), starBronze.getHeight());
         purchaseBodyTable.row();
         purchaseBodyTable.add(taunt1).expandX().padTop(10).padRight(spacer/2);
         purchaseBodyTable.row();
         purchaseBodyTable.add(taunt2).expandX().align(Align.top).padBottom(30);
         purchaseBodyTable.row();
-       // purchaseBodyTable.add(taunt3).expandX().padBottom(spacer/2);
 
         purchaseTable.add(purchaseBodyTable);
 
 
         Stack buttonStack;
+
         buttonStack = new Stack();
-        buttonStack.add(levelButton);
+        buttonStack.add(buttonTable);
         buttonStack.add(purchaseTable);
         return buttonStack;
     }
@@ -301,6 +289,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTitleLabel.setDebug(devMode);
         String coins = Integer.toString(parent.parent.getCoins());
         coinLabel = new Label(coins, skin, "coinLabel");
+        coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");
         coinButton.addListener(coinButtonListener);
@@ -309,13 +298,13 @@ public class LEVELSELECTScreen extends Screen{
         headerTable.setDebug(devMode);
         headerTable.align(Align.center|Align.top);
 
-        headerTable.add(backButton).padLeft(spacer).padTop(0).size(width/8, height/10);
-        headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(width/8, height/10);
-        headerTable.add(storeTitleLabel).expandX().align(Align.left).size(width/3.2f, height/12);
+        headerTable.add(backButton).padLeft(spacer/4).padTop(0).size(width/8, height/10);
+        headerTable.add(menuButton).padLeft(spacer/4).padTop(0).align(Align.left).size(width/8, height/10);
+        headerTable.add(storeTitleLabel).expandX().align(Align.left).size(width/3.5f, height/12);
 
         float fontWidth = storeTitleLabel.getStyle().font.getSpaceWidth()*storeTitleLabel.getText().length();
 
-        headerTable.add(coinLabel).size(width/11, height/12).align(Align.right);
+        headerTable.add(coinLabel).size(width/6, height/12).align(Align.right);
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
 
         headerTable.row();
@@ -355,52 +344,53 @@ public class LEVELSELECTScreen extends Screen{
         storeTable = new Table();
         storeTable.setDebug(devMode);
         storeTable.align(Align.top|Align.center);
+        ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders();
 
-        Stack buttonStack = makeButtonStack(width, height, "Level 1", "Leaderboard Champ", "Slack");
+        Stack buttonStack = makeButtonStack(butWidth, butHeight, "Level 1", "Leaderboard Champ", leaderBoardChamps.get(0));
 
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
-        buttonStack = makeButtonStack(width, height, "Level 2",  "Leaderboard Champ", "Slack");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 3",  "Leaderboard Champ", "Zenrix");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack(width, height, "Level 4",  "Leaderboard Champ", "IRapeCats");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 5",  "Leaderboard Champ", "The Yeti");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack(width, height, "Level 6",  "Leaderboard Champ", "John Green");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 7",  "Leaderboard Champ", "Slack");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-
-        buttonStack = makeButtonStack(width, height, "Level 8",  "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 2",  "Leaderboard Champ", leaderBoardChamps.get(1));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(width, height, "Level 9",  "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 3",  "Leaderboard Champ", leaderBoardChamps.get(2));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(width, height, "Level 10",  "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 4",  "Leaderboard Champ", leaderBoardChamps.get(3));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(width, height, "Level 11", "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 5",  "Leaderboard Champ", leaderBoardChamps.get(4));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(width, height, "Level 12", "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 6",  "Leaderboard Champ", leaderBoardChamps.get(5));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 7",  "Leaderboard Champ", leaderBoardChamps.get(6));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 8",  "Leaderboard Champ", leaderBoardChamps.get(7));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 9",  "Leaderboard Champ", leaderBoardChamps.get(8));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 10",  "Leaderboard Champ", leaderBoardChamps.get(9));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 11", "Leaderboard Champ", leaderBoardChamps.get(10));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(butWidth, butHeight, "Level 12", "Leaderboard Champ", leaderBoardChamps.get(11));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
@@ -418,18 +408,27 @@ public class LEVELSELECTScreen extends Screen{
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
         bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
 
-
-
-
         table.add(bodyTable).fill().expandX();
-        //table.add(nextLevelPriceLabel);
-        // table.setPosition(camera.position.x, camera.position.y);
         stage.addActor(table);
-
-
 
         stageLoaded = true;
     }
 
-
+    /**
+     * Returns a 3 member array list of booleans
+     * 0 - true means we have completed bronze challenge
+     * 1 - true means we have completed silver challenge
+     * 2 - true means we have completed gold challenge
+     * This will be used to decide if we show the corresponding star, or an empty star in the level
+     * select button.
+     * @param level
+     * @return
+     */
+    private ArrayList<Boolean>getLevelStars(String level){
+        ArrayList<Boolean>returnVal = new ArrayList<Boolean>();
+        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"bronze", false));
+        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"silver", false));
+        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"gold", false));
+        return returnVal;
+    }
 }

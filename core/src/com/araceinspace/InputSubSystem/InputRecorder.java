@@ -1,6 +1,10 @@
 package com.araceinspace.InputSubSystem;
 
 import com.araceinspace.Managers.RenderManager;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 
 import java.util.ArrayList;
 
@@ -29,6 +33,10 @@ public class InputRecorder{
         actions = new ArrayList<Action>();
     }
 
+    public InputRecorder(ArrayList<Action>a){
+        actions = a;
+    }
+
     /* Methods */
 
     /**
@@ -40,6 +48,22 @@ public class InputRecorder{
         //TODO need to add keyframe recording, will need access to physics component
     }
 
+    public void writeToFile(String fileName, int playTime){
+        actions.add(new Action(playTime, GameInput.PLAYTIME));
+        Json json = new Json();
+        //System.out.println(json.toJson(json.prettyPrint(actions)));
+        FileHandle file = Gdx.files.internal(fileName);
+        file.writeString(json.toJson(actions, ArrayList.class), false);
+    }
+
+    public String getReplay(int playTime){
+        actions.add(new Action(playTime, GameInput.PLAYTIME));
+        Json json = new Json(JsonWriter.OutputType.json);
+        String jsonString = json.toJson(actions, ArrayList.class);
+
+        return jsonString;
+    }
+
     /**
      * Returns the next action that occured at or before the current frameNum
      * @param currentFrame the currenet frame num
@@ -48,11 +72,19 @@ public class InputRecorder{
     public Action getNextAction(int currentFrame){
         Action returnVal = null;
         for(int i = 0; i < actions.size(); i++){
-            if(actions.get(i).getFrameNum() <= currentFrame){
+            if(actions.get(i).getFrameNum() <= currentFrame && actions.get(i).getInput() != GameInput.PLAYTIME){//we don't process PLAYTIME INPUTS
                 returnVal =  actions.remove(i);
                 break;
             }
         }
         return returnVal;
+    }
+
+    /**
+     * The last input in every record file will be the ghosts playtime, the framenum will reflect the ms of playtime
+     * @return
+     */
+    public int getPlayTime(){
+        return actions.get(actions.size()-1).getFrameNum();
     }
 }

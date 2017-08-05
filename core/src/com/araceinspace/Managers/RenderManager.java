@@ -16,11 +16,18 @@ import com.araceinspace.Screens.Screen;
 import com.araceinspace.Screens.TITLEScreen;
 import com.araceinspace.misc.Background;
 import com.araceinspace.misc.OrthCamera;
+import com.araceinspace.misc.RandomString;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 
 import java.util.ArrayList;
 
@@ -36,6 +43,7 @@ public class RenderManager {
 
     /* Field Variables & Objects */
     public GameWorld parent;
+    public GameWorld p;
     private float baseZoom;
     private float cameraZoom;
 
@@ -44,14 +52,26 @@ public class RenderManager {
     public MonetizationController monetizationController;
     FPSLogger fpsLogger;
 
+   public Dialog purchaseDialog;
+    public Dialog notEnoughCoinsDialog;
+    public Dialog infoDialog;
+    public Dialog nameDialog;
+
+    public boolean dialogQuestion = false;
+   public int coinsToSpend;
+   public static enum PLACES {first, second, third};
+    public PLACES placeClicked;
+
     /* Constructor */
     public RenderManager(GameWorld p){
         System.out.println("RenderManager Constructor");
         parent = p;
+        this.p = p;
         monetizationController =( (ARaceInSpace)parent.parent).monetizationController;
         frameNum = 0;
         fpsLogger = new FPSLogger();
         setupRendering();
+
     }
 
     /* Private Methods */
@@ -166,6 +186,8 @@ public class RenderManager {
      * Renders the player to the screen
      */
     public void renderPlayer(Player p, float timeElapsed, SpriteBatch batch){
+
+        if(parent.levelManager.getGhost() != null)parent.levelManager.getGhost().getGraphics().render(timeElapsed, batch);
         parent.levelManager.getPlayer().getGraphics().render(timeElapsed, batch);
     }
 
@@ -190,23 +212,12 @@ public class RenderManager {
      * Finds what state the game is currently in and calls the pertinent render method.
      */
     public void render(float elapsedTime){
-        //Call appropriate render method based on game state
-      /*  if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
-            renderInGame(elapsedTime);
-        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
-            renderTitleScreen(elapsedTime);
-        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.LEVEL_SELECT){
-            levelselectScreen.render(elapsedTime);
-        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.STORE){
-            storeScreen.render(elapsedTime);
-        }*/
         currentScreen.render(elapsedTime);
-
         monetizationController.updateVisibility();//used for banner ads to know whether to show /**  This was causing a new banner ad to show every frame, causing huge garabage collection*/
 
         //Increase the amound of frameNum's we have used (used for ghost recordings)
         frameNum ++;
-        fpsLogger.log();
+       // fpsLogger.log();
 
     }
 
@@ -228,22 +239,93 @@ public class RenderManager {
 
     public void setCameraZoom(float cameraZoom) {
         this.cameraZoom = cameraZoom;
-       /* if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.INGAME){
-            ingameScreen.setCameraZoom(cameraZoom);
-        }else if(parent.gameStateManager.getCurrentState() == GameStateManager.GAME_STATE.TITLE_SCREEN){
-            titleScreen.setCameraZoom(cameraZoom);
-        }
-        */
         currentScreen.setCameraZoom(cameraZoom);
     }
 
-   public float map(float x, float in_min, float in_max, float out_min, float out_max)
-    {
+   public float map(float x, float in_min, float in_max, float out_min, float out_max) {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
     public Screen getCurrentScreen(){
         return currentScreen;
+    }
+
+    public void setupDialogs(Skin skin, final Stage stage, final Screen screen) {
+        purchaseDialog = new Dialog("Are you sure you want to spend " + coinsToSpend + " coins?", skin) {
+            protected void result(Object object) {
+                if (object.toString().equals("true")) {
+                    dialogQuestion = true;
+                } else {
+                    dialogQuestion = false;
+                }
+                if (dialogQuestion) {
+                    if (parent.getCoins() >= coinsToSpend) {
+                        if(screen instanceof SCOREScreen){
+                            parent.levelManager.setLevel(parent.levelManager.getCurrentLevel());
+                        }else if(screen instanceof LEADERBOARDScreen){
+                            parent.levelManager.setLevel(LEADERBOARDScreen.levelClicked);//set in leaderboard screen
+                        }
+
+                        if (placeClicked == PLACES.first) {
+                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
+                        } else if (placeClicked == PLACES.second) {
+                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
+                        } else if (placeClicked == PLACES.third) {
+                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
+                        } else{
+                            parent.levelManager.setChallenge(parent.levelManager.getCurrentChallenge());
+                        }
+                        parent.setCoins(parent.getCoins() - coinsToSpend);
+
+                        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                    } else {
+                        notEnoughCoinsDialog.show(stage);
+                    }
+
+                    dialogQuestion = false;//reset the boolean
+                }
+            }
+        };
+        ImageTextButton yes = new ImageTextButton("YES", skin);
+        ImageTextButton no = new ImageTextButton("NO", skin);
+        purchaseDialog.button(yes, "true");
+        purchaseDialog.button(no, "false");
+
+        notEnoughCoinsDialog = new Dialog("Not Enough Coins", skin);
+        ImageTextButton oh = new ImageTextButton("Oh...", skin);
+        notEnoughCoinsDialog.button(oh);
+
+
+
+    }
+
+    public void setupInfoDialog(Skin skin, Stage stage, Screen scren){
+        infoDialog = new Dialog("You Are Offline", skin, "dialog");
+        ImageTextButton okButton = new ImageTextButton("OK...", skin);
+        infoDialog.button(okButton);
+    }
+
+    public void setupNameDialog(Skin skin, Stage stage, Screen screen){
+        final TextArea textArea = new TextArea("", skin);
+        ImageTextButton submitButton = new ImageTextButton("Submit", skin);
+        final RandomString randomString = new RandomString(4);
+        nameDialog = new Dialog("What Is Your Name?", skin, "dialog"){
+            protected void result(Object object) {
+                String name = textArea.getText();
+                if(name.isEmpty()){
+                    name = "Guest "+randomString.nextString();
+                }
+                name = name.replaceAll("\\s", "-");
+                parent.playerName = name;
+                System.out.println("Name is set to: " + parent.playerName);
+                parent.prefs.putString("com.araceinspace.playerName", name);
+                parent.prefs.flush();
+            }
+        };
+
+       // nameDialog.add(textArea);
+        nameDialog.getContentTable().add(textArea);
+        nameDialog.button(submitButton);
     }
 
 }

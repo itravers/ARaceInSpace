@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.Managers.GameStateManager;
 import com.badlogic.gdx.Gdx;
 import  com.araceinspace.misc.Animation;
@@ -24,7 +25,7 @@ public class PlayerStateComponent extends StateComponent{
 
     /* Field Variables & Objects */
     PlayerState currentState;
-    Player parent;
+    PlayerPrototype parent;
     float stateTime = 0; //The amount of time we have been in current State
     public  boolean isLanded = onPlanet();
 
@@ -32,7 +33,7 @@ public class PlayerStateComponent extends StateComponent{
 
 
     /* Constructors */
-    public PlayerStateComponent(Player p, PlayerState state){
+    public PlayerStateComponent(PlayerPrototype p, PlayerState state){
         parent = p;
         setState(state); //The Game Starts, the Avatar is in this state.
     }
@@ -72,7 +73,7 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.LAND_FORWARD && parent.isAlive() && isLanded() && currentAnimation.getLoops(stateTime) >= 1){
             //Transistion from Land_Forward to Stand_Stil_Forward
             setState(PlayerState.STAND_STILL_FORWARD);
-            parent.parent.checkGoal(parent.getPhysics().getClosestPlanet() ,parent);
+            parent.parent.checkGoal(parent.getPhysics().getClosestPlanet() ,parent, timeElapsed);
         }else if(currentState == PlayerState.WAVE && currentAnimation.getLoops(stateTime) >= 1){
             //Transition from WAVE to STAND_STILL_FORWARD
             setState(PlayerState.STAND_STILL_FORWARD);
@@ -116,7 +117,7 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.LAND_SIDEWAYS && currentAnimation.getLoops(stateTime) >= 1 && isLanded()){
             //Transition from LAND_SIDEWAYS to STAND_STILL_SIDEWAYS
             setState(PlayerState.STAND_STILL_SIDEWAYS);
-            parent.parent.checkGoal(parent.getPhysics().getClosestPlanet() ,parent);
+            parent.parent.checkGoal(parent.getPhysics().getClosestPlanet() ,parent, timeElapsed);
         }else if(currentState == PlayerState.WALK_SLOW && speed < NO_MOVEMENT_SPEED){
             //Transition from WALK_SLOW to STAND_STILL_SIDEWAYS
             setState(PlayerState.STAND_STILL_SIDEWAYS);

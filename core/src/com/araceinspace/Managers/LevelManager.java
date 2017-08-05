@@ -2,21 +2,22 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.GameObject;
+import com.araceinspace.GameObjectSubSystem.Ghost;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.GameObjectSubSystem.SpriteTemplate;
 import com.araceinspace.GameWorld;
+import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.misc.Background;
 import com.badlogic.gdx.Gdx;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
 
@@ -29,15 +30,21 @@ public class LevelManager {
     /* Static Variables */
     public static final short CATEGORY_PLAYER = -1;
     public static final short CATEGORY_PLANET = -2;
+    public enum CHALLENGES {bronze, silver, gold, first, second, third, custom};
 
     /* Field Variables & Objects */
     public GameWorld parent;
     private int currentLevel;
     private Player player;
+    private Ghost ghost;
     private ArrayList<Planet> planets;
     public Background mainBackground;
     private Boolean levelGoalCompleted;
     private GameObject goal; /* The goal planet to land on */
+    public CHALLENGES currentChallenge;
+    public int playerTime;
+    public int ghostTime;
+    public boolean didFail; // set to true if the player exploads in contact listener checked by score screen
 
     /* Constructors */
     public LevelManager(GameWorld p){
@@ -49,6 +56,85 @@ public class LevelManager {
     }
 
     /* Private Methods */
+
+    public void setupGhostFromJson(String ghostJson){
+        System.out.println("SETUPGHOST");
+        ArrayList<Action>actions;
+        ArrayList<SpriteTemplate>levelItems;
+        Json json = new Json();
+
+        // String ghostJson = parent.httpManager.readGhostFromServer(currentChallenge, currentLevel);//reads the ghost file from the server backend instead of locally
+        levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+        if(ghostJson == null){//ghost json was not found on server, return ghost=null ghost will not be displayed this level
+            ghost = null;
+            return;
+        }
+        actions = json.fromJson(ArrayList.class, Action.class, ghostJson);//read an array list of JsonValues
+
+        //go through all the level items, find the player item and initialze him
+        for(int i = 0; i < levelItems.size(); i++){
+            SpriteTemplate item = levelItems.get(i);
+            if(item.getType().equals("player")){
+                float xLoc = item.getxLoc();
+                float yLoc = item.getyLoc();
+                String extra = item.getExtraInfo();
+                PlayerState state = PlayerState.STAND_STILL_FORWARD;
+                if(extra.equals("flying"))state = PlayerState.FLYING;
+                // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+                TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
+                Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+                ghost = new Ghost(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation, actions);
+            }
+        }
+        ghostTime =  ghost.getInput().getPlayTime();
+    }
+
+
+    private void setupGhost(CHALLENGES currentChallenge){
+        System.out.println("SETUPGHOST");
+        ArrayList<Action>actions;
+        ArrayList<SpriteTemplate>levelItems;
+        Json json = new Json();
+        if(currentChallenge == CHALLENGES.first || currentChallenge == CHALLENGES.second || currentChallenge == CHALLENGES.third){
+            String ghostJson = parent.httpManager.readGhostFromServer(currentChallenge, currentLevel);//reads the ghost file from the server backend instead of locally
+            levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+            if(ghostJson == null){//ghost json was not found on server, return ghost=null ghost will not be displayed this level
+                ghost = null;
+                return;
+            }
+            actions = json.fromJson(ArrayList.class, Action.class, ghostJson);//read an array list of JsonValues
+
+
+        }else{
+
+            levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+            String fileName = "ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+            boolean exists = Gdx.files.internal(fileName).exists();
+            if(!exists){
+                System.out.println("File " + fileName + " does not exist, not making ghost.");
+                ghost = null;
+                return;
+            }
+            actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.internal(fileName));//read an array list of JsonValues
+        }
+
+        //go through all the level items, find the player item and initialze him
+        for(int i = 0; i < levelItems.size(); i++){
+            SpriteTemplate item = levelItems.get(i);
+            if(item.getType().equals("player")){
+                float xLoc = item.getxLoc();
+                float yLoc = item.getyLoc();
+                String extra = item.getExtraInfo();
+                PlayerState state = PlayerState.STAND_STILL_FORWARD;
+                if(extra.equals("flying"))state = PlayerState.FLYING;
+                // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
+                TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
+                Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+                ghost = new Ghost(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation, actions);
+            }
+        }
+       ghostTime =  ghost.getInput().getPlayTime();
+    }
 
     /**
      * Reads the level file and gets the planets to setup.
@@ -81,7 +167,7 @@ public class LevelManager {
         FileHandle fileHandle = null;
         String fileName = "levels/level"+lvl+".json";
         if(Gdx.files.classpath(fileName).exists()){
-            fileHandle = Gdx.files.local(fileName);
+            fileHandle = Gdx.files.internal(fileName);
             //System.out.println("using external file.");
         }else{
             fileHandle = Gdx.files.internal(fileName);
@@ -94,6 +180,7 @@ public class LevelManager {
 
     private void updateInGame(float elapsedTime){
         player.update(elapsedTime);
+        if(ghost != null)ghost.update(elapsedTime);
 
         //update all planets
         for(int i = 0; i < planets.size(); i++){
@@ -127,9 +214,53 @@ public class LevelManager {
         }
     }
 
+    private void setChallengeCompleted(){
+        if(currentChallenge == CHALLENGES.bronze || currentChallenge == CHALLENGES.silver || currentChallenge == CHALLENGES.gold){
+            int level = getCurrentLevel();
+            String levelName = "Level "+level;
+            String challengeName = getChallengeName(currentChallenge);
+            // parent.setBoolean("com.araceinspace."+level+"bronze", false)
+            parent.prefs.putBoolean("com.araceinspace.Saved_Items."+levelName+""+challengeName, true);
+            parent.prefs.flush();
+        }
+    }
+
+    private String getChallengeName(CHALLENGES c){
+        String returnVal = "";
+        if(c == CHALLENGES.bronze){
+            returnVal = "bronze";
+        }else if(c == CHALLENGES.silver){
+            returnVal = "silver";
+        }else if(c == CHALLENGES.gold){
+            returnVal = "gold";
+        }
+        return returnVal;
+    }
+
     private void completeLevel(){
+
         setGoalCompleted(true);
+        System.out.println("play time: " + getPlayer().getPlayTime());
+        //int playtime = (int)(getPlayer().getPlayTime()*1000);
+        playerTime = (int)(getPlayer().getPlayTime()*1000);
+        if(ghost == null){
+            //Save Replay if no ghost exists
+            getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+        }else{
+           ghostTime = ghost.playtime;
+            if(playerTime < ghostTime){
+                //Save Replay if ghost exists, and playerTime is less than ghost time.
+                //getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+                setChallengeCompleted();
+                parent.setCoins(parent.getCoins() + 5);
+            }
+        }
         parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
+    }
+
+    public String getGhostReplay(){
+        playerTime = (int)(getPlayer().getPlayTime()*1000);
+        return getPlayer().getInput().getReplay(playerTime);
     }
 
     private void setGoalCompleted(Boolean levelGoalCompleted) {
@@ -141,7 +272,11 @@ public class LevelManager {
      * We have completed the goal if we are landed, and the
      * nearest planet is the goal planet.
      */
-    public void checkGoal(Planet planet, Player p){
+    public void checkGoal(Planet planet, PlayerPrototype p, float timeElapsed){
+        if(!(p instanceof Player)){
+            p.setUpdateable(false);
+            return;
+        }
         //we only do this if the levelGoal has not been completed
         if(!levelGoalCompleted){
 
@@ -150,13 +285,22 @@ public class LevelManager {
             boolean playerTypeGood = true; //(!(p instanceof Ghost));
             //we know the goal is completed if the player has landed on the goal planet and he is not a ghost.
             if(stateGood && goalGood && playerTypeGood){
-
+                p.endTime = timeElapsed;
                 completeLevel();
             }
         }
     }
 
     /* Public Methods */
+    public void setChallenge(CHALLENGES c){
+        currentChallenge = c;
+        setupGhost(currentChallenge);
+    }
+
+    public CHALLENGES getCurrentChallenge(){
+        return currentChallenge;
+    }
+
     public void setCurrentLevel(int level){
         currentLevel = level;
     }
@@ -176,6 +320,8 @@ public class LevelManager {
      * @param level The Level we are setting to
      */
     public void setLevel(int level){
+        ghostTime = 0;
+        playerTime = 0;
         currentLevel = level;
         parent.setupPhysics();
         setGoalCompleted(false);
@@ -190,6 +336,10 @@ public class LevelManager {
      */
     public Player getPlayer(){
         return player;
+    }
+
+    public Ghost getGhost(){
+        return ghost;
     }
 
     /**

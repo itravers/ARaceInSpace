@@ -275,7 +275,7 @@ back
   index: -1
 back_button_down
   rotate: false
-  xy: 284, 718
+  xy: 191, 453
   size: 20, 22
   orig: 20, 22
   offset: 0, 0
@@ -289,7 +289,7 @@ back_button_down2
   index: -1
 back_button_up
   rotate: false
-  xy: 191, 453
+  xy: 186, 429
   size: 20, 22
   orig: 20, 22
   offset: 0, 0
@@ -406,7 +406,7 @@ default-pane-noborder
   index: -1
 default-rect
   rotate: false
-  xy: 118, 74
+  xy: 310, 737
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -414,7 +414,7 @@ default-rect
   index: -1
 default-rect-down
   rotate: false
-  xy: 168, 713
+  xy: 118, 74
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -431,7 +431,7 @@ default-round
   index: -1
 default-round-down
   rotate: false
-  xy: 213, 455
+  xy: 186, 407
   size: 12, 20
   split: 5, 5, 5, 4
   orig: 12, 20
@@ -439,7 +439,7 @@ default-round-down
   index: -1
 default-round-large
   rotate: false
-  xy: 186, 431
+  xy: 990, 884
   size: 20, 20
   split: 5, 5, 5, 4
   orig: 20, 20
@@ -447,7 +447,7 @@ default-round-large
   index: -1
 default-scroll
   rotate: false
-  xy: 990, 884
+  xy: 850, 784
   size: 20, 20
   split: 2, 2, 2, 2
   orig: 20, 20
@@ -463,7 +463,7 @@ default-select
   index: -1
 default-select-selection
   rotate: false
-  xy: 679, 791
+  xy: 168, 713
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -479,7 +479,7 @@ default-slider
   index: -1
 default-slider-knob
   rotate: false
-  xy: 990, 864
+  xy: 297, 698
   size: 9, 18
   orig: 9, 18
   offset: 0, 0
@@ -494,7 +494,7 @@ default-splitpane
   index: -1
 default-splitpane-vertical
   rotate: false
-  xy: 736, 817
+  xy: 679, 789
   size: 3, 5
   split: 0, 0, 0, 5
   orig: 3, 5
@@ -580,7 +580,7 @@ tree-plus
   index: -1
 uiskin
   rotate: false
-  xy: 186, 409
+  xy: 208, 431
   size: 12, 20
   split: 4, 4, 4, 4
   pad: 0, 0, 4, 4
@@ -589,7 +589,7 @@ uiskin
   index: -1
 white-up
   rotate: false
-  xy: 186, 409
+  xy: 208, 431
   size: 12, 20
   split: 4, 4, 6, 7
   pad: 0, 0, 0, 0
@@ -598,7 +598,7 @@ white-up
   index: -1
 uiskin.9
   rotate: false
-  xy: 850, 782
+  xy: 213, 453
   size: 14, 22
   split: 2, 3, 4, 5
   orig: 14, 22
@@ -734,9 +734,18 @@ window
   rotate: false
   xy: 822, 780
   size: 26, 24
-  split: 3, 3, 0, 0
-  pad: 0, 0, 3, 3
+  split: 4, 5, 4, 4
+  pad: 3, 4, 3, 3
   orig: 26, 24
+  offset: 0, 0
+  index: -1
+window_pressed
+  rotate: false
+  xy: 284, 718
+  size: 24, 22
+  split: 4, 4, 4, 4
+  pad: 3, 3, 3, 3
+  orig: 24, 22
   offset: 0, 0
   index: -1
 blank

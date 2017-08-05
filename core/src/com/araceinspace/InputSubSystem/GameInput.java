@@ -28,5 +28,6 @@ public enum GameInput {
     TOUCH_DOWN_LEFT,
     TOUCH_DOWN,
     TOUCH_DOWN_RIGHT,
-    TOUCH_NONE
+    TOUCH_NONE,
+    PLAYTIME //hack, used by ghost system to record playtime of ghost
 }

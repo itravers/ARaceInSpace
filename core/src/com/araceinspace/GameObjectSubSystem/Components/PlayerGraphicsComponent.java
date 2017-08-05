@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.Player;
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.Managers.AnimationManager;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,9 +14,9 @@ import com.badlogic.gdx.math.Vector2;
  * The graphics component the player will use
  */
 public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
-    Player parent;
+    PlayerPrototype parent;
 
-    public PlayerGraphicsComponent(Player p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
+    public PlayerGraphicsComponent(PlayerPrototype p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
         super(region, animations);
         parent = p;
         this.setX(loc.x);
@@ -51,7 +52,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     }
 
     public void update(float timeElapsed){
-        PlayerState state = parent.getState().getCurrentState();
+        PlayerState state = ((PlayerStateComponent)parent.getState()).getCurrentState();
         AnimationManager animationManager = parent.parent.parent.animationManager;
         switch(state){
             case STAND_STILL_FORWARD:

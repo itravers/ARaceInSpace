@@ -1476,6 +1476,19 @@ atlasData: {
 			tintName: null
 			name: window
 		}
+		{
+			file: "/media/slack/c0ecb020-e11e-4b7f-adba-497fc5148300/slack/Documents/GameDesign/Link to Game Design/Sprite Work/window_pressed.9.png"
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: window_pressed
+		}
 	]
 }
 jsonData: {
@@ -2319,7 +2332,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: imageUp
 						optional: true
-						value: coin_but_74x68
+						value: coin_button_up
 					}
 					imageDown: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -2587,14 +2600,14 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: imageUp
 						optional: true
-						value: store_button_up
+						value: window
 					}
 					imageDown: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: imageDown
 						optional: true
-						value: store_button_down
+						value: window_pressed
 					}
 					imageOver: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -5226,14 +5239,14 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: up
 						optional: true
-						value: TextImageButton
+						value: window
 					}
 					down: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: down
 						optional: true
-						value: TextImageButton
+						value: window_pressed
 					}
 					over: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -6478,7 +6491,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: TextImageButton
+						value: window_pressed
 					}
 					focusedBackground: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -6506,7 +6519,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: selection
 						optional: true
-						value: default-round-down
+						value: window
 					}
 					messageFont: {
 						class: com.ray3k.skincomposer.data.StyleProperty

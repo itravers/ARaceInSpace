@@ -1,15 +1,20 @@
 package com.araceinspace.GameObjectSubSystem;
 
 import com.araceinspace.GameObjectSubSystem.Components.GhostInputComponent;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
+import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
+import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -20,37 +25,42 @@ import com.badlogic.gdx.physics.box2d.World;
  * The Ghost also uses the PlayerPhysicsComponent as we want it’s physics to interact
  * with the world in EXACTLY the same way the players does.
  */
-public class Ghost extends Player{
+public class Ghost extends PlayerPrototype{
+    public int playtime;
 
     /**
      * Constructor
-     * @param atlas
      * @param animations
      */
-    public Ghost(LevelManager levelManager, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
-        super(levelManager, firstState, loc, world, region, animations);
-        input = new GhostInputComponent();
-        physics = new PlayerPhysicsComponent((Player)this, world);
+    public Ghost(LevelManager levelManager, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations, ArrayList<Action> actions) {
+        super(levelManager);
+        graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
+        input = new GhostInputComponent(this, actions);
+        physics = new PlayerPhysicsComponent(this, world);
         state = new PlayerStateComponent(this, firstState);
+        boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();
+        ((PlayerStateComponent)state).isLanded = onPlanet;
+        playtime = ((GhostInputComponent)input).getPlayTime();
     }
 
-    @Override
-    public void update(float elapsedTime) {
-        //TODO create ghost update code
+    public PlayerGraphicsComponent getGraphics(){
+        return (PlayerGraphicsComponent)graphics;
     }
 
-    @Override
-    void dispose() {
-        //TODO create ghost dispose code
+    public PlayerPhysicsComponent getPhysics(){
+        return (PlayerPhysicsComponent)physics;
     }
 
-    @Override
-    public void onEnd(AnimationController.AnimationDesc animation) {
-
+    public GhostInputComponent getInput(){
+        return (GhostInputComponent)input;
     }
 
-    @Override
-    public void onLoop(AnimationController.AnimationDesc animation) {
-
+    public PlayerStateComponent getState(){
+        return (PlayerStateComponent)state;
     }
+
+    public void setRotation(float rotation){
+        getGraphics().setRotation(rotation);
+    }
+
 }

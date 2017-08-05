@@ -51,4 +51,8 @@ public abstract class Screen {
     public void updateCoins() {
         if(coinLabel != null) coinLabel.setText(Integer.toString(parent.parent.getCoins()));
     }
+
+    public Stage getStage(){
+        return stage;
+    }
 }
