@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Created by Isaac Assegai on 7/31/17.
@@ -155,9 +156,20 @@ public class HttpManager {
 
     public ArrayList<String> getLevelLeaders(){
         ArrayList<String>returnVal = new ArrayList<String>();
+        String url = "http://192.168.1.197:3001/leaderboards/levelleaders";
+        sendRequest(url, null, "GET");
+        String leadersString = waitForResponse();
+        if(leadersString == null){
+            for(int i = 0; i < 12; i++)returnVal.add("N/A");
+            return returnVal;
+        }
+        StringTokenizer tokenizer = new StringTokenizer(leadersString, ":");
 
+        while(tokenizer.hasMoreTokens()){
+            returnVal.add(tokenizer.nextToken());
+        }
         //test Array
-        for(int i = 0; i < 12; i++)returnVal.add("Slack");
+       // for(int i = 0; i < 12; i++)returnVal.add("Slack");
         return returnVal;
     }
 }
