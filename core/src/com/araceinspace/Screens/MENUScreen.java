@@ -176,6 +176,7 @@ public class MENUScreen extends Screen {
         titleLabel = new Label("Menu", skin, "Store_Title");
         String coins = Integer.toString(parent.parent.getCoins());
         coinLabel = new Label(coins, skin, "coinLabel");
+        coinLabel.setAlignment(Align.right);
     }
 
     private void setupSliders(){
@@ -221,7 +222,7 @@ public class MENUScreen extends Screen {
         headerTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.left).spaceLeft(0);
         headerTable.add(titleLabel).expandX().align(Align.center).size(width/3, height/12);
 
-        headerTable.add(coinLabel).size(width/11, height/12).align(Align.right);
+        headerTable.add(coinLabel).size(width/6, height/12).align(Align.right);
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
         headerTable.row();
 
