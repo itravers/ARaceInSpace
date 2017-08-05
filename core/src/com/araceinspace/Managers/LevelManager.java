@@ -183,18 +183,45 @@ public class LevelManager {
         }
     }
 
+    private void setChallengeCompleted(){
+        if(currentChallenge == CHALLENGES.bronze || currentChallenge == CHALLENGES.silver || currentChallenge == CHALLENGES.gold){
+            int level = getCurrentLevel();
+            String levelName = "Level "+level;
+            String challengeName = getChallengeName(currentChallenge);
+            // parent.setBoolean("com.araceinspace."+level+"bronze", false)
+            parent.prefs.putBoolean("com.araceinspace.Saved_Items."+levelName+""+challengeName, true);
+            parent.prefs.flush();
+        }
+    }
+
+    private String getChallengeName(CHALLENGES c){
+        String returnVal = "";
+        if(c == CHALLENGES.bronze){
+            returnVal = "bronze";
+        }else if(c == CHALLENGES.silver){
+            returnVal = "silver";
+        }else if(c == CHALLENGES.gold){
+            returnVal = "gold";
+        }
+        return returnVal;
+    }
+
     private void completeLevel(){
+
         setGoalCompleted(true);
         System.out.println("play time: " + getPlayer().getPlayTime());
         //int playtime = (int)(getPlayer().getPlayTime()*1000);
         playerTime = (int)(getPlayer().getPlayTime()*1000);
         if(ghost == null){
+            //Save Replay if no ghost exists
             getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
         }else{
            ghostTime = ghost.playtime;
-
             if(playerTime < ghostTime){
-                getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+                //Save Replay if ghost exists, and playerTime is less than ghost time.
+                //getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+                setChallengeCompleted();
+                parent.setCoins(parent.getCoins() + 5);
             }
         }
         parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);

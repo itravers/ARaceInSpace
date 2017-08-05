@@ -306,6 +306,7 @@ public class LEADERBOARDScreen extends Screen{
 
 
         Tree tree = new Tree(skin, "default");
+
         for(int i = 0; i < leaderBoardLevels.size; i++){
             JsonValue level = leaderBoardLevels.get(i);
             String levelName = level.get("name").asString();
@@ -319,8 +320,8 @@ public class LEADERBOARDScreen extends Screen{
             Label l = new   Label(levelName, skin, "tree_header");
             ImageButton coin10 = new ImageButton(skin, "coinSmall10");
             parentTable.add(l).width(l.getWidth()*1.0f).padLeft(spacer).padRight(spacer);
-            parentTable.add(challengeButton).align(Align.right).width(challengeButton.getWidth()*1.0f);
-            parentTable.add(coin10);
+           // parentTable.add(challengeButton).align(Align.right).width(challengeButton.getWidth()*1.0f);
+            //parentTable.add(coin10);
 
 
             Tree.Node node = new Tree.Node(parentTable);
@@ -334,6 +335,7 @@ public class LEADERBOARDScreen extends Screen{
                 String place = data.get(j).get("place").asString();
                 String name = data.get(j).get("name").asString();
                 String time = data.get(j).get("time").asString();
+                String formattedTime = msToString(Integer.valueOf(time));
                 String id = data.get(j).get("id").asString();
 
                 //inner for loop here
@@ -350,7 +352,7 @@ public class LEADERBOARDScreen extends Screen{
 
                 Table tableTime = new Table();
                 tableTime.setDebug(devMode);
-                Label labelTime = new Label(time, skin, "extra_small");
+                Label labelTime = new Label(formattedTime, skin, "extra_small");
                 tableTime.add(labelTime).align(Align.left);
 
 
@@ -369,7 +371,11 @@ public class LEADERBOARDScreen extends Screen{
             Tree.Node nodeChild = new Tree.Node(tableChild);
             node.add(nodeChild);
             tree.add(node);
+
+
         }
+
+        tree.expandAll();
 
 
         storeTable.add(tree).align(Align.top|Align.left).expandX();
@@ -401,5 +407,26 @@ public class LEADERBOARDScreen extends Screen{
         stage.addActor(table);
 
         stageLoaded = true;
+    }
+
+    private String msToString(int playerMS){
+        if(playerMS == 99999999)return "00:00:00";
+        //Calculate player time min, sec and ms.
+        int time = playerMS;
+        int min = (time / 1000) / 60;
+        time -= (min * 60 * 1000);
+        int sec = time / 1000;
+        time -= (sec * 1000);
+        int ms = time;
+        String playerMin = Integer.toString(min);
+        if(playerMin.length() < 2)playerMin = "0"+playerMin;
+
+        String playerSec = Integer.toString(sec);
+        if(playerSec.length() < 2)playerSec = "0"+playerSec;
+
+        String playerms = Integer.toString(ms);
+        if(playerms.length() < 2)playerms = "0"+playerms;
+
+        return playerMin + ":" +playerSec + ":" + playerms;
     }
 }

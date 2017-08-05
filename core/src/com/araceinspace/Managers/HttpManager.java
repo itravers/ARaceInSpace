@@ -6,6 +6,8 @@ import com.badlogic.gdx.net.HttpStatus;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 
+import java.util.ArrayList;
+
 /**
  * Created by Isaac Assegai on 7/31/17.
  * Class is to be used to make http post and get requests to scoreboard and ghost backend.
@@ -149,5 +151,13 @@ public class HttpManager {
         sendRequest(url, replay, "POST");
         returnval = waitForResponse();
         return returnval;
+    }
+
+    public ArrayList<String> getLevelLeaders(){
+        ArrayList<String>returnVal = new ArrayList<String>();
+
+        //test Array
+        for(int i = 0; i < 12; i++)returnVal.add("Slack");
+        return returnVal;
     }
 }

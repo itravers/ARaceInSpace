@@ -156,13 +156,27 @@ public class LEVELSELECTScreen extends Screen{
         button_image = new ImageButton(skin, "coinButton_small");
         button_image.setTouchable(Touchable.disabled);
 
-        starBronze = new ImageButton(skin, "starBronze");
+        ArrayList<Boolean>stars = getLevelStars(title);
+
+        if(stars.get(0)){
+            starBronze = new ImageButton(skin, "starBronze");
+        }else{
+            starBronze = new ImageButton(skin, "starEmpty");
+        }
         starBronze.setTouchable(Touchable.disabled);
 
-        starSilver = new ImageButton(skin, "starSilver");
+        if(stars.get(1)){
+            starSilver = new ImageButton(skin, "starSilver");
+        }else{
+            starSilver = new ImageButton(skin, "starEmpty");
+        }
         starSilver.setTouchable(Touchable.disabled);
 
-        starGold = new ImageButton(skin, "starGold");
+        if(stars.get(2)){
+            starGold = new ImageButton(skin, "starGold");
+        }else{
+            starGold = new ImageButton(skin, "starEmpty");
+        }
         starGold.setTouchable(Touchable.disabled);
 
         Table starTable = new Table();
@@ -321,52 +335,53 @@ public class LEVELSELECTScreen extends Screen{
         storeTable = new Table();
         storeTable.setDebug(devMode);
         storeTable.align(Align.top|Align.center);
+        ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders();
 
-        Stack buttonStack = makeButtonStack(width, height, "Level 1", "Leaderboard Champ", "Slack");
+        Stack buttonStack = makeButtonStack(width, height, "Level 1", "Leaderboard Champ", leaderBoardChamps.get(0));
 
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
-        buttonStack = makeButtonStack(width, height, "Level 2",  "Leaderboard Champ", "Slack");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 3",  "Leaderboard Champ", "Zenrix");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack(width, height, "Level 4",  "Leaderboard Champ", "IRapeCats");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 5",  "Leaderboard Champ", "The Yeti");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        buttonStack = makeButtonStack(width, height, "Level 6",  "Leaderboard Champ", "John Green");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(width, height, "Level 7",  "Leaderboard Champ", "Slack");
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-
-        buttonStack = makeButtonStack(width, height, "Level 8",  "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(width, height, "Level 2",  "Leaderboard Champ", leaderBoardChamps.get(1));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(width, height, "Level 9",  "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(width, height, "Level 3",  "Leaderboard Champ", leaderBoardChamps.get(2));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(width, height, "Level 10",  "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(width, height, "Level 4",  "Leaderboard Champ", leaderBoardChamps.get(3));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(width, height, "Level 11", "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(width, height, "Level 5",  "Leaderboard Champ", leaderBoardChamps.get(4));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
-        buttonStack = makeButtonStack(width, height, "Level 12", "Leaderboard Champ", "Slack");
+        buttonStack = makeButtonStack(width, height, "Level 6",  "Leaderboard Champ", leaderBoardChamps.get(5));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(width, height, "Level 7",  "Leaderboard Champ", leaderBoardChamps.get(6));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+
+        buttonStack = makeButtonStack(width, height, "Level 8",  "Leaderboard Champ", leaderBoardChamps.get(7));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(width, height, "Level 9",  "Leaderboard Champ", leaderBoardChamps.get(8));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(width, height, "Level 10",  "Leaderboard Champ", leaderBoardChamps.get(9));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        storeTable.row();
+
+        buttonStack = makeButtonStack(width, height, "Level 11", "Leaderboard Champ", leaderBoardChamps.get(10));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+
+        buttonStack = makeButtonStack(width, height, "Level 12", "Leaderboard Champ", leaderBoardChamps.get(11));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
@@ -388,5 +403,23 @@ public class LEVELSELECTScreen extends Screen{
         stage.addActor(table);
 
         stageLoaded = true;
+    }
+
+    /**
+     * Returns a 3 member array list of booleans
+     * 0 - true means we have completed bronze challenge
+     * 1 - true means we have completed silver challenge
+     * 2 - true means we have completed gold challenge
+     * This will be used to decide if we show the corresponding star, or an empty star in the level
+     * select button.
+     * @param level
+     * @return
+     */
+    private ArrayList<Boolean>getLevelStars(String level){
+        ArrayList<Boolean>returnVal = new ArrayList<Boolean>();
+        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"bronze", false));
+        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"silver", false));
+        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"gold", false));
+        return returnVal;
     }
 }
