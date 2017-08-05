@@ -192,11 +192,18 @@ public class PREGAMEScreen extends Screen{
 
 
 
-    private Stack makeButtonStack(String title, ClickListener listener, ImageButton star, String s_taunt1, String s_taunt2){
+    private Stack makeButtonStack(float butWidth, float butHeight, String title, ClickListener listener, ImageButton star, String s_taunt1, String s_taunt2){
+        butWidth = butWidth - spacer/4;
+
         boolean devMode = parent.parent.devMode;
         ImageButton levelButton = new ImageButton(skin, "storeButton");
         levelButton.setName(title);
         levelButton.addListener(listener);
+
+        Table buttonTable = new Table();
+        buttonTable.setDebug(devMode);
+        buttonTable.add(levelButton).size(butWidth, butHeight);
+        levelButton.getImageCell().expand().fill();
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
@@ -265,7 +272,7 @@ public class PREGAMEScreen extends Screen{
 
         Stack buttonStack;
         buttonStack = new Stack();
-        buttonStack.add(levelButton);
+        buttonStack.add(buttonTable);
         buttonStack.add(purchaseTable);
         return buttonStack;
     }
@@ -378,15 +385,15 @@ public class PREGAMEScreen extends Screen{
 
         ImageButton starBronze = new ImageButton(skin, "starBronze");
         starBronze.setTouchable(Touchable.disabled);
-        Stack buttonStack1 = makeButtonStack("Bronze", bronzeListener, starBronze, "taunt1", "taunt2");
+        Stack buttonStack1 = makeButtonStack(butWidth, butHeight, "Bronze", bronzeListener, starBronze, "taunt1", "taunt2");
 
         ImageButton starSilver = new ImageButton(skin, "starSilver");
         starSilver.setTouchable(Touchable.disabled);
-        Stack buttonStack2 = makeButtonStack("Silver", silverListener, starSilver, "52:23", "52:21");
+        Stack buttonStack2 = makeButtonStack(butWidth, butHeight, "Silver", silverListener, starSilver, "52:23", "52:21");
 
         ImageButton starGold = new ImageButton(skin, "starGold");
         starGold.setTouchable(Touchable.disabled);
-        Stack buttonStack3 = makeButtonStack("Gold",  goldListener, starGold, "43:17", "52:17");
+        Stack buttonStack3 = makeButtonStack(butWidth, butHeight, "Gold",  goldListener, starGold, "43:17", "52:17");
 
         buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
         buttonTable.add(buttonStack2).pad(0).size(butWidth, butHeight).align(Align.top);
