@@ -6491,7 +6491,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: TextImageButton
+						value: window_pressed
 					}
 					focusedBackground: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -6519,7 +6519,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: selection
 						optional: true
-						value: default-round-down
+						value: window
 					}
 					messageFont: {
 						class: com.ray3k.skincomposer.data.StyleProperty

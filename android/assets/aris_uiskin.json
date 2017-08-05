@@ -303,9 +303,9 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		font: font_d_estroy__20pt
 		fontColor: GRAY
 		focusedFontColor: white
-		background: TextImageButton
+		background: window_pressed
 		cursor: default-rect
-		selection: default-round-down
+		selection: window
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
