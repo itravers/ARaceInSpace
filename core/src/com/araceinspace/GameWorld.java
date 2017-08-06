@@ -8,6 +8,8 @@ import com.araceinspace.Managers.HttpManager;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.Managers.SoundManager;
+import com.araceinspace.Screens.LOADINGScreen;
+import com.araceinspace.Screens.Screen;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -41,6 +43,7 @@ public class GameWorld {
     public boolean countGhostTimer = true;
     private int coins;
     public String playerName;
+    public LOADINGScreen loadingScreen;
 
 
 
@@ -52,6 +55,8 @@ public class GameWorld {
         ghostTimer = prefs.getFloat("com.araceinspace.ghostTimer", GHOST_TIMER_LIMIT);
         playerName = prefs.getString("com.araceinspace.playerName", null);
         coins = prefs.getInteger("com.araceinspace.coins");
+
+        loadingScreen = new LOADINGScreen(null);
 
         /**
          * When resourceManager is done loading assets, it will call the
@@ -93,11 +98,15 @@ public class GameWorld {
     }
 
     public void update(){
+        float delta = Gdx.graphics.getDeltaTime();
+
         if(resourceManager.loadingAssets){
             resourceManager.update();
+            loadingScreen.progressBar.setValue(resourceManager.progress);
+            loadingScreen.render(delta);
             return;
         }
-        float delta = Gdx.graphics.getDeltaTime();
+
         //System.out.println("deltaTime: " + delta);
 
         renderManager.render(elapsedTime);

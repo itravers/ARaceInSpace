@@ -8,6 +8,7 @@ import com.araceinspace.MonetizationSubSystem.MonetizationController;
 import com.araceinspace.Screens.INGAMEScreen;
 import com.araceinspace.Screens.LEADERBOARDScreen;
 import com.araceinspace.Screens.LEVELSELECTScreen;
+import com.araceinspace.Screens.LOADINGScreen;
 import com.araceinspace.Screens.MENUScreen;
 import com.araceinspace.Screens.PREGAMEScreen;
 import com.araceinspace.Screens.SCOREScreen;
@@ -118,7 +119,6 @@ public class RenderManager {
             case LEADERBOARDS:
                 currentScreen = new LEADERBOARDScreen(this);
                 break;
-
         }
     }
 

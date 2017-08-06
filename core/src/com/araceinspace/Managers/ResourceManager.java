@@ -20,6 +20,7 @@ public class ResourceManager {
     GameWorld parent;
     AssetManager assetManager;
     public boolean loadingAssets;
+    public float progress = 0;
 
     //Player Sprite Animation Data
 
@@ -182,8 +183,8 @@ public class ResourceManager {
             parent.initializeManagers();//must come after setupAnimations, and setupPlanets
         }
 
-        float progress = assetManager.getProgress();
-        System.out.println("AssetLoading Progress : " + progress);
+        progress = assetManager.getProgress();
+        //System.out.println("AssetLoading Progress : " + progress);
     }
 
     private void setupSkin(){
