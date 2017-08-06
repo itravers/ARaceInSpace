@@ -5,13 +5,18 @@ import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by Isaac Assegai on 7/11/17.
- * Keeps track of all the sprite animations and data
+ * Loads all resources at the start of the game.
+ * Uses an Asset Manager to asynchronously load the assets.
+ * Keeps track of the progress of loading so LOADINGScreen
+ * can display a progress bar.
  */
 public class ResourceManager {
     /* Static Variables */
@@ -49,8 +54,10 @@ public class ResourceManager {
     private TextureAtlas gravityWellAtlas = null;
 
     //Game Skin
-    TextureAtlas skinAtlas;
     Skin skin;
+
+    //Game Sounds
+    public Music beethovens7th;
 
     /* Constructors */
     public ResourceManager(GameWorld p){
@@ -72,6 +79,7 @@ public class ResourceManager {
         assetManager.load("data/HeroAnimations.atlas", TextureAtlas.class);
         assetManager.load("aris_uiskin.atlas", TextureAtlas.class);
         assetManager.load("aris_uiskin.json", Skin.class, new SkinLoader.SkinParameter("aris_uiskin.atlas"));
+        assetManager.load("data/beethoven7th.mp3", Music.class);
     }
 
     /**
@@ -179,12 +187,17 @@ public class ResourceManager {
             setupPlanets();
             setupAnimations();
             setupSkin();
+            setupSounds();
             loadingAssets = false;
             parent.initializeManagers();//must come after setupAnimations, and setupPlanets
         }
 
         progress = assetManager.getProgress();
         //System.out.println("AssetLoading Progress : " + progress);
+    }
+
+    private void setupSounds(){
+        beethovens7th = assetManager.get("data/beethoven7th.mp3", Music.class);
     }
 
     private void setupSkin(){
