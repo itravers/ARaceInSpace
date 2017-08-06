@@ -173,13 +173,14 @@ public class PREGAMEScreen extends Screen{
 
                 String ghostJSON = parent.parent.httpManager.readCustomGhostFromServer(ghostID, level);
                 System.out.println("loading ghost: " + ghostID + " for level: " + level);
-                System.out.println(ghostJSON);
+
                 if(ghostJSON == null || ghostJSON.startsWith("error:")){
                     if(ghostJSON == null)ghostJSON = "Error: Problem Connecting to Server";
                     parent.setupInfoDialog(skin, stage, me);
                     parent.infoDialog.getTitleLabel().setText(ghostJSON);
                     parent.infoDialog.show(stage);
                 }else{
+                    //System.out.println(ghostJSON);
                     parent.parent.levelManager.setupGhostFromJson(ghostJSON);
                     parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
                 }

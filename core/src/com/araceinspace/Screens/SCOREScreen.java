@@ -167,7 +167,7 @@ public class SCOREScreen extends Screen{
                     parent.infoDialog.show(stage);
                     submitGhostButton.setVisible(false);
                 }
-                System.out.println(submitVal);
+                //System.out.println(submitVal);
             }
 
         };
