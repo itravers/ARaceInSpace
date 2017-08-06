@@ -131,7 +131,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         backgroundBatch.dispose();
         font.dispose();
         debugRenderer.dispose();
-        skin.dispose();
+       // skin.dispose();
 
 
     }
@@ -202,8 +202,9 @@ public class INGAMEScreen extends Screen implements EventSender{
     private void setupStage(){
         viewport = new ScreenViewport(menuCamera);
         stage = new Stage(viewport, batch);
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+       // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+       // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        skin = parent.parent.resourceManager.getSkin();
 
         touchPad = new Touchpad(10, skin, "default");
         touchPad.setBounds(15, 15, Gdx.graphics.getWidth()/2-20,Gdx.graphics.getWidth()/2-20);

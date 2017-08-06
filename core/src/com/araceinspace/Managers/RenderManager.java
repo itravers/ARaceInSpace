@@ -82,7 +82,7 @@ public class RenderManager {
     private void setupRendering(){
         resetFrameNum();
         monetizationController.loadBannerAd();
-        parent.resourceManager.setupAnimations();
+       // parent.resourceManager.setupAnimations();
         //setupBackground();
         currentScreen = new TITLEScreen(this);//default screen when game is loaded
         setupScreenSizeDependantItems();//must come after screens are constructed

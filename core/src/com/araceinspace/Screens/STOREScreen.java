@@ -53,7 +53,7 @@ public class STOREScreen extends Screen{
     public void dispose() {
         stage.dispose();
         batch.dispose();
-        skin.dispose();
+      //  skin.dispose();
 
     }
 
@@ -155,8 +155,9 @@ public class STOREScreen extends Screen{
         };
 
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        //TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        skin = parent.parent.resourceManager.getSkin();
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
