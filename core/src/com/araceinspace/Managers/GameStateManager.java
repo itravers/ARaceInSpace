@@ -36,8 +36,10 @@ public class GameStateManager {
 
     public GAME_STATE popState(){
         GAME_STATE stateBefore = stateStack.pop();
-        GAME_STATE stateNow = stateStack.pop();
-       // if(stateBefore == )
+        GAME_STATE stateNow;
+
+        stateNow = stateStack.pop();
+
         return stateNow;
     }
 
@@ -54,6 +56,19 @@ public class GameStateManager {
         parent.renderManager.disposeScreen();
         parent.renderManager.loadScreen(state);
         stateStack.push(state);
+    }
+
+    /**
+     * Returns true if we are currently on the first state.
+     * We use this so we can tell if we should ignore back button input or not
+     * @return
+     */
+    public boolean firstState(){
+        boolean returnVal = false;
+        if(stateStack.size() == 1){
+            returnVal = true;
+        }
+        return returnVal;
     }
 
 
