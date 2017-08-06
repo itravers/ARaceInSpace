@@ -76,7 +76,7 @@ public class LEADERBOARDScreen extends Screen{
         skin = parent.parent.resourceManager.getSkin();
         stage = new Stage(viewport, batch);
 
-        parent.setupInfoDialog(skin, stage, this);
+        parent.parent.dialogManager.setupInfoDialog(skin, stage, this);
 
 
         JsonReader json = new JsonReader();
@@ -157,8 +157,8 @@ public class LEADERBOARDScreen extends Screen{
                 levelClicked = level;
                 parent.coinsToSpend = 10;
                 parent.placeClicked = RenderManager.PLACES.first;
-                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
-                parent.purchaseDialog.show(stage);
+                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 
         };
@@ -168,8 +168,8 @@ public class LEADERBOARDScreen extends Screen{
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         if(jsonFromServer == null){
-            parent.infoDialog.getTitleLabel().setText("Can't Connect to LeaderBoard");
-            parent.infoDialog.show(stage);//if can't connect to leaderboard, show dialog after everything else has been printed
+            parent.parent.dialogManager.infoDialog.getTitleLabel().setText("Can't Connect to LeaderBoard");
+            parent.parent.dialogManager.infoDialog.show(stage);//if can't connect to leaderboard, show dialog after everything else has been printed
         }
 
         monetizationController.showBannerAd();

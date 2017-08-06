@@ -134,7 +134,7 @@ public class MENUScreen extends Screen {
         changeNameButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-               parent.nameDialog.show(stage);
+                parent.parent.dialogManager.nameDialog.show(stage);
             }
 
         };
@@ -343,7 +343,7 @@ public class MENUScreen extends Screen {
         setupSliders();
         setupTables();
 
-        parent.setupNameDialog(skin, stage, this);
+        parent.parent.dialogManager.setupNameDialog(skin, stage, this);
 
         //stage.addActor(mainTable);
         parent.parent.inputManager.addInputProcessor(stage);

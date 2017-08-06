@@ -154,17 +154,17 @@ public class SCOREScreen extends Screen{
                 String submitVal = parent.parent.httpManager.submitScore(level, place, name, playerTime);
 
                 if(submitVal == null){
-                    parent.infoDialog.getTitleLabel().setText("Couldn't Connect To Backend Server");
-                    parent.infoDialog.show(stage);
+                    parent.parent.dialogManager.infoDialog.getTitleLabel().setText("Couldn't Connect To Backend Server");
+                    parent.parent.dialogManager.infoDialog.show(stage);
                 }else if(submitVal.startsWith("success")){
                     String id = submitVal.replace("success:", "");
                     parent.parent.httpManager.submitGhostReplay(parent.parent.levelManager.getGhostReplay(), id, level, place, name, playerTime);
-                    parent.infoDialog.getTitleLabel().setText("Success!");
-                    parent.infoDialog.show(stage);
+                    parent.parent.dialogManager.infoDialog.getTitleLabel().setText("Success!");
+                    parent.parent.dialogManager.infoDialog.show(stage);
                     submitGhostButton.setVisible(false);
                 }else if(submitVal.equals("Not Fast Enough")){
-                    parent.infoDialog.getTitleLabel().setText("You weren't fast enough to place " + challenger + " in Leaderboards!");
-                    parent.infoDialog.show(stage);
+                    parent.parent.dialogManager.infoDialog.getTitleLabel().setText("You weren't fast enough to place " + challenger + " in Leaderboards!");
+                    parent.parent.dialogManager.infoDialog.show(stage);
                     submitGhostButton.setVisible(false);
                 }
                 //System.out.println(submitVal);
@@ -193,8 +193,8 @@ public class SCOREScreen extends Screen{
                     parent.parent.levelManager.setChallenge(parent.parent.levelManager.getCurrentChallenge());
                     parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
                 }else{//fir first second and third place challenges
-                    parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
-                    parent.purchaseDialog.show(stage);
+                    parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                    parent.parent.dialogManager.purchaseDialog.show(stage);
                 }
             }
 
@@ -211,7 +211,7 @@ public class SCOREScreen extends Screen{
        // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
        // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
-        parent.setupInfoDialog(skin, stage, this);
+        parent.parent.dialogManager.setupInfoDialog(skin, stage, this);
 
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
