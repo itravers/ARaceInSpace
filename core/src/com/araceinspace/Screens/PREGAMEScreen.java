@@ -84,7 +84,7 @@ public class PREGAMEScreen extends Screen{
         //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
         stage = new Stage(viewport, batch);
-        parent.setupDialogs(skin, stage, this);
+        parent.parent.dialogManager.setupDialogs(skin, stage, this);
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -146,8 +146,8 @@ public class PREGAMEScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.first;
                 parent.coinsToSpend = 10;
-                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
-                parent.purchaseDialog.show(stage);
+                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.show(stage);
             }
         };
         secondPlaceListener = new ClickListener(){
@@ -155,8 +155,8 @@ public class PREGAMEScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.second;
                 parent.coinsToSpend = 9;
-                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
-                parent.purchaseDialog.show(stage);
+                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 
         };
@@ -165,8 +165,8 @@ public class PREGAMEScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.third;
                 parent.coinsToSpend = 8;
-                parent.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
-                parent.purchaseDialog.show(stage);
+                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 
         };
@@ -182,9 +182,9 @@ public class PREGAMEScreen extends Screen{
 
                 if(ghostJSON == null || ghostJSON.startsWith("error:")){
                     if(ghostJSON == null)ghostJSON = "Error: Problem Connecting to Server";
-                    parent.setupInfoDialog(skin, stage, me);
-                    parent.infoDialog.getTitleLabel().setText(ghostJSON);
-                    parent.infoDialog.show(stage);
+                    parent.parent.dialogManager.setupInfoDialog(skin, stage, me);
+                    parent.parent.dialogManager.infoDialog.getTitleLabel().setText(ghostJSON);
+                    parent.parent.dialogManager.infoDialog.show(stage);
                 }else{
                     //System.out.println(ghostJSON);
                     JsonReader jsonReader = new JsonReader();
@@ -204,8 +204,8 @@ public class PREGAMEScreen extends Screen{
                      * the level will be loaded.
                      */
                     if(ghostLevel != level){
-                        parent.setupLoadingLevelDialog(skin, stage, me, ghostLevel, jsonOfGhost);
-                        parent.levelLoadingDialog.show(stage); //set level, setup ghost, and change game state will be done in dialog callback
+                        parent.parent.dialogManager.setupLoadingLevelDialog(skin, stage, me, ghostLevel, jsonOfGhost);
+                        parent.parent.dialogManager.levelLoadingDialog.show(stage); //set level, setup ghost, and change game state will be done in dialog callback
                     }else{
                         parent.parent.levelManager.setupGhostFromJson(jsonOfGhost);
                         parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level

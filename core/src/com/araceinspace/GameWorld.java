@@ -1,6 +1,7 @@
 package com.araceinspace;
 
 import com.araceinspace.InputSubSystem.InputManager;
+import com.araceinspace.Managers.DialogManager;
 import com.araceinspace.Managers.ResourceManager;
 import com.araceinspace.Managers.ContactListenerManager;
 import com.araceinspace.Managers.GameStateManager;
@@ -31,6 +32,7 @@ public class GameWorld {
     public GameStateManager gameStateManager;
     public ResourceManager resourceManager; //Must be constructed before renderManager
     public RenderManager renderManager;
+    public DialogManager dialogManager;
     public LevelManager levelManager;
     public ContactListenerManager contactListenerManager;
     public InputManager inputManager;
@@ -86,6 +88,7 @@ public class GameWorld {
 
         levelManager = new LevelManager(this);
         renderManager = new RenderManager(this);
+        dialogManager = new DialogManager(this);
         gameStateManager = new GameStateManager(this);//must come after rendermanager
 
         soundManager = new SoundManager(this);
