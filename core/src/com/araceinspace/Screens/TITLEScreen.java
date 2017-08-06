@@ -70,7 +70,7 @@ public class TITLEScreen extends Screen implements EventSender {
 
     @Override
     public void dispose() {
-        skin.dispose();
+       // skin.dispose();
         stage.dispose();;
         batch.dispose();
         backgroundBatch.dispose();
@@ -151,8 +151,9 @@ public class TITLEScreen extends Screen implements EventSender {
     }
 
     private void setupSkin(){
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        //TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        skin = parent.parent.resourceManager.getSkin();
     }
 
     private void setupLabels(){

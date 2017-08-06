@@ -60,7 +60,7 @@ public class LEADERBOARDScreen extends Screen{
     public void dispose() {
         stage.dispose();
         batch.dispose();
-        skin.dispose();
+      //  skin.dispose();
     }
 
     @Override
@@ -71,8 +71,9 @@ public class LEADERBOARDScreen extends Screen{
     @Override
     public void setup() {
         System.out.println("Settingup LeaderBoardScreen");
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+       //TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+       // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        skin = parent.parent.resourceManager.getSkin();
         stage = new Stage(viewport, batch);
 
         parent.setupInfoDialog(skin, stage, this);

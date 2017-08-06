@@ -77,8 +77,9 @@ public class MENUScreen extends Screen {
     /* Private Methods */
 
     private void setupSkin(){
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        //TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        skin = parent.parent.resourceManager.getSkin();
     }
 
     private void setupButtons(){
@@ -366,7 +367,7 @@ public class MENUScreen extends Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        skin.dispose();
+      //  skin.dispose();
         batch.dispose();
 
     }

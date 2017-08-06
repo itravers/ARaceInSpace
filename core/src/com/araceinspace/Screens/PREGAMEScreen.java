@@ -80,8 +80,9 @@ public class PREGAMEScreen extends Screen{
     @Override
     public void setup() {
         System.out.println("Settingup PregameScreen");
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        //TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        skin = parent.parent.resourceManager.getSkin();
         stage = new Stage(viewport, batch);
         parent.setupDialogs(skin, stage, this);
         coinButtonListener = new ClickListener(){

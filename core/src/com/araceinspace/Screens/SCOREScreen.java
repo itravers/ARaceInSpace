@@ -65,7 +65,7 @@ public class SCOREScreen extends Screen{
     public void dispose() {
         stage.dispose();
         batch.dispose();
-        skin.dispose();
+       // skin.dispose();
     }
 
     @Override
@@ -208,8 +208,9 @@ public class SCOREScreen extends Screen{
 
         };
 
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+       // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+       // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        skin = parent.parent.resourceManager.getSkin();
         parent.setupInfoDialog(skin, stage, this);
 
         BitmapFont font = skin.getFont("default-font");

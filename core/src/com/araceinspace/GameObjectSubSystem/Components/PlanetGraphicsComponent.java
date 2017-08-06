@@ -35,7 +35,7 @@ public class PlanetGraphicsComponent extends PlayerGraphicsComponent {
         float y = parent.getY() + (getHeight() / 2 ) - h / 2;
         Color oldColor = batch.getColor();
         batch.setColor(1f, .6f, .25f, .25f);
-        batch.draw(parent.parent.parent.animationManager.getGravityWellAtlas().getRegions().first(), x, y, w, h);
+        batch.draw(parent.parent.parent.resourceManager.getGravityWellAtlas().getRegions().first(), x, y, w, h);
         batch.setColor(oldColor);
         super.render(elapsedTime, batch);
     }

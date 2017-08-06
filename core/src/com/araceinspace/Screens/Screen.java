@@ -29,7 +29,7 @@ public abstract class Screen {
 
     public Screen(RenderManager parent){
         this.parent = parent;
-        this.monetizationController = parent.monetizationController;
+        if(parent != null) this.monetizationController = parent.monetizationController;
         camera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         viewport = new ScreenViewport(camera);
         batch = new SpriteBatch();

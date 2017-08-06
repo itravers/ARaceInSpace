@@ -273,6 +273,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 		background: default-slider
 		knob: default-slider-knob
 	}
+	progress-bar: {
+		background: blank
+		knobBefore: slider_before_knob
+		knobAfter: slider-after-knob
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 	default-horizontal: {
