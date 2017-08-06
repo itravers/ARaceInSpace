@@ -5,6 +5,7 @@ import com.araceinspace.Screens.LEADERBOARDScreen;
 import com.araceinspace.Screens.SCOREScreen;
 import com.araceinspace.Screens.Screen;
 import com.araceinspace.misc.RandomString;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
@@ -106,6 +107,7 @@ public class DialogManager {
                 System.out.println("Name is set to: " + parent.playerName);
                 parent.prefs.putString("com.araceinspace.playerName", name);
                 parent.prefs.flush();
+                Gdx.input.setOnscreenKeyboardVisible(false);
             }
         };
         // nameDialog.add(textArea);

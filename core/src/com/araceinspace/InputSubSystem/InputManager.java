@@ -146,7 +146,13 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
             input = GameInput.JUMP_PRESSED;
         }else if(keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
             System.out.println("KeyDown: " + keycode);
-            parent.gameStateManager.setCurrentState(parent.gameStateManager.popState());
+            /**
+             * Ignore back button if there is only 1 state in the gameState Stack
+             */
+            if(!parent.gameStateManager.firstState()){
+                parent.gameStateManager.setCurrentState(parent.gameStateManager.popState());
+            }
+
 
         }
         sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", input));

@@ -3,6 +3,7 @@
     package="com.araceinspace.isaac.game"
     android:versionCode="9"
     android:versionName="0.0.6"
+    android:installLocation="auto"
     android:hardwareAccelerated="true">
     <!--android:debuggable="true"--><!-- This line needs to be removed before shipping. -->
 

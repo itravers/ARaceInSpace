@@ -120,9 +120,11 @@ public class MENUScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 if(parent.parent.soundManager.isMusicMuted()){
-                    parent.parent.soundManager.setMusicVolume(.5f);
+                    float volumePref = parent.parent.prefs.getFloat("com.araceinspace.volume", .5f);
+                    parent.parent.soundManager.setMusicVolume(volumePref);
                     musicMuteButton.getLabel().setText("Mute");
                     musicVolumeSlider.setValue(.5f*100);
+
                 }else{
                     parent.parent.soundManager.setMusicVolume(0);
                     musicMuteButton.getLabel().setText("Unmute");
@@ -197,6 +199,9 @@ public class MENUScreen extends Screen {
                 }else{
                     musicMuteButton.getLabel().setText("Mute");
                 }
+
+                parent.parent.prefs.putFloat("com.araceinspace.volume", volume);
+                parent.parent.prefs.flush();
             }
         };
         musicVolumeSlider.addListener(musicVolumeSliderListener);
