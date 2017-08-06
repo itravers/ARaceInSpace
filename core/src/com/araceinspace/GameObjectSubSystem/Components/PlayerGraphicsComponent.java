@@ -1,8 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
-import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
-import com.araceinspace.Managers.AnimationManager;
+import com.araceinspace.Managers.ResourceManager;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -53,53 +52,53 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
 
     public void update(float timeElapsed){
         PlayerState state = ((PlayerStateComponent)parent.getState()).getCurrentState();
-        AnimationManager animationManager = parent.parent.parent.animationManager;
+        ResourceManager resourceManager = parent.parent.parent.resourceManager;
         switch(state){
             case STAND_STILL_FORWARD:
-                setAnimation(animationManager.getStandingStillForwardsAnimation());
+                setAnimation(resourceManager.getStandingStillForwardsAnimation());
                 break;
             case WALK_SLOW:
-                setAnimation(animationManager.getWalkSlowAnimation());
+                setAnimation(resourceManager.getWalkSlowAnimation());
                 break;
             case STAND_STILL_SIDEWAYS:
-                setAnimation(animationManager.getStandingStillSidewaysAnimation());
+                setAnimation(resourceManager.getStandingStillSidewaysAnimation());
                 break;
             case WAVE:
-                setAnimation(animationManager.getWaveAnimation());
+                setAnimation(resourceManager.getWaveAnimation());
                 break;
             case JUMP_FORWARD:
-                setAnimation(animationManager.getJumpForwardAnimation());
+                setAnimation(resourceManager.getJumpForwardAnimation());
                 break;
             case FLYING:
                 if(!parent.getInput().upPressed){
-                    setAnimation(animationManager.getFlyingNoThrustAnimation());
+                    setAnimation(resourceManager.getFlyingNoThrustAnimation());
                 }else{
-                    setAnimation(animationManager.getFlyingAnimation());
+                    setAnimation(resourceManager.getFlyingAnimation());
                 }
                 break;
             case LAND_FORWARD:
-                setAnimation(animationManager.getLandForwardAnimation());
+                setAnimation(resourceManager.getLandForwardAnimation());
                 break;
             case FLOAT_SIDEWAYS:
-                setAnimation(animationManager.getFloatSidewaysAnimation());
+                setAnimation(resourceManager.getFloatSidewaysAnimation());
                 break;
             case LAND_SIDEWAYS:
-                setAnimation(animationManager.getLandSidewaysAnimation());
+                setAnimation(resourceManager.getLandSidewaysAnimation());
                 break;
             case WALK_FAST:
-                setAnimation(animationManager.getWalkFastAnimation());
+                setAnimation(resourceManager.getWalkFastAnimation());
                 break;
             case RUN_SLOW:
-                setAnimation(animationManager.getRunSlowAnimation());
+                setAnimation(resourceManager.getRunSlowAnimation());
                 break;
             case RUN_FAST:
-                setAnimation(animationManager.getRunFastAnimation());
+                setAnimation(resourceManager.getRunFastAnimation());
                 break;
             case JUMP_SIDEWAYS:
-                setAnimation(animationManager.getJumpSidewaysAnimation());
+                setAnimation(resourceManager.getJumpSidewaysAnimation());
                 break;
             case EXPLODING:
-                setAnimation(animationManager.getExploadingAnimation());
+                setAnimation(resourceManager.getExploadingAnimation());
         }
     }
 

@@ -3,6 +3,7 @@ package com.araceinspace.Managers;
 import com.araceinspace.GameWorld;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 
@@ -10,11 +11,13 @@ import com.badlogic.gdx.utils.Array;
  * Created by Isaac Assegai on 7/11/17.
  * Keeps track of all the sprite animations and data
  */
-public class AnimationManager {
+public class ResourceManager {
     /* Static Variables */
 
     /* Field Variables & Objects */
     GameWorld parent;
+    AssetManager assetManager;
+    public boolean loadingAssets;
 
     //Player Sprite Animation Data
 
@@ -85,14 +88,45 @@ public class AnimationManager {
     private TextureAtlas gravityWellAtlas = null;
 
     /* Constructors */
-    public AnimationManager(GameWorld p){
-        System.out.println("Animation Constructor");
+    public ResourceManager(GameWorld p){
+        System.out.println("ResourceManager Constructor");
         parent = p;
+        assetManager = new AssetManager();
+        loadAssets();
         //setupAnimations();
-        setupPlanets();
+
     }
 
+    public void update(){
+       if(assetManager.update()){
+           //done loading assets
+           System.out.println("Done loading assets");
+           parent.initializeManagers();
+           loadingAssets = false;
+           setupPlanets();
+       }
+
+        float progress = assetManager.getProgress();
+        System.out.println("AssetLoading Progress : " + progress);
+    }
+
+
+
     /* Private Methods */
+
+    private void loadAssets(){
+        loadingAssets = true;
+        assetManager.load("data/Planets.pack", TextureAtlas.class);
+    }
+
+    /**
+     * Sets the planets atlas
+     */
+    private void setupPlanets(){
+        planetAtlas = new TextureAtlas((Gdx.files.internal("data/Planets.pack")));
+        //planetAtlas = assetManager.get("data/Planets.pack", TextureAtlas.class);
+        gravityWellAtlas = new TextureAtlas(Gdx.files.internal("data/gravity_Well.txt"));
+    }
 
     private void setupExplosionAnimation(){
         Array<TextureAtlas.AtlasRegion> explosionRegion = heroAtlas.findRegions("explosion/explosion");
@@ -240,13 +274,7 @@ public class AnimationManager {
         flyingAnimation = new Animation(1/30f, flyingRegion);
     }
 
-    /**
-     * Sets the planets atlas
-     */
-    private void setupPlanets(){
-        planetAtlas = new TextureAtlas((Gdx.files.internal("data/Planets.pack")));
-        gravityWellAtlas = new TextureAtlas(Gdx.files.internal("data/gravity_Well.txt"));
-    }
+
 
     /* Public Methods */
 

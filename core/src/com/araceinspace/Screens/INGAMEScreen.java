@@ -17,9 +17,7 @@ import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,7 +26,6 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -37,9 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -291,19 +286,19 @@ public class INGAMEScreen extends Screen implements EventSender{
         stage.addActor(touchPad);
         stage.addActor(boostButton);
 
-        Array<TextureAtlas.AtlasRegion> ghostIndicatorOutlineRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_empty");
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorOutlineRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_empty");
         velocityIndicatorOutlineTexture = ghostIndicatorOutlineRegion.get(0);
         velocityIndicatorOutline = new Image(velocityIndicatorOutlineTexture);
        // ghostIndicatorOutline.setPosition((viewport.getScreenWidth()/2)-ghostIndicatorOutline.getWidth()/2, viewport.getScreenHeight()-ghostIndicatorOutline.getHeight());
         velocityIndicatorOutline.setPosition(-velocityIndicatorOutline.getWidth()/2,(viewport.getScreenHeight()/2)-velocityIndicatorOutline.getHeight());
 
-        Array<TextureAtlas.AtlasRegion> ghostIndicatorRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill");
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill");
         velocityIndicatorTexture = ghostIndicatorRegion.get(0);
 
-        Array<TextureAtlas.AtlasRegion> ghostIndicatorGreenRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill_green");
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorGreenRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill_green");
         velocityIndicatorGreenTexture = ghostIndicatorGreenRegion.get(0);
 
-        Array<TextureAtlas.AtlasRegion> ghostIndicatorRedRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_red");
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_red");
         velocityIndicatorRedTexture = ghostIndicatorRedRegion.get(0);
 
 
@@ -315,28 +310,28 @@ public class INGAMEScreen extends Screen implements EventSender{
 
 
 
-        Array<TextureAtlas.AtlasRegion> healthMeterEmptyRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
+        Array<TextureAtlas.AtlasRegion> healthMeterEmptyRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
         healthMeterEmpty = healthMeterEmptyRegion.get(0);
         healthMeterEmpty.setRegionWidth(2+viewport.getScreenWidth()/2);
        // healthMeterEmpty
 
-        Array<TextureAtlas.AtlasRegion> healthMeterBlueRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
+        Array<TextureAtlas.AtlasRegion> healthMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
         healthMeterBlue = healthMeterBlueRegion.get(0);
         healthMeterBlue.setRegionWidth(2+viewport.getScreenWidth()/2);
 
-        Array<TextureAtlas.AtlasRegion> healthMeterRedRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
+        Array<TextureAtlas.AtlasRegion> healthMeterRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
         healthMeterRed = healthMeterRedRegion.get(0);
         healthMeterRed.setRegionWidth(2+viewport.getScreenWidth()/2);
 
-        Array<TextureAtlas.AtlasRegion> boostMeterEmptyRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
+        Array<TextureAtlas.AtlasRegion> boostMeterEmptyRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
         boostMeterEmpty = boostMeterEmptyRegion.get(0);
         boostMeterEmpty.flip(true, false);
 
-        Array<TextureAtlas.AtlasRegion> boostMeterBlueRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
+        Array<TextureAtlas.AtlasRegion> boostMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
         boostMeterBlue = boostMeterBlueRegion.get(0);
         boostMeterBlue.flip(true, false);
 
-        Array<TextureAtlas.AtlasRegion> boostMeterRedRegion = parent.parent.animationManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
+        Array<TextureAtlas.AtlasRegion> boostMeterRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
         boostMeterRed = boostMeterRedRegion.get(0);
         boostMeterRed.flip(true, false);
 

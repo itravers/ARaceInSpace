@@ -21,7 +21,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -83,7 +82,7 @@ public class RenderManager {
     private void setupRendering(){
         resetFrameNum();
         monetizationController.loadBannerAd();
-        parent.animationManager.setupAnimations();
+        parent.resourceManager.setupAnimations();
         //setupBackground();
         currentScreen = new TITLEScreen(this);//default screen when game is loaded
         setupScreenSizeDependantItems();//must come after screens are constructed

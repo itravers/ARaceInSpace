@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
 
@@ -80,9 +79,9 @@ public class LevelManager {
                 String extra = item.getExtraInfo();
                 PlayerState state = PlayerState.STAND_STILL_FORWARD;
                 if(extra.equals("flying"))state = PlayerState.FLYING;
-                // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
-                TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
-                Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+                // TextureAtlas atlas = parent.resourceManager.getStandingStillForwardsAtlas();
+                TextureAtlas.AtlasRegion region = parent.resourceManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
+                Animation animation = parent.resourceManager.getStandingStillForwardsAnimation();
                 ghost = new Ghost(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation, actions);
             }
         }
@@ -127,9 +126,9 @@ public class LevelManager {
                 String extra = item.getExtraInfo();
                 PlayerState state = PlayerState.STAND_STILL_FORWARD;
                 if(extra.equals("flying"))state = PlayerState.FLYING;
-                // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
-                TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
-                Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+                // TextureAtlas atlas = parent.resourceManager.getStandingStillForwardsAtlas();
+                TextureAtlas.AtlasRegion region = parent.resourceManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
+                Animation animation = parent.resourceManager.getStandingStillForwardsAnimation();
                 ghost = new Ghost(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation, actions);
             }
         }
@@ -148,8 +147,8 @@ public class LevelManager {
         for(int i = 0; i < levelItems.size(); i++){
             SpriteTemplate item = levelItems.get(i);
             if(item.getType().equals("planet")){
-                TextureAtlas.AtlasRegion region = parent.animationManager.getPlanetAtlas().getRegions().first();
-                Animation animations = parent.animationManager.getPlanetAnimationFromName(item.getAtlas());
+                TextureAtlas.AtlasRegion region = parent.resourceManager.getPlanetAtlas().getRegions().first();
+                Animation animations = parent.resourceManager.getPlanetAnimationFromName(item.getAtlas());
                 Planet p = new Planet(new Vector2(item.getxLoc(), item.getyLoc()), region, animations, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
                 planets.add(p);
             }
@@ -354,8 +353,8 @@ public class LevelManager {
      * Sets up the player to be usable
      */
     public void setupPlayer(){
-        /*TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
-        Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+        /*TextureAtlas atlas = parent.resourceManager.getStandingStillForwardsAtlas();
+        Animation animation = parent.resourceManager.getStandingStillForwardsAnimation();
         player = new Player(this, parent.world, atlas, animation);
        // parent.renderManager.stage.addActor(player);
        */
@@ -371,9 +370,9 @@ public class LevelManager {
                 String extra = item.getExtraInfo();
                 PlayerState state = PlayerState.STAND_STILL_FORWARD;
                 if(extra.equals("flying"))state = PlayerState.FLYING;
-               // TextureAtlas atlas = parent.animationManager.getStandingStillForwardsAtlas();
-                TextureAtlas.AtlasRegion region = parent.animationManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
-                Animation animation = parent.animationManager.getStandingStillForwardsAnimation();
+               // TextureAtlas atlas = parent.resourceManager.getStandingStillForwardsAtlas();
+                TextureAtlas.AtlasRegion region = parent.resourceManager.getHeroAtlas().findRegions("StandingStillForward/StandingStillForwar").first();
+                Animation animation = parent.resourceManager.getStandingStillForwardsAnimation();
                 player = new Player(this, state, new Vector2(xLoc, yLoc), parent.world, region, animation);
             }
         }

@@ -1,7 +1,7 @@
 package com.araceinspace;
 
 import com.araceinspace.InputSubSystem.InputManager;
-import com.araceinspace.Managers.AnimationManager;
+import com.araceinspace.Managers.ResourceManager;
 import com.araceinspace.Managers.ContactListenerManager;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.HttpManager;
@@ -27,7 +27,7 @@ public class GameWorld {
     public ApplicationAdapter parent;
     public HttpManager httpManager;
     public GameStateManager gameStateManager;
-    public AnimationManager animationManager; //Must be constructed before renderManager
+    public ResourceManager resourceManager; //Must be constructed before renderManager
     public RenderManager renderManager;
     public LevelManager levelManager;
     public ContactListenerManager contactListenerManager;
@@ -52,20 +52,14 @@ public class GameWorld {
         ghostTimer = prefs.getFloat("com.araceinspace.ghostTimer", GHOST_TIMER_LIMIT);
         playerName = prefs.getString("com.araceinspace.playerName", null);
         coins = prefs.getInteger("com.araceinspace.coins");
-        httpManager = new HttpManager();
-        contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
-        setupPhysics();
-        inputManager = new InputManager(this);
 
+        /**
+         * When resourceManager is done loading assets, it will call the
+         * initialzeManagers method, which will initialize all the other managers
+         * for the game
+         */
+        resourceManager = new ResourceManager(this);
 
-        animationManager = new AnimationManager(this);//must before level manager & before rendermanager
-        levelManager = new LevelManager(this);
-        renderManager = new RenderManager(this);
-        gameStateManager = new GameStateManager(this);//must come after rendermanager
-
-        soundManager = new SoundManager(this);
-
-        elapsedTime = 0;
     }
 
     /* Private Methods */
@@ -77,11 +71,32 @@ public class GameWorld {
 
     /* Public Methods */
 
+    public void initializeManagers(){
+        httpManager = new HttpManager();
+        contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
+        setupPhysics();
+        inputManager = new InputManager(this);
+
+
+
+        levelManager = new LevelManager(this);
+        renderManager = new RenderManager(this);
+        gameStateManager = new GameStateManager(this);//must come after rendermanager
+
+        soundManager = new SoundManager(this);
+
+        elapsedTime = 0;
+    }
+
     private void resetPhysics(){
         setupPhysics();
     }
 
     public void update(){
+        if(resourceManager.loadingAssets){
+            resourceManager.update();
+            return;
+        }
         float delta = Gdx.graphics.getDeltaTime();
         //System.out.println("deltaTime: " + delta);
 
