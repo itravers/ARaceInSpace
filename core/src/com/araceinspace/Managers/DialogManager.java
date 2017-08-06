@@ -94,7 +94,7 @@ public class DialogManager {
 
     public void setupNameDialog(Skin skin, Stage stage, Screen screen){
         final TextArea textArea = new TextArea("", skin);
-        textArea.setMaxLength(9);
+        textArea.setMaxLength(8);
         ImageTextButton submitButton = new ImageTextButton("Submit", skin);
         final RandomString randomString = new RandomString(4);
         nameDialog = new Dialog("What Is Your Name?", skin, "dialog"){
