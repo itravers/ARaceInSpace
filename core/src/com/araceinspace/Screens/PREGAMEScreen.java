@@ -23,6 +23,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.Timer;
 
 import java.util.ArrayList;
@@ -181,8 +186,28 @@ public class PREGAMEScreen extends Screen{
                     parent.infoDialog.show(stage);
                 }else{
                     //System.out.println(ghostJSON);
-                    parent.parent.levelManager.setupGhostFromJson(ghostJSON);
-                    parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+                    JsonReader jsonReader = new JsonReader();
+
+                    JsonValue jsonValue  =  jsonReader.parse(ghostJSON);
+
+
+                    int ghostLevel = jsonValue.get(0).get("level").asInt();
+                    JsonValue ghost = jsonValue.get(0).get("ghost");
+                    String jsonOfGhost = ghost.toJson(JsonWriter.OutputType.json);
+
+                    /**
+                     * If the level of the ghost doesn't equal the current level we want to load
+                     * level of the ghost instead of the current level.
+                     */
+                    if(ghostLevel != level){
+                        parent.setupLoadingLevelDialog(skin, stage, me, ghostLevel, jsonOfGhost);
+                        parent.levelLoadingDialog.show(stage); //set level, setup ghost, and change game state will be done in dialog callback
+                    }else{
+                        parent.parent.levelManager.setupGhostFromJson(jsonOfGhost);
+                        parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+                    }
+
+
                 }
             }
 

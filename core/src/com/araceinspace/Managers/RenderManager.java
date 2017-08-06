@@ -56,6 +56,7 @@ public class RenderManager {
     public Dialog notEnoughCoinsDialog;
     public Dialog infoDialog;
     public Dialog nameDialog;
+    public Dialog levelLoadingDialog;
 
     public boolean dialogQuestion = false;
    public int coinsToSpend;
@@ -322,10 +323,21 @@ public class RenderManager {
                 parent.prefs.flush();
             }
         };
-
        // nameDialog.add(textArea);
         nameDialog.getContentTable().add(textArea);
         nameDialog.button(submitButton);
+    }
+
+    public void setupLoadingLevelDialog(Skin skin, Stage stage, Screen screen, final int ghostLevel, final String jsonOfGhost){
+        levelLoadingDialog = new Dialog("Loading Level: " + ghostLevel, skin, "dialog"){
+            protected void result(Object object) {
+               parent.levelManager.setLevel(ghostLevel);
+                parent.levelManager.setupGhostFromJson(jsonOfGhost);
+                parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+            }
+        };
+        ImageTextButton okButton = new ImageTextButton("OK...", skin);
+        levelLoadingDialog.button(okButton);
     }
 
 }
