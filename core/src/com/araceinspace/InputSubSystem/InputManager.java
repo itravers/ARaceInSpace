@@ -274,7 +274,7 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
             parent.devMode = !parent.devMode;
             return;
         }else if(level == 7){
-            parent.setCoins(parent.getCoins() + 1);
+            parent.setCoins(parent.getCoins() + 100);
             return;
         }
         parent.levelManager.setLevel(level);
