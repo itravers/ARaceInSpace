@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Tree;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -248,7 +249,10 @@ public class MENUScreen extends Screen {
         levelSectionTable.align(Align.left|Align.top);
         levelSectionTable.add(restartButton).width(width/3.5f).fill().expandX().spaceRight(width/20);
         levelSectionTable.add(exitButton).width(width/3.5f).fill().expandX();
-        Tree.Node levelSectionChild = new Tree.Node(levelSectionTable);
+        Window w = new Window("", skin);
+        w.setMovable(false);
+        w.add(levelSectionTable).width(viewport.getScreenWidth()*.65f);
+        Tree.Node levelSectionChild = new Tree.Node(w);
         levelSectionNode.add(levelSectionChild);
 
         Tree.Node optionsSection = new Tree.Node(new Label("   Options Section", skin, "tree_header"));
@@ -258,7 +262,10 @@ public class MENUScreen extends Screen {
         changeNameButton = new ImageTextButton("Change Name", skin);
         changeNameButton.addListener(changeNameButtonListener);
         optionsSectionTable.add(changeNameButton).width(width/2).fill().expandX();
-        Tree.Node optionSectionChild = new Tree.Node(optionsSectionTable);
+        w = new Window("", skin);
+        w.setMovable(false);
+        w.add(optionsSectionTable).width(viewport.getScreenWidth()*.65f);
+        Tree.Node optionSectionChild = new Tree.Node(w);
         optionsSection.add(optionSectionChild);
 
         Tree.Node soundSelectionNode = new Tree.Node(new Label("    Sound Section", skin, "tree_header"));
@@ -274,7 +281,10 @@ public class MENUScreen extends Screen {
         soundSectionTable.row();
         soundSectionTable.add(sfxVolumeSlider).width(width/2.8f).fill().expandX().spaceRight(width/20);
         soundSectionTable.add(sfxMuteButton).width(width/4.2f).fill().expandX();
-        Tree.Node soundSectionChild = new Tree.Node(soundSectionTable);
+        w = new Window("", skin);
+        w.setMovable(false);
+        w.add(soundSectionTable).width(viewport.getScreenWidth()*.65f);
+        Tree.Node soundSectionChild = new Tree.Node(w);
         soundSelectionNode.add(soundSectionChild);
 
         Tree.Node videoSectionNode = new Tree.Node(new Label("    Video Section", skin, "tree_header"));
@@ -283,9 +293,12 @@ public class MENUScreen extends Screen {
         videoSectionTable.align(Align.left|Align.top);
         videoSectionTable.add(new Label("Resolution", skin, "extra_small"));
         videoSectionTable.row();
-        videoSectionTable.add(selectBox).width(width/2f).fill().expandX().spaceRight(width/20);
+        videoSectionTable.add(selectBox).width(width/2.2f).fill().expandX().spaceRight(width/20);
         videoSectionTable.add( resolutionApplyButton);
-        Tree.Node videoSectionChild = new Tree.Node(videoSectionTable);
+        w = new Window("", skin);
+        w.setMovable(false);
+        w.add(videoSectionTable).width(viewport.getScreenWidth()*.65f);
+        Tree.Node videoSectionChild = new Tree.Node(w);
         videoSectionNode.add(videoSectionChild);
 
         Tree.Node creditsSectionNode = new Tree.Node(new Label("    Credits Section", skin, "tree_header"));
@@ -293,7 +306,10 @@ public class MENUScreen extends Screen {
         creditsSectionTable.setDebug(parent.parent.devMode);
         creditsSectionTable.align(Align.left|Align.top);
         creditsSectionTable.add(creditsButton).width(width/2).fill().expandX();
-        Tree.Node creditsSectionChild = new Tree.Node(creditsSectionTable);
+        w = new Window("", skin);
+        w.setMovable(false);
+        w.add(creditsSectionTable).width(viewport.getScreenWidth()*.65f);
+        Tree.Node creditsSectionChild = new Tree.Node(w);
         creditsSectionNode.add(creditsSectionChild);
 
 
