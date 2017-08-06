@@ -252,9 +252,41 @@ public class LevelManager {
                 //getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
                 setChallengeCompleted();
                 parent.setCoins(parent.getCoins() + 5);
+                saveBestTime(playerTime);
             }
         }
         parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
+    }
+
+    /**
+     * Checks the prefs to see if we beat our best time at a bronze, silver, or gold challenge
+     * if we did, we save the new time
+     * @param playerTime
+     */
+    private void saveBestTime(int playerTime){
+        String challengeString = "";
+        switch (currentChallenge){
+            case bronze:
+                challengeString = "bronze";
+                break;
+            case silver:
+                challengeString = "silver";
+                break;
+            case gold:
+                challengeString = "gold";
+                break;
+            case first:
+            case second:
+            case third:
+                return;
+        }
+
+        int previousBest = parent.prefs.getInteger("com.araceinspace.level"+currentLevel+"."+challengeString+".time", 99999999);
+        if(playerTime < previousBest){
+            parent.prefs.putInteger("com.araceinspace.level"+currentLevel+"."+challengeString+".time", playerTime);
+            parent.prefs.flush();
+        }
+
     }
 
     public String getGhostReplay(){

@@ -1,13 +1,19 @@
 package com.araceinspace.Screens;
 
+import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
+import com.araceinspace.GameObjectSubSystem.Ghost;
+import com.araceinspace.GameObjectSubSystem.SpriteTemplate;
+import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.Animation;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -441,15 +447,24 @@ public class PREGAMEScreen extends Screen{
 
         ImageButton starBronze = new ImageButton(skin, "starBronze");
         starBronze.setTouchable(Touchable.disabled);
-        Stack buttonStack1 = makeButtonStack(butWidth, butHeight, "Bronze", bronzeListener, starBronze, "taunt1", "taunt2");
+        int currentLevel = parent.parent.levelManager.getCurrentLevel();
+        String bronzePlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".bronze.time", 99999999));
+        String silverPlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".silver.time", 99999999));
+        String goldPlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".gold.time", 99999999));
+
+        String bronzeGhostTime = msToString(getGhostTime("bronze"));
+        String silverGhostTime = msToString(getGhostTime("silver"));
+        String goldGhostTime   = msToString(getGhostTime("gold"));
+
+        Stack buttonStack1 = makeButtonStack(butWidth, butHeight, "Bronze", bronzeListener, starBronze, bronzeGhostTime, bronzePlayerTime);
 
         ImageButton starSilver = new ImageButton(skin, "starSilver");
         starSilver.setTouchable(Touchable.disabled);
-        Stack buttonStack2 = makeButtonStack(butWidth, butHeight, "Silver", silverListener, starSilver, "52:23", "52:21");
+        Stack buttonStack2 = makeButtonStack(butWidth, butHeight, "Silver", silverListener, starSilver, silverGhostTime, silverPlayerTime);
 
         ImageButton starGold = new ImageButton(skin, "starGold");
         starGold.setTouchable(Touchable.disabled);
-        Stack buttonStack3 = makeButtonStack(butWidth, butHeight, "Gold",  goldListener, starGold, "43:17", "52:17");
+        Stack buttonStack3 = makeButtonStack(butWidth, butHeight, "Gold",  goldListener, starGold, goldGhostTime, goldPlayerTime);
 
         buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
         buttonTable.add(buttonStack2).pad(0).size(butWidth, butHeight).align(Align.top);
@@ -577,5 +592,69 @@ public class PREGAMEScreen extends Screen{
         table.add(bodyTable).fill().expandX();
         stage.addActor(table);
         stageLoaded = true;
+    }
+
+    private String msToString(int playerMS){
+        if(playerMS == 99999999)return "NONE";
+        //Calculate player time min, sec and ms.
+        int time = playerMS;
+        int min = (time / 1000) / 60;
+        time -= (min * 60 * 1000);
+        int sec = time / 1000;
+        time -= (sec * 1000);
+        int ms = time;
+        String playerMin = Integer.toString(min);
+        if(playerMin.length() < 2)playerMin = "0"+playerMin;
+
+        String playerSec = Integer.toString(sec);
+        if(playerSec.length() < 2)playerSec = "0"+playerSec;
+
+        String playerms = Integer.toString(ms);
+        if(playerms.length() < 2)playerms = "0"+playerms;
+
+        return playerMin + ":" +playerSec + ":" + playerms;
+    }
+
+    /*
+    private int getGhostTime(String challengeString){
+        return 99999999;
+    }
+    */
+
+
+    /**
+     * Gets the PLAYTIME string from the ghost json for a given bronze, silver or gold challenge
+     * To do this we need to read the ghost for the current level and challenge,
+     * Make an array with it's actions,
+     * then loop through those actions finding the first action with a PLAYTIME input,
+     * then we output the frameNum of that action, which is our ghosts playtime
+     * @param challengeString
+     * @return
+     */
+    private int getGhostTime(String challengeString){
+        int returnVal = 99999999;
+        ArrayList<Action>actions;
+        ArrayList<SpriteTemplate>levelItems;
+        Json json = new Json();
+        int currentLevel = parent.parent.levelManager.getCurrentLevel();
+        String fileName = "ghosts/level"+currentLevel + "-" + challengeString + "-ghost.json";
+        boolean exists = Gdx.files.internal(fileName).exists();
+        if(!exists){
+            fileName = "ghosts/level"+currentLevel + "-default-ghost.json";
+            exists = Gdx.files.internal(fileName).exists();
+            if(!exists){
+                System.out.println("No ghost for " + fileName + " exists");
+                return returnVal;
+            }
+        }
+        actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.internal(fileName));//read an array list of JsonValues
+
+        for(int i = 0; i < actions.size(); i++){
+            if(actions.get(i).getInput().name().equals("PLAYTIME")){
+                returnVal = actions.get(i).getFrameNum();
+            }
+        }
+
+        return returnVal;
     }
 }
