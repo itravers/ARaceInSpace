@@ -198,6 +198,9 @@ public class PREGAMEScreen extends Screen{
                     /**
                      * If the level of the ghost doesn't equal the current level we want to load
                      * level of the ghost instead of the current level.
+                     * If the current level doesn't match, load a dialog letting the player
+                     * know a different level is going to be loaded. When player ok's the dialog
+                     * the level will be loaded.
                      */
                     if(ghostLevel != level){
                         parent.setupLoadingLevelDialog(skin, stage, me, ghostLevel, jsonOfGhost);
