@@ -6,8 +6,11 @@ import com.araceinspace.EventSubSystem.EventReceiver;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
+import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.InputSubSystem.InputRecorder;
+import com.araceinspace.InputSubSystem.KeyAction;
+import com.araceinspace.Managers.RenderManager;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -20,7 +23,7 @@ import com.araceinspace.InputSubSystem.InputRecorder;
 public class PlayerInputComponent extends InputComponent implements EventReceiver{
 
     /* Field Variables & Objects */
-    InputRecorder inputRecorder;
+   // InputRecorder inputRecorder;
 
     PlayerPrototype parent;
 
@@ -39,7 +42,15 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      * @param timeElapsed
      */
     public void update(float timeElapsed) {
-        //TODO write update code
+        int currentFrame = RenderManager.frameNum;
+
+        if(currentFrame % InputRecorder.FRAMES_PER_KEYFRAME == 0){
+           // System.out.println("PlayerInputComponent.update() frame:" + currentFrame);
+            KeyAction keyAction = new KeyAction(currentFrame, null, Action.Type.KEY, parent.getPhysics().getBody().getPosition().cpy(),
+                    parent.getPhysics().getBody().getLinearVelocity().cpy(), parent.getPhysics().getBody().getAngle(), parent.getPhysics().getBody().getAngularVelocity());
+            //System.out.println("Setting position from KeyAction: "+keyAction.getPosition());
+            inputRecorder.record(keyAction);
+        }
     }
 
     public void saveInputs(String fileName, int playTime){

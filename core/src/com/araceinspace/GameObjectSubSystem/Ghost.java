@@ -1,12 +1,14 @@
 package com.araceinspace.GameObjectSubSystem;
 
 import com.araceinspace.GameObjectSubSystem.Components.GhostInputComponent;
+import com.araceinspace.GameObjectSubSystem.Components.GhostPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerStateComponent;
 import com.araceinspace.InputSubSystem.Action;
+import com.araceinspace.InputSubSystem.KeyAction;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -32,11 +34,11 @@ public class Ghost extends PlayerPrototype{
      * Constructor
      * @param animations
      */
-    public Ghost(LevelManager levelManager, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations, ArrayList<Action> actions) {
+    public Ghost(LevelManager levelManager, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations, ArrayList<KeyAction> actions) {
         super(levelManager);
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new GhostInputComponent(this, actions);
-        physics = new PlayerPhysicsComponent(this, world);
+        physics = new GhostPhysicsComponent(this, world);
         state = new PlayerStateComponent(this, firstState);
         boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();
         ((PlayerStateComponent)state).isLanded = onPlanet;
@@ -47,8 +49,8 @@ public class Ghost extends PlayerPrototype{
         return (PlayerGraphicsComponent)graphics;
     }
 
-    public PlayerPhysicsComponent getPhysics(){
-        return (PlayerPhysicsComponent)physics;
+    public GhostPhysicsComponent getPhysics(){
+        return (GhostPhysicsComponent)physics;
     }
 
     public GhostInputComponent getInput(){

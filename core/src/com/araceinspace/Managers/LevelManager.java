@@ -9,6 +9,7 @@ import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.GameObjectSubSystem.SpriteTemplate;
 import com.araceinspace.GameWorld;
 import com.araceinspace.InputSubSystem.Action;
+import com.araceinspace.InputSubSystem.KeyAction;
 import com.araceinspace.misc.Background;
 import com.badlogic.gdx.Gdx;
 import com.araceinspace.misc.Animation;
@@ -58,7 +59,7 @@ public class LevelManager {
 
     public void setupGhostFromJson(String ghostJson){
         System.out.println("SETUPGHOST");
-        ArrayList<Action>actions;
+        ArrayList<KeyAction>actions;
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
 
@@ -91,7 +92,7 @@ public class LevelManager {
 
     private void setupGhost(CHALLENGES currentChallenge){
         System.out.println("SETUPGHOST");
-        ArrayList<Action>actions;
+        ArrayList<KeyAction>actions;
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
         if(currentChallenge == CHALLENGES.first || currentChallenge == CHALLENGES.second || currentChallenge == CHALLENGES.third){

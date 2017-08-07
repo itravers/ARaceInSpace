@@ -2,6 +2,7 @@ package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.InputSubSystem.GameInput;
+import com.araceinspace.InputSubSystem.InputRecorder;
 
 /**
  * Created by Isaac Assegai on 7/10/17.
@@ -33,6 +34,8 @@ public abstract class InputComponent implements Component{
     GameInput currentInput;
     GameInput lastWalkInput =  null;
 
+    InputRecorder inputRecorder;
+
 
     abstract public void update(float timeElapsed);
 
@@ -47,6 +50,15 @@ public abstract class InputComponent implements Component{
             return false;
         }
     }
+
+    public InputRecorder getInputRecorder(){
+        return inputRecorder;
+    }
+
+    abstract public void handleCurrentInput();
+    abstract public boolean thrustPressed();
+    abstract public boolean jumpPressed();
+    abstract public boolean walkInput();
 
 
 }

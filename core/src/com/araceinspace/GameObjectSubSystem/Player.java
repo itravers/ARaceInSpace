@@ -1,5 +1,6 @@
 package com.araceinspace.GameObjectSubSystem;
 
+import com.araceinspace.GameObjectSubSystem.Components.InputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerGraphicsComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerInputComponent;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
@@ -50,6 +51,10 @@ public class Player extends PlayerPrototype{
     public float getPlayTime(){
        float playTime =  (float)Math.round((endTime-startTime) * 1000f) / 1000f; //round to 3 decimal places
         return playTime;
+    }
+
+    public PlayerInputComponent getInput(){
+        return ((PlayerInputComponent) input);
     }
 
 
