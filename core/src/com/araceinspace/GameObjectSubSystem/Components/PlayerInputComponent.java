@@ -58,7 +58,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
      */
     @Override
     public void receiveEvent(Event e) {
-        System.out.println("inputEvent Received: " + e.getData());
+        //System.out.println("inputEvent Received: " + e.getData());
         String id = e.getId();
         Event.TYPE type = e.getType();
         currentInput = (GameInput)e.getData();

@@ -149,7 +149,8 @@ public class LevelManager {
             if(item.getType().equals("planet")){
                 TextureAtlas.AtlasRegion region = parent.resourceManager.getPlanetAtlas().getRegions().first();
                 Animation animations = parent.resourceManager.getPlanetAnimationFromName(item.getAtlas());
-                Planet p = new Planet(new Vector2(item.getxLoc(), item.getyLoc()), region, animations, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
+               // Planet p = new Planet(new Vector2(item.getxLoc(), item.getyLoc()), region, animations, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
+                Planet p = new Planet(new Vector2(item.getxLoc()-item.getSize()/2, item.getyLoc()-item.getSize()/2), region, animations, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
                 planets.add(p);
             }
         }

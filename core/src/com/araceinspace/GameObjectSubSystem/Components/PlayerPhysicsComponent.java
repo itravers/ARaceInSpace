@@ -28,7 +28,7 @@ import java.util.ArrayList;
  */
 public class PlayerPhysicsComponent extends PhysicsComponent{
     /* Static Variables */
-    public static float MAX_VELOCITY = 35f;
+    public static float MAX_VELOCITY = 40f;
     public static float CRASH_VELOCITY;
     public static float MAX_ANGULAR_VELOCITY = 20f;
     public static float LINEAR_DAMPENING = .4f;
@@ -36,7 +36,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public static float GRAVITATIONAL_CONSTANT = .08f;
 
     public static float DENSITY = 0.5f;
-    public static float FRICTION = .5f;
+    public static float FRICTION = .4f;
 
     /* Field Variables & Objects */
     public PlayerPrototype parent;
@@ -57,6 +57,11 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     Vector2 jumpImpulse;
 
     boolean lastOnPlanet; //set to what the last on planet status was, used to see if onPlanet changes.
+
+    /**
+     * Scales the jumpImpulse, gets bigger the faster the player is moving
+     */
+    float jumpScale = 1; //scales the jump impulse, get
 
 
 
@@ -154,7 +159,10 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     }
 
     private void applyMovement(float elapsedTime){
+        PlayerState state = parent.getState().getCurrentState();
         float deltaTime = Gdx.graphics.getDeltaTime();
+        float speed = body.getLinearVelocity().len();
+        jumpScale = 1;
         Vector2 impulse;
         baseImpulse.set(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
         //baseImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(6f);
@@ -169,32 +177,38 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
             impulse = baseImpulse;
         }
 
-        if(parent.getInput().upPressed){
-            body.applyLinearImpulse(impulse, pos, true);
+        /**
+         * Only apply up or down impulses if we are in a flying state
+         */
+
+        if(state == PlayerState.FLYING){
+            if(parent.getInput().upPressed){
+                body.applyLinearImpulse(impulse, pos, true);
+            }
+
+            if(parent.getInput().downPressed){
+                impulse = impulse.rotate(180);
+                body.applyLinearImpulse(impulse, pos, true);
+            }
         }
 
-        if(parent.getInput().downPressed){
-            impulse = impulse.rotate(180);
-            body.applyLinearImpulse(impulse, pos, true);
-        }
+
 
         if(parent.getInput().leftPressed && onPlanet()){
-            body.applyLinearImpulse(impulse.rotate(90).scl(2.5f), pos, true);//side force
-            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/1.8f), pos, true);//downforce
+            body.applyLinearImpulse(impulse.rotate(90).scl(3.5f), pos, true);//side force
+            body.applyLinearImpulse(impulse.rotate(160).limit( speed*.90f), pos, true);//downforce
+            jumpScale = speed;
         }else  if(parent.getInput().leftPressed){
-            body.applyAngularImpulse(3f, true);
+            body.applyAngularImpulse(3.5f, true);
         }
 
         if(parent.getInput().rightPressed && onPlanet()){
-            body.applyLinearImpulse(impulse.rotate(-90).scl(2.5f), pos, true);//sideforce
-            body.applyLinearImpulse(impulse.rotate(180).limit(impulse.len()/1.8f), pos, true);//downforce
+            body.applyLinearImpulse(impulse.rotate(-90).scl(3.5f), pos, true);//sideforce
+            body.applyLinearImpulse(impulse.rotate(200).limit(speed*.90f), pos, true);//downforce
+            jumpScale = speed;
         }else if(parent.getInput().rightPressed){
-            body.applyAngularImpulse(-3f, true);
+            body.applyAngularImpulse(-3.5f, true);
         }
-
-
-
-
     }
 
 
@@ -216,14 +230,6 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         }else{
             returnVal = true;
         }
-/*
-        if(lastOnPlanet != returnVal){
-            //our on planet status has changed, we wan't to check currentInputs to see if there is up/jump input, if there is we want to process inputs again
-            if(currentInput == GameInput.TOUCH_UP || currentInput == GameInput.TOUCH_UP_LEFT || currentInput == GameInput.TOUCH_UP_RIGHT){
-                parent.getInput().handleCurrentInput();
-            }
-        }
-        */
 
         lastOnPlanet = returnVal;
         return returnVal;
@@ -321,7 +327,12 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      * Makes the player have a jump impulse, should only be called after the jump animation is done.
      */
     public void jumpImpulse(){
-        jumpImpulse.set(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
+
+        jumpScale = map(jumpScale, 1, MAX_VELOCITY, 1, 2.5f);
+
+        jumpImpulse.set(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20*jumpScale);
+        System.out.print("JumpImpulse: " + jumpImpulse.len());
+        System.out.println("   JumpScale: " + jumpScale);
        // jumpImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
         //System.out.println("Applying Impulse: " + impulse);
         getBody().applyLinearImpulse(jumpImpulse, getBody().getPosition(), true);
@@ -333,6 +344,10 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
      */
     public Vector2 getGravityForce(){
         return gravityForce;
+    }
+
+    public float map(float x, float in_min, float in_max, float out_min, float out_max) {
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
 }

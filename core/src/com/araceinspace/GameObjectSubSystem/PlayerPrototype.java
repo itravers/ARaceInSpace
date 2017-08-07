@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 public abstract class PlayerPrototype extends TwoDGameObject{
     /* Static Variables */
     public static float BOOST_TOTAL = 10;
-    public static float HEALTH_TOTAL = 1000;
+    public static float HEALTH_TOTAL = 100;
 
     /* Field Variables & Objects */
     public LevelManager parent;

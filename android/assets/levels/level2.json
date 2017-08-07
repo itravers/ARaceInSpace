@@ -4,9 +4,9 @@
     "atlas": "Planet 01",
     "xLoc": 0,
     "yLoc": 0,
-    "mass": 65000,
-    "size": 60,
-    "gravityRadius": 1000,
+    "mass": 2500000,
+    "size": 4000,
+    "gravityRadius": 6000,
     "extraInfo": ""
   },
   {
@@ -22,7 +22,7 @@
     "type": "player",
     "atlas": "shipAtlas",
     "xLoc": 0,
-    "yLoc": 500,
+    "yLoc": 2900,
     "mass": 0,
     "size": 0,
     "extraInfo": "flying"

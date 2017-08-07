@@ -1,0 +1,513 @@
+[
+  {
+    "type": "planet",
+    "atlas": "Planet 02",
+    "xLoc": 0,
+    "yLoc": 0,
+    "mass": 1350000,
+    "size": 4000,
+    "gravityRadius": 5000,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 2000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 6000,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 4000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 6000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 8000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 10000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 10000,
+    "yLoc": 10000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 10000,
+    "yLoc": 8000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": 8000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": 6000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": 4000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": 2000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": 0,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": -2000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": -4000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": -6000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 12000,
+    "yLoc": -8000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 10000,
+    "yLoc": -8000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 10000,
+    "yLoc": -10000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 10000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 8000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 6000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 4000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 2000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 0,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -2000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -4000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -6000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -8000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -10000,
+    "yLoc": -12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -10000,
+    "yLoc": -10000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+  "type": "planet",
+  "atlas": "Moon",
+  "xLoc": -10000,
+  "yLoc": -8000,
+  "mass": 500000,
+  "size": 2000,
+  "gravityRadius": 0,
+  "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": -8000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": -6000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": -4000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": -2000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": 0,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": 2000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": 4000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": 6000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -12000,
+    "yLoc": 8000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -10000,
+    "yLoc": 8000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -10000,
+    "yLoc": 10000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -10000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+
+
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -8000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -6000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -4000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": -2000,
+    "yLoc": 12000,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 6000,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 0,
+    "yLoc": -22000,
+    "mass": 500000,
+    "size": 10000,
+    "gravityRadius": 16000,
+    "extraInfo": ""
+  },
+  {
+    "type": "goal",
+    "atlas": "",
+    "xLoc": 0,
+    "yLoc": 0,
+    "mass": 0,
+    "size": 0,
+    "extraInfo": "48"
+  },
+  {
+    "type": "player",
+    "atlas": "shipAtlas",
+    "xLoc": 0,
+    "yLoc": 2000,
+    "mass": 0,
+    "size": 0,
+    "extraInfo": ""
+  }
+
+]

@@ -52,7 +52,7 @@ public class InputRecorder{
         actions.add(new Action(playTime, GameInput.PLAYTIME));
         Json json = new Json();
         //System.out.println(json.toJson(json.prettyPrint(actions)));
-        FileHandle file = Gdx.files.internal(fileName);
+        FileHandle file = Gdx.files.local(fileName);
         file.writeString(json.toJson(actions, ArrayList.class), false);
     }
 
