@@ -44,12 +44,12 @@ public class InputRecorder{
      * @param input The GameInput to save
      */
     public void record(GameInput input){
-        actions.add(new Action(RenderManager.frameNum, input));
+        actions.add(new Action(RenderManager.frameNum, input, Action.Type.INPUT));
         //TODO need to add keyframe recording, will need access to physics component
     }
 
     public void writeToFile(String fileName, int playTime){
-        actions.add(new Action(playTime, GameInput.PLAYTIME));
+        actions.add(new Action(playTime, GameInput.PLAYTIME, Action.Type.INPUT));
         Json json = new Json();
         //System.out.println(json.toJson(json.prettyPrint(actions)));
         FileHandle file = Gdx.files.local(fileName);
@@ -57,7 +57,7 @@ public class InputRecorder{
     }
 
     public String getReplay(int playTime){
-        actions.add(new Action(playTime, GameInput.PLAYTIME));
+        actions.add(new Action(playTime, GameInput.PLAYTIME, Action.Type.INPUT));
         Json json = new Json(JsonWriter.OutputType.json);
         String jsonString = json.toJson(actions, ArrayList.class);
 

@@ -9,15 +9,19 @@ import com.badlogic.gdx.Game;
  * in a future game. This is why the InputRecorder keeps an array of Actions.
  */
 public class Action {
+    /* Static Variables */
+    public static enum Type {INPUT, KEY}
 
     /* Field Variables */
     private int frameNum;
     private GameInput input;
+    private Type type;
 
     /* Constructor */
-    public Action(int frameNum, GameInput input){
+    public Action(int frameNum, GameInput input, Type type){
         this.frameNum = frameNum;
         this.input = input;
+        this.type = type;
     }
 
     /*
@@ -35,4 +39,6 @@ public class Action {
     public GameInput getInput(){
         return input;
     }
+
+    public Type getType(){ return type; }
 }
