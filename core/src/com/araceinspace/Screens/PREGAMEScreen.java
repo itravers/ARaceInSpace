@@ -4,6 +4,7 @@ import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.Ghost;
 import com.araceinspace.GameObjectSubSystem.SpriteTemplate;
 import com.araceinspace.InputSubSystem.Action;
+import com.araceinspace.InputSubSystem.KeyAction;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
@@ -345,7 +346,7 @@ public class PREGAMEScreen extends Screen{
         float butWidth = width/3.2f;
         float butHeight = height/5f;
 
-        System.out.println("setup portrait    stage w:h " + width + ":" + height);
+       // System.out.println("setup portrait    stage w:h " + width + ":" + height);
         // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
         Table storeTable;
 
@@ -382,7 +383,7 @@ public class PREGAMEScreen extends Screen{
         rewardButton.setDebug(devMode);
         rewardButton.addListener(rewardAdButtonListener);
 
-        System.out.println("density: portrait, " + Gdx.graphics.getDensity());
+        //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("Choose", skin, "Store_Title");
         storeTitleLabel.setDebug(devMode);
         String coins = Integer.toString(parent.parent.getCoins());
@@ -633,7 +634,7 @@ public class PREGAMEScreen extends Screen{
      */
     private int getGhostTime(String challengeString){
         int returnVal = 99999999;
-        ArrayList<Action>actions;
+        ArrayList<KeyAction>actions;
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
         int currentLevel = parent.parent.levelManager.getCurrentLevel();
@@ -647,10 +648,10 @@ public class PREGAMEScreen extends Screen{
                 return returnVal;
             }
         }
-        actions = json.fromJson(ArrayList.class, Action.class, Gdx.files.internal(fileName));//read an array list of JsonValues
+        actions = json.fromJson(ArrayList.class, KeyAction.class, Gdx.files.internal(fileName));//read an array list of JsonValues
 
         for(int i = 0; i < actions.size(); i++){
-            if(actions.get(i).getInput().name().equals("PLAYTIME")){
+            if(actions.get(i).getInput()!= null && actions.get(i).getInput().name().equals("PLAYTIME")){
                 returnVal = actions.get(i).getFrameNum();
             }
         }

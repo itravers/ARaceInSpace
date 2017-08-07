@@ -107,8 +107,8 @@ public abstract class PlayerPrototype extends TwoDGameObject{
         return (PlayerPhysicsComponent)physics;
     }
 
-    public PlayerInputComponent getInput(){
-        return (PlayerInputComponent)input;
+    public InputComponent getInput(){
+        return (InputComponent)input;
     }
 
     public PlayerStateComponent getState(){

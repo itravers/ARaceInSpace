@@ -9,6 +9,7 @@ import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.InputSubSystem.InputRecorder;
+import com.araceinspace.InputSubSystem.KeyAction;
 import com.araceinspace.Managers.RenderManager;
 
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ import java.util.ArrayList;
 public class GhostInputComponent extends PlayerInputComponent implements EventSender{
 
     /* Field Variables & Objects */
-    InputRecorder inputRecorder;
+   // InputRecorder inputRecorder;
     PlayerPrototype parent;
 
     /* Constructors */
-    public GhostInputComponent(PlayerPrototype p, ArrayList<Action>actions){
+    public GhostInputComponent(PlayerPrototype p, ArrayList<KeyAction>actions){
         super(p);
         parent = p;
         inputRecorder = new InputRecorder(actions);
@@ -42,7 +43,8 @@ public class GhostInputComponent extends PlayerInputComponent implements EventSe
      * @param o
      */
     public void update(float timeElapsed) {
-        Action nextAction = inputRecorder.getNextAction(RenderManager.frameNum);
+
+        Action nextAction = inputRecorder.getNextAction(RenderManager.frameNum, Action.Type.INPUT);
         if(nextAction != null){
             GameInput input = nextAction.getInput();
             sendEvent(new Event(Event.TYPE.GHOST_INPUT, "PlayerInput", input));

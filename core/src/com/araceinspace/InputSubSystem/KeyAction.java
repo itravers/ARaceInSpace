@@ -19,17 +19,29 @@ public class KeyAction extends Action{
     private float angle, angularVelocity;
 
     /* Constructors */
-    public KeyAction(int timeStamp, GameInput input, Vector2 position, Vector2 velocity, float angle, float angularVelocity){
-        super(timeStamp, input);
+    public KeyAction(int frame, GameInput input, Type type, Vector2 position, Vector2 velocity, float angle, float angularVelocity){
+        super(frame, input, type);
         this.position = position;
         this.velocity = velocity;
         this.angle = angle;
         this.angularVelocity = angularVelocity;
     }
 
-    public KeyAction(int timeStamp, GameInput input) {
-        super(timeStamp, input);
+    /**
+     * Need a no arg constructor for fromJson
+     */
+    public KeyAction(){
+
     }
+
+   /* public KeyAction(int frameNum, GameInput input, Type type){
+        new KeyAction(frameNum, input, type, null, null, 0, 0);
+    }*/
+
+    /*public KeyAction(int timeStamp, GameInput input, Type type) {
+        super(timeStamp, input, type);
+    }
+    */
 
     /* Methods */
     public Vector2 getPosition(){

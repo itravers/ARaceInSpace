@@ -89,7 +89,7 @@ public class TITLEScreen extends Screen implements EventSender {
         startButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                System.out.println("StartButtonClicked");
+                //System.out.println("StartButtonClicked");
                // parent.parent.levelManager.setLevel(1);
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
             }
@@ -97,14 +97,14 @@ public class TITLEScreen extends Screen implements EventSender {
         leaderboardButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                System.out.println("LeaderBoardButtonClicked");
+                //System.out.println("LeaderBoardButtonClicked");
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEADERBOARDS);
             }
         };
         menuButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                System.out.println("MenuButtonButtonClicked");
+                //System.out.println("MenuButtonButtonClicked");
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
             }
         };

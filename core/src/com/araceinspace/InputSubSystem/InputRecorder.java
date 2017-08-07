@@ -1,5 +1,6 @@
 package com.araceinspace.InputSubSystem;
 
+import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
 import com.araceinspace.Managers.RenderManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -23,17 +24,18 @@ import java.util.ArrayList;
  */
 public class InputRecorder{
     /* Static Variables */
-    static int FRAMES_PER_KEYFRAME = 30;
+    public static int FRAMES_PER_KEYFRAME = 60;
+
 
     /* Field Variables & Objects */
-    ArrayList<Action> actions;
+    ArrayList<KeyAction> actions;
 
     /* Constructor */
     public InputRecorder(){
-        actions = new ArrayList<Action>();
+        actions = new ArrayList<KeyAction>();
     }
 
-    public InputRecorder(ArrayList<Action>a){
+    public InputRecorder(ArrayList<KeyAction>a){
         actions = a;
     }
 
@@ -44,12 +46,21 @@ public class InputRecorder{
      * @param input The GameInput to save
      */
     public void record(GameInput input){
-        actions.add(new Action(RenderManager.frameNum, input));
-        //TODO need to add keyframe recording, will need access to physics component
+        //actions.add(new Action(RenderManager.frameNum, input, Action.Type.INPUT));
+        actions.add(new KeyAction(RenderManager.frameNum, input, Action.Type.INPUT, null, null, 0, 0));
+
+    }
+
+    public void record(KeyAction keyAction){
+        actions.add(keyAction);
+       // System.out.println(this + " Setting position from KeyActiona: "+keyAction.getPosition());
+        //System.out.println(this + " Setting position from KeyActionb: "+actions.get(actions.size()-1).getPosition());
     }
 
     public void writeToFile(String fileName, int playTime){
-        actions.add(new Action(playTime, GameInput.PLAYTIME));
+        KeyAction keyAction = new KeyAction(playTime, GameInput.PLAYTIME, Action.Type.INPUT, null, null , 0, 0);
+       // System.out.println(this + " Setting position from KeyAction: "+keyAction.getPosition());
+        actions.add(keyAction);
         Json json = new Json();
         //System.out.println(json.toJson(json.prettyPrint(actions)));
         FileHandle file = Gdx.files.local(fileName);
@@ -57,7 +68,7 @@ public class InputRecorder{
     }
 
     public String getReplay(int playTime){
-        actions.add(new Action(playTime, GameInput.PLAYTIME));
+        actions.add(new KeyAction(playTime, GameInput.PLAYTIME, Action.Type.INPUT, null, null, 0, 0));
         Json json = new Json(JsonWriter.OutputType.json);
         String jsonString = json.toJson(actions, ArrayList.class);
 
@@ -69,10 +80,10 @@ public class InputRecorder{
      * @param currentFrame the currenet frame num
      * @return Null if no actions recorded under current frame Time, else returns the action.
      */
-    public Action getNextAction(int currentFrame){
-        Action returnVal = null;
+    public KeyAction getNextAction(int currentFrame, Action.Type type){
+        KeyAction returnVal = null;
         for(int i = 0; i < actions.size(); i++){
-            if(actions.get(i).getFrameNum() <= currentFrame && actions.get(i).getInput() != GameInput.PLAYTIME){//we don't process PLAYTIME INPUTS
+            if(actions.get(i).getFrameNum() <= currentFrame && actions.get(i).getType() == type && actions.get(i).getInput() != GameInput.PLAYTIME){//we don't process PLAYTIME INPUTS
                 returnVal =  actions.remove(i);
                 break;
             }

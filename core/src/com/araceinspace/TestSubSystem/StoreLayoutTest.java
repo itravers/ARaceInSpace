@@ -244,7 +244,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         float butHeight = height/3.955f;
 
 
-        System.out.println("setup portrait    stage w:h " + width + ":" + height);
+        //System.out.println("setup portrait    stage w:h " + width + ":" + height);
         // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
         Table storeTable;
 
@@ -280,7 +280,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         rewardButton.addListener(coinButtonListener);
         rewardButton.setDebug(false);
 
-        System.out.println("density: portrait, " + Gdx.graphics.getDensity());
+        //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("STORE", skin, "Store_Title");
         storeTitleLabel.setDebug(false);
         coinLabel = new Label("25", skin, "coinLabel");
@@ -444,7 +444,7 @@ public class StoreLayoutTest  extends ApplicationAdapter {
         rewardButton.setDebug(false);
 
 
-        System.out.println("density: landscape, " + Gdx.graphics.getDensity());
+       // System.out.println("density: landscape, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("STORE", skin, "title");
         storeTitleLabel.setDebug(false);
 

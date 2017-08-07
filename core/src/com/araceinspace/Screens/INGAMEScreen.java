@@ -143,7 +143,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     @Override
     public void setup() {
-        System.out.println("SETUP INGAME SCREEN");
+       // System.out.println("SETUP INGAME SCREEN");
         parent.resetFrameNum();
         monetizationController= parent.monetizationController;
         monetizationController.hideBannerAd();
@@ -253,7 +253,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         rewardButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                System.out.println("Reward Clicked");
+               // System.out.println("Reward Clicked");
 
                 monetizationController.showRewardAd();
                 monetizationController.loadRewardAd();
@@ -263,7 +263,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         menuButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                System.out.println("Menu Clicked");
+               // System.out.println("Menu Clicked");
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
             }
         };

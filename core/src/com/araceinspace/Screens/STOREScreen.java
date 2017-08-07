@@ -199,7 +199,7 @@ public class STOREScreen extends Screen{
         float butHeight = height/3.955f;
 
 
-        System.out.println("setup portrait    stage w:h " + width + ":" + height);
+        //System.out.println("setup portrait    stage w:h " + width + ":" + height);
         // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
         Table storeTable;
 
@@ -237,7 +237,7 @@ public class STOREScreen extends Screen{
         rewardButton.setDebug(false);
         rewardButton.addListener(rewardAdButtonListener);
 
-        System.out.println("density: portrait, " + Gdx.graphics.getDensity());
+       // System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("STORE", skin, "Store_Title");
         storeTitleLabel.setDebug(false);
         String coins = Integer.toString(parent.parent.getCoins());

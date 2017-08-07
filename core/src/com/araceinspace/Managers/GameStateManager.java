@@ -45,8 +45,8 @@ public class GameStateManager {
 
     public void setCurrentState(GAME_STATE state){
         if(getCurrentState() != null){
-            System.out.println(" currentState: " + getCurrentState().name());
-            System.out.println("    nextState: " + state.name());
+          //  System.out.println(" currentState: " + getCurrentState().name());
+           // System.out.println("    nextState: " + state.name());
         }
 
         if(getCurrentState() == GAME_STATE.TITLE_SCREEN || getCurrentState() == GAME_STATE.SCOREBOARD){
