@@ -53,13 +53,13 @@ public class InputRecorder{
 
     public void record(KeyAction keyAction){
         actions.add(keyAction);
-        System.out.println(this + " Setting position from KeyActiona: "+keyAction.getPosition());
-        System.out.println(this + " Setting position from KeyActionb: "+actions.get(actions.size()-1).getPosition());
+       // System.out.println(this + " Setting position from KeyActiona: "+keyAction.getPosition());
+        //System.out.println(this + " Setting position from KeyActionb: "+actions.get(actions.size()-1).getPosition());
     }
 
     public void writeToFile(String fileName, int playTime){
         KeyAction keyAction = new KeyAction(playTime, GameInput.PLAYTIME, Action.Type.INPUT, null, null , 0, 0);
-        System.out.println(this + " Setting position from KeyAction: "+keyAction.getPosition());
+       // System.out.println(this + " Setting position from KeyAction: "+keyAction.getPosition());
         actions.add(keyAction);
         Json json = new Json();
         //System.out.println(json.toJson(json.prettyPrint(actions)));

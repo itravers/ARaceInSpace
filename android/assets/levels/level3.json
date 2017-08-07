@@ -71,8 +71,8 @@
   {
     "type": "player",
     "atlas": "shipAtlas",
-    "xLoc": 500,
-    "yLoc": -4999,
+    "xLoc": 0,
+    "yLoc": -5499,
     "mass": 0,
     "size": 0,
     "extraInfo": ""

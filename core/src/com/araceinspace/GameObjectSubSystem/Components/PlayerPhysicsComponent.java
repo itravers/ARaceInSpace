@@ -331,8 +331,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         jumpScale = map(jumpScale, 1, MAX_VELOCITY, 1, 2.5f);
 
         jumpImpulse.set(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20*jumpScale);
-        System.out.print("JumpImpulse: " + jumpImpulse.len());
-        System.out.println("   JumpScale: " + jumpScale);
+       // System.out.print("JumpImpulse: " + jumpImpulse.len());
+       // System.out.println("   JumpScale: " + jumpScale);
        // jumpImpulse = new Vector2(-(float)Math.sin(body.getAngle()), (float)Math.cos(body.getAngle())).scl(20f);
         //System.out.println("Applying Impulse: " + impulse);
         getBody().applyLinearImpulse(jumpImpulse, getBody().getPosition(), true);
