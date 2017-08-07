@@ -1,0 +1,30 @@
+[
+  {
+    "type": "planet",
+    "atlas": "Planet 01",
+    "xLoc": 0,
+    "yLoc": 0,
+    "mass": 2500000,
+    "size": 4000,
+    "gravityRadius": 6000,
+    "extraInfo": ""
+  },
+  {
+    "type": "goal",
+    "atlas": "",
+    "xLoc": 0,
+    "yLoc": 0,
+    "mass": 0,
+    "size": 50,
+    "extraInfo": "0"
+  },
+  {
+    "type": "player",
+    "atlas": "shipAtlas",
+    "xLoc": 0,
+    "yLoc": 2900,
+    "mass": 0,
+    "size": 0,
+    "extraInfo": "flying"
+  }
+]
