@@ -75,7 +75,7 @@ public class SCOREScreen extends Screen{
 
     @Override
     public void setup() {
-        System.out.println("Settingup storeScreen");
+        System.out.println("Settingup score Screen");
 
         currentChallenge = parent.parent.levelManager.currentChallenge;
         if(currentChallenge == LevelManager.CHALLENGES.first){
@@ -241,7 +241,7 @@ public class SCOREScreen extends Screen{
         float butWidth = width/3.2f;
         float butHeight = height/5f;
 
-        System.out.println("setup portrait    stage w:h " + width + ":" + height);
+        //System.out.println("setup portrait    stage w:h " + width + ":" + height);
         // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
         Table storeTable;
 
@@ -277,7 +277,7 @@ public class SCOREScreen extends Screen{
         rewardButton.setDebug(devMode);
         rewardButton.addListener(rewardAdButtonListener);
 
-        System.out.println("density: portrait, " + Gdx.graphics.getDensity());
+        //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("Score", skin, "Store_Title");
         storeTitleLabel.setDebug(devMode);
 

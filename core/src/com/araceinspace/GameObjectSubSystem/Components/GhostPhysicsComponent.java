@@ -31,7 +31,7 @@ public class GhostPhysicsComponent extends  PlayerPhysicsComponent{
     public void update(float elapsedTime){
         KeyAction nextAction = parent.getInput().inputRecorder.getNextAction(RenderManager.frameNum, Action.Type.KEY);
         if(nextAction != null){
-            System.out.println("type " + nextAction.getType());
+           // System.out.println("type " + nextAction.getType());
             if(nextAction.getType() == Action.Type.KEY){
                // System.out.println("Setting position from KeyAction: "+nextAction.getPosition());
                 parent.getPhysics().getBody().setTransform(nextAction.getPosition(), nextAction.getAngle());

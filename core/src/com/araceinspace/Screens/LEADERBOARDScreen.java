@@ -199,7 +199,7 @@ public class LEADERBOARDScreen extends Screen{
         float butHeight = height/4.5f;
 
 
-        System.out.println("setup portrait    stage w:h " + width + ":" + height);
+        //System.out.println("setup portrait    stage w:h " + width + ":" + height);
         Table storeTable;
 
         //scene2d.ui items
@@ -236,7 +236,7 @@ public class LEADERBOARDScreen extends Screen{
         rewardButton.setDebug(devMode);
         rewardButton.addListener(rewardAdButtonListener);
 
-        System.out.println("density: portrait, " + Gdx.graphics.getDensity());
+        //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel1 = new Label("LEADER", skin, "coinLabel");
         storeTitleLabel1.setDebug(devMode);
         storeTitleLabel2 = new Label("BOARDS", skin, "coinLabel");
