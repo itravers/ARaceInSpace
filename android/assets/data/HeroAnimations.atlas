@@ -1667,51 +1667,79 @@ filter: Nearest,Nearest
 repeat: none
 GhostIndicator/ghostIndicator_empty
   rotate: false
-  xy: 2, 2
+  xy: 2, 16
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_fill
   rotate: false
-  xy: 204, 2
+  xy: 204, 16
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_fill_green
   rotate: false
-  xy: 409, 64
+  xy: 409, 78
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_red
   rotate: false
-  xy: 611, 64
+  xy: 611, 78
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/healthMeter_blue
   rotate: false
-  xy: 2, 175
+  xy: 2, 189
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/healthMeter_empty
   rotate: false
-  xy: 2, 113
+  xy: 2, 127
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/healthMeter_red
   rotate: false
-  xy: 409, 175
+  xy: 409, 189
   size: 405, 60
   orig: 405, 60
+  offset: 0, 0
+  index: -1
+GhostIndicator/indicator-green
+  rotate: false
+  xy: 816, 165
+  size: 168, 84
+  orig: 168, 84
+  offset: 0, 0
+  index: -1
+GhostIndicator/indicator-red
+  rotate: false
+  xy: 813, 68
+  size: 168, 95
+  orig: 168, 95
+  offset: 0, 0
+  index: -1
+GhostIndicator/indicator-white
+  rotate: false
+  xy: 406, 2
+  size: 168, 74
+  orig: 168, 74
+  offset: 0, 0
+  index: -1
+GhostIndicator/indicator-yellow
+  rotate: false
+  xy: 576, 13
+  size: 168, 63
+  orig: 168, 63
   offset: 0, 0
   index: -1
 

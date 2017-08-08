@@ -77,41 +77,38 @@ public class INGAMEScreen extends Screen implements EventSender{
     private TextureRegion healthMeterBlue;
     private TextureRegion healthMeterRed;
 
+
     private TextureRegion boostMeterEmpty;
     private TextureRegion boostMeterBlue;
     private TextureRegion boostMeterRed;
+
+    private TextureRegion dirIndicatorRed;
+    private TextureRegion dirIndicatorGreen;
+    private TextureRegion dirIndicatorWhite;
+    private TextureRegion dirIndicatorYellow;
+
 
     private SpriteBatch healthBatch;
     Rectangle velocityClip;
     Rectangle healthClip;
     Rectangle boostClip;
+    Rectangle indicatorClip;
     Rectangle scissors;
 
     //Vectors
-    Vector2 renderVelStartPos;
-    Vector2 renderVelGoalPos;
-    Vector2 renderVelEndLine;
-    Vector2 renderVelPerpLine1;
-    Vector2 renderVelPerpLine2;
     Vector2 gravityVector;
-    Vector2 renderGravityStartPos;
-    Vector2  renderGravityGoalPos;
-    Vector2 renderGravityEndLine;
-    Vector2 renderGravityPerpLine1;
-    Vector2 renderGravityPerpLine2;
-    Vector2 renderNearestStartPos;
-    Vector2 renderNearestGoalPos;
-    Vector2 renderGoalStartPos;
-    Vector2 renderGoalGoalPos;
     Vector2 renderGoalMiddleOfGoal;
-    Vector2 renderGoalEndLine;
-    Vector2 renderGoalPerpLine1;
-    Vector2 renderGoalPerpLine2;
     Vector2 tmp;
-    Vector2 renderNearestMiddleOfGoal;
-    Vector2 renderNearestEndLine;
-    Vector2 renderNearestPerpLine1;
-    Vector2  renderNearestPerpLine2;
+    Vector2 tmp2;
+    Vector2 O1;
+    Vector2 O2;
+    Vector2 O3;
+    Vector2 L1;
+    Vector2 L2;
+    Vector2 L3;
+    Vector2 L4;
+    Vector2 O;
+    Vector2 G;
 
     MonetizationController monetizationController;
 
@@ -174,6 +171,7 @@ public class INGAMEScreen extends Screen implements EventSender{
     /* Private Methods */
 
     private void setupVectors(){
+        /*
         renderVelStartPos = new Vector2();
         renderVelGoalPos = new Vector2();
         renderVelEndLine = new Vector2();
@@ -188,7 +186,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         renderNearestGoalPos = new Vector2();
         renderGoalStartPos = new Vector2();
         renderGoalGoalPos = new Vector2();
-        renderGoalMiddleOfGoal = new Vector2();
+
         renderGoalEndLine = new Vector2();
         renderGoalPerpLine1  = new Vector2();
         renderGoalPerpLine2 = new Vector2();
@@ -196,7 +194,19 @@ public class INGAMEScreen extends Screen implements EventSender{
         renderNearestEndLine = new Vector2();
         renderNearestPerpLine1 = new Vector2();
         renderNearestPerpLine2 = new Vector2();
+        */
+        renderGoalMiddleOfGoal = new Vector2();
         tmp = new Vector2();
+        tmp2 = new Vector2();
+        O1 = new Vector2();
+        O2 = new Vector2();
+        O3 = new Vector2();
+        L1 = new Vector2();
+        L2 = new Vector2();
+        L3 = new Vector2();
+        L4 = new Vector2();
+        O = new Vector2();
+        G = new Vector2();
     }
 
     private void setupStage(){
@@ -287,8 +297,21 @@ public class INGAMEScreen extends Screen implements EventSender{
         stage.addActor(touchPad);
         stage.addActor(boostButton);
 
+        Array<TextureAtlas.AtlasRegion> dirIndicatorRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-red");
+        dirIndicatorRed = dirIndicatorRedRegion.get(0);
+
+        Array<TextureAtlas.AtlasRegion> dirIndicatorGreenRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-green");
+        dirIndicatorGreen = dirIndicatorGreenRegion.get(0);
+
+        Array<TextureAtlas.AtlasRegion> dirIndicatorWhiteRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-white");
+        dirIndicatorWhite = dirIndicatorWhiteRegion.get(0);
+
+        Array<TextureAtlas.AtlasRegion> dirIndicatorYellowRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-yellow");
+        dirIndicatorYellow = dirIndicatorYellowRegion.get(0);
+
         Array<TextureAtlas.AtlasRegion> ghostIndicatorOutlineRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_empty");
         velocityIndicatorOutlineTexture = ghostIndicatorOutlineRegion.get(0);
+
         velocityIndicatorOutline = new Image(velocityIndicatorOutlineTexture);
        // ghostIndicatorOutline.setPosition((viewport.getScreenWidth()/2)-ghostIndicatorOutline.getWidth()/2, viewport.getScreenHeight()-ghostIndicatorOutline.getHeight());
         velocityIndicatorOutline.setPosition(-velocityIndicatorOutline.getWidth()/2,(viewport.getScreenHeight()/2)-velocityIndicatorOutline.getHeight());
@@ -309,11 +332,13 @@ public class INGAMEScreen extends Screen implements EventSender{
         float gclipY = viewport.getScreenHeight()-gclipHeight;
         velocityClip = new Rectangle(gclipX,gclipY, gclipWidth, gclipHeight);
 
+        indicatorClip = new Rectangle();
 
 
         Array<TextureAtlas.AtlasRegion> healthMeterEmptyRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
         healthMeterEmpty = healthMeterEmptyRegion.get(0);
         healthMeterEmpty.setRegionWidth(2+viewport.getScreenWidth()/2);
+
        // healthMeterEmpty
 
         Array<TextureAtlas.AtlasRegion> healthMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
@@ -402,12 +427,49 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         batch.end();
 
-        renderGoal(timeElapsed, batch);
-        renderGravityIndicator(batch);
-        renderVelocityIndicator(batch);
-        renderNearestPlanetIndicator(batch);
+        //renderGoal(timeElapsed, batch);
+        //renderGravityIndicator(batch);
+        //renderVelocityIndicator(batch);
+        //renderNearestPlanetIndicator(batch);
         //stage.act(timeElapsed);
         // stage.draw();
+
+        renderGoal(0, batch);
+
+
+
+        O.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2);
+
+        Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
+        float planetRadius = ((Planet) planet).getGraphics().getWidth();
+        G.set(planet.getX() + planetRadius / 2, planet.getY() + planetRadius / 2);
+        float dist = tmp.set(O).sub(tmp2.set(G)).len2();
+
+        renderIndicator(O, G, batch, dirIndicatorRed, 150, dist);
+
+
+        planet = ((Planet)parent.parent.levelManager.getGoal()); /* This object is our goal. */
+        planetRadius = ((Planet) planet).getGraphics().getWidth();
+        G.set(planet.getX() + planetRadius / 2, planet.getY() + planetRadius / 2);
+        dist = tmp.set(O).sub(tmp2.set(G)).len2();
+        renderIndicator(O, G, batch, dirIndicatorGreen, 152, dist);
+
+        gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
+        tmp.set(gravityVector).setLength(200);
+        G.set(O).add(tmp);
+        dist = gravityVector.len2();
+        if(!G.equals(O))renderIndicator(O, G, batch, dirIndicatorWhite, 141, dist);
+
+        O.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2);
+        Vector2 velocityVector = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity();
+        //System.out.println(velocityVector.len2());
+        tmp.set(velocityVector).setLength(200);
+        G.set(O).add(tmp);
+        dist = velocityVector.len2();
+        if(dist > .15f)renderIndicator(O, G, batch, dirIndicatorYellow, 131, dist);
+
+
+
 
 
 
@@ -544,6 +606,70 @@ public class INGAMEScreen extends Screen implements EventSender{
         shapeRenderer.end();
     }
 
+    private void renderIndicator(Vector2 origin, Vector2 goal, SpriteBatch batch, TextureRegion indicator, float distanceFromOrigin, float magnitude) {
+        if(indicator == dirIndicatorYellow)System.out.println("Magnitude: " + magnitude);
+        float clipWidth =  getBoostMeterWidth();
+        float clipX =  (viewport.getScreenWidth()/2)-clipWidth;
+        float clipHeight = 100;
+        float clipY = viewport.getScreenHeight()-boostMeterEmpty.getRegionHeight();
+        // boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
+        indicatorClip.set(clipX, clipY, clipWidth, clipHeight);
+        //indicatorClip.
+
+        //L1 = G - O
+        tmp.set(origin);
+        L1.set(goal).sub(origin);
+
+        float goalAngle = L1.angle();
+
+        //L2 = LIM(L1, L2.Length) // L2.Length = distanceFromOrigin, we will pass in
+        L2.set(L1).limit(distanceFromOrigin);
+
+        //O1 = O + L2
+        tmp.set(L2);
+        O1.set(origin).add(tmp);
+
+        //L3 = LIM(rot(L2, 90), L3.limit); //L3.limit = dirIndicator.width/2
+        L3.set(L2).rotate(90).limit(indicator.getRegionWidth() / 2);
+
+        //O2 = O1 + L3
+        tmp.set(L3);
+        O2.set(O1).add(tmp);
+
+        //L4 = LIM(rot(L3, 90), L4.length); //L4.length = dirIndicator.height
+        L4.set(L3).rotate(90).limit(indicator.getRegionHeight());
+
+        //O3 = O2 + L4
+        tmp.set(L4);
+        O3.set(O2).add(tmp);
+
+        /*
+
+        if(indicator == dirIndicatorYellow){
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setProjectionMatrix(shapeCamera.combined);
+            shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
+
+            shapeRenderer.setColor(Color.RED);
+            shapeRenderer.rectLine(origin, goal, 1);
+
+            shapeRenderer.setColor(Color.GREEN);
+            shapeRenderer.rectLine(O1, O2, 1);
+            shapeRenderer.end();
+        }
+        */
+        
+        batch.begin();
+        batch.draw(indicator,
+                O3.x, O3.y,
+                0, 0,
+                indicator.getRegionWidth(), indicator.getRegionHeight(),
+                1f, 1f,
+                goalAngle - 90);
+        batch.end();
+    }
+
+    /*
     private void renderVelocityIndicator(SpriteBatch batch){
 
 
@@ -598,7 +724,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.end();
     }
+    */
 
+    /*
     private void renderGravityIndicator(SpriteBatch batch){
         Player p = parent.parent.levelManager.getPlayer();
         gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
@@ -655,8 +783,15 @@ public class INGAMEScreen extends Screen implements EventSender{
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.end();
     }
+    */
+
+
+    /*
 
     private void renderNearestPlanetIndicator(SpriteBatch batch){
+
+
+
 
         Player p = parent.parent.levelManager.getPlayer();
 
@@ -664,28 +799,21 @@ public class INGAMEScreen extends Screen implements EventSender{
         Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
         float goalRadius = ((Planet)planet).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
 
-           // Vector2 renderNearestStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-            //Vector2 renderNearestGoalPos = new Vector2(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
         renderNearestStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
         renderNearestGoalPos.set(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
 
-            //renderNearestPlanetMiddleOfGoal = new Vector2(planet.getX()+(goalRadius/2), planet.getY()+(goalRadius/2));
         renderNearestMiddleOfGoal.set(planet.getX()+(goalRadius/2), planet.getY()+(goalRadius/2));
 
         tmp.set(renderNearestStartPos.x, renderNearestStartPos.y);
         renderNearestEndLine.set(renderNearestMiddleOfGoal.x, renderNearestMiddleOfGoal.y).sub(tmp);
-        //renderNearestEndLine = renderNearestMiddleOfGoal.cpy().sub(renderNearestStartPos); //get difference vector
+        float goalAngle = renderNearestEndLine.angle();
 
         renderNearestPerpLine1.set(renderNearestEndLine.x, renderNearestEndLine.y).rotate(135f);
-        //renderNearestPerpLine1 = renderNearestEndLine.cpy().rotate(135f); //get rotated difference vector
 
         renderNearestPerpLine2.set(renderNearestEndLine.x, renderNearestEndLine.y).rotate(-135f);
-        //renderNearestPerpLine2 = renderNearestEndLine.cpy().rotate(-135f); //get rotated difference vector
 
         tmp.set(renderNearestStartPos.x, renderNearestStartPos.y);
         float distanceToItem = ((tmp.sub(renderNearestGoalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS);
-        //float distanceToItem = (renderNearestStartPos.cpy().sub(renderNearestGoalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
-           // System.out.println("distanceToGoal: " +distanceToItem);
 
             float lineLength = 15f;
 
@@ -721,18 +849,76 @@ public class INGAMEScreen extends Screen implements EventSender{
                 shapeRenderer.rectLine(renderNearestEndLine, renderNearestPerpLine1, 3);
                 shapeRenderer.rectLine(renderNearestEndLine, renderNearestPerpLine2, 3);
 
+
+
                  shapeRenderer.setColor(Color.GREEN);
+
+        Vector2 indicatorOrigin = new Vector2();
+        indicatorOrigin.set(renderNearestMiddleOfGoal).sub(renderNearestEndLine);
+
+        indicatorOrigin.rotate(90);
+
+        indicatorOrigin.limit(dirIndicatorRed.getRegionWidth()/2);
+        indicatorOrigin.add(renderNearestEndLine);
+       // indicatorOrigin.rotate(-90);
+
+
+        shapeRenderer.rectLine(renderNearestEndLine, indicatorOrigin, 3);
+
+        shapeRenderer.circle(renderNearestEndLine.x, renderNearestEndLine.y, 2);
                 shapeRenderer.end();
+
+
+        System.out.println("goalAngle: " + goalAngle);
+
+
+        batch.begin();
+        batch.draw(dirIndicatorRed,
+                indicatorOrigin.x, indicatorOrigin.y,
+                0,0,
+                dirIndicatorRed.getRegionWidth(), dirIndicatorRed.getRegionHeight(),
+                1f, 1f,
+                goalAngle-90);
+        batch.end();
+
+//goalAngle-90
+        //renderNearestEndLine.x-dirIndicatorRed.getRegionWidth()/2, renderNearestEndLine.y-dirIndicatorRed.getRegionHeight(),
 
 
 
     }
+    */
+
 
     private void renderGoal(float elapsedTime, SpriteBatch batch){
-        GameObject g = parent.parent.levelManager.getGoal(); /* This object is our goal. */
+        GameObject g = parent.parent.levelManager.getGoal(); // This object is our goal. /
         Player p = parent.parent.levelManager.getPlayer();
 
+
+
         if(g instanceof Planet){ //D
+            Planet goal = (Planet)g;
+            float goalRadius = ((Planet)goal).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
+            renderGoalMiddleOfGoal.set(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
+            Gdx.gl.glLineWidth(10);
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setProjectionMatrix(camera.combined);
+
+
+            shapeRenderer.setColor(Color.CHARTREUSE);
+
+            shapeRenderer.circle((renderGoalMiddleOfGoal.x), (renderGoalMiddleOfGoal.y), (goalRadius / 2)-8);
+
+            //shapeRenderer.circle((renderGoalMiddleOfGoal.x), (renderGoalMiddleOfGoal.y), (goalRadius / 2) + 10);
+
+
+
+            shapeRenderer.setProjectionMatrix(shapeCamera.combined);
+            shapeRenderer.end();
+            Gdx.gl.glLineWidth(2);
+
+            /*
             Planet goal = (Planet)g;
             float goalRadius = ((Planet)goal).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
 
@@ -781,8 +967,8 @@ public class INGAMEScreen extends Screen implements EventSender{
             //renderGoalPerpLine2 = renderGoalEndLine.cpy().add(renderGoalPerpLine2); // convert back to point
 
 
-            if(g != null){ /* The goal can be null, make sure it isn't here. */
-                //
+            if(g != null){ // The goal can be null, make sure it isn't here. //
+
 
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                 shapeRenderer.setProjectionMatrix(shapeCamera.combined);
@@ -793,6 +979,7 @@ public class INGAMEScreen extends Screen implements EventSender{
                 shapeRenderer.rectLine(renderGoalEndLine, renderGoalPerpLine2, 3);
 
                 shapeRenderer.end();
+
 
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
                 shapeRenderer.setProjectionMatrix(camera.combined);
@@ -808,9 +995,11 @@ public class INGAMEScreen extends Screen implements EventSender{
                 shapeRenderer.setProjectionMatrix(shapeCamera.combined);
                 shapeRenderer.end();
             }
+            */
         }
 
     }
+
 
 
 
