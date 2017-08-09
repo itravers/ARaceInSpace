@@ -25,6 +25,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -103,12 +104,14 @@ public class INGAMEScreen extends Screen implements EventSender{
     Vector2 O1;
     Vector2 O2;
     Vector2 O3;
+    Vector2 O4;
     Vector2 L1;
     Vector2 L2;
     Vector2 L3;
     Vector2 L4;
     Vector2 O;
     Vector2 G;
+    float rotation;
 
     MonetizationController monetizationController;
 
@@ -164,6 +167,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         setupStage();
         parent.parent.elapsedTime = 0;
         parent.parent.renderManager.resetFrameNum();
+
     }
 
 
@@ -201,6 +205,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         O1 = new Vector2();
         O2 = new Vector2();
         O3 = new Vector2();
+        O4 = new Vector2();
         L1 = new Vector2();
         L2 = new Vector2();
         L3 = new Vector2();
@@ -443,30 +448,34 @@ public class INGAMEScreen extends Screen implements EventSender{
         Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
         float planetRadius = ((Planet) planet).getGraphics().getWidth();
         G.set(planet.getX() + planetRadius / 2, planet.getY() + planetRadius / 2);
-        float dist = tmp.set(O).sub(tmp2.set(G)).len2();
+        float dist = tmp.set(O).sub(tmp2.set(G)).len();
+        float clipHeight = getIndicatorClipHeight(dist, dirIndicatorRed);
 
-        renderIndicator(O, G, batch, dirIndicatorRed, 150, dist);
+        renderIndicator(O, G, batch, dirIndicatorRed, 150, clipHeight);
 
 
         planet = ((Planet)parent.parent.levelManager.getGoal()); /* This object is our goal. */
         planetRadius = ((Planet) planet).getGraphics().getWidth();
         G.set(planet.getX() + planetRadius / 2, planet.getY() + planetRadius / 2);
-        dist = tmp.set(O).sub(tmp2.set(G)).len2();
-        renderIndicator(O, G, batch, dirIndicatorGreen, 152, dist);
+        dist = tmp.set(O).sub(tmp2.set(G)).len();
+        clipHeight = getIndicatorClipHeight(dist, dirIndicatorGreen);
+        renderIndicator(O, G, batch, dirIndicatorGreen, 152, clipHeight);
 
         gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
         tmp.set(gravityVector).setLength(200);
         G.set(O).add(tmp);
-        dist = gravityVector.len2();
-        if(!G.equals(O))renderIndicator(O, G, batch, dirIndicatorWhite, 141, dist);
+        dist = gravityVector.len();
+        clipHeight = getIndicatorClipHeight(dist, dirIndicatorWhite);
+        if(!G.equals(O))renderIndicator(O, G, batch, dirIndicatorWhite, 141, clipHeight);
 
         O.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2);
         Vector2 velocityVector = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity();
         //System.out.println(velocityVector.len2());
         tmp.set(velocityVector).setLength(200);
         G.set(O).add(tmp);
-        dist = velocityVector.len2();
-        if(dist > .15f)renderIndicator(O, G, batch, dirIndicatorYellow, 131, dist);
+        dist = velocityVector.len();
+        clipHeight = getIndicatorClipHeight(dist, dirIndicatorYellow);
+        if(dist > .15f)renderIndicator(O, G, batch, dirIndicatorYellow, 131, clipHeight);
 
 
 
@@ -486,6 +495,34 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         renderHealth(healthBatch);
 
+    }
+
+    private float getIndicatorClipHeight(float dist, TextureRegion indicator){
+        float clipHeight = 0;
+        if(indicator == dirIndicatorRed){
+            //System.out.print("dist: " + dist);
+            clipHeight = parent.map(dist, 1200, 2200, indicator.getRegionHeight(), 40);
+            if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
+            if(clipHeight < 40)clipHeight = 40;
+        }else if(indicator == dirIndicatorGreen){
+            //System.out.print("dist: " + dist);
+            clipHeight = parent.map(dist, 1200, 2200, indicator.getRegionHeight(), 30);
+            if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
+            if(clipHeight < 30)clipHeight = 30;
+        }else if(indicator == dirIndicatorWhite){
+            System.out.print("  dist: " + dist + "  ");
+            clipHeight = parent.map(dist, 100 , 750, 40, indicator.getRegionHeight());
+            if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
+            if(clipHeight < 40)clipHeight = 40;
+        }else if(indicator == dirIndicatorYellow){
+
+            clipHeight = parent.map(dist, 0, parent.parent.levelManager.getPlayer().getPhysics().MAX_VELOCITY*.75f, 10, indicator.getRegionHeight());
+            if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
+            if(clipHeight < 10)clipHeight = 10;
+            System.out.println("  clipHeight: " + clipHeight);
+        }
+
+        return clipHeight;
     }
 
     /**
@@ -606,15 +643,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         shapeRenderer.end();
     }
 
-    private void renderIndicator(Vector2 origin, Vector2 goal, SpriteBatch batch, TextureRegion indicator, float distanceFromOrigin, float magnitude) {
-        if(indicator == dirIndicatorYellow)System.out.println("Magnitude: " + magnitude);
-        float clipWidth =  getBoostMeterWidth();
-        float clipX =  (viewport.getScreenWidth()/2)-clipWidth;
-        float clipHeight = 100;
-        float clipY = viewport.getScreenHeight()-boostMeterEmpty.getRegionHeight();
-        // boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
-        indicatorClip.set(clipX, clipY, clipWidth, clipHeight);
-        //indicatorClip.
+    private void renderIndicator(Vector2 origin, Vector2 goal, ClipBatch batch, TextureRegion indicator, float distanceFromOrigin, float magnitude) {
 
         //L1 = G - O
         tmp.set(origin);
@@ -643,6 +672,10 @@ public class INGAMEScreen extends Screen implements EventSender{
         tmp.set(L4);
         O3.set(O2).add(tmp);
 
+
+        tmp.set(L2).setLength(10);
+        O4.set(O2).add(tmp);
+
         /*
 
         if(indicator == dirIndicatorYellow){
@@ -658,15 +691,52 @@ public class INGAMEScreen extends Screen implements EventSender{
             shapeRenderer.end();
         }
         */
-        
-        batch.begin();
-        batch.draw(indicator,
-                O3.x, O3.y,
-                0, 0,
-                indicator.getRegionWidth(), indicator.getRegionHeight(),
-                1f, 1f,
-                goalAngle - 90);
-        batch.end();
+
+
+
+        float mx = Gdx.input.getX()-25;
+        float my = Gdx.graphics.getHeight() - Gdx.input.getY()-25;
+        //rotation = 0;//goalAngle;//-camera.getCurrentAngle();//+goalAngle - 90;//+= Gdx.graphics.getDeltaTime() * 0.5f;
+       // rotation += Gdx.graphics.getDeltaTime() * 0.5f;
+
+       // rotation = (float)-parent.parent.levelManager.getPlayer().getPhysics().getBody().getAngle()+((float)Math.toRadians(43));
+        rotation = (float)-parent.parent.levelManager.getPlayer().getPhysics().getBody().getAngle()+(float)Math.toRadians(goalAngle-180);
+
+        //Vector3 wtoC = camera.project(new Vector3(O1.x, O1.y, 0));
+        //Vector3 wtoC = camera.project(new Vector3(0, 0, 0));
+
+
+
+        if(indicator == dirIndicatorRed){;
+            //System.out.println("magnitude: " + magnitude + "   indicator.Height :" + indicator.getRegionHeight());
+            //width and height arebackwards here for some reason, i don't care though, it's working
+            batch.begin(O4.x, O4.y, magnitude, indicator.getRegionWidth(), rotation, shapeRenderer);
+            batch.draw(indicator,
+                    O3.x, O3.y,
+                    0, 0,
+                    indicator.getRegionWidth(), indicator.getRegionHeight(),
+                    1f,1f,
+                    goalAngle - 90);
+            batch.end();
+        }else{
+
+            batch.begin(O2.x, O2.y, magnitude, indicator.getRegionWidth(), rotation, shapeRenderer);
+            batch.draw(indicator,
+                    O3.x, O3.y,
+                    0, 0,
+                    indicator.getRegionWidth(), indicator.getRegionHeight(),
+                    1f,1f,
+                    goalAngle - 90);
+
+            batch.end();
+
+        }
+
+
+
+
+
+
     }
 
     /*
