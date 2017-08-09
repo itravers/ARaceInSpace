@@ -448,7 +448,8 @@ public class INGAMEScreen extends Screen implements EventSender{
         Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
         float planetRadius = ((Planet) planet).getGraphics().getWidth();
         G.set(planet.getX() + planetRadius / 2, planet.getY() + planetRadius / 2);
-        float dist = tmp.set(O).sub(tmp2.set(G)).len();
+        //float dist = tmp.set(O).sub(tmp2.set(G)).len();
+        float dist = parent.parent.levelManager.getPlayer().getPhysics().getDistanceFromClosestPlanet();
         float clipHeight = getIndicatorClipHeight(dist, dirIndicatorRed);
 
         renderIndicator(O, G, batch, dirIndicatorRed, 150, clipHeight);
@@ -457,7 +458,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         planet = ((Planet)parent.parent.levelManager.getGoal()); /* This object is our goal. */
         planetRadius = ((Planet) planet).getGraphics().getWidth();
         G.set(planet.getX() + planetRadius / 2, planet.getY() + planetRadius / 2);
-        dist = tmp.set(O).sub(tmp2.set(G)).len();
+        //dist = tmp.set(O).sub(tmp2.set(G)).len();
+        //dist = parent.parent.levelManager.getPlayer().getPhysics().g
+        dist = parent.parent.levelManager.getPlayer().getPhysics().getDistanceFromClosestPlanet();
         clipHeight = getIndicatorClipHeight(dist, dirIndicatorGreen);
         renderIndicator(O, G, batch, dirIndicatorGreen, 152, clipHeight);
 
@@ -501,16 +504,17 @@ public class INGAMEScreen extends Screen implements EventSender{
         float clipHeight = 0;
         if(indicator == dirIndicatorRed){
             //System.out.print("dist: " + dist);
-            clipHeight = parent.map(dist, 1200, 2200, indicator.getRegionHeight(), 40);
+            clipHeight = parent.map(dist, 50, 150, indicator.getRegionHeight(), 40);
             if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
             if(clipHeight < 40)clipHeight = 40;
+            System.out.println("  dist: " + dist + "   clipHeight: " + clipHeight);
         }else if(indicator == dirIndicatorGreen){
             //System.out.print("dist: " + dist);
-            clipHeight = parent.map(dist, 1200, 2200, indicator.getRegionHeight(), 30);
+            clipHeight = parent.map(dist, 50, 150, indicator.getRegionHeight(), 30);
             if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
             if(clipHeight < 30)clipHeight = 30;
         }else if(indicator == dirIndicatorWhite){
-            System.out.print("  dist: " + dist + "  ");
+
             clipHeight = parent.map(dist, 100 , 750, 40, indicator.getRegionHeight());
             if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
             if(clipHeight < 40)clipHeight = 40;
@@ -519,7 +523,7 @@ public class INGAMEScreen extends Screen implements EventSender{
             clipHeight = parent.map(dist, 0, parent.parent.levelManager.getPlayer().getPhysics().MAX_VELOCITY*.75f, 10, indicator.getRegionHeight());
             if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
             if(clipHeight < 10)clipHeight = 10;
-            System.out.println("  clipHeight: " + clipHeight);
+
         }
 
         return clipHeight;
