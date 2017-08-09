@@ -34,6 +34,9 @@ public abstract class Screen {
     protected Stage stage;
     protected MonetizationController monetizationController;
     Label coinLabel = null;
+    Vector3 wToV;
+    Vector3 wToC;
+    Vector3 tmp;
 
     public Screen(RenderManager parent){
         this.parent = parent;
@@ -43,7 +46,9 @@ public abstract class Screen {
         batch = new ClipBatch();
         batch.setProjectionMatrix(camera.combined);
         stage = new Stage();
-
+        wToV = new Vector3();
+        wToC = new Vector3();
+        tmp = new Vector3();
         setup();
     }
 
@@ -93,10 +98,15 @@ public abstract class Screen {
          */
         public void begin(float x, float y, float width, float height, float rotation, ShapeRenderer shapeRenderer) {
             //set new clip region and rotation
-            Vector3 wtoC = camera.project(new Vector3(x, y, 0));
-            Vector3 wToV = viewport.project(new Vector3(x, y, 0));
+            //Vector3 wtoC = camera.project(new Vector3(x, y, 0));
+            tmp.set(x, y, 0);
+            wToC.set(camera.project(tmp));
 
-            clip.set(wtoC.x, wtoC.y, width, height);
+            //Vector3 wToV = viewport.project(new Vector3(x, y, 0));
+            tmp.set(x, y, 0);
+            wToV.set(viewport.project(tmp));
+
+            clip.set(wToC.x, wToC.y, width, height);
             this.rotation = rotation;
 
             if(parent.parent.devMode){
@@ -115,9 +125,6 @@ public abstract class Screen {
 
                 shapeRenderer.end();
             }
-
-
-
 
 
             //set the shader and use() it

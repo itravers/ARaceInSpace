@@ -56,6 +56,12 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0
 		a: 1
 	}
+	RGBA_255_255_255_175: {
+		r: 1
+		g: 1
+		b: 1
+		a: 0.6862745
+	}
 	white: {
 		r: 1
 		g: 1
@@ -226,6 +232,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	tree_header: {
 		font: font_d_estroy__24pt
+	}
+	indicator_label: {
+		font: font_d_estroy__20pt
+		fontColor: RGBA_255_255_255_175
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {

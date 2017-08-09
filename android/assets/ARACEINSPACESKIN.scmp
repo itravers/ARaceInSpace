@@ -1539,6 +1539,16 @@ jsonData: {
 				r: 1
 				g: 1
 				b: 1
+				a: 0.6862745
+			}
+			name: RGBA_255_255_255_175
+		}
+		{
+			class: com.ray3k.skincomposer.data.ColorData
+			color: {
+				r: 1
+				g: 1
+				b: 1
 				a: 1
 			}
 			name: white
@@ -5602,6 +5612,35 @@ jsonData: {
 						name: fontColor
 						optional: true
 						value: null
+					}
+					background: {
+						class: com.ray3k.skincomposer.data.StyleProperty
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: null
+					}
+				}
+				deletable: true
+			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: indicator_label
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+				properties: {
+					font: {
+						class: com.ray3k.skincomposer.data.StyleProperty
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: font
+						optional: false
+						value: font_d_estroy__20pt
+					}
+					fontColor: {
+						class: com.ray3k.skincomposer.data.StyleProperty
+						type: com.badlogic.gdx.graphics.Color
+						name: fontColor
+						optional: true
+						value: RGBA_255_255_255_175
 					}
 					background: {
 						class: com.ray3k.skincomposer.data.StyleProperty

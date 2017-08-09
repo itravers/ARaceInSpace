@@ -30,11 +30,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.badlogic.gdx.utils.Align;
@@ -113,6 +109,10 @@ public class INGAMEScreen extends Screen implements EventSender{
     Vector2 G;
     float rotation;
 
+    Label boostLabel;
+    Label healthLabel;
+    Label speedLabel;
+
     MonetizationController monetizationController;
 
     /* Constructors */
@@ -168,6 +168,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         parent.parent.elapsedTime = 0;
         parent.parent.renderManager.resetFrameNum();
 
+
     }
 
 
@@ -220,6 +221,19 @@ public class INGAMEScreen extends Screen implements EventSender{
        // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
        // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
+
+        boostLabel = new Label("BOOST", skin, "indicator_label");
+        boostLabel.setPosition((viewport.getScreenWidth()/6)-boostLabel.getWidth()/2, viewport.getScreenHeight()-boostLabel.getHeight());
+
+        healthLabel = new Label("HEALTH", skin, "indicator_label");
+        healthLabel.setPosition(5*(viewport.getScreenWidth()/6)-healthLabel.getWidth()/2, viewport.getScreenHeight()-healthLabel.getHeight());
+
+        speedLabel = new Label("SPEED", skin, "indicator_label");
+        speedLabel.setPosition((viewport.getScreenWidth()/2)-speedLabel.getWidth()/2, viewport.getScreenHeight()-speedLabel.getHeight()*1.5f);
+
+        stage.addActor(boostLabel);
+        stage.addActor(healthLabel);
+        stage.addActor(speedLabel);
 
         touchPad = new Touchpad(10, skin, "default");
         touchPad.setBounds(15, 15, Gdx.graphics.getWidth()/2-20,Gdx.graphics.getWidth()/2-20);
@@ -302,6 +316,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         stage.addActor(touchPad);
         stage.addActor(boostButton);
 
+
         Array<TextureAtlas.AtlasRegion> dirIndicatorRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-red");
         dirIndicatorRed = dirIndicatorRedRegion.get(0);
 
@@ -380,6 +395,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         scissors = new Rectangle();
         parent.parent.inputManager.addInputProcessor(stage);
+
     }
 
     private void renderVersion(SpriteBatch batch){
@@ -391,6 +407,9 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     @Override
     public void render(float timeElapsed) {
+
+
+       // boostLabel.setZIndex(100);
        // System.out.println("timeElapsed: " + timeElapsed);
         Player p = parent.parent.levelManager.getPlayer();
         ArrayList<Planet> planets = parent.parent.levelManager.getPlanets();
@@ -492,11 +511,12 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         }
         stage.setDebugAll(parent.parent.devMode);
+        renderHealth(healthBatch);
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
 
-        renderHealth(healthBatch);
+
 
     }
 
@@ -507,7 +527,7 @@ public class INGAMEScreen extends Screen implements EventSender{
             clipHeight = parent.map(dist, 50, 150, indicator.getRegionHeight(), 40);
             if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
             if(clipHeight < 40)clipHeight = 40;
-            System.out.println("  dist: " + dist + "   clipHeight: " + clipHeight);
+          //  System.out.println("  dist: " + dist + "   clipHeight: " + clipHeight);
         }else if(indicator == dirIndicatorGreen){
             //System.out.print("dist: " + dist);
             clipHeight = parent.map(dist, 50, 150, indicator.getRegionHeight(), 30);
