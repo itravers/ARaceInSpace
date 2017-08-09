@@ -404,6 +404,8 @@ public class LEVELSELECTScreen extends Screen{
         buyLevelsButton.setWidth(width*.10f);
 
 
+        previousLevelButton.setVisible(false);
+        buyLevelsButton.setVisible(false);
 
         bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size

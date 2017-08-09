@@ -394,6 +394,9 @@ public class LEADERBOARDScreen extends Screen{
         buyLevelsButton.setWidth(width*.10f);
         buyLevelsButton.addListener(nextButtonListener);
 
+        previousLevelButton.setVisible(false);
+        buyLevelsButton.setVisible(false);
+
 
 
         bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);

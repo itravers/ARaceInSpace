@@ -103,14 +103,17 @@ public class ContactListenerManager implements ContactListener {
         if(angleDif >= 45f || 360 - angleDif <= 45){//if we land head first, we crash
             return true;
         }else if(velocity >= crashVel){//if we landed with a velocity that is bigger than crash velocity, we crash
+            s.setHealth(0);
             return true;
+        }else if(velocity <= (crashVel/2)){//going a safe velocity, we don't crash, or get damaged
+            return false;
         }else{
             /*the player hit the planet while facing the opposite direction.
               We now need to check if the player was going slow enough */
             float speed = s.getPhysics().getBody().getLinearVelocity().len();
             //if(speed > s.CRASH_VELOCITY){
             float newHealth = s.getHealth();
-            newHealth = newHealth - s.getPhysics().getBody().getLinearVelocity().len()*15;
+            newHealth = newHealth - (s.getPhysics().getBody().getLinearVelocity().len()-(crashVel)/2)*15;
             s.setHealth(newHealth);
             System.out.println("newhealth: " + newHealth);
             if(s.getHealth() < 0){

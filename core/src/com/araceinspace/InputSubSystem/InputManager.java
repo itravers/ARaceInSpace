@@ -151,9 +151,16 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
              */
             if(!parent.gameStateManager.firstState()){
                 parent.gameStateManager.setCurrentState(parent.gameStateManager.popState());
+                return true;
             }
 
 
+        }else if(keycode == Input.Keys.VOLUME_UP){
+            parent.soundManager.setMusicVolume(parent.soundManager.getMusicVolume()+.2f);
+            return true;
+        }else if(keycode == Input.Keys.VOLUME_DOWN){
+            parent.soundManager.setMusicVolume(parent.soundManager.getMusicVolume()-.2f);
+            return true;
         }
         sendEvent(new Event(Event.TYPE.INPUT, "PlayerInput", input));
         return true;
