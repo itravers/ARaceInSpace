@@ -34,7 +34,9 @@ public class SoundManager {
     private void setupSounds(){
 
 
-        playSong(parent.resourceManager.beethovens7th);
+        //playSong(parent.resourceManager.beethovens7th);
+       // if(parent.resourceManager.assetManager.lo)
+        playSong(parent.resourceManager.risingSun);
         float volumePref = parent.prefs.getFloat("com.araceinspace.volume", .5f);
         setMusicVolume(volumePref);
     }

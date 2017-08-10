@@ -58,6 +58,7 @@ public class ResourceManager {
 
     //Game Sounds
     public Music beethovens7th;
+    public Music risingSun;
 
     /* Constructors */
     public ResourceManager(GameWorld p){
@@ -80,6 +81,7 @@ public class ResourceManager {
         assetManager.load("aris_uiskin.atlas", TextureAtlas.class);
         assetManager.load("aris_uiskin.json", Skin.class, new SkinLoader.SkinParameter("aris_uiskin.atlas"));
         assetManager.load("data/beethoven7th.mp3", Music.class);
+        assetManager.load("data/RisingSun.ogg", Music.class);
     }
 
     /**
@@ -198,6 +200,8 @@ public class ResourceManager {
 
     private void setupSounds(){
         beethovens7th = assetManager.get("data/beethoven7th.mp3", Music.class);
+        risingSun = assetManager.get("data/RisingSun.ogg", Music.class);
+       // assetManager.finishLoading();
     }
 
     private void setupSkin(){
