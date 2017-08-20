@@ -8,11 +8,14 @@ import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.FontGenerator;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -69,7 +72,9 @@ public class LOADINGScreen extends Screen{
         mainTable.align(Align.center|Align.center);
         mainTable.setPosition(0, viewport.getScreenHeight()/2);
         mainTable.setDebug(false);
+        BitmapFont font = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 60);
         Label loadingLabel = new Label("LOADING", skin);
+        loadingLabel.getStyle().font = font;
 
 
 

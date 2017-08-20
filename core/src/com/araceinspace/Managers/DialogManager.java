@@ -4,13 +4,18 @@ import com.araceinspace.GameWorld;
 import com.araceinspace.Screens.LEADERBOARDScreen;
 import com.araceinspace.Screens.SCOREScreen;
 import com.araceinspace.Screens.Screen;
+import com.araceinspace.misc.CustomDialog;
+import com.araceinspace.misc.FontGenerator;
 import com.araceinspace.misc.RandomString;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Created by Isaac Assega on 8/6/17.
@@ -92,12 +97,19 @@ public class DialogManager {
         infoDialog.button(okButton);
     }
 
-    public void setupNameDialog(Skin skin, Stage stage, Screen screen){
+    public void setupNameDialog(Skin skin, Stage stage, Viewport viewport){
+
+        BitmapFont titleFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
+       // BitmapFont text = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
+
         final TextArea textArea = new TextArea("", skin);
         textArea.setMaxLength(8);
-        ImageTextButton submitButton = new ImageTextButton("Submit", skin);
+        textArea.getStyle().font = titleFont;
+        ImageTextButton submitButton = new ImageTextButton("SUBMIT", skin);
+        //skin.remove("dialog", BitmapFont.class);
+        //skin.add("dialog", font, BitmapFont.class);
         final RandomString randomString = new RandomString(4);
-        nameDialog = new Dialog("What Is Your Name?", skin, "dialog"){
+        nameDialog = new CustomDialog("What is Your Name?", skin, viewport.getScreenWidth()*.75f, titleFont){
             protected void result(Object object) {
                 String name = textArea.getText();
                 if(name.isEmpty()){
@@ -111,8 +123,15 @@ public class DialogManager {
                 Gdx.input.setOnscreenKeyboardVisible(false);
             }
         };
+       // nameDialog.getStyle().titleFont = font;
+       // nameDialog.getStyle().
         // nameDialog.add(textArea);
-        nameDialog.getContentTable().add(textArea).expandX();
+        //nameDialog.la
+        //nameDialog.text("What Is Your Name?");
+
+
+        nameDialog.getContentTable().add(textArea).expandX().width(viewport.getScreenWidth()*.50f).height(viewport.getScreenHeight()/14);
+        //nameDialog.getContentTable().row();
         nameDialog.button(submitButton);
     }
 

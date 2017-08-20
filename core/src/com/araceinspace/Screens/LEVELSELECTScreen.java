@@ -109,11 +109,11 @@ public class LEVELSELECTScreen extends Screen{
        // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
-        BitmapFont font = skin.getFont("default-font");
-        font.getData().setScale(.13f, .66f);
+        //BitmapFont font = skin.getFont("default-font");
+        //font.getData().setScale(.13f, .66f);
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
-        parent.parent.dialogManager.setupNameDialog(skin, stage, this);
+        parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
         if(parent.parent.playerName == null)parent.parent.dialogManager.nameDialog.show(stage);
         monetizationController.showBannerAd();
     }

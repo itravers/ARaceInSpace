@@ -2,13 +2,17 @@ package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.FontGenerator;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -22,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Tree;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 
 /**
@@ -364,7 +369,24 @@ public class MENUScreen extends Screen {
         setupSliders();
         setupTables();
 
-        parent.parent.dialogManager.setupNameDialog(skin, stage, this);
+
+
+        parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
+       // Dialog d = parent.parent.dialogManager.nameDialog;
+
+        //d.getContentTable().align(Align.center);
+       // d.getCell(d.getTitleTable()).align(Align.center);
+
+      //  NinePatchDrawable dialogBack = (NinePatchDrawable) parent.parent.dialogManager.nameDialog.getBackground();
+       // dialogBack.getPatch().scale(2.0f,2.0f);
+        parent.parent.dialogManager.nameDialog.setDebug(true);
+        //parent.parent.dialogManager.nameDialog.getCell(parent.parent.dialogManager.nameDialog.getContentTable());
+
+        //parent.parent.dialogManager.nameDialog.getTitleLabel().getStyle().font = titleFont;
+       // parent.parent.dialogManager.nameDialog.getStyle().titleFont = titleFont;
+
+
+
 
         //stage.addActor(mainTable);
         parent.parent.inputManager.addInputProcessor(stage);
