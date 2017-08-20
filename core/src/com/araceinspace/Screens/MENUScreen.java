@@ -379,7 +379,7 @@ public class MENUScreen extends Screen {
 
       //  NinePatchDrawable dialogBack = (NinePatchDrawable) parent.parent.dialogManager.nameDialog.getBackground();
        // dialogBack.getPatch().scale(2.0f,2.0f);
-        parent.parent.dialogManager.nameDialog.setDebug(true);
+       // parent.parent.dialogManager.nameDialog.setDebug(true);
         //parent.parent.dialogManager.nameDialog.getCell(parent.parent.dialogManager.nameDialog.getContentTable());
 
         //parent.parent.dialogManager.nameDialog.getTitleLabel().getStyle().font = titleFont;

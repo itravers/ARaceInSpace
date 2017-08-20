@@ -168,7 +168,7 @@ public class LEADERBOARDScreen extends Screen{
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         if(jsonFromServer == null){
-            parent.parent.dialogManager.infoDialog.getTitleLabel().setText("Can't Connect to LeaderBoard");
+            parent.parent.dialogManager.infoDialog.getTitleLabel().setText("Cant Connect to LeaderBoard");
             parent.parent.dialogManager.infoDialog.show(stage);//if can't connect to leaderboard, show dialog after everything else has been printed
         }
 

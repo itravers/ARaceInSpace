@@ -32,10 +32,14 @@ public class DialogManager {
     public Dialog infoDialog;
     public Dialog nameDialog;
     public Dialog levelLoadingDialog;
+    BitmapFont titleFont;
+    BitmapFont queryFont;
 
     /* Constructor */
     public DialogManager(GameWorld p){
         parent = p;
+        titleFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
+        queryFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 14);
     }
 
     /* Private Methods */
@@ -43,7 +47,7 @@ public class DialogManager {
     /* Public Methods */
 
     public void setupDialogs(Skin skin, final Stage stage, final Screen screen) {
-        purchaseDialog = new Dialog("Are you sure you want to spend " + parent.renderManager.coinsToSpend + " coins?", skin) {
+        purchaseDialog = new CustomDialog("Are you sure you want to spend " + parent.renderManager.coinsToSpend + " coins?", skin, screen.getViewport().getScreenWidth()*.75f, queryFont) {
             protected void result(Object object) {
                 if (object.toString().equals("true")) {
                     dialogQuestion = true;
@@ -99,15 +103,12 @@ public class DialogManager {
 
     public void setupNameDialog(Skin skin, Stage stage, Viewport viewport){
 
-        BitmapFont titleFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
-       // BitmapFont text = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
+
 
         final TextArea textArea = new TextArea("", skin);
         textArea.setMaxLength(8);
         textArea.getStyle().font = titleFont;
         ImageTextButton submitButton = new ImageTextButton("SUBMIT", skin);
-        //skin.remove("dialog", BitmapFont.class);
-        //skin.add("dialog", font, BitmapFont.class);
         final RandomString randomString = new RandomString(4);
         nameDialog = new CustomDialog("What is Your Name?", skin, viewport.getScreenWidth()*.75f, titleFont){
             protected void result(Object object) {
@@ -123,20 +124,13 @@ public class DialogManager {
                 Gdx.input.setOnscreenKeyboardVisible(false);
             }
         };
-       // nameDialog.getStyle().titleFont = font;
-       // nameDialog.getStyle().
-        // nameDialog.add(textArea);
-        //nameDialog.la
-        //nameDialog.text("What Is Your Name?");
-
-
         nameDialog.getContentTable().add(textArea).expandX().width(viewport.getScreenWidth()*.50f).height(viewport.getScreenHeight()/14);
-        //nameDialog.getContentTable().row();
+
         nameDialog.button(submitButton);
     }
 
-    public void setupLoadingLevelDialog(Skin skin, Stage stage, Screen screen, final int ghostLevel, final String jsonOfGhost){
-        levelLoadingDialog = new Dialog("Loading Level: " + ghostLevel, skin, "dialog"){
+    public void setupLoadingLevelDialog(Skin skin, Stage stage, Viewport viewport, final int ghostLevel, final String jsonOfGhost){
+        levelLoadingDialog = new CustomDialog("Loading Level: " + ghostLevel, skin, viewport.getScreenWidth()*.75f, titleFont){
             protected void result(Object object) {
                 parent.levelManager.setLevel(ghostLevel);
                 parent.levelManager.setupGhostFromJson(jsonOfGhost);

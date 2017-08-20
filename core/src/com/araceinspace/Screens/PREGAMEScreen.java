@@ -211,7 +211,7 @@ public class PREGAMEScreen extends Screen{
                      * the level will be loaded.
                      */
                     if(ghostLevel != level){
-                        parent.parent.dialogManager.setupLoadingLevelDialog(skin, stage, me, ghostLevel, jsonOfGhost);
+                        parent.parent.dialogManager.setupLoadingLevelDialog(skin, stage, viewport, ghostLevel, jsonOfGhost);
                         parent.parent.dialogManager.levelLoadingDialog.show(stage); //set level, setup ghost, and change game state will be done in dialog callback
                     }else{
                         parent.parent.levelManager.setupGhostFromJson(jsonOfGhost);
