@@ -222,6 +222,8 @@ public class INGAMEScreen extends Screen implements EventSender{
        // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
 
+
+
         boostLabel = new Label("BOOST", skin, "indicator_label");
         boostLabel.setPosition((viewport.getScreenWidth()/6)-boostLabel.getWidth()/2, viewport.getScreenHeight()-boostLabel.getHeight());
 

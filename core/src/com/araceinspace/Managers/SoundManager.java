@@ -36,7 +36,8 @@ public class SoundManager {
 
         //playSong(parent.resourceManager.beethovens7th);
        // if(parent.resourceManager.assetManager.lo)
-        playSong(parent.resourceManager.risingSun);
+       // playSong(parent.resourceManager.risingSun);
+        playSong(parent.resourceManager.hearthAndHills);
         float volumePref = parent.prefs.getFloat("com.araceinspace.volume", .5f);
         setMusicVolume(volumePref);
     }
@@ -48,6 +49,7 @@ public class SoundManager {
 
         //currentSongId = s.play();
         s.play();
+
     }
 
     public void setMusicVolume(float musicVolume){
