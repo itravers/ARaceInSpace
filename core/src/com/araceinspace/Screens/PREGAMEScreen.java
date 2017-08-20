@@ -269,7 +269,10 @@ public class PREGAMEScreen extends Screen{
         levelButton.getImageCell().expand().fill();
 
         //create stuff to put in table button
-        Label titleLabel = new Label(title, skin, "button_title");
+        Label titleLabel = new Label(title, skin, "optional");
+        Label.LabelStyle style = titleLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        titleLabel.setStyle(style);
         titleLabel.setTouchable(Touchable.disabled);
         titleLabel.setFontScale(.9f); //WORKS for rizing font, but we also change table container
 
@@ -287,17 +290,26 @@ public class PREGAMEScreen extends Screen{
         starTable.add(star);
 
 
-        Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
+        Label taunt1 = new Label(s_taunt1, skin, "optional");
+        style = taunt1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        taunt1.setStyle(style);
         taunt1.setAlignment(Align.top);
         taunt1.setTouchable(Touchable.disabled);
         taunt1.setFontScale(.7f);
 
-        Label yourTime = new Label("Your Time", skin, "taunt_small");
+        Label yourTime = new Label("Your Time", skin, "optional");
+        style = yourTime.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        yourTime.setStyle(style);
         yourTime.setAlignment(Align.bottom);
         yourTime.setTouchable(Touchable.disabled);
         yourTime.setFontScale(.8f);
 
         Label taunt2 = new Label(s_taunt2, skin, "taunt_small");
+        style = taunt2.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        taunt2.setStyle(style);
         taunt2.setTouchable(Touchable.disabled);
         taunt2.setAlignment(Align.top);
         taunt2.setFontScale(.6f);
@@ -311,7 +323,7 @@ public class PREGAMEScreen extends Screen{
         Table purchaseHeaderTable = new Table();
         purchaseHeaderTable.setDebug(devMode);
         purchaseHeaderTable.align(Align.top|Align.center);
-        purchaseHeaderTable.add(titleLabel).padRight(spacer/4).align(Align.left);//.size(width/8, stage.getHeight()/20);
+        purchaseHeaderTable.add(titleLabel).padRight(spacer/4).align(Align.left).padTop(spacer/4);//.size(width/8, stage.getHeight()/20);
         purchaseTable.add(purchaseHeaderTable).align(Align.top);
         purchaseTable.row();
 
@@ -384,10 +396,16 @@ public class PREGAMEScreen extends Screen{
         rewardButton.addListener(rewardAdButtonListener);
 
         //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
-        storeTitleLabel = new Label("Choose", skin, "Store_Title");
+        storeTitleLabel = new Label("Choose", skin, "optional");
+        Label.LabelStyle style = storeTitleLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font48;
+        storeTitleLabel.setStyle(style);
         storeTitleLabel.setDebug(devMode);
         String coins = Integer.toString(parent.parent.getCoins());
-        coinLabel = new Label(coins, skin, "coinLabel");
+        coinLabel = new Label(coins, skin, "optional");
+        style = coinLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        coinLabel.setStyle(style);
         coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");
@@ -416,10 +434,16 @@ public class PREGAMEScreen extends Screen{
         Table extraTable2 = new Table();
         extraTable2.setDebug(devMode);
         extraTable2.align(Align.center|Align.top);
-        Label taunt1 = new Label(" Your    ", skin, "extra_small");
+        Label taunt1 = new Label(" Your    ", skin, "optional");
+        style = taunt1.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        taunt1.setStyle(style);
         extraTable2.add(taunt1).height(height/30).align(Align.left);
 
-        Label taunt2 = new Label(" Challenge!!!", skin, "coinLabel");
+        Label taunt2 = new Label(" Challenge!!!", skin, "optional");
+        style = taunt2.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        taunt2.setStyle(style);
         extraTable2.row();
         extraTable2.add(taunt2).height(height/30).align(Align.top);
 
@@ -482,6 +506,8 @@ public class PREGAMEScreen extends Screen{
         firstPlaceLabel.setFontScale(.7f);
 
         ImageButton coin1 = new ImageButton(skin, "coinSmall10");
+        coin1.getImage().getDrawable().setMinWidth(butWidth/4);
+        coin1.getImage().getDrawable().setMinHeight(butWidth/4);
         coin1.setTouchable(Touchable.disabled);
 
         Table t1Header = new Table();
@@ -494,6 +520,10 @@ public class PREGAMEScreen extends Screen{
         t1.row();
 
         ImageButton gold = new ImageButton(skin, "star1");
+
+        gold.getImage().getDrawable().setMinWidth(width/5);
+        gold.getImage().getDrawable().setMinHeight(width/5);
+
         gold.addListener(firstPlaceListener);
         t1.add(gold).align(Align.center);
 
@@ -506,6 +536,8 @@ public class PREGAMEScreen extends Screen{
         secondPlaceLabel.setFontScale(.7f);
 
         ImageButton coin2 = new ImageButton(skin, "coinSmall9");
+        coin2.getImage().getDrawable().setMinWidth(butWidth/4);
+        coin2.getImage().getDrawable().setMinHeight(butWidth/4);
         coin2.setTouchable(Touchable.disabled);
 
         Table t2Header = new Table();
@@ -518,6 +550,8 @@ public class PREGAMEScreen extends Screen{
         t2.row();
 
         ImageButton silver = new ImageButton(skin, "star2");
+        silver.getImage().getDrawable().setMinWidth(width/5);
+        silver.getImage().getDrawable().setMinHeight(width/5);
         silver.addListener(secondPlaceListener);
         t2.add(silver).align(Align.center);
 
@@ -530,6 +564,8 @@ public class PREGAMEScreen extends Screen{
         thirdPlaceLabel.setFontScale(.7f);
 
         ImageButton coin3 = new ImageButton(skin, "coinSmall8");
+        coin3.getImage().getDrawable().setMinWidth(butWidth/4);
+        coin3.getImage().getDrawable().setMinHeight(butWidth/4);
         coin3.setTouchable(Touchable.disabled);
 
         Table t3Header = new Table();
@@ -543,6 +579,8 @@ public class PREGAMEScreen extends Screen{
 
 
         ImageButton bronze = new ImageButton(skin, "star3");
+        bronze.getImage().getDrawable().setMinWidth(width/5);
+        bronze.getImage().getDrawable().setMinHeight(width/5);
         bronze.addListener(thirdPlaceListener);
         t3.add(bronze).align(Align.center);
 
@@ -559,7 +597,12 @@ public class PREGAMEScreen extends Screen{
         customPlayTable.setDebug(devMode);
 
         Label customTitle = new Label("Custom", skin);
+        style = customTitle.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        customTitle.setStyle(style);
         ImageButton coin = new ImageButton(skin, "coinMedium15");
+        coin.getImage().getDrawable().setMinWidth(butWidth/4);
+        coin.getImage().getDrawable().setMinHeight(butWidth/4);
 
         Table customHeader = new Table();
         customHeader.setDebug(devMode);
@@ -568,7 +611,10 @@ public class PREGAMEScreen extends Screen{
         customHeader.add(customTitle);
         customHeader.add(coin);
 
-        Label inputLabel = new Label("Input Game ID", skin, "button_title");
+        Label inputLabel = new Label("Input Game ID", skin, "optional");
+        style = inputLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        inputLabel.setStyle(style);
         textField = new TextField("", skin);
         textField.setAlignment(Align.center);
         ImageTextButton playButton = new ImageTextButton("Play", skin);

@@ -60,9 +60,6 @@ public class TITLEScreen extends Screen implements EventSender {
     private OrthCamera menuCamera;
     private SpriteBatch menuBatch;
 
-    BitmapFont titleFont;
-
-    BitmapFont buttonFont;
 
     int spacer;
 
@@ -118,11 +115,11 @@ public class TITLEScreen extends Screen implements EventSender {
             }
         };
 
-        buttonFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 20);
+
 
         startButton = new ImageTextButton("Start", skin);
         startButton.addListener(startButtonListener);
-        startButton.getStyle().font = buttonFont;
+        startButton.getStyle().font = parent.parent.resourceManager.Font20;
 
         leaderboardButton = new ImageTextButton("Leader Boards", skin);
         leaderboardButton.addListener(leaderboardButtonListener);
@@ -171,12 +168,12 @@ public class TITLEScreen extends Screen implements EventSender {
 
     private void setupLabels(){
 
-       titleFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 60);
+      // titleFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 60);
 
 
 
         titleLabel1 = new Label("A", skin, "title");
-        titleLabel1.getStyle().font = titleFont;
+        titleLabel1.getStyle().font = parent.parent.resourceManager.Font60;
         titleLabel2 = new Label("Race", skin, "title");
         titleLabel3 = new Label("In", skin, "title");
         titleLabel4 = new Label("Space", skin, "title");

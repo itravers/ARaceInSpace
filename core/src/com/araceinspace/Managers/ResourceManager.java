@@ -52,6 +52,7 @@ public class ResourceManager {
     private Animation explosionAnimation;
 
     /* Font Data */
+    public BitmapFont Font60;
     public BitmapFont Font48;
     public BitmapFont Font36;
     public BitmapFont Font24;
@@ -121,6 +122,11 @@ public class ResourceManager {
         size20Params.fontFileName = "Font_Destroy.ttf";
         size20Params.fontParameters.size = 20;
         assetManager.load("Font20.ttf", BitmapFont.class, size20Params);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter size60Params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        size60Params.fontFileName = "Font_Destroy.ttf";
+        size60Params.fontParameters.size = 60;
+        assetManager.load("Font60.ttf", BitmapFont.class, size60Params);
     }
 
     /**
@@ -239,6 +245,7 @@ public class ResourceManager {
     }
 
     private void setupFonts(){
+        Font60 = assetManager.get("Font60.ttf", BitmapFont.class);
         Font48 = assetManager.get("Font48.ttf", BitmapFont.class);
         Font36 = assetManager.get("Font36.ttf", BitmapFont.class);
         Font24 = assetManager.get("Font24.ttf", BitmapFont.class);
