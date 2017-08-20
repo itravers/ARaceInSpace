@@ -60,6 +60,9 @@ public class TITLEScreen extends Screen implements EventSender {
     private OrthCamera menuCamera;
     private SpriteBatch menuBatch;
 
+    BitmapFont titleFont;
+    BitmapFont buttonFont;
+
     int spacer;
 
 
@@ -111,8 +114,12 @@ public class TITLEScreen extends Screen implements EventSender {
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
             }
         };
+
+        buttonFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 20);
+
         startButton = new ImageTextButton("Start", skin);
         startButton.addListener(startButtonListener);
+        startButton.getStyle().font = buttonFont;
 
         leaderboardButton = new ImageTextButton("Leader Boards", skin);
         leaderboardButton.addListener(leaderboardButtonListener);
@@ -160,8 +167,8 @@ public class TITLEScreen extends Screen implements EventSender {
     }
 
     private void setupLabels(){
-        BitmapFont titleFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 60);
 
+       titleFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 60);
 
 
 
