@@ -278,11 +278,17 @@ public class SCOREScreen extends Screen{
         rewardButton.addListener(rewardAdButtonListener);
 
         //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
-        storeTitleLabel = new Label("Score", skin, "Store_Title");
+        storeTitleLabel = new Label("Score", skin, "optional");
+        Label.LabelStyle style = storeTitleLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font48;
+        storeTitleLabel.setStyle(style);
         storeTitleLabel.setDebug(devMode);
 
         String coins = Integer.toString(parent.parent.getCoins());
         coinLabel = new Label(coins, skin, "coinLabel");
+        style = coinLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        coinLabel.setStyle(style);
         coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");
@@ -339,14 +345,23 @@ public class SCOREScreen extends Screen{
             info1S = "You Played against";
         }
 
-        Label taunt1 = new Label( taunt1_S, skin, "extra_small");
+        Label taunt1 = new Label( taunt1_S, skin, "optional");
+        style = taunt1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        taunt1.setStyle(style);
         extraTable2.add(taunt1).height(height/30).align(Align.left);
 
-        Label taunt2 = new Label(taunt2_S, skin, "coinLabel");
+        Label taunt2 = new Label(taunt2_S, skin, "optional");
+        style = taunt2.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        taunt2.setStyle(style);
         extraTable2.row();
         extraTable2.add(taunt2).height(height/30).align(Align.top);
 
-        Label taunt3 = new Label(taunt3_S, skin, "extra_small");
+        Label taunt3 = new Label(taunt3_S, skin, "optional");
+        style = taunt3.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        taunt3.setStyle(style);
         extraTable2.row();
         extraTable2.add(taunt3).height(height/30).align(Align.top);
 
@@ -382,7 +397,10 @@ public class SCOREScreen extends Screen{
         Table t1 = new Table();
         t1.setDebug(devMode);
 
-        Label yourTime = new Label("      Your Time:", skin, "taunt_small");
+        Label yourTime = new Label("      Your Time:", skin, "optional");
+        style = yourTime.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        yourTime.setStyle(style);
 
         Table t1B = new Table();
         t1B.setDebug(devMode);
@@ -406,9 +424,20 @@ public class SCOREScreen extends Screen{
             playerms  = "XX ";
         }
 
-        Label minLabel1 = new Label(playerMin + "  Minutes", skin, "taunt_small");
-        Label secLabel1 = new Label(playerSec + "  Seconds", skin, "taunt_small");
-        Label msLabel1 = new Label( playerms + " MS", skin, "taunt_small");
+        Label minLabel1 = new Label(playerMin + "  Minutes", skin, "optional");
+        style = minLabel1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        minLabel1.setStyle(style);
+
+        Label secLabel1 = new Label(playerSec + "  Seconds", skin, "optional");
+        style = secLabel1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        secLabel1.setStyle(style);
+
+        Label msLabel1 = new Label( playerms + " MS", skin, "optional");
+        style = msLabel1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        msLabel1.setStyle(style);
 
         t1B.add(minLabel1).align(Align.left).height(minLabel1.getHeight()*.62f);
         t1B.row();
@@ -424,7 +453,10 @@ public class SCOREScreen extends Screen{
         Table t2 = new Table();
         t1.setDebug(devMode);
 
-        Label competitorTime = new Label("Challenger Time:", skin, "taunt_small");
+        Label competitorTime = new Label("Challenger Time:", skin, "optional");
+        style = competitorTime.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        competitorTime.setStyle(style);
 
         //Calculate ghost time min, sec and ms.
         time = challengerTime;
@@ -440,9 +472,20 @@ public class SCOREScreen extends Screen{
 
         Table t2B = new Table();
         t2B.setDebug(devMode);
-        Label minLabel2 = new Label(ghostMin + " Minutes", skin, "taunt_small");
-        Label secLabel2 = new Label(ghostSec + " Seconds", skin, "taunt_small");
-        Label msLabel2 = new Label( ghostms  + " MS", skin, "taunt_small");
+        Label minLabel2 = new Label(ghostMin + " Minutes", skin, "optional");
+        style = minLabel2.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        minLabel2.setStyle(style);
+
+        Label secLabel2 = new Label(ghostSec + " Seconds", skin, "optional");
+        style = secLabel2.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        secLabel2.setStyle(style);
+
+        Label msLabel2 = new Label( ghostms  + " MS", skin, "optional");
+        style = msLabel2.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        msLabel2.setStyle(style);
 
         t2B.add(minLabel2).align(Align.left).height(minLabel2.getHeight()*.62f);
         t2B.row();
@@ -485,9 +528,20 @@ public class SCOREScreen extends Screen{
         }
 
 
-        Label info1 = new Label(info1S, skin, "taunt_small");
-        Label info2 = new Label(challenger, skin, "coinLabel");
-        Label info3 = new Label("Challenger", skin, "taunt_small");
+        Label info1 = new Label(info1S, skin, "optional");
+        style = info1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        info1.setStyle(style);
+
+        Label info2 = new Label(challenger, skin, "optional");
+        style = info2.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        info2.setStyle(style);
+
+        Label info3 = new Label("Challenger", skin, "optional");
+        style = info3.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        info3.setStyle(style);
 
         infoTable.add(info1).height(info1.getHeight()*.60f);
         infoTable.row();
