@@ -8,7 +8,7 @@ import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
-import com.araceinspace.misc.FontGenerator;
+import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -61,6 +61,7 @@ public class TITLEScreen extends Screen implements EventSender {
     private SpriteBatch menuBatch;
 
     BitmapFont titleFont;
+
     BitmapFont buttonFont;
 
     int spacer;
@@ -73,6 +74,8 @@ public class TITLEScreen extends Screen implements EventSender {
         parent.parent.levelManager.setLevel(1);
        // parent.parent.elapsedTime = 0;
     }
+
+
 
     @Override
     public void dispose() {
@@ -115,7 +118,7 @@ public class TITLEScreen extends Screen implements EventSender {
             }
         };
 
-        buttonFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 20);
+        buttonFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 20);
 
         startButton = new ImageTextButton("Start", skin);
         startButton.addListener(startButtonListener);
@@ -168,7 +171,7 @@ public class TITLEScreen extends Screen implements EventSender {
 
     private void setupLabels(){
 
-       titleFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 60);
+       titleFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 60);
 
 
 

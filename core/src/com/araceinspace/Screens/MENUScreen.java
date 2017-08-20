@@ -2,7 +2,7 @@ package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
-import com.araceinspace.misc.FontGenerator;
+import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -372,23 +372,6 @@ public class MENUScreen extends Screen {
 
 
         parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
-       // Dialog d = parent.parent.dialogManager.nameDialog;
-
-        //d.getContentTable().align(Align.center);
-       // d.getCell(d.getTitleTable()).align(Align.center);
-
-      //  NinePatchDrawable dialogBack = (NinePatchDrawable) parent.parent.dialogManager.nameDialog.getBackground();
-       // dialogBack.getPatch().scale(2.0f,2.0f);
-       // parent.parent.dialogManager.nameDialog.setDebug(true);
-        //parent.parent.dialogManager.nameDialog.getCell(parent.parent.dialogManager.nameDialog.getContentTable());
-
-        //parent.parent.dialogManager.nameDialog.getTitleLabel().getStyle().font = titleFont;
-       // parent.parent.dialogManager.nameDialog.getStyle().titleFont = titleFont;
-
-
-
-
-        //stage.addActor(mainTable);
         parent.parent.inputManager.addInputProcessor(stage);
     }
 

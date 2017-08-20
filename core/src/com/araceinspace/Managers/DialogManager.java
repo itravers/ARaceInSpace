@@ -5,7 +5,7 @@ import com.araceinspace.Screens.LEADERBOARDScreen;
 import com.araceinspace.Screens.SCOREScreen;
 import com.araceinspace.Screens.Screen;
 import com.araceinspace.misc.CustomDialog;
-import com.araceinspace.misc.FontGenerator;
+import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.RandomString;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -38,8 +38,8 @@ public class DialogManager {
     /* Constructor */
     public DialogManager(GameWorld p){
         parent = p;
-        titleFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
-        queryFont = FontGenerator.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 14);
+        titleFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
+        queryFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 14);
     }
 
     /* Private Methods */
