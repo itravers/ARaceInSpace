@@ -238,10 +238,16 @@ public class STOREScreen extends Screen{
         rewardButton.addListener(rewardAdButtonListener);
 
        // System.out.println("density: portrait, " + Gdx.graphics.getDensity());
-        storeTitleLabel = new Label("STORE", skin, "Store_Title");
+        storeTitleLabel = new Label("STORE", skin, "optional");
+        Label.LabelStyle style = storeTitleLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font48;
+        storeTitleLabel.setStyle(style);
         storeTitleLabel.setDebug(false);
         String coins = Integer.toString(parent.parent.getCoins());
         coinLabel = new Label(coins, skin, "coinLabel");
+        style = coinLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        coinLabel.setStyle(style);
         coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");
@@ -272,10 +278,16 @@ public class STOREScreen extends Screen{
         Table extraTable2 = new Table();
         extraTable2.setDebug(false);
         extraTable2.align(Align.center|Align.top);
-        Label taunt1 = new Label("DO YOURSELF A FAVOR AND", skin, "extra_small");
+        Label taunt1 = new Label("DO YOURSELF A FAVOR AND", skin, "optional");
+        style = taunt1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        taunt1.setStyle(style);
         extraTable2.add(taunt1).height(height/30).align(Align.left);
 
-        Label taunt2 = new Label("SPLURGE!!!", skin, "coinLabel");
+        Label taunt2 = new Label("SPLURGE!!!", skin, "optional");
+        style = taunt2.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        taunt2.setStyle(style);
         extraTable2.row();
         extraTable2.add(taunt2).height(height/30).align(Align.top);
 
@@ -377,6 +389,9 @@ public class STOREScreen extends Screen{
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "button_title");
+        Label.LabelStyle style = titleLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        titleLabel.setStyle(style);
         titleLabel.setTouchable(Touchable.disabled);
         titleLabel.setFontScale(.7f); //WORKS for rizing font, but we also change table container
 
@@ -387,12 +402,18 @@ public class STOREScreen extends Screen{
 
 
 
-        Label priceLabel = new Label(price, skin, "button_title");
+        Label priceLabel = new Label(price, skin, "optional");
+        style = priceLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        priceLabel.setStyle(style);
         priceLabel.setTouchable(Touchable.disabled);
         priceLabel.setFontScale(.8f);
         //priceLabel.setFontScale(Gdx.graphics.getDensity()); //WORKS for rizing font
 
         Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
+        style = taunt1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        taunt1.setStyle(style);
         taunt1.setTouchable(Touchable.disabled);
         taunt1.setFontScale(.7f);
         //taunt1.setFontScale(Gdx.graphics.getDensity());

@@ -222,13 +222,24 @@ public class INGAMEScreen extends Screen implements EventSender{
        // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
 
-        boostLabel = new Label("BOOST", skin, "indicator_label");
+
+
+        boostLabel = new Label("BOOST", skin, "optional");
+        Label.LabelStyle style = boostLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        boostLabel.setStyle(style);
         boostLabel.setPosition((viewport.getScreenWidth()/6)-boostLabel.getWidth()/2, viewport.getScreenHeight()-boostLabel.getHeight());
 
-        healthLabel = new Label("HEALTH", skin, "indicator_label");
+        healthLabel = new Label("HEALTH", skin, "optional");
+        Label.LabelStyle  style2 = healthLabel.getStyle();
+        style2.font = parent.parent.resourceManager.Font20;
+        healthLabel.setStyle(style2);
         healthLabel.setPosition(5*(viewport.getScreenWidth()/6)-healthLabel.getWidth()/2, viewport.getScreenHeight()-healthLabel.getHeight());
 
-        speedLabel = new Label("SPEED", skin, "indicator_label");
+        speedLabel = new Label("SPEED", skin, "optional");
+        Label.LabelStyle   style3 = speedLabel.getStyle();
+        style3.font = parent.parent.resourceManager.Font20;
+        speedLabel.setStyle(style3);
         speedLabel.setPosition((viewport.getScreenWidth()/2)-speedLabel.getWidth()/2, viewport.getScreenHeight()-speedLabel.getHeight()*1.5f);
 
         stage.addActor(boostLabel);
@@ -399,6 +410,8 @@ public class INGAMEScreen extends Screen implements EventSender{
     }
 
     private void renderVersion(SpriteBatch batch){
+
+
         font.setColor(Color.WHITE);
         font.draw(batch, "Version: " +((ARaceInSpace)parent.parent.parent).version, parent.parent.levelManager.getPlayer().getX(),parent.parent.levelManager.getPlayer().getY());
     }
@@ -407,7 +420,10 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     @Override
     public void render(float timeElapsed) {
-
+        boostLabel.setPosition((viewport.getScreenWidth()/2)-viewport.getScreenWidth()/3.3f, viewport.getScreenHeight()-boostLabel.getHeight());
+        healthLabel.setPosition((viewport.getScreenWidth()/2)+viewport.getScreenWidth()/6.3f, viewport.getScreenHeight()-healthLabel.getHeight()*.75f);
+        speedLabel.setPosition((viewport.getScreenWidth()/2)-speedLabel.getWidth()/2, viewport.getScreenHeight()-speedLabel.getHeight()*1.0f);
+        //healthLabel.setPosition((viewport.getScreenWidth()/2), viewport.getScreenHeight()-healthLabel.getHeight());
 
        // boostLabel.setZIndex(100);
        // System.out.println("timeElapsed: " + timeElapsed);
@@ -568,7 +584,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     public float getHealthMeterWidth(){
         float health = parent.parent.levelManager.getPlayer().getHealth();
-        return parent.map(health, 0, parent.parent.levelManager.getPlayer().HEALTH_TOTAL, velocityIndicatorOutline.getWidth()/2, healthMeterEmpty.getRegionWidth());
+        return parent.map(health, 0, parent.parent.levelManager.getPlayer().HEALTH_TOTAL, velocityIndicatorOutline.getWidth()/2, boostMeterEmpty.getRegionWidth());
     }
 
     public float getBoostMeterWidth(){
@@ -646,8 +662,10 @@ public class INGAMEScreen extends Screen implements EventSender{
 
 
         batch.draw(velocityIndicatorOutlineTexture, velocityIndicatorOutline.getX(), velocityIndicatorOutline.getY());
-        batch.draw(healthMeterEmpty,  (velocityIndicatorOutline.getX()+velocityIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
-        batch.draw(boostMeterEmpty,  -boostMeterEmpty.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterEmpty.getRegionHeight()+2);
+
+        //these next two draw the outline of the health and boost meter, except they were also drawing other things in the texture, i think it's because we not using scissorstack here
+       // batch.draw(healthMeterEmpty,  (velocityIndicatorOutline.getX()+velocityIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
+       // batch.draw(boostMeterEmpty,  -boostMeterEmpty.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterEmpty.getRegionHeight()+2);
 
         batch.end();
 

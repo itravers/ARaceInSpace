@@ -346,8 +346,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 		titleFont: default-font
 	}
 	dialog: {
-		background: default-window
-		titleFont: default-font
+		titleFont: font_d_estroy__24pt
 		stageBackground: dialogDim
 	}
 }

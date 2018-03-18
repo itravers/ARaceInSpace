@@ -52,6 +52,10 @@ public abstract class Screen {
         setup();
     }
 
+    public ScreenViewport getViewport(){
+        return viewport;
+    }
+
     public void setCameraZoom(float zoom){
         camera.zoom = zoom;
     }
@@ -147,6 +151,8 @@ public abstract class Screen {
             setShader(null);
             super.begin();
         }
+
+
 
     }
 }

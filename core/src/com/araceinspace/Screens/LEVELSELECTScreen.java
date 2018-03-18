@@ -5,14 +5,9 @@ import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -21,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
 
@@ -46,6 +40,7 @@ public class LEVELSELECTScreen extends Screen{
     ImageButton starSilver;
     ImageButton starGold;
     ImageButton buyLevelsButton;
+
 
     public LEVELSELECTScreen(RenderManager parent) {
         super(parent);
@@ -109,11 +104,12 @@ public class LEVELSELECTScreen extends Screen{
        // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
         //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
-        BitmapFont font = skin.getFont("default-font");
-        font.getData().setScale(.13f, .66f);
+
+        //BitmapFont font = skin.getFont("default-font");
+        //font.getData().setScale(.13f, .66f);
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
-        parent.parent.dialogManager.setupNameDialog(skin, stage, this);
+        parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
         if(parent.parent.playerName == null)parent.parent.dialogManager.nameDialog.show(stage);
         monetizationController.showBannerAd();
     }
@@ -155,7 +151,10 @@ public class LEVELSELECTScreen extends Screen{
         levelButton.getImageCell().expand().fill();
 
         //create stuff to put in table button
-        Label titleLabel = new Label(title, skin, "button_title");
+        Label titleLabel = new Label(title, skin, "optional");
+        Label.LabelStyle style = titleLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        titleLabel.setStyle(style);
         titleLabel.setTouchable(Touchable.disabled);
         //titleLabel.setFontScale(.7f); //WORKS for rizing font, but we also change table container
 
@@ -187,21 +186,40 @@ public class LEVELSELECTScreen extends Screen{
         }
         starGold.setTouchable(Touchable.disabled);
 
+        /*starBronze.setSize(width, width);
+        starSilver.setSize(width/5, width/5);
+        starGold.setSize(width, width);*/
+
+        starBronze.getImage().getDrawable().setMinWidth(width/5);
+        starBronze.getImage().getDrawable().setMinHeight(width/5);
+
+        starSilver.getImage().getDrawable().setMinWidth(width/5);
+        starSilver.getImage().getDrawable().setMinHeight(width/5);
+
+        starGold.getImage().getDrawable().setMinWidth(width/5);
+        starGold.getImage().getDrawable().setMinHeight(width/5);
+
         Table starTable = new Table();
         starTable.setDebug(devMode);
         starTable.align(Align.center);
 
-        starTable.add(starBronze).padRight(spacer);
-        starTable.add(starSilver);
-        starTable.add(starGold).padLeft(spacer);
+        starTable.add(starBronze).padRight(spacer).size(width/5);
+        starTable.add(starSilver).size(width/5);;
+        starTable.add(starGold).padLeft(spacer).size(width/5);
 
 
-        Label taunt1 = new Label(s_taunt1, skin, "taunt_small");
+        Label taunt1 = new Label(s_taunt1, skin, "optional");
+        style = taunt1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        taunt1.setStyle(style);
         taunt1.setTouchable(Touchable.disabled);
         taunt1.setFontScale(.7f);
         //taunt1.setFontScale(Gdx.graphics.getDensity());
 
-        Label taunt2 = new Label(s_taunt2, skin, "button_title");
+        Label taunt2 = new Label(s_taunt2, skin, "error");
+        style = taunt2.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        taunt2.setStyle(style);
         taunt2.setTouchable(Touchable.disabled);
         taunt2.setAlignment(Align.top);
 
@@ -286,10 +304,18 @@ public class LEVELSELECTScreen extends Screen{
         rewardButton.addListener(rewardAdButtonListener);
 
         //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
-        storeTitleLabel = new Label("Choose", skin, "Store_Title");
+        storeTitleLabel = new Label("Choose", skin, "optional");
+        Label.LabelStyle style = storeTitleLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font48;
+        storeTitleLabel.setStyle(style);
+        //storeTitleLabel.getStyle().font = bigFont;
         storeTitleLabel.setDebug(devMode);
+
         String coins = Integer.toString(parent.parent.getCoins());
-        coinLabel = new Label(coins, skin, "coinLabel");
+        coinLabel = new Label(coins, skin, "optional");
+        style = coinLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        coinLabel.setStyle(style);
         coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");
@@ -303,13 +329,11 @@ public class LEVELSELECTScreen extends Screen{
         headerTable.add(menuButton).padLeft(spacer/4).padTop(0).align(Align.left).size(width/8, height/10);
         headerTable.add(storeTitleLabel).expandX().align(Align.left).size(width/3.5f, height/12);
 
-        float fontWidth = storeTitleLabel.getStyle().font.getSpaceWidth()*storeTitleLabel.getText().length();
 
         headerTable.add(coinLabel).size(width/6, height/12).align(Align.right);
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
 
         headerTable.row();
-        //headerTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.top).spaceLeft(0);
 
         Table extraTable = new Table();
         extraTable.setDebug(devMode);
@@ -319,10 +343,16 @@ public class LEVELSELECTScreen extends Screen{
         Table extraTable2 = new Table();
         extraTable2.setDebug(devMode);
         extraTable2.align(Align.center|Align.top);
-        Label taunt1 = new Label(" Your    ", skin, "extra_small");
+        Label taunt1 = new Label(" Your    ", skin, "optional");
+        style = taunt1.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        taunt1.setStyle(style);
         extraTable2.add(taunt1).height(height/30).align(Align.left);
 
-        Label taunt2 = new Label(" LEVEL!!!", skin, "coinLabel");
+        Label taunt2 = new Label(" LEVEL!!!", skin, "optional");
+        style = taunt2.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        taunt2.setStyle(style);
         extraTable2.row();
         extraTable2.add(taunt2).height(height/30).align(Align.top);
 

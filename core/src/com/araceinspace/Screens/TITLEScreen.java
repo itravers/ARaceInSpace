@@ -8,12 +8,15 @@ import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -57,6 +60,7 @@ public class TITLEScreen extends Screen implements EventSender {
     private OrthCamera menuCamera;
     private SpriteBatch menuBatch;
 
+
     int spacer;
 
 
@@ -67,6 +71,8 @@ public class TITLEScreen extends Screen implements EventSender {
         parent.parent.levelManager.setLevel(1);
        // parent.parent.elapsedTime = 0;
     }
+
+
 
     @Override
     public void dispose() {
@@ -108,8 +114,12 @@ public class TITLEScreen extends Screen implements EventSender {
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
             }
         };
+
+
+
         startButton = new ImageTextButton("Start", skin);
         startButton.addListener(startButtonListener);
+        startButton.getStyle().font = parent.parent.resourceManager.Font20;
 
         leaderboardButton = new ImageTextButton("Leader Boards", skin);
         leaderboardButton.addListener(leaderboardButtonListener);
@@ -158,7 +168,12 @@ public class TITLEScreen extends Screen implements EventSender {
 
     private void setupLabels(){
 
+      // titleFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 60);
+
+
+
         titleLabel1 = new Label("A", skin, "title");
+        titleLabel1.getStyle().font = parent.parent.resourceManager.Font60;
         titleLabel2 = new Label("Race", skin, "title");
         titleLabel3 = new Label("In", skin, "title");
         titleLabel4 = new Label("Space", skin, "title");

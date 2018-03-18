@@ -168,7 +168,7 @@ public class LEADERBOARDScreen extends Screen{
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         if(jsonFromServer == null){
-            parent.parent.dialogManager.infoDialog.getTitleLabel().setText("Can't Connect to LeaderBoard");
+            parent.parent.dialogManager.infoDialog.getTitleLabel().setText("Cant Connect to LeaderBoard");
             parent.parent.dialogManager.infoDialog.show(stage);//if can't connect to leaderboard, show dialog after everything else has been printed
         }
 
@@ -237,19 +237,29 @@ public class LEADERBOARDScreen extends Screen{
         rewardButton.addListener(rewardAdButtonListener);
 
         //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
-        storeTitleLabel1 = new Label("LEADER", skin, "coinLabel");
+        storeTitleLabel1 = new Label("LEADER", skin, "optional");
+        Label.LabelStyle style = storeTitleLabel1.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        storeTitleLabel1.setStyle(style);
         storeTitleLabel1.setDebug(devMode);
-        storeTitleLabel2 = new Label("BOARDS", skin, "coinLabel");
+
+        storeTitleLabel2 = new Label("BOARDS", skin, "optional");
+        style = storeTitleLabel2.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        storeTitleLabel2.setStyle(style);
         storeTitleLabel2.setDebug(devMode);
 
         Table titleTable = new Table();
         titleTable.setDebug(devMode);
-        titleTable.add(storeTitleLabel1).align(Align.bottom|Align.center).height(storeTitleLabel1.getHeight()*.65f);
+        titleTable.add(storeTitleLabel1).align(Align.top|Align.center).height(storeTitleLabel1.getHeight()*.65f);
         titleTable.row();
-        titleTable.add(storeTitleLabel2).align(Align.top|Align.center).height(storeTitleLabel2.getHeight()*.65f);;
+        titleTable.add(storeTitleLabel2).align(Align.bottom|Align.center).height(storeTitleLabel2.getHeight()*.65f);;
 
         String coins = Integer.toString(parent.parent.getCoins());
-        coinLabel = new Label(coins, skin, "coinLabel");
+        coinLabel = new Label(coins, skin, "optional");
+        style = coinLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        coinLabel.setStyle(style);
         coinLabel.setAlignment(Align.right);
 
         coinButton = new ImageButton(skin, "coinButton");
@@ -278,10 +288,16 @@ public class LEADERBOARDScreen extends Screen{
         Table extraTable2 = new Table();
         extraTable2.setDebug(devMode);
         extraTable2.align(Align.center|Align.top);
-        Label taunt1 = new Label("Win A Challenge and become", skin, "extra_small");
+        Label taunt1 = new Label("Win A Challenge and become", skin, "optional");
+        style = taunt1.getStyle();
+        style.font = parent.parent.resourceManager.Font20;
+        taunt1.setStyle(style);
         extraTable2.add(taunt1).height(height/30).align(Align.left);
 
-        Label taunt2 = new Label("The New CHAMP!!!", skin, "coinLabel");
+        Label taunt2 = new Label("The New CHAMP!!!", skin, "optional");
+        style = taunt2.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        taunt2.setStyle(style);
         extraTable2.row();
         extraTable2.add(taunt2).height(height/30).align(Align.top);
 
@@ -319,7 +335,11 @@ public class LEADERBOARDScreen extends Screen{
             ImageTextButton challengeButton = new ImageTextButton("Challenge",skin);
             challengeButton.setName(levelName);
             challengeButton.addListener(challengeListener);
-            Label l = new   Label(levelName, skin, "tree_header");
+            Label l = new   Label(levelName, skin, "optional");
+            style = l.getStyle();
+            style.font = parent.parent.resourceManager.Font24;
+            l.setStyle(style);
+
             ImageButton coin10 = new ImageButton(skin, "coinSmall10");
             parentTable.add(l).width(l.getWidth()*1.0f).padLeft(spacer).padRight(spacer);
            // parentTable.add(challengeButton).align(Align.right).width(challengeButton.getWidth()*1.0f);
@@ -343,18 +363,27 @@ public class LEADERBOARDScreen extends Screen{
                 //inner for loop here
                 Table tablePlace = new Table();
                 tablePlace.setDebug(devMode);
-                Label labelPlace = new Label(place, skin, "extra_small");
+                Label labelPlace = new Label(place, skin, "optional");
+                style = labelPlace.getStyle();
+                style.font = parent.parent.resourceManager.Font20;
+                labelPlace.setStyle(style);
                 tablePlace.add(labelPlace).align(Align.left);
                 tablePlace.padRight(spacer);
 
                 Table tableName = new Table();
                 tableName.setDebug(devMode);
-                Label labelName = new Label(name + " - ", skin, "extra_small");
+                Label labelName = new Label(name + " - ", skin, "optional");
+                style = labelPlace.getStyle();
+                style.font = parent.parent.resourceManager.Font20;
+                labelPlace.setStyle(style);
                 tableName.add(labelName).align(Align.right);
 
                 Table tableTime = new Table();
                 tableTime.setDebug(devMode);
-                Label labelTime = new Label(formattedTime, skin, "extra_small");
+                Label labelTime = new Label(formattedTime, skin, "optional");
+                style = labelPlace.getStyle();
+                style.font = parent.parent.resourceManager.Font20;
+                labelPlace.setStyle(style);
                 tableTime.add(labelTime).align(Align.left);
 
 

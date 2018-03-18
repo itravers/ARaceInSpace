@@ -4,13 +4,18 @@ import com.araceinspace.GameWorld;
 import com.araceinspace.Screens.LEADERBOARDScreen;
 import com.araceinspace.Screens.SCOREScreen;
 import com.araceinspace.Screens.Screen;
+import com.araceinspace.misc.CustomDialog;
+import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.RandomString;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Created by Isaac Assega on 8/6/17.
@@ -27,10 +32,14 @@ public class DialogManager {
     public Dialog infoDialog;
     public Dialog nameDialog;
     public Dialog levelLoadingDialog;
+    BitmapFont titleFont;
+    BitmapFont queryFont;
 
     /* Constructor */
     public DialogManager(GameWorld p){
         parent = p;
+        titleFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
+        queryFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 14);
     }
 
     /* Private Methods */
@@ -38,7 +47,7 @@ public class DialogManager {
     /* Public Methods */
 
     public void setupDialogs(Skin skin, final Stage stage, final Screen screen) {
-        purchaseDialog = new Dialog("Are you sure you want to spend " + parent.renderManager.coinsToSpend + " coins?", skin) {
+        purchaseDialog = new CustomDialog("Are you sure you want to spend " + parent.renderManager.coinsToSpend + " coins?", skin, screen.getViewport().getScreenWidth()*.75f, queryFont) {
             protected void result(Object object) {
                 if (object.toString().equals("true")) {
                     dialogQuestion = true;
@@ -92,12 +101,16 @@ public class DialogManager {
         infoDialog.button(okButton);
     }
 
-    public void setupNameDialog(Skin skin, Stage stage, Screen screen){
+    public void setupNameDialog(Skin skin, Stage stage, Viewport viewport){
+
+
+
         final TextArea textArea = new TextArea("", skin);
         textArea.setMaxLength(8);
-        ImageTextButton submitButton = new ImageTextButton("Submit", skin);
+        textArea.getStyle().font = titleFont;
+        ImageTextButton submitButton = new ImageTextButton("SUBMIT", skin);
         final RandomString randomString = new RandomString(4);
-        nameDialog = new Dialog("What Is Your Name?", skin, "dialog"){
+        nameDialog = new CustomDialog("What is Your Name?", skin, viewport.getScreenWidth()*.75f, titleFont){
             protected void result(Object object) {
                 String name = textArea.getText();
                 if(name.isEmpty()){
@@ -111,13 +124,13 @@ public class DialogManager {
                 Gdx.input.setOnscreenKeyboardVisible(false);
             }
         };
-        // nameDialog.add(textArea);
-        nameDialog.getContentTable().add(textArea).expandX();
+        nameDialog.getContentTable().add(textArea).expandX().width(viewport.getScreenWidth()*.50f).height(viewport.getScreenHeight()/14);
+
         nameDialog.button(submitButton);
     }
 
-    public void setupLoadingLevelDialog(Skin skin, Stage stage, Screen screen, final int ghostLevel, final String jsonOfGhost){
-        levelLoadingDialog = new Dialog("Loading Level: " + ghostLevel, skin, "dialog"){
+    public void setupLoadingLevelDialog(Skin skin, Stage stage, Viewport viewport, final int ghostLevel, final String jsonOfGhost){
+        levelLoadingDialog = new CustomDialog("Loading Level: " + ghostLevel, skin, viewport.getScreenWidth()*.75f, titleFont){
             protected void result(Object object) {
                 parent.levelManager.setLevel(ghostLevel);
                 parent.levelManager.setupGhostFromJson(jsonOfGhost);

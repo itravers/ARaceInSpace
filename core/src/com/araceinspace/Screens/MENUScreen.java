@@ -2,13 +2,17 @@ package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -22,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Tree;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 
 /**
@@ -178,8 +183,14 @@ public class MENUScreen extends Screen {
 
     private void setupLabels(){
         titleLabel = new Label("Menu", skin, "Store_Title");
+        Label.LabelStyle style = titleLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font48;
+        titleLabel.setStyle(style);
         String coins = Integer.toString(parent.parent.getCoins());
-        coinLabel = new Label(coins, skin, "coinLabel");
+        coinLabel = new Label(coins, skin, "optional");
+        style = coinLabel.getStyle();
+        style.font = parent.parent.resourceManager.Font36;
+        coinLabel.setStyle(style);
         coinLabel.setAlignment(Align.right);
     }
 
@@ -243,7 +254,11 @@ public class MENUScreen extends Screen {
 
         Tree tree = new Tree(skin, "default");
 
-        Tree.Node levelSectionNode = new Tree.Node(new   Label("    Level Section", skin, "tree_header"));
+        Label l1 = new   Label("    Level Section", skin, "optional");
+        Label.LabelStyle style = l1.getStyle();
+        style.font = parent.parent.resourceManager.Font24;
+        l1.setStyle(style);
+        Tree.Node levelSectionNode = new Tree.Node(l1);
         levelSectionTable = new Table();
         levelSectionTable.setDebug(parent.parent.devMode);
         levelSectionTable.align(Align.left|Align.top);
@@ -255,7 +270,9 @@ public class MENUScreen extends Screen {
         Tree.Node levelSectionChild = new Tree.Node(w);
         levelSectionNode.add(levelSectionChild);
 
-        Tree.Node optionsSection = new Tree.Node(new Label("   Options Section", skin, "tree_header"));
+        Label l2 = new Label("   Options Section", skin, "optional");
+        l2.setStyle(l1.getStyle());
+        Tree.Node optionsSection = new Tree.Node(l2);
         Table optionsSectionTable = new Table();
         optionsSectionTable.setDebug(parent.parent.devMode);
         optionsSectionTable.align(Align.left|Align.top);
@@ -268,16 +285,22 @@ public class MENUScreen extends Screen {
         Tree.Node optionSectionChild = new Tree.Node(w);
         optionsSection.add(optionSectionChild);
 
-        Tree.Node soundSelectionNode = new Tree.Node(new Label("    Sound Section", skin, "tree_header"));
+        Label l3 = new Label("    Sound Section", skin, "tree_header");
+        l3.setStyle(l1.getStyle());
+        Tree.Node soundSelectionNode = new Tree.Node(l3);
         Table soundSectionTable = new Table();
         soundSectionTable.setDebug(parent.parent.devMode);
         soundSectionTable.align(Align.left|Align.top);
-        soundSectionTable.add(new Label("Music Volume", skin, "extra_small"));
+        Label musicVolumeLabel = new Label("Music Volume", skin, "optional");
+        musicVolumeLabel.setStyle(l1.getStyle());
+        soundSectionTable.add(musicVolumeLabel);
         soundSectionTable.row();
         soundSectionTable.add(musicVolumeSlider).width(width/2.8f).fill().expandX().spaceRight(width/20);
         soundSectionTable.add(musicMuteButton).width(width/4.2f).fill().expandX();
         soundSectionTable.row();
-        soundSectionTable.add(new Label("  SFX Volume", skin, "extra_small"));
+        Label sfxVolumeLabel = new Label("  SFX Volume", skin, "extra_small");
+        sfxVolumeLabel.setStyle(l1.getStyle());
+        soundSectionTable.add(sfxVolumeLabel);
         soundSectionTable.row();
         soundSectionTable.add(sfxVolumeSlider).width(width/2.8f).fill().expandX().spaceRight(width/20);
         soundSectionTable.add(sfxMuteButton).width(width/4.2f).fill().expandX();
@@ -287,7 +310,9 @@ public class MENUScreen extends Screen {
         Tree.Node soundSectionChild = new Tree.Node(w);
         soundSelectionNode.add(soundSectionChild);
 
-        Tree.Node videoSectionNode = new Tree.Node(new Label("    Video Section", skin, "tree_header"));
+        Label l4 = new Label("    Video Section", skin, "tree_header");
+        l4.setStyle(l1.getStyle());
+        Tree.Node videoSectionNode = new Tree.Node(l4);
         Table videoSectionTable = new Table();
         videoSectionTable.setDebug(parent.parent.devMode);
         videoSectionTable.align(Align.left|Align.top);
@@ -301,7 +326,9 @@ public class MENUScreen extends Screen {
         Tree.Node videoSectionChild = new Tree.Node(w);
         videoSectionNode.add(videoSectionChild);
 
-        Tree.Node creditsSectionNode = new Tree.Node(new Label("    Credits Section", skin, "tree_header"));
+        Label l5 = new Label("    Credits Section", skin, "tree_header");
+        l5.setStyle(l1.getStyle());
+        Tree.Node creditsSectionNode = new Tree.Node(l5);
         Table creditsSectionTable = new Table();
         creditsSectionTable.setDebug(parent.parent.devMode);
         creditsSectionTable.align(Align.left|Align.top);
@@ -319,7 +346,7 @@ public class MENUScreen extends Screen {
         tree.add(levelSectionNode);
         tree.add(optionsSection);
         tree.add(soundSelectionNode);
-        tree.add(videoSectionNode);
+       // tree.add(videoSectionNode);
         tree.add(creditsSectionNode);
         //tree.add(moo4);
 
@@ -364,9 +391,9 @@ public class MENUScreen extends Screen {
         setupSliders();
         setupTables();
 
-        parent.parent.dialogManager.setupNameDialog(skin, stage, this);
 
-        //stage.addActor(mainTable);
+
+        parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
         parent.parent.inputManager.addInputProcessor(stage);
     }
 

@@ -2,12 +2,18 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameWorld;
 import com.araceinspace.misc.Animation;
+import com.araceinspace.misc.FreetypeFontLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
@@ -45,6 +51,13 @@ public class ResourceManager {
     private Animation flyingNoThrustAnimation;
     private Animation explosionAnimation;
 
+    /* Font Data */
+    public BitmapFont Font60;
+    public BitmapFont Font48;
+    public BitmapFont Font36;
+    public BitmapFont Font24;
+    public BitmapFont Font20;
+
 
     /** Player Atlas */
     public TextureAtlas heroAtlas;
@@ -59,6 +72,7 @@ public class ResourceManager {
     //Game Sounds
     public Music beethovens7th;
     public Music risingSun;
+    public Music hearthAndHills;
 
     /* Constructors */
     public ResourceManager(GameWorld p){
@@ -82,6 +96,37 @@ public class ResourceManager {
         assetManager.load("aris_uiskin.json", Skin.class, new SkinLoader.SkinParameter("aris_uiskin.atlas"));
         assetManager.load("data/beethoven7th.mp3", Music.class);
         assetManager.load("data/RisingSun.ogg", Music.class);
+        assetManager.load("data/hearthAndHills.ogg", Music.class);
+
+        //setup stuff to load fonts
+        FileHandleResolver resolver = new InternalFileHandleResolver();
+        assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter size48Params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        size48Params.fontFileName = "Font_Destroy.ttf";
+        size48Params.fontParameters.size = 48;
+        assetManager.load("Font48.ttf", BitmapFont.class, size48Params);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter size24Params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        size24Params.fontFileName = "Font_Destroy.ttf";
+        size24Params.fontParameters.size = 24;
+        assetManager.load("Font24.ttf", BitmapFont.class, size24Params);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter size36Params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        size36Params.fontFileName = "Font_Destroy.ttf";
+        size36Params.fontParameters.size = 36;
+        assetManager.load("Font36.ttf", BitmapFont.class, size36Params);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter size20Params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        size20Params.fontFileName = "Font_Destroy.ttf";
+        size20Params.fontParameters.size = 20;
+        assetManager.load("Font20.ttf", BitmapFont.class, size20Params);
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter size60Params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        size60Params.fontFileName = "Font_Destroy.ttf";
+        size60Params.fontParameters.size = 60;
+        assetManager.load("Font60.ttf", BitmapFont.class, size60Params);
     }
 
     /**
@@ -190,6 +235,7 @@ public class ResourceManager {
             setupAnimations();
             setupSkin();
             setupSounds();
+            setupFonts();
             loadingAssets = false;
             parent.initializeManagers();//must come after setupAnimations, and setupPlanets
         }
@@ -198,9 +244,18 @@ public class ResourceManager {
         //System.out.println("AssetLoading Progress : " + progress);
     }
 
+    private void setupFonts(){
+        Font60 = assetManager.get("Font60.ttf", BitmapFont.class);
+        Font48 = assetManager.get("Font48.ttf", BitmapFont.class);
+        Font36 = assetManager.get("Font36.ttf", BitmapFont.class);
+        Font24 = assetManager.get("Font24.ttf", BitmapFont.class);
+        Font20 = assetManager.get("Font20.ttf", BitmapFont.class);
+    }
+
     private void setupSounds(){
         beethovens7th = assetManager.get("data/beethoven7th.mp3", Music.class);
         risingSun = assetManager.get("data/RisingSun.ogg", Music.class);
+        hearthAndHills = assetManager.get("data/hearthAndHills.ogg", Music.class);
        // assetManager.finishLoading();
     }
 
