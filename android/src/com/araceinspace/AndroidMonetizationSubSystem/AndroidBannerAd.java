@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.araceinspace.AndroidLauncher;
+import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.MonetizationSubSystem.GameAd;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.google.android.gms.ads.AdListener;
@@ -98,21 +100,27 @@ public class AndroidBannerAd extends GameAd{
     @Override
     public void loadAd() {
         System.out.println("game ads : loadAd() called from thread:" + Thread.currentThread().getName());
-        if(isConnected() && app !=null){
-            //needs to be run on the aps UI thread.
-            app.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setLoaded(false);
-                    AdRequest.Builder builder = new AdRequest.Builder();
-                    //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
-                    builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
-                    rawBannerAd = builder.build();
-                    System.out.println("game ads : about to load ad on thread:" + Thread.currentThread().getName());
-                    bannerAd.loadAd(rawBannerAd);
+       // System.out.println("game ads : checking if we are currently in game: " + ((AndroidLauncher)app).mainGame.gameWorld.gameStateManager.getCurrentState());
+        if(isConnected() && app != null){
+            if(!isShowing()){
+                System.out.println("game ads: loadAd() called, but ad is supposed to be invisible right now, so lets not...");
+            }else {
+                //needs to be run on the aps UI thread.
+                app.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setLoaded(false);
+                        AdRequest.Builder builder = new AdRequest.Builder();
+                        //builder.addTestDevice("752B44EB5165C7A81E9423963C07AC77");
+                        builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+                        rawBannerAd = builder.build();
+                        System.out.println("game ads : about to load ad on thread:" + Thread.currentThread().getName());
+                        bannerAd.loadAd(rawBannerAd);
 
-                }
-            });
+                    }
+                });
+            }
+
         }else{
             System.out.println("game ads : loadAd() called, but no connection available, or app is null + " + app);
         }
@@ -126,7 +134,15 @@ public class AndroidBannerAd extends GameAd{
     @Override
     public void loadAd_callback() {
         System.out.println("game ads : loadAd_callback() called on thread:"  + Thread.currentThread().getName());
-        setLoaded(true);
+
+        //app.runOnUiThread(new Runnable() {
+        //    @Override
+        //    public void run() {
+                setLoaded(true);
+        //    }
+       // });
+
+
     }
 
     /**

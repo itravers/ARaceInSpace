@@ -134,9 +134,11 @@ public class AndroidMonetizationController implements MonetizationController {
         if(bannerVisibilityChanged){
             System.out.println("game ads: monetizationController.updateVisibility()");
             if(bannerAd.isShowing()){
+                System.out.println("game ads: setting ad VISIBLE");
                 bannerAd.setVisibility(View.VISIBLE);
-                // System.out.println("game ads: setting ad visible");
+
             }else{
+                System.out.println("game ads: setting ad INVISIBLE");
                 bannerAd.setVisibility(View.INVISIBLE);
             }
             bannerVisibilityChanged = false;
@@ -191,6 +193,7 @@ public class AndroidMonetizationController implements MonetizationController {
         if(!isBannerAdShowing()){
             bannerAd.setShowing(true);
             bannerVisibilityChanged = true;
+            bannerAd.loadAd();//try this here instead of in hideBannerAd
         }
 
     }
@@ -204,7 +207,8 @@ public class AndroidMonetizationController implements MonetizationController {
     public void hideBannerAd(){
         bannerAd.setShowing(false);
         bannerVisibilityChanged = true;
-        bannerAd.loadAd(); //we may want to load another ad as soon as the previous was hidden.
+        //this next line may have been causing a crash where ad is loaded when it is invisible
+        //bannerAd.loadAd(); //we may want to load another ad as soon as the previous was hidden.
     }
 
     /**

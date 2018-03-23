@@ -54,7 +54,7 @@ public class AndroidLauncher extends AndroidApplication implements ToastInterfac
 	 */
 	//MonetizationIntegrationTest mainGame;
 	//StoreLayoutTest mainGame;
-	ARaceInSpace mainGame;
+	public ARaceInSpace mainGame;
 
 /* Protected Methods */
 
