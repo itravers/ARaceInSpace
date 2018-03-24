@@ -145,7 +145,7 @@ public class TITLEScreen extends Screen implements EventSender {
         headerTable.align(Align.center|Align.top);
         headerTable.setWidth(mainTable.getWidth());
 
-        headerTable.add(menuButton).padLeft(spacer).padRight(menuViewport.getScreenWidth()/3).padTop(0).align(Align.left).size(menuViewport.getScreenWidth()/8, menuViewport.getScreenHeight()/10);
+       // headerTable.add(menuButton).padLeft(spacer).padRight(menuViewport.getScreenWidth()/3).padTop(0).align(Align.left).size(menuViewport.getScreenWidth()/8, menuViewport.getScreenHeight()/10);
 
 
         stage.addActor(titleLabel1);

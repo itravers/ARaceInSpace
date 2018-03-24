@@ -50,6 +50,7 @@ public class MENUScreen extends Screen {
     private ClickListener coinButtonListener;
     private  ClickListener backButtonListener;
     private ClickListener rewardAdButtonListener;
+    private ClickListener leaderboardButtonListener;
     private ClickListener muteMusicButtonListener;
     private ChangeListener musicVolumeSliderListener;
     private ClickListener changeNameButtonListener;
@@ -63,6 +64,7 @@ public class MENUScreen extends Screen {
     private ImageTextButton sfxMuteButton;
     private ImageTextButton resolutionApplyButton;
     private ImageTextButton creditsButton;
+    private ImageTextButton leaderboardButton;
     private ImageTextButton changeNameButton;
     private SelectBox selectBox;
 
@@ -122,6 +124,13 @@ public class MENUScreen extends Screen {
 
         };
 
+        leaderboardButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEADERBOARDS);
+            }
+        };
+
         muteMusicButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -174,6 +183,9 @@ public class MENUScreen extends Screen {
 
         creditsButton = new ImageTextButton("View Credits", skin);
         creditsButton.addListener(rewardAdButtonListener);
+
+        leaderboardButton = new ImageTextButton("Leader Boards", skin);
+        leaderboardButton.addListener(leaderboardButtonListener);
 
         selectBox = new SelectBox(skin);
         selectBox.setItems("   1200X1080", "   720X480");
@@ -333,6 +345,8 @@ public class MENUScreen extends Screen {
         creditsSectionTable.setDebug(parent.parent.devMode);
         creditsSectionTable.align(Align.left|Align.top);
         creditsSectionTable.add(creditsButton).width(width/2).fill().expandX();
+        creditsSectionTable.row();
+        creditsSectionTable.add(leaderboardButton).width(width/2).fill().expandX();
         w = new Window("", skin);
         w.setMovable(false);
         w.add(creditsSectionTable).width(viewport.getScreenWidth()*.65f);

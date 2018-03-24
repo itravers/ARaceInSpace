@@ -35,6 +35,7 @@ public class GameStateManager {
     }
 
     public GAME_STATE popState(){
+        if(stateStack.size() ==1)return null;
         GAME_STATE stateBefore = stateStack.pop();
         GAME_STATE stateNow;
 

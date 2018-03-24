@@ -150,7 +150,9 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
              * Ignore back button if there is only 1 state in the gameState Stack
              */
             if(!parent.gameStateManager.firstState()){
-                parent.gameStateManager.setCurrentState(parent.gameStateManager.popState());
+                GameStateManager.GAME_STATE thisState = parent.gameStateManager.popState();
+                if(thisState != null)
+                    parent.gameStateManager.setCurrentState(parent.gameStateManager.popState());
                 return true;
             }
 
