@@ -23,6 +23,7 @@ public class HttpManager {
         requestFailed = false;
     }
     public  void sendRequest(String url, String requestJson, String method) {
+        System.out.println("httpManger: send request to: " + url);
 
       //  final Json json = new Json();
 
@@ -167,10 +168,12 @@ public class HttpManager {
         String url = "http://192.168.1.197:3001/leaderboards/levelleaders";
         sendRequest(url, null, "GET");
         String leadersString = waitForResponse();
-        if(leadersString == null){
+        if(leadersString == null || leadersString.contains("MongoError")){
             for(int i = 0; i < 12; i++)returnVal.add("N/A");
             return returnVal;
         }
+
+        System.out.println("getLevelLeaders(): " + leadersString);
         StringTokenizer tokenizer = new StringTokenizer(leadersString, ":");
 
         while(tokenizer.hasMoreTokens()){

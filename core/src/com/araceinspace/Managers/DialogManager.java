@@ -113,7 +113,7 @@ public class DialogManager {
         nameDialog = new CustomDialog("What is Your Name?", skin, viewport.getScreenWidth()*.75f, titleFont){
             protected void result(Object object) {
                 String name = textArea.getText();
-                if(name.isEmpty()){
+                if(name.isEmpty() || name.contains("MongoError")){ //don't allow these to be names, instead force guest name
                     name = "Guest "+randomString.nextString();
                 }
                 name = name.replaceAll("\\s", "-");
