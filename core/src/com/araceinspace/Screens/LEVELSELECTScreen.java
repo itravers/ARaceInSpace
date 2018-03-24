@@ -74,11 +74,12 @@ public class LEVELSELECTScreen extends Screen{
 
         };
 
+        //back button shouldn't do anything on level select screen
         backButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
+                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
             }
 
         };

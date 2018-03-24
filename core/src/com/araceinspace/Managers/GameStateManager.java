@@ -51,6 +51,7 @@ public class GameStateManager {
 
         if(getCurrentState() == GAME_STATE.TITLE_SCREEN || getCurrentState() == GAME_STATE.SCOREBOARD){
             parent.elapsedTime = 0;
+            stateStack.clear();
         }
 
         parent.renderManager.disposeScreen();

@@ -111,10 +111,11 @@ public class SCOREScreen extends Screen{
 
         };
 
+        //back button shouldn't do anything on score screen
         backButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
+                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
             }
 
         };
@@ -267,7 +268,7 @@ public class SCOREScreen extends Screen{
 
         backButton = new ImageButton(skin, "backButton");
         backButton.setDebug(devMode);
-        backButton.addListener(tryAgainListener);
+        //backButton.addListener(tryAgainListener);
 
         menuButton = new ImageButton(skin, "menuButton");
         menuButton.setDebug(devMode);
