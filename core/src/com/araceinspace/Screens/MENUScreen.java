@@ -51,6 +51,7 @@ public class MENUScreen extends Screen {
     private  ClickListener backButtonListener;
     private ClickListener rewardAdButtonListener;
     private ClickListener leaderboardButtonListener;
+    private ClickListener creditsButtonListener;
     private ClickListener muteMusicButtonListener;
     private ChangeListener musicVolumeSliderListener;
     private ClickListener changeNameButtonListener;
@@ -131,6 +132,13 @@ public class MENUScreen extends Screen {
             }
         };
 
+        creditsButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.CREDITS);
+            }
+        };
+
         muteMusicButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -182,7 +190,7 @@ public class MENUScreen extends Screen {
         resolutionApplyButton.addListener(rewardAdButtonListener);
 
         creditsButton = new ImageTextButton("View Credits", skin);
-        creditsButton.addListener(rewardAdButtonListener);
+        creditsButton.addListener(creditsButtonListener);
 
         leaderboardButton = new ImageTextButton("Leader Boards", skin);
         leaderboardButton.addListener(leaderboardButtonListener);

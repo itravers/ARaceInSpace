@@ -5,6 +5,7 @@ import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
 import com.araceinspace.GameWorld;
 import com.araceinspace.MonetizationSubSystem.MonetizationController;
+import com.araceinspace.Screens.CREDITSScreen;
 import com.araceinspace.Screens.INGAMEScreen;
 import com.araceinspace.Screens.LEADERBOARDScreen;
 import com.araceinspace.Screens.LEVELSELECTScreen;
@@ -114,6 +115,9 @@ public class RenderManager {
                 break;
             case LEADERBOARDS:
                 currentScreen = new LEADERBOARDScreen(this);
+                break;
+            case CREDITS:
+                currentScreen = new CREDITSScreen(this);
                 break;
         }
     }

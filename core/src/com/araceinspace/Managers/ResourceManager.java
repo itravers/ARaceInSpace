@@ -74,6 +74,8 @@ public class ResourceManager {
     public Music risingSun;
     public Music hearthAndHills;
 
+    public Music everybodyDies;
+
     /* Constructors */
     public ResourceManager(GameWorld p){
         System.out.println("ResourceManager Constructor");
@@ -97,6 +99,7 @@ public class ResourceManager {
         assetManager.load("data/beethoven7th.mp3", Music.class);
         assetManager.load("data/RisingSun.ogg", Music.class);
         assetManager.load("data/hearthAndHills.ogg", Music.class);
+        assetManager.load("data/everybodydies.mp3", Music.class);
 
         //setup stuff to load fonts
         FileHandleResolver resolver = new InternalFileHandleResolver();
@@ -256,6 +259,9 @@ public class ResourceManager {
         beethovens7th = assetManager.get("data/beethoven7th.mp3", Music.class);
         risingSun = assetManager.get("data/RisingSun.ogg", Music.class);
         hearthAndHills = assetManager.get("data/hearthAndHills.ogg", Music.class);
+        everybodyDies = assetManager.get("data/everybodydies.mp3", Music.class);
+
+        //everybodyDies.setLooping(0, false);
        // assetManager.finishLoading();
     }
 

@@ -43,13 +43,23 @@ public class SoundManager {
     }
 
     /* Public Methods */
-    public void playSong(Music s){
+    public void playSong(Music s, boolean stopCurrent, boolean replace){
+        if(currentSong != null && stopCurrent) currentSong.stop();
 
-        currentSong = s;
+        if(replace) currentSong = s;
 
         //currentSongId = s.play();
         s.play();
+        s.setLooping(false);
+    }
 
+    public void playSong(Music s){
+        playSong(s, true, true);
+    }
+
+    public long playSound(Sound s){
+        //s.play();
+        return s.play();
     }
 
     public void setMusicVolume(float musicVolume){
@@ -63,6 +73,8 @@ public class SoundManager {
         //currentSong.setVolume(currentSongId, musicVolume);
 
     }
+
+
 
     public boolean isMusicMuted(){
         return musicMuted;

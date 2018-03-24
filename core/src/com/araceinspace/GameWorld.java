@@ -89,9 +89,10 @@ public class GameWorld {
         levelManager = new LevelManager(this);
         renderManager = new RenderManager(this);
         dialogManager = new DialogManager(this);
+        soundManager = new SoundManager(this);//must be before gamestateManager
         gameStateManager = new GameStateManager(this);//must come after rendermanager
 
-        soundManager = new SoundManager(this);
+
 
         elapsedTime = 0;
     }

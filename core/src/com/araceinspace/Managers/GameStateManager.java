@@ -14,7 +14,7 @@ public class GameStateManager {
 
     /* Field Variables & Objects */
     GameWorld parent;
-    public enum GAME_STATE {TITLE_SCREEN, LEVEL_SELECT, STORE, MENU, LEADERBOARDS, PREGAME, SCOREBOARD, INGAME}
+    public enum GAME_STATE {TITLE_SCREEN, LEVEL_SELECT, STORE, MENU, LEADERBOARDS, PREGAME, SCOREBOARD, INGAME, CREDITS}
     private Stack<GAME_STATE> stateStack; //Used to keep track of what state we are in, and what order we have been in
 
     /* Constructors */
@@ -23,6 +23,7 @@ public class GameStateManager {
         stateStack = new Stack<GAME_STATE>();
         parent.levelManager.setLevel(1);
         setCurrentState(GAME_STATE.TITLE_SCREEN);
+        //setCurrentState(GAME_STATE.CREDITS);
 
     }
 
