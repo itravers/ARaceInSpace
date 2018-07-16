@@ -50,6 +50,7 @@ public class ResourceManager {
     private Animation  jumpSidewaysAnimation;
     private Animation flyingNoThrustAnimation;
     private Animation explosionAnimation;
+    private Animation planetAnimation;
 
     /* Font Data */
     public BitmapFont Font60;
@@ -91,7 +92,7 @@ public class ResourceManager {
 
     private void loadAssets(){
         loadingAssets = true;
-        assetManager.load("data/Planets.pack", TextureAtlas.class);
+       // assetManager.load("data/Planets.pack", TextureAtlas.class);
         assetManager.load("data/gravity_Well.txt", TextureAtlas.class);
         assetManager.load("data/HeroAnimations.atlas", TextureAtlas.class);
         assetManager.load("aris_uiskin.atlas", TextureAtlas.class);
@@ -137,14 +138,20 @@ public class ResourceManager {
      */
     private void setupPlanets(){
        // planetAtlas = new TextureAtlas((Gdx.files.internal("data/Planets.pack")));
-        planetAtlas = assetManager.get("data/Planets.pack", TextureAtlas.class);
+       // planetAtlas = assetManager.get("data/Planets.pack", TextureAtlas.class);
         //gravityWellAtlas = new TextureAtlas(Gdx.files.internal("data/gravity_Well.txt"));
+
         gravityWellAtlas = assetManager.get("data/gravity_Well.txt", TextureAtlas.class);
     }
 
     private void setupExplosionAnimation(){
         Array<TextureAtlas.AtlasRegion> explosionRegion = heroAtlas.findRegions("explosion/explosion");
         explosionAnimation = new Animation(1/60f, explosionRegion);
+    }
+
+    private void setupPlanetAnimation(){
+        Array<TextureAtlas.AtlasRegion> planetRegion = heroAtlas.findRegions("Planets/Moon");
+        planetAnimation = new Animation(1/60f, planetRegion);
     }
 
     private void setFlyingNoThrustAnimation(){
@@ -292,6 +299,8 @@ public class ResourceManager {
         setupJumpSidewaysAnimation();
         setFlyingNoThrustAnimation();
         setupExplosionAnimation();
+        setupPlanetAnimation();
+
     }
 
     public Skin getSkin(){
@@ -356,6 +365,10 @@ public class ResourceManager {
 
     public Animation getJumpSidewaysAnimation(){
         return jumpSidewaysAnimation;
+    }
+
+    public Animation getPlanetAnimation(){
+        return planetAnimation;
     }
 
     public TextureAtlas getPlanetAtlas(){
