@@ -52,6 +52,8 @@ public class PlanetGraphicsComponent extends TwoDGraphicsComponent {
                 getScaleX(), getScaleY(),
                 getRotation());
 
+       // batch.draw(frame, 0, 0, 0, 0, 15, 15, 1, 1, 0);
+
         //batch.draw(frame, getX(), getY(), getWidth(), getHeight());
 
 

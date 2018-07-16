@@ -154,7 +154,7 @@ public class LevelManager {
                // Planet p = new Planet(new Vector2(item.getxLoc()-item.getSize()/2, item.getyLoc()-item.getSize()/2), region, animations, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
                 TextureAtlas.AtlasRegion region = parent.resourceManager.getHeroAtlas().findRegions("Planets/Moon").first();
                 Animation animation = parent.resourceManager.getPlanetAnimation();
-               Planet p = new Planet(new Vector2(item.getxLoc(), item.getyLoc()), region, animation, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
+               Planet p = new Planet(new Vector2(item.getxLoc() - item.getSize()/2, item.getyLoc()-item.getSize()/2), region, animation, parent.world, item.getSize(), item.getGravityRadius(), item.getMass(), this);
                 planets.add(p);
             }
         }

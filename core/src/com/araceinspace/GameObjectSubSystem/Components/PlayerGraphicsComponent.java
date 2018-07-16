@@ -48,6 +48,9 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                     flip ? -getWidth() : getWidth(), getHeight(),
                     getScaleX(), getScaleY(),
                     getRotation());
+
+        //to help find the difference between player space, and planet space.
+        //batch.draw(frame, 0, 0, 0, 0, 15, 15, 1, 1, 0);
     }
 
     public void update(float timeElapsed){
