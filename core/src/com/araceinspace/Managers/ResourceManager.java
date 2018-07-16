@@ -92,7 +92,7 @@ public class ResourceManager {
 
     private void loadAssets(){
         loadingAssets = true;
-        assetManager.load("data/Planets.pack", TextureAtlas.class);
+       // assetManager.load("data/Planets.pack", TextureAtlas.class);
         assetManager.load("data/gravity_Well.txt", TextureAtlas.class);
         assetManager.load("data/HeroAnimations.atlas", TextureAtlas.class);
         assetManager.load("aris_uiskin.atlas", TextureAtlas.class);

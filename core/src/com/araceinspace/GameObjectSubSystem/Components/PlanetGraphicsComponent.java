@@ -24,6 +24,8 @@ public class PlanetGraphicsComponent extends TwoDGraphicsComponent {
         super(region, animations);
         setupRendering(animations);
         parent = p;
+        this.setX(loc.x);
+        this.setY(loc.y);
     }
 
     /* Private Methods */
@@ -49,6 +51,8 @@ public class PlanetGraphicsComponent extends TwoDGraphicsComponent {
                 getWidth(), getHeight(),
                 getScaleX(), getScaleY(),
                 getRotation());
+
+        //batch.draw(frame, getX(), getY(), getWidth(), getHeight());
 
 
        // batch.draw(parent.parent.parent.resourceManager.getPlanetAtlas().getRegions().first(), x, y);
