@@ -5,12 +5,13 @@ import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Isaac Assegai on 7/14/17.
  */
-public class PlanetGraphicsComponent extends PlayerGraphicsComponent {
+public class PlanetGraphicsComponent extends TwoDGraphicsComponent {
     /* Static Variables */
 
     /* Field Variables & Objects */
@@ -19,7 +20,9 @@ public class PlanetGraphicsComponent extends PlayerGraphicsComponent {
     /* Constructors */
 
     public PlanetGraphicsComponent(Planet p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
-        super(null, loc, region, animations);
+        //super(null, loc, region, animations);
+        super(region, animations);
+        setupRendering(animations);
         parent = p;
     }
 
@@ -37,6 +40,22 @@ public class PlanetGraphicsComponent extends PlayerGraphicsComponent {
         batch.setColor(1f, .6f, .25f, .25f);
         batch.draw(parent.parent.parent.resourceManager.getGravityWellAtlas().getRegions().first(), x, y, w, h);
         batch.setColor(oldColor);
-        super.render(elapsedTime, batch);
+        //super.render(elapsedTime, batch);
+        TextureRegion frame = currentAnimation.getKeyFrame(elapsedTime, true);
+        //originial
+        batch.draw(frame,
+                getX(), getY(),
+                getOriginX(), getOriginY(),
+                getWidth(), getHeight(),
+                getScaleX(), getScaleY(),
+                getRotation());
+
+
+       // batch.draw(parent.parent.parent.resourceManager.getPlanetAtlas().getRegions().first(), x, y);
+        //batch.draw(frame,x, y);
+    }
+
+    public void setupRendering(Animation currentAnimation){
+        this.currentAnimation = currentAnimation;
     }
 }
