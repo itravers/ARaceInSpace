@@ -50,7 +50,9 @@ public class ResourceManager {
     private Animation  jumpSidewaysAnimation;
     private Animation flyingNoThrustAnimation;
     private Animation explosionAnimation;
-    private Animation planetAnimation;
+    private Animation planet01Animation;
+    private Animation planet02Animation;
+    private Animation moonAnimation;
 
     /* Font Data */
     public BitmapFont Font60;
@@ -149,9 +151,15 @@ public class ResourceManager {
         explosionAnimation = new Animation(1/60f, explosionRegion);
     }
 
-    private void setupPlanetAnimation(){
-        Array<TextureAtlas.AtlasRegion> planetRegion = heroAtlas.findRegions("Planets/Moon");
-        planetAnimation = new Animation(1/60f, planetRegion);
+    private void setupPlanetAnimations(){
+        Array<TextureAtlas.AtlasRegion> planet01Region = heroAtlas.findRegions("Planets/Planet 01");
+        planet01Animation = new Animation(1/60f, planet01Region);
+
+        Array<TextureAtlas.AtlasRegion> planet02Region = heroAtlas.findRegions("Planets/Planet 02");
+        planet02Animation = new Animation(1/60f, planet02Region);
+
+        Array<TextureAtlas.AtlasRegion> moonRegion = heroAtlas.findRegions("Planets/Moon");
+        moonAnimation = new Animation(1/60f, moonRegion);
     }
 
     private void setFlyingNoThrustAnimation(){
@@ -299,7 +307,7 @@ public class ResourceManager {
         setupJumpSidewaysAnimation();
         setFlyingNoThrustAnimation();
         setupExplosionAnimation();
-        setupPlanetAnimation();
+        setupPlanetAnimations();
 
     }
 
@@ -367,8 +375,14 @@ public class ResourceManager {
         return jumpSidewaysAnimation;
     }
 
-    public Animation getPlanetAnimation(){
-        return planetAnimation;
+    public Animation getPlanet01Animation(){
+        return planet01Animation;
+    }
+    public Animation getPlanet02Animation(){
+        return planet02Animation;
+    }
+    public Animation getMoonAnimation(){
+        return moonAnimation;
     }
 
     public TextureAtlas getPlanetAtlas(){
@@ -397,5 +411,15 @@ public class ResourceManager {
 
     public void setGravityWellAtlas(TextureAtlas gravityWellAtlas) {
         this.gravityWellAtlas = gravityWellAtlas;
+    }
+
+    public Animation getPlanetAnimationByAtlasName(String atlasName){
+        if(atlasName.equals("Planet 01")){
+            return getPlanet01Animation();
+        }else if(atlasName.equals("Planet 02")){
+            return getPlanet02Animation();
+        }else{
+            return getMoonAnimation();
+        }
     }
 }
