@@ -23,7 +23,7 @@ public class GameStateManager {
         stateStack = new Stack<GAME_STATE>();
         parent.levelManager.setLevel(1);
         setCurrentState(GAME_STATE.TITLE_SCREEN);
-        //setCurrentState(GAME_STATE.CREDITS);
+        //setCurrentState(GAME_STATE.INGAME);
 
     }
 
