@@ -242,9 +242,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         speedLabel.setStyle(style3);
         speedLabel.setPosition((viewport.getScreenWidth()/2)-speedLabel.getWidth()/2, viewport.getScreenHeight()-speedLabel.getHeight()*1.5f);
 
-        stage.addActor(boostLabel);
-        stage.addActor(healthLabel);
-        stage.addActor(speedLabel);
+        //stage.addActor(boostLabel);
+        //stage.addActor(healthLabel);
+        //stage.addActor(speedLabel);
 
         touchPad = new Touchpad(10, skin, "default");
         touchPad.setBounds(15, 15, Gdx.graphics.getWidth()/2-20,Gdx.graphics.getWidth()/2-20);
@@ -340,20 +340,20 @@ public class INGAMEScreen extends Screen implements EventSender{
         Array<TextureAtlas.AtlasRegion> dirIndicatorYellowRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-yellow");
         dirIndicatorYellow = dirIndicatorYellowRegion.get(0);
 
-        Array<TextureAtlas.AtlasRegion> ghostIndicatorOutlineRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_empty");
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorOutlineRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_empty_text");
         velocityIndicatorOutlineTexture = ghostIndicatorOutlineRegion.get(0);
 
         velocityIndicatorOutline = new Image(velocityIndicatorOutlineTexture);
        // ghostIndicatorOutline.setPosition((viewport.getScreenWidth()/2)-ghostIndicatorOutline.getWidth()/2, viewport.getScreenHeight()-ghostIndicatorOutline.getHeight());
         velocityIndicatorOutline.setPosition(-velocityIndicatorOutline.getWidth()/2,(viewport.getScreenHeight()/2)-velocityIndicatorOutline.getHeight());
 
-        Array<TextureAtlas.AtlasRegion> ghostIndicatorRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill");
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill_text");
         velocityIndicatorTexture = ghostIndicatorRegion.get(0);
 
-        Array<TextureAtlas.AtlasRegion> ghostIndicatorGreenRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill_green");
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorGreenRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill_green_text");
         velocityIndicatorGreenTexture = ghostIndicatorGreenRegion.get(0);
 
-        Array<TextureAtlas.AtlasRegion> ghostIndicatorRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_red");
+        Array<TextureAtlas.AtlasRegion> ghostIndicatorRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_red_text");
         velocityIndicatorRedTexture = ghostIndicatorRedRegion.get(0);
 
 
@@ -372,11 +372,11 @@ public class INGAMEScreen extends Screen implements EventSender{
 
        // healthMeterEmpty
 
-        Array<TextureAtlas.AtlasRegion> healthMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
+        Array<TextureAtlas.AtlasRegion> healthMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue_text");
         healthMeterBlue = healthMeterBlueRegion.get(0);
         healthMeterBlue.setRegionWidth(2+viewport.getScreenWidth()/2);
 
-        Array<TextureAtlas.AtlasRegion> healthMeterRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
+        Array<TextureAtlas.AtlasRegion> healthMeterRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red_text");
         healthMeterRed = healthMeterRedRegion.get(0);
         healthMeterRed.setRegionWidth(2+viewport.getScreenWidth()/2);
 
@@ -384,13 +384,13 @@ public class INGAMEScreen extends Screen implements EventSender{
         boostMeterEmpty = boostMeterEmptyRegion.get(0);
         boostMeterEmpty.flip(true, false);
 
-        Array<TextureAtlas.AtlasRegion> boostMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue");
+        Array<TextureAtlas.AtlasRegion> boostMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/boostMeter_blue_text");
         boostMeterBlue = boostMeterBlueRegion.get(0);
-        boostMeterBlue.flip(true, false);
+        boostMeterBlue.flip(false, false);
 
-        Array<TextureAtlas.AtlasRegion> boostMeterRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_red");
+        Array<TextureAtlas.AtlasRegion> boostMeterRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/boostMeter_red_text");
         boostMeterRed = boostMeterRedRegion.get(0);
-        boostMeterRed.flip(true, false);
+        boostMeterRed.flip(false, false);
 
         float hclipWidth = getHealthMeterWidth();
         float hclipX = (viewport.getScreenWidth()/2);
