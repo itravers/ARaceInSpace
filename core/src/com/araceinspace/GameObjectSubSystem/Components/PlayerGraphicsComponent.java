@@ -78,6 +78,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                 }else{
                     setAnimation(resourceManager.getFlyingAnimation());
                 }*/
+                /*
                 InputComponent input = parent.getInput();
                 if(input.upPressed && input.rightPressed){
                     setAnimation(resourceManager.getFlyingRightAnimation());
@@ -87,6 +88,34 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
 
                 }else if(input.upPressed){
                     setAnimation(resourceManager.getFlyingAnimation());
+                }else{
+                    setAnimation(resourceManager.getFlyingNoThrustAnimation());
+                }
+                */
+                //Choose which flying animation to show based on key inputs
+                InputComponent input = parent.getInput();
+                if(input.upPressed && input.rightPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingAnimation());
+                }else if(input.upPressed && input.rightPressed){
+                    setAnimation(resourceManager.getFlyingRightAnimation());
+                }else if(input.upPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingLeftAnimation());
+                }else if(input.upPressed){
+                    setAnimation(resourceManager.getFlyingAnimation());
+                }else if(input.downPressed && input.rightPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingBackwardAnimation());
+                }else if(input.downPressed && input.rightPressed){
+                    setAnimation(resourceManager.getFlyingRightBackAnimation());
+                }else if(input.downPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingLeftBackAnimation());
+                }else if(input.downPressed) {
+                    setAnimation(resourceManager.getFlyingBackwardAnimation());
+                }else if(input.leftPressed && input.rightPressed) {
+                    setAnimation(resourceManager.getFlyingNoThrustAnimation());
+                }else if(input.rightPressed) {
+                    setAnimation(resourceManager.getFlyingRightNoThrustAnimation());
+                }else if(input.leftPressed){
+                    setAnimation(resourceManager.getFlyingLeftNoThrustAnimation());
                 }else{
                     setAnimation(resourceManager.getFlyingNoThrustAnimation());
                 }

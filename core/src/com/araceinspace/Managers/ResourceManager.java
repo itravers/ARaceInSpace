@@ -40,7 +40,7 @@ public class ResourceManager {
     private Animation standingStillSidewaysAnimation;
     private Animation jumpForwardAnimation;
     private Animation waveAnimation;
-    private Animation flyingAnimation;
+
     private Animation landingForwardAnimation;
     private Animation floatingSidewaysAnimation;
     private Animation landingSidewaysAnimation;
@@ -48,10 +48,20 @@ public class ResourceManager {
     private Animation runSlowAnimation;
     private Animation  runFastAnimation;
     private Animation  jumpSidewaysAnimation;
-    private Animation flyingNoThrustAnimation;
+
     private Animation explosionAnimation;
+
+    //flying Animations
     private Animation flyingRightAnimation;
     private Animation flyingLeftAnimation;
+    private Animation flyingNoThrustAnimation;
+    private Animation flyingAnimation;
+    private Animation flyingBackwardAnimation;
+    private Animation flyingLeftNoThrustAnimation;
+    private Animation flyingRightNoThrustAnimation;
+    private Animation flyingRightBackAnimation;
+    private Animation flyingLeftBackAnimation;
+
     private Animation planet01Animation;
     private Animation planet02Animation;
     private Animation moonAnimation;
@@ -209,6 +219,31 @@ public class ResourceManager {
         flyingLeftAnimation = new Animation(1/30f, flyingLeftRegion);
     }
 
+    private void setupFlyingBackwardAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingBackwardRegion = heroAtlas.findRegions("FlyingBackward/FlyingBackwar");
+        flyingBackwardAnimation = new Animation(1/30f, flyingBackwardRegion);
+    }
+
+    private void setupFlyingLeftNoThrustAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingLeftNoThrustRegion = heroAtlas.findRegions("FlyingLeftNoThrust/FlyingLeftNoThrus");
+        flyingLeftNoThrustAnimation = new Animation(1/30f, flyingLeftNoThrustRegion);
+    }
+
+    private void setupFlyingRightNoThrustAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingRightNoThrustRegion = heroAtlas.findRegions("FlyingRightNoThrust/FlyingRightNoThrus");
+        flyingRightNoThrustAnimation = new Animation(1/30f, flyingRightNoThrustRegion);
+    }
+
+    private void setupFlyingLeftBackAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingLeftBackRegion = heroAtlas.findRegions("FlyingLeftBack/FlyingLeftBac");
+        flyingLeftBackAnimation = new Animation(1/30f, flyingLeftBackRegion);
+    }
+
+    private void setupFlyingRightBackAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingRightBackRegion = heroAtlas.findRegions("FlyingRightBack/FlyingRightBac");
+        flyingRightBackAnimation = new Animation(1/30f, flyingRightBackRegion);
+    }
+
     private void setupFlyingRightAnimation(){
         Array<TextureAtlas.AtlasRegion> flyingRightRegion = heroAtlas.findRegions("FlyingRight/FlyingRight");
         flyingRightAnimation = new Animation(1/30f, flyingRightRegion);
@@ -322,6 +357,11 @@ public class ResourceManager {
         setupPlanetAnimations();
         setupFlyingLeftAnimation();
         setupFlyingRightAnimation();
+        setupFlyingLeftBackAnimation();
+        setupFlyingRightBackAnimation();
+        setupFlyingLeftNoThrustAnimation();
+        setupFlyingRightNoThrustAnimation();
+        setupFlyingBackwardAnimation();
 
     }
 
@@ -395,6 +435,26 @@ public class ResourceManager {
 
     public Animation getFlyingLeftAnimation(){
         return flyingLeftAnimation;
+    }
+
+    public Animation getFlyingBackwardAnimation(){
+        return flyingBackwardAnimation;
+    }
+
+    public Animation getFlyingRightNoThrustAnimation(){
+        return flyingRightNoThrustAnimation;
+    }
+
+    public Animation getFlyingLeftNoThrustAnimation(){
+        return flyingLeftNoThrustAnimation;
+    }
+
+    public Animation getFlyingLeftBackAnimation(){
+        return flyingLeftBackAnimation;
+    }
+
+    public Animation getFlyingRightBackAnimation(){
+        return flyingRightBackAnimation;
     }
 
     public Animation getPlanet01Animation(){
