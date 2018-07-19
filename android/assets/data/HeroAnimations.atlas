@@ -687,112 +687,112 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 2, 683
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 0
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 2, 456
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 1
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 229, 683
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 2
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 2, 229
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 3
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 229, 456
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 4
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 456, 683
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 5
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 2, 2
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 6
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 229, 229
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 7
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 456, 456
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 8
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 683, 683
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 9
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 229, 2
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 10
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 456, 229
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 11
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 683, 456
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 12
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 456, 2
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 13
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 683, 229
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 14
-FlyingLeft/FlyingLeft
+FlyingBackward/FlyingBackwar
   rotate: false
   xy: 683, 2
   size: 225, 225
@@ -805,6 +805,304 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 2, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 0
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 2, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 1
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 229, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 2
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 3
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 229, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 4
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 456, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 5
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 6
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 229, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 7
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 456, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 8
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 683, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 9
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 229, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 10
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 456, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 11
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 683, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 12
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 456, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 13
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 683, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 14
+FlyingLeft/FlyingLeft
+  rotate: false
+  xy: 683, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 15
+
+HeroAnimations6.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 0
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 6
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 1
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 5
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 229, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 2
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 229, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 3
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 456, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 4
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 456, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 7
+
+HeroAnimations7.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 2, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 0
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 2, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 1
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 229, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 2
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 3
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 229, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 4
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 456, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 5
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 6
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 229, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 7
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 456, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 8
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 683, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 9
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 229, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 10
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 456, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 11
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 683, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 12
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 456, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 13
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 683, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 14
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 683, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 15
+
+HeroAnimations8.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 FlyingNoThrust/FlyingNoThrust
   rotate: false
   xy: 2, 683
@@ -918,7 +1216,7 @@ FlyingNoThrust/FlyingNoThrust
   offset: 0, 0
   index: 15
 
-HeroAnimations6.png
+HeroAnimations9.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1036,7 +1334,187 @@ FlyingRight/FlyingRight
   offset: 0, 0
   index: 15
 
-HeroAnimations7.png
+HeroAnimations10.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 0
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 1
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 229, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 2
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 229, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 3
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 456, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 4
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 456, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 5
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 683, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 6
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 683, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 7
+
+HeroAnimations11.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 2, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 0
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 2, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 1
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 229, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 2
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 3
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 229, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 4
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 456, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 5
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 6
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 229, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 7
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 456, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 8
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 683, 683
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 9
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 229, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 10
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 456, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 11
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 683, 456
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 12
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 456, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 13
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 683, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 14
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 683, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 15
+
+HeroAnimations12.png
 size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1098,7 +1576,7 @@ FlyingToFlyLeftTransition/FlyingToLeftTransition
   offset: 0, 0
   index: 7
 
-HeroAnimations8.png
+HeroAnimations13.png
 size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1160,7 +1638,7 @@ FlyingToFlyRightTransition/FlyingToRightTransition
   offset: 0, 0
   index: 7
 
-HeroAnimations9.png
+HeroAnimations14.png
 size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1299,7 +1777,7 @@ GhostIndicator/indicator-yellow
   offset: 0, 0
   index: -1
 
-HeroAnimations10.png
+HeroAnimations15.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1417,7 +1895,7 @@ JumpForward/JumpForward
   offset: 0, 0
   index: 15
 
-HeroAnimations11.png
+HeroAnimations16.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1535,7 +2013,7 @@ JumpSideways/JumpSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations12.png
+HeroAnimations17.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1653,7 +2131,7 @@ LandingForward/LandingForward
   offset: 0, 0
   index: 15
 
-HeroAnimations13.png
+HeroAnimations18.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1771,7 +2249,7 @@ LandingSideways/LandingSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations14.png
+HeroAnimations19.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1784,7 +2262,7 @@ Planets/Moon
   offset: 0, 0
   index: -1
 
-HeroAnimations15.png
+HeroAnimations20.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1797,7 +2275,7 @@ Planets/Planet 02
   offset: 0, 0
   index: -1
 
-HeroAnimations16.png
+HeroAnimations21.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1810,7 +2288,7 @@ Planets/Planet 01
   offset: 0, 0
   index: -1
 
-HeroAnimations17.png
+HeroAnimations22.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1900,7 +2378,7 @@ RunFast/RunFast
   offset: 0, 0
   index: 11
 
-HeroAnimations18.png
+HeroAnimations23.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1990,7 +2468,7 @@ RunSlow/RunSlow
   offset: 0, 0
   index: 11
 
-HeroAnimations19.png
+HeroAnimations24.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -2108,7 +2586,7 @@ StandingStillForward/StandingStillForwar
   offset: 0, 0
   index: 15
 
-HeroAnimations20.png
+HeroAnimations25.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -2226,7 +2704,7 @@ StandingStillSideways/StandingStillSideways
   offset: 0, 0
   index: 15
 
-HeroAnimations21.png
+HeroAnimations26.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -2344,7 +2822,7 @@ WalkingFast/WalkingFast
   offset: 0, 0
   index: 15
 
-HeroAnimations22.png
+HeroAnimations27.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -2462,7 +2940,7 @@ WalkingSlow/WalkSlow
   offset: 0, 0
   index: 15
 
-HeroAnimations23.png
+HeroAnimations28.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest

@@ -73,10 +73,22 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                 setAnimation(resourceManager.getJumpForwardAnimation());
                 break;
             case FLYING:
-                if(!parent.getInput().upPressed){
+                /*if(!parent.getInput().upPressed){
                     setAnimation(resourceManager.getFlyingNoThrustAnimation());
                 }else{
                     setAnimation(resourceManager.getFlyingAnimation());
+                }*/
+                InputComponent input = parent.getInput();
+                if(input.upPressed && input.rightPressed){
+                    setAnimation(resourceManager.getFlyingRightAnimation());
+
+                }else if(input.upPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingLeftAnimation());
+
+                }else if(input.upPressed){
+                    setAnimation(resourceManager.getFlyingAnimation());
+                }else{
+                    setAnimation(resourceManager.getFlyingNoThrustAnimation());
                 }
                 break;
             case LAND_FORWARD:

@@ -30,6 +30,8 @@ public abstract class InputComponent implements Component{
     public boolean touchDown = false;
     public boolean touchDownRight = false;
     public boolean touchNone = false;
+    public boolean isFlying = false;
+    public boolean isLanded = true;
 
     GameInput currentInput;
     GameInput lastWalkInput =  null;
@@ -44,7 +46,7 @@ public abstract class InputComponent implements Component{
      * @return
      */
     public boolean flip(){
-        if(lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT){
+        if(isLanded && lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT){
             return true;
         }else{
             return false;

@@ -50,6 +50,8 @@ public class ResourceManager {
     private Animation  jumpSidewaysAnimation;
     private Animation flyingNoThrustAnimation;
     private Animation explosionAnimation;
+    private Animation flyingRightAnimation;
+    private Animation flyingLeftAnimation;
     private Animation planet01Animation;
     private Animation planet02Animation;
     private Animation moonAnimation;
@@ -202,6 +204,16 @@ public class ResourceManager {
         landingForwardAnimation = new Animation(1/30f, landingForwardRegion);
     }
 
+    private void setupFlyingLeftAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingLeftRegion = heroAtlas.findRegions("FlyingLeft/FlyingLeft");
+        flyingLeftAnimation = new Animation(1/30f, flyingLeftRegion);
+    }
+
+    private void setupFlyingRightAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingRightRegion = heroAtlas.findRegions("FlyingRight/FlyingRight");
+        flyingRightAnimation = new Animation(1/30f, flyingRightRegion);
+    }
+
     /**
      * Loads from file and set's up the standingStillForwards Animation
      */
@@ -308,6 +320,8 @@ public class ResourceManager {
         setFlyingNoThrustAnimation();
         setupExplosionAnimation();
         setupPlanetAnimations();
+        setupFlyingLeftAnimation();
+        setupFlyingRightAnimation();
 
     }
 
@@ -373,6 +387,14 @@ public class ResourceManager {
 
     public Animation getJumpSidewaysAnimation(){
         return jumpSidewaysAnimation;
+    }
+
+    public Animation getFlyingRightAnimation(){
+        return flyingRightAnimation;
+    }
+
+    public Animation getFlyingLeftAnimation(){
+        return flyingLeftAnimation;
     }
 
     public Animation getPlanet01Animation(){
