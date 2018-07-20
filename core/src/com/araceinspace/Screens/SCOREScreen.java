@@ -324,20 +324,22 @@ public class SCOREScreen extends Screen{
         String taunt3_S = "";
         String info1S = "";
 
+        int currentLevel = parent.parent.levelManager.getCurrentLevel();
+
         if(win == WIN.WIN){
             taunt1_S = " Nice..   ";
             taunt2_S = " You Conquered";
-            taunt3_S = " That Level!!!";
+            taunt3_S = " Level " + currentLevel + "!!!";
             info1S = "You Won Against the";
         }else if(win == WIN.LOSE || win == WIN.FAIL){
             taunt1_S = " Awww..   ";
             taunt2_S = " You Bombed";
-            taunt3_S = " That Level!!!";
+            taunt3_S = " Level " + currentLevel + "!!!";
             info1S = "You Lost Against the";
         }else if(win == WIN.TIE){
             taunt1_S = "  Wow..   ";
             taunt2_S = " You Tied";
-            taunt3_S = " That Level!!!";
+            taunt3_S = " Level " + currentLevel + "!!!";
             info1S = "You Tied Against the";
         }else if(win == WIN.NONE){
             taunt1_S = "  Hmm..   ";
