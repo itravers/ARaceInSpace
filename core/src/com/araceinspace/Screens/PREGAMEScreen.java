@@ -396,7 +396,8 @@ public class PREGAMEScreen extends Screen{
         rewardButton.addListener(rewardAdButtonListener);
 
         //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
-        storeTitleLabel = new Label("Choose", skin, "optional");
+        int currentLevel = parent.parent.levelManager.getCurrentLevel();
+        storeTitleLabel = new Label("Level "+currentLevel, skin, "optional");
         Label.LabelStyle style = storeTitleLabel.getStyle();
         style.font = parent.parent.resourceManager.Font48;
         storeTitleLabel.setStyle(style);
@@ -434,13 +435,15 @@ public class PREGAMEScreen extends Screen{
         Table extraTable2 = new Table();
         extraTable2.setDebug(devMode);
         extraTable2.align(Align.center|Align.top);
-        Label taunt1 = new Label(" Your    ", skin, "optional");
+        Label taunt1 = new Label("Choose A Challenge", skin, "optional");
         style = taunt1.getStyle();
         style.font = parent.parent.resourceManager.Font24;
         taunt1.setStyle(style);
         extraTable2.add(taunt1).height(height/30).align(Align.left);
 
-        Label taunt2 = new Label(" Challenge!!!", skin, "optional");
+        String name = parent.p.playerName;
+
+        Label taunt2 = new Label(name+"!!!", skin, "optional");
         style = taunt2.getStyle();
         style.font = parent.parent.resourceManager.Font36;
         taunt2.setStyle(style);
@@ -465,6 +468,24 @@ public class PREGAMEScreen extends Screen{
         storeTable.setDebug(devMode);
         storeTable.align(Align.top|Align.center);
 
+        Table challegePromptTable = new Table();
+        challegePromptTable.setDebug(devMode);
+
+        String s1a = "Local Challenge";
+
+        Label l1a = new Label(s1a, skin, "taunt_small");
+        //Label l2a = new Label(s2a, skin, "taunt_small");
+        //Label l3a = new Label(s3a, skin, "taunt_small");
+
+        challegePromptTable.add(l1a).height(height/40).padTop(height/40);
+        challegePromptTable.row();
+        //challegePromptTable.add(l2a).height(height/40);
+        //challegePromptTable.row();
+        //challegePromptTable.add(l3a).height(height/40);
+
+        storeTable.add(challegePromptTable);
+        storeTable.row();
+
         Table buttonTable = new Table();
         buttonTable.setDebug(devMode);
         buttonTable.align(Align.top|Align.center);
@@ -472,7 +493,6 @@ public class PREGAMEScreen extends Screen{
 
         ImageButton starBronze = new ImageButton(skin, "starBronze");
         starBronze.setTouchable(Touchable.disabled);
-        int currentLevel = parent.parent.levelManager.getCurrentLevel();
         String bronzePlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".bronze.time", 99999999));
         String silverPlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".silver.time", 99999999));
         String goldPlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".gold.time", 99999999));
@@ -496,6 +516,26 @@ public class PREGAMEScreen extends Screen{
         buttonTable.add(buttonStack3).pad(0).size(butWidth, butHeight).align(Align.top);
 
         storeTable.add(buttonTable).align(Align.center);
+        storeTable.row();
+
+        Table leaderBoardPromptTable = new Table();
+        leaderBoardPromptTable.setDebug(devMode);
+
+        String s1 = "Race To Get On";
+        String s2 = "The Public";
+        String s3 = "LEADERBOARDS";
+
+        Label l1 = new Label(s1, skin, "taunt_small");
+        Label l2 = new Label(s2, skin, "taunt_small");
+        Label l3 = new Label(s3, skin, "taunt_small");
+
+        leaderBoardPromptTable.add(l1).height(height/40).padTop(height/40);
+        leaderBoardPromptTable.row();
+        leaderBoardPromptTable.add(l2).height(height/40);
+        leaderBoardPromptTable.row();
+        leaderBoardPromptTable.add(l3).height(height/40);
+
+        storeTable.add(leaderBoardPromptTable);
         storeTable.row();
 
 
@@ -630,7 +670,10 @@ public class PREGAMEScreen extends Screen{
 
         storeTable.add(placeTable);
         storeTable.row();
-        storeTable.add(customPlayTable);
+        if(devMode){
+            storeTable.add(customPlayTable);
+        }
+
 
         scrollPane = new ScrollPane(storeTable, skin, "default");
 

@@ -343,19 +343,19 @@ public class LEVELSELECTScreen extends Screen{
 
         Table extraTable2 = new Table();
         extraTable2.setDebug(devMode);
-        extraTable2.align(Align.center|Align.top);
-        Label taunt1 = new Label(" Your    ", skin, "optional");
+        extraTable2.align(Align.left|Align.top);
+        Label taunt1 = new Label(" Your LEVEL", skin, "optional");
         style = taunt1.getStyle();
         style.font = parent.parent.resourceManager.Font24;
         taunt1.setStyle(style);
-        extraTable2.add(taunt1).height(height/30).align(Align.left);
-
-        Label taunt2 = new Label(" LEVEL!!!", skin, "optional");
+        extraTable2.add(taunt1).height(height/30).padLeft(spacer*3);
+        String name = parent.p.playerName;
+        Label taunt2 = new Label(" "+name+"!!!", skin, "optional");
         style = taunt2.getStyle();
         style.font = parent.parent.resourceManager.Font36;
         taunt2.setStyle(style);
         extraTable2.row();
-        extraTable2.add(taunt2).height(height/30).align(Align.top);
+        extraTable2.add(taunt2).height(height/30).align(Align.top).padLeft(spacer*3);
 
         extraTable.add(extraTable2).fill().expandX();
 
