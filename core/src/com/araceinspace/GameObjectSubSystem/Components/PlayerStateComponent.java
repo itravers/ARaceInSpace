@@ -28,9 +28,7 @@ public class PlayerStateComponent extends StateComponent{
     PlayerPrototype parent;
     float stateTime = 0; //The amount of time we have been in current State
     public  boolean isLanded = onPlanet();
-
-
-
+    
 
     /* Constructors */
     public PlayerStateComponent(PlayerPrototype p, PlayerState state){
@@ -63,12 +61,6 @@ public class PlayerStateComponent extends StateComponent{
         Animation currentAnimation = parent.getGraphics().currentAnimation; //Used by some transitions
         float speed = parent.getPhysics().getBody().getLinearVelocity().len2();
 
-        if(isLanded){
-            parent.getInput().isFlying = false;
-        }else{
-            parent.getInput().isFlying = true;
-        }
-
         /* Go through all possible state transitions*/
 
         //Transition from StandingStillSideways to StandingStillForwards
@@ -92,14 +84,12 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.JUMP_FORWARD && parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE){
             //Transition from JUMP_FORWARD to FLYING
             setState(PlayerState.FLYING);
-            parent.getInput().isFlying = true;
             parent.getInput().handleCurrentInput();//we want the touchpad to continue having us fly when we change state
             setIsLanded(false);
         }else if(currentState == PlayerState.FLOAT_SIDEWAYS && parent.getPhysics().getDistanceFromClosestPlanet() >= FLYING_DISTANCE &&
                  parent.getInput().thrustPressed()){
             //Transition from FLOAT_SIDEWAYS to FLYING
             setState(PlayerState.FLYING);
-            parent.getInput().isFlying = true;
             parent.getInput().handleCurrentInput();//we want the touchpad to continue having us fly when we change state
             setIsLanded(false);
         }else if(currentState == PlayerState.FLYING && parent.getPhysics().getDistanceFromClosestPlanet() <= LANDING_DISTANCE &&
@@ -166,9 +156,6 @@ public class PlayerStateComponent extends StateComponent{
         }else if(currentState == PlayerState.EXPLODING && currentAnimation.getLoops(stateTime) >=.9f){
             parent.parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.SCOREBOARD);
         }
-
-
-
     }
 
 
@@ -190,7 +177,6 @@ public class PlayerStateComponent extends StateComponent{
 
     private void setIsLanded(boolean bool){
         isLanded = bool;
-        parent.getInput().isLanded = bool;
     }
 
     public boolean isLanded(){

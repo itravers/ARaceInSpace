@@ -30,28 +30,16 @@ public abstract class InputComponent implements Component{
     public boolean touchDown = false;
     public boolean touchDownRight = false;
     public boolean touchNone = false;
-    public boolean isFlying = false;
-    public boolean isLanded = true;
 
     GameInput currentInput;
-    GameInput lastWalkInput =  null;
+    private GameInput lastWalkInput =  null;
 
     InputRecorder inputRecorder;
 
 
     abstract public void update(float timeElapsed);
 
-    /**
-     * returns true if players leftINput is pressed
-     * @return
-     */
-    public boolean flip(){
-        if(isLanded && lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 
     public InputRecorder getInputRecorder(){
         return inputRecorder;
@@ -61,6 +49,14 @@ public abstract class InputComponent implements Component{
     abstract public boolean thrustPressed();
     abstract public boolean jumpPressed();
     abstract public boolean walkInput();
+
+    public GameInput getLastWalkInput(){
+        return lastWalkInput;
+    }
+
+    public void setLastWalkInput(GameInput input){
+        lastWalkInput = input;
+    }
 
 
 }

@@ -87,11 +87,11 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case RIGHT_PRESSED:
                 rightPressed = true;
-                lastWalkInput = currentInput;
+                setLastWalkInput(currentInput);
                 break;
             case LEFT_PRESSED:
                 leftPressed = true;
-                lastWalkInput = currentInput;
+                setLastWalkInput(currentInput);
                 break;
             case UP_PRESSED:
                 upPressed = true;
@@ -130,7 +130,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_RIGHT:
                 setTouched("touchRight");
-                lastWalkInput = currentInput;
+                setLastWalkInput(currentInput);
                 upPressed = false;
                 jumpPressed = false;
                 leftPressed = false;
@@ -139,7 +139,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_UP_RIGHT:
                 setTouched("touchUpRight");
-                lastWalkInput = currentInput;
+                setLastWalkInput(currentInput);
                 if(parent.getPhysics().onPlanet()){
                     upPressed = false;
                     rightPressed = false;
@@ -167,7 +167,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_UP_LEFT:
                 setTouched("touchUpLeft");
-                lastWalkInput = currentInput;
+                setLastWalkInput(currentInput);
                 if(parent.getPhysics().onPlanet()){
                     upPressed = false;
                     leftPressed = false;
@@ -182,7 +182,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_LEFT:
                 setTouched("touchLeft");
-                lastWalkInput = currentInput;
+                setLastWalkInput(currentInput);
                 upPressed = false;
                 jumpPressed = false;
                 rightPressed = false;
@@ -191,7 +191,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_DOWN_LEFT:
                 setTouched("touchDownLeft");
-                lastWalkInput = currentInput;
+                setLastWalkInput(currentInput);
                 if(parent.getPhysics().onPlanet()){
                     downPressed = false;
                 }else{
@@ -216,7 +216,7 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
                 break;
             case TOUCH_DOWN_RIGHT:
                 setTouched("touchDownRight");
-                lastWalkInput = currentInput;
+                setLastWalkInput(currentInput);
                 if(parent.getPhysics().onPlanet()){ //if player is on planet don't press down, but only righ
                     downPressed = false;
                 }else{

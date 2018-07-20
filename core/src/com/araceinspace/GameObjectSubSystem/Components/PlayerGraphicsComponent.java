@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
+import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.Managers.ResourceManager;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -32,7 +33,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         if(parent == null){//takes care of when input isn't constructed yet
             flip = false;
         }else{
-            flip = parent.getInput().flip();
+            flip = flip();
         }
 
         TextureRegion frame = currentAnimation.getKeyFrame(elapsedTime, true);
@@ -149,5 +150,21 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     public void setAnimation(Animation animation){
         this.currentAnimation = animation;
 
+    }
+
+    /**
+     * returns true if players leftINput is pressed
+     * @return
+     */
+    public boolean flip(){
+        //return false;//test
+        //*
+        GameInput lastWalkInput = parent.getInput().getLastWalkInput();
+        if(parent.getState().onPlanet() && (lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT)){
+            return true;
+        }else{
+            return false;
+        }
+        //*/
     }
 }
