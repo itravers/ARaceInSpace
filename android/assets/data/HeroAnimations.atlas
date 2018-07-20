@@ -1,5 +1,1579 @@
 
 HeroAnimations.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+FlyingLeftNoThrust/FlyingLeftNoThrus
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations2.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+JumpForward/JumpForwar
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+JumpForward/JumpForwar
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+JumpForward/JumpForwar
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+JumpForward/JumpForwar
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+JumpForward/JumpForwar
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+JumpForward/JumpForwar
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+JumpForward/JumpForwar
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+JumpForward/JumpForwar
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+JumpForward/JumpForwar
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+JumpForward/JumpForwar
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+JumpForward/JumpForwar
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+JumpForward/JumpForwar
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+JumpForward/JumpForwar
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+JumpForward/JumpForwar
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+JumpForward/JumpForwar
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+JumpForward/JumpForwar
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations3.png
+size: 512,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+FlyingRightBack/FlyingRightBac
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+
+HeroAnimations4.png
+size: 1024,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+FlyingLeftBack/FlyingLeftBac
+  rotate: false
+  xy: 762, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+
+HeroAnimations5.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+FlyingNoThrust/FlyingNoThrus
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations6.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+StandingStillSideways/StandingStillSideway
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations7.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+WalkingSlow/WalkingSlo
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations8.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Flying/Flyin
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+Flying/Flyin
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+Flying/Flyin
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+Flying/Flyin
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+Flying/Flyin
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+Flying/Flyin
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+Flying/Flyin
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+Flying/Flyin
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+Flying/Flyin
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+Flying/Flyin
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+Flying/Flyin
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+Flying/Flyin
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+Flying/Flyin
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+Flying/Flyin
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+Flying/Flyin
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+Flying/Flyin
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations9.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+LandingForward/LandingForwar
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+LandingForward/LandingForwar
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+LandingForward/LandingForwar
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+LandingForward/LandingForwar
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+LandingForward/LandingForwar
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+LandingForward/LandingForwar
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+LandingForward/LandingForwar
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+LandingForward/LandingForwar
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+LandingForward/LandingForwar
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+LandingForward/LandingForwar
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+LandingForward/LandingForwar
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+LandingForward/LandingForwar
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+LandingForward/LandingForwar
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+LandingForward/LandingForwar
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+LandingForward/LandingForwar
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+LandingForward/LandingForwar
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations10.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+FlyingBackward/FlyingBackwar
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations11.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+FlyingRightNoThrust/FlyingRightNoThrus
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations12.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Wave/Wav
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+Wave/Wav
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+Wave/Wav
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+Wave/Wav
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+Wave/Wav
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+Wave/Wav
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+Wave/Wav
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+Wave/Wav
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+Wave/Wav
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+Wave/Wav
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+Wave/Wav
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+Wave/Wav
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+Wave/Wav
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+Wave/Wav
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+Wave/Wav
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+Wave/Wav
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations13.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingToFlyLeftTransition/FlyingToLeftTransition
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 0
+FlyingToFlyLeftTransition/FlyingToLeftTransition
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 1
+FlyingToFlyLeftTransition/FlyingToLeftTransition
+  rotate: false
+  xy: 229, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 2
+FlyingToFlyLeftTransition/FlyingToLeftTransition
+  rotate: false
+  xy: 229, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 3
+FlyingToFlyLeftTransition/FlyingToLeftTransition
+  rotate: false
+  xy: 456, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 4
+FlyingToFlyLeftTransition/FlyingToLeftTransition
+  rotate: false
+  xy: 456, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 5
+FlyingToFlyLeftTransition/FlyingToLeftTransition
+  rotate: false
+  xy: 683, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 6
+FlyingToFlyLeftTransition/FlyingToLeftTransition
+  rotate: false
+  xy: 683, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 7
+
+HeroAnimations14.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+RunSlow/RunSlo
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+RunSlow/RunSlo
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+RunSlow/RunSlo
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+RunSlow/RunSlo
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+RunSlow/RunSlo
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+RunSlow/RunSlo
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+RunSlow/RunSlo
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+RunSlow/RunSlo
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+RunSlow/RunSlo
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+RunSlow/RunSlo
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+RunSlow/RunSlo
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+RunSlow/RunSlo
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+
+HeroAnimations15.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+StandingStillForward/StandingStillForwar
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations16.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -446,721 +2020,125 @@ explosion/explosion
   offset: 0, 0
   index: 62
 
-HeroAnimations2.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 2, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 0
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 2, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 1
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 193, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 2
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 2, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 3
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 193, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 4
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 384, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 5
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 2, 193
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 6
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 193, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 7
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 384, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 8
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 575, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 9
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 2, 2
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 10
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 193, 193
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 11
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 384, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 12
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 575, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 13
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 766, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 14
-FloatingSideways/FloatingSideways
-  rotate: false
-  xy: 193, 2
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 15
-
-HeroAnimations3.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-Flying/Flying
-  rotate: false
-  xy: 2, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 0
-Flying/Flying
-  rotate: false
-  xy: 2, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 1
-Flying/Flying
-  rotate: false
-  xy: 229, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 2
-Flying/Flying
-  rotate: false
-  xy: 2, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 3
-Flying/Flying
-  rotate: false
-  xy: 229, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 4
-Flying/Flying
-  rotate: false
-  xy: 456, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 5
-Flying/Flying
-  rotate: false
-  xy: 2, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 6
-Flying/Flying
-  rotate: false
-  xy: 229, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 7
-Flying/Flying
-  rotate: false
-  xy: 456, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 8
-Flying/Flying
-  rotate: false
-  xy: 683, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 9
-Flying/Flying
-  rotate: false
-  xy: 229, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 10
-Flying/Flying
-  rotate: false
-  xy: 456, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 11
-Flying/Flying
-  rotate: false
-  xy: 683, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 12
-Flying/Flying
-  rotate: false
-  xy: 456, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 13
-Flying/Flying
-  rotate: false
-  xy: 683, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 14
-Flying/Flying
-  rotate: false
-  xy: 683, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 15
-
-HeroAnimations4.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 2, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 0
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 2, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 1
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 229, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 2
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 2, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 3
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 229, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 4
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 456, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 5
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 2, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 6
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 229, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 7
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 456, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 8
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 683, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 9
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 229, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 10
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 456, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 11
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 683, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 12
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 456, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 13
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 683, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 14
-FlyingLeft/FlyingLeft
-  rotate: false
-  xy: 683, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 15
-
-HeroAnimations5.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 2, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 0
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 2, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 1
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 229, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 2
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 2, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 3
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 229, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 4
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 456, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 5
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 2, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 6
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 229, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 7
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 456, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 8
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 683, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 9
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 229, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 10
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 456, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 11
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 683, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 12
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 456, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 13
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 683, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 14
-FlyingNoThrust/FlyingNoThrust
-  rotate: false
-  xy: 683, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 15
-
-HeroAnimations6.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 2, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 0
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 2, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 1
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 229, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 2
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 2, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 3
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 229, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 4
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 456, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 5
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 2, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 6
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 229, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 7
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 456, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 8
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 683, 683
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 9
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 229, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 10
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 456, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 11
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 683, 456
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 12
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 456, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 13
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 683, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 14
-FlyingRight/FlyingRight
-  rotate: false
-  xy: 683, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 15
-
-HeroAnimations7.png
+HeroAnimations17.png
 size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-FlyingToFlyLeftTransition/FlyingToLeftTransition
+WalkingFast/WalkingFas
   rotate: false
-  xy: 2, 229
-  size: 225, 225
-  orig: 225, 225
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 0
-FlyingToFlyLeftTransition/FlyingToLeftTransition
+WalkingFast/WalkingFas
   rotate: false
-  xy: 2, 2
-  size: 225, 225
-  orig: 225, 225
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 1
-FlyingToFlyLeftTransition/FlyingToLeftTransition
+WalkingFast/WalkingFas
   rotate: false
-  xy: 229, 229
-  size: 225, 225
-  orig: 225, 225
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 2
-FlyingToFlyLeftTransition/FlyingToLeftTransition
-  rotate: false
-  xy: 229, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 3
-FlyingToFlyLeftTransition/FlyingToLeftTransition
-  rotate: false
-  xy: 456, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 4
-FlyingToFlyLeftTransition/FlyingToLeftTransition
-  rotate: false
-  xy: 456, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 5
-FlyingToFlyLeftTransition/FlyingToLeftTransition
-  rotate: false
-  xy: 683, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 6
-FlyingToFlyLeftTransition/FlyingToLeftTransition
-  rotate: false
-  xy: 683, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 7
-
-HeroAnimations8.png
-size: 1024,512
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-FlyingToFlyRightTransition/FlyingToRightTransition
-  rotate: false
-  xy: 2, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 0
-FlyingToFlyRightTransition/FlyingToRightTransition
+WalkingFast/WalkingFas
   rotate: false
   xy: 2, 2
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 1
-FlyingToFlyRightTransition/FlyingToRightTransition
-  rotate: false
-  xy: 229, 229
-  size: 225, 225
-  orig: 225, 225
-  offset: 0, 0
-  index: 2
-FlyingToFlyRightTransition/FlyingToRightTransition
-  rotate: false
-  xy: 229, 2
-  size: 225, 225
-  orig: 225, 225
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 3
-FlyingToFlyRightTransition/FlyingToRightTransition
+WalkingFast/WalkingFas
   rotate: false
-  xy: 456, 229
-  size: 225, 225
-  orig: 225, 225
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 4
-FlyingToFlyRightTransition/FlyingToRightTransition
+WalkingFast/WalkingFas
   rotate: false
-  xy: 456, 2
-  size: 225, 225
-  orig: 225, 225
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 5
-FlyingToFlyRightTransition/FlyingToRightTransition
+WalkingFast/WalkingFas
   rotate: false
-  xy: 683, 229
-  size: 225, 225
-  orig: 225, 225
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 6
-FlyingToFlyRightTransition/FlyingToRightTransition
+WalkingFast/WalkingFas
   rotate: false
-  xy: 683, 2
-  size: 225, 225
-  orig: 225, 225
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 7
+WalkingFast/WalkingFas
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+WalkingFast/WalkingFas
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+WalkingFast/WalkingFas
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+WalkingFast/WalkingFas
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+WalkingFast/WalkingFas
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+WalkingFast/WalkingFas
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+WalkingFast/WalkingFas
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+WalkingFast/WalkingFas
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
 
-HeroAnimations9.png
+HeroAnimations18.png
 size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1299,479 +2277,631 @@ GhostIndicator/indicator-yellow
   offset: 0, 0
   index: -1
 
-HeroAnimations10.png
-size: 1024,1024
+HeroAnimations19.png
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-JumpForward/JumpForward
+RunFast/RunFas
   rotate: false
-  xy: 2, 766
-  size: 189, 189
-  orig: 189, 189
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 0
-JumpForward/JumpForward
+RunFast/RunFas
   rotate: false
-  xy: 2, 575
-  size: 189, 189
-  orig: 189, 189
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 1
-JumpForward/JumpForward
+RunFast/RunFas
   rotate: false
-  xy: 193, 766
-  size: 189, 189
-  orig: 189, 189
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 2
-JumpForward/JumpForward
-  rotate: false
-  xy: 2, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 3
-JumpForward/JumpForward
-  rotate: false
-  xy: 193, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 4
-JumpForward/JumpForward
-  rotate: false
-  xy: 384, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 5
-JumpForward/JumpForward
-  rotate: false
-  xy: 2, 193
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 6
-JumpForward/JumpForward
-  rotate: false
-  xy: 193, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 7
-JumpForward/JumpForward
-  rotate: false
-  xy: 384, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 8
-JumpForward/JumpForward
-  rotate: false
-  xy: 575, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 9
-JumpForward/JumpForward
+RunFast/RunFas
   rotate: false
   xy: 2, 2
-  size: 189, 189
-  orig: 189, 189
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+RunFast/RunFas
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+RunFast/RunFas
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+RunFast/RunFas
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+RunFast/RunFas
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+RunFast/RunFas
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+RunFast/RunFas
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+RunFast/RunFas
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 10
-JumpForward/JumpForward
+RunFast/RunFas
   rotate: false
-  xy: 193, 193
-  size: 189, 189
-  orig: 189, 189
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 11
-JumpForward/JumpForward
-  rotate: false
-  xy: 384, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 12
-JumpForward/JumpForward
-  rotate: false
-  xy: 575, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 13
-JumpForward/JumpForward
-  rotate: false
-  xy: 766, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 14
-JumpForward/JumpForward
-  rotate: false
-  xy: 193, 2
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 15
 
-HeroAnimations11.png
-size: 1024,1024
+HeroAnimations20.png
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 2, 659
-  size: 217, 217
-  orig: 217, 217
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 0
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 2, 440
-  size: 217, 217
-  orig: 217, 217
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 1
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 221, 659
-  size: 217, 217
-  orig: 217, 217
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 2
-JumpSideways/JumpSideways
-  rotate: false
-  xy: 2, 221
-  size: 217, 217
-  orig: 217, 217
-  offset: 0, 0
-  index: 3
-JumpSideways/JumpSideways
-  rotate: false
-  xy: 221, 440
-  size: 217, 217
-  orig: 217, 217
-  offset: 0, 0
-  index: 4
-JumpSideways/JumpSideways
-  rotate: false
-  xy: 440, 659
-  size: 217, 217
-  orig: 217, 217
-  offset: 0, 0
-  index: 5
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
   xy: 2, 2
-  size: 217, 217
-  orig: 217, 217
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+FloatingSideways/FloatingSideway
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+FloatingSideways/FloatingSideway
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+FloatingSideways/FloatingSideway
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 6
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 221, 221
-  size: 217, 217
-  orig: 217, 217
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 7
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 440, 440
-  size: 217, 217
-  orig: 217, 217
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 8
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 659, 659
-  size: 217, 217
-  orig: 217, 217
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 9
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 221, 2
-  size: 217, 217
-  orig: 217, 217
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 10
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 440, 221
-  size: 217, 217
-  orig: 217, 217
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 11
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 659, 440
-  size: 217, 217
-  orig: 217, 217
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 12
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 440, 2
-  size: 217, 217
-  orig: 217, 217
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 13
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 659, 221
-  size: 217, 217
-  orig: 217, 217
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 14
-JumpSideways/JumpSideways
+FloatingSideways/FloatingSideway
   rotate: false
-  xy: 659, 2
-  size: 217, 217
-  orig: 217, 217
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 15
 
-HeroAnimations12.png
-size: 1024,1024
+HeroAnimations21.png
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
-  xy: 2, 766
-  size: 189, 189
-  orig: 189, 189
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 0
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
-  xy: 2, 575
-  size: 189, 189
-  orig: 189, 189
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 1
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
-  xy: 193, 766
-  size: 189, 189
-  orig: 189, 189
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 2
-LandingForward/LandingForward
-  rotate: false
-  xy: 2, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 3
-LandingForward/LandingForward
-  rotate: false
-  xy: 193, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 4
-LandingForward/LandingForward
-  rotate: false
-  xy: 384, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 5
-LandingForward/LandingForward
-  rotate: false
-  xy: 2, 193
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 6
-LandingForward/LandingForward
-  rotate: false
-  xy: 193, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 7
-LandingForward/LandingForward
-  rotate: false
-  xy: 384, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 8
-LandingForward/LandingForward
-  rotate: false
-  xy: 575, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 9
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
   xy: 2, 2
-  size: 189, 189
-  orig: 189, 189
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+JumpSideways/JumpSideway
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+JumpSideways/JumpSideway
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+JumpSideways/JumpSideway
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+JumpSideways/JumpSideway
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+JumpSideways/JumpSideway
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+JumpSideways/JumpSideway
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+JumpSideways/JumpSideway
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 10
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
-  xy: 193, 193
-  size: 189, 189
-  orig: 189, 189
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 11
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
-  xy: 384, 384
-  size: 189, 189
-  orig: 189, 189
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 12
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
-  xy: 575, 575
-  size: 189, 189
-  orig: 189, 189
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 13
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
-  xy: 766, 766
-  size: 189, 189
-  orig: 189, 189
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 14
-LandingForward/LandingForward
+JumpSideways/JumpSideway
   rotate: false
-  xy: 193, 2
-  size: 189, 189
-  orig: 189, 189
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 15
 
-HeroAnimations13.png
-size: 1024,1024
+HeroAnimations22.png
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 2, 638
-  size: 210, 210
-  orig: 210, 210
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 0
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 2, 426
-  size: 210, 210
-  orig: 210, 210
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 1
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 214, 638
-  size: 210, 210
-  orig: 210, 210
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 2
-LandingSideways/LandingSideways
-  rotate: false
-  xy: 2, 214
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 3
-LandingSideways/LandingSideways
-  rotate: false
-  xy: 214, 426
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 4
-LandingSideways/LandingSideways
-  rotate: false
-  xy: 426, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 5
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
   xy: 2, 2
-  size: 210, 210
-  orig: 210, 210
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+LandingSideways/LandingSideway
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+LandingSideways/LandingSideway
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+LandingSideways/LandingSideway
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 6
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 214, 214
-  size: 210, 210
-  orig: 210, 210
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 7
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 426, 426
-  size: 210, 210
-  orig: 210, 210
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 8
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 638, 638
-  size: 210, 210
-  orig: 210, 210
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 9
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 214, 2
-  size: 210, 210
-  orig: 210, 210
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 10
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 426, 214
-  size: 210, 210
-  orig: 210, 210
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 11
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 638, 426
-  size: 210, 210
-  orig: 210, 210
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 12
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 426, 2
-  size: 210, 210
-  orig: 210, 210
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 13
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 638, 214
-  size: 210, 210
-  orig: 210, 210
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 14
-LandingSideways/LandingSideways
+LandingSideways/LandingSideway
   rotate: false
-  xy: 638, 2
-  size: 210, 210
-  orig: 210, 210
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
   offset: 0, 0
   index: 15
 
-HeroAnimations14.png
+HeroAnimations23.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 2, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 0
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 2, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 1
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 154, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 2
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 2, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 3
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 154, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 4
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 306, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 5
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 154, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 6
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 306, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 7
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 458, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 8
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 306, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 9
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 458, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 10
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 610, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 11
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 458, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 12
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 610, 154
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 13
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 762, 306
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 14
+FlyingRight/FlyingRigh
+  rotate: false
+  xy: 610, 2
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: 15
+
+HeroAnimations24.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+FlyingToFlyRightTransition/FlyingToRightTransition
+  rotate: false
+  xy: 2, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 0
+FlyingToFlyRightTransition/FlyingToRightTransition
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 1
+FlyingToFlyRightTransition/FlyingToRightTransition
+  rotate: false
+  xy: 229, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 2
+FlyingToFlyRightTransition/FlyingToRightTransition
+  rotate: false
+  xy: 229, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 3
+FlyingToFlyRightTransition/FlyingToRightTransition
+  rotate: false
+  xy: 456, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 4
+FlyingToFlyRightTransition/FlyingToRightTransition
+  rotate: false
+  xy: 456, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 5
+FlyingToFlyRightTransition/FlyingToRightTransition
+  rotate: false
+  xy: 683, 229
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 6
+FlyingToFlyRightTransition/FlyingToRightTransition
+  rotate: false
+  xy: 683, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: 7
+
+HeroAnimations25.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1784,7 +2914,7 @@ Planets/Moon
   offset: 0, 0
   index: -1
 
-HeroAnimations15.png
+HeroAnimations26.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1797,7 +2927,7 @@ Planets/Planet 02
   offset: 0, 0
   index: -1
 
-HeroAnimations16.png
+HeroAnimations27.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -1810,769 +2940,117 @@ Planets/Planet 01
   offset: 0, 0
   index: -1
 
-HeroAnimations17.png
+HeroAnimations28.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-RunFast/RunFast
-  rotate: false
-  xy: 2, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 0
-RunFast/RunFast
-  rotate: false
-  xy: 2, 426
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 1
-RunFast/RunFast
-  rotate: false
-  xy: 214, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 2
-RunFast/RunFast
-  rotate: false
-  xy: 2, 214
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 3
-RunFast/RunFast
-  rotate: false
-  xy: 214, 426
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 4
-RunFast/RunFast
-  rotate: false
-  xy: 426, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 5
-RunFast/RunFast
-  rotate: false
-  xy: 2, 2
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 6
-RunFast/RunFast
-  rotate: false
-  xy: 214, 214
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 7
-RunFast/RunFast
-  rotate: false
-  xy: 426, 426
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 8
-RunFast/RunFast
-  rotate: false
-  xy: 638, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 9
-RunFast/RunFast
-  rotate: false
-  xy: 214, 2
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 10
-RunFast/RunFast
-  rotate: false
-  xy: 426, 214
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 11
-
-HeroAnimations18.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-RunSlow/RunSlow
-  rotate: false
-  xy: 2, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 0
-RunSlow/RunSlow
-  rotate: false
-  xy: 2, 581
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 1
-RunSlow/RunSlow
-  rotate: false
-  xy: 195, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 2
-RunSlow/RunSlow
-  rotate: false
-  xy: 2, 388
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 3
-RunSlow/RunSlow
-  rotate: false
-  xy: 195, 581
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 4
-RunSlow/RunSlow
-  rotate: false
-  xy: 388, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 5
-RunSlow/RunSlow
-  rotate: false
-  xy: 2, 195
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 6
-RunSlow/RunSlow
-  rotate: false
-  xy: 195, 388
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 7
-RunSlow/RunSlow
-  rotate: false
-  xy: 388, 581
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 8
-RunSlow/RunSlow
-  rotate: false
-  xy: 581, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 9
-RunSlow/RunSlow
-  rotate: false
-  xy: 2, 2
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 10
-RunSlow/RunSlow
-  rotate: false
-  xy: 195, 195
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 11
-
-HeroAnimations19.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 2, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 0
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 2, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 1
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 193, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 2
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 2, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 3
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 193, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 4
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 384, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 5
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 2, 193
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 6
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 193, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 7
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 384, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 8
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 575, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 9
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 2, 2
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 10
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 193, 193
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 11
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 384, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 12
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 575, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 13
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 766, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 14
-StandingStillForward/StandingStillForwar
-  rotate: false
-  xy: 193, 2
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 15
-
-HeroAnimations20.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 2, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 0
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 2, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 1
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 193, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 2
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 2, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 3
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 193, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 4
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 384, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 5
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 2, 193
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 6
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 193, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 7
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 384, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 8
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 575, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 9
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 2, 2
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 10
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 193, 193
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 11
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 384, 384
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 12
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 575, 575
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 13
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 766, 766
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 14
-StandingStillSideways/StandingStillSideways
-  rotate: false
-  xy: 193, 2
-  size: 189, 189
-  orig: 189, 189
-  offset: 0, 0
-  index: 15
-
-HeroAnimations21.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 2, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 0
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 2, 426
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 1
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 214, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 2
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 2, 214
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 3
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 214, 426
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 4
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 426, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 5
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 2, 2
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 6
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 214, 214
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 7
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 426, 426
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 8
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 638, 638
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 9
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 214, 2
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 10
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 426, 214
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 11
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 638, 426
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 12
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 426, 2
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 13
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 638, 214
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 14
-WalkingFast/WalkingFast
-  rotate: false
-  xy: 638, 2
-  size: 210, 210
-  orig: 210, 210
-  offset: 0, 0
-  index: 15
-
-HeroAnimations22.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 2, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 0
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 2, 581
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 1
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 195, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 2
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 2, 388
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 3
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 195, 581
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 4
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 388, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 5
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 2, 195
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 6
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 195, 388
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 7
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 388, 581
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 8
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 581, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 9
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 2, 2
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 10
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 195, 195
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 11
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 388, 388
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 12
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 581, 581
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 13
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 774, 774
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 14
-WalkingSlow/WalkSlow
-  rotate: false
-  xy: 195, 2
-  size: 191, 191
-  orig: 191, 191
-  offset: 0, 0
-  index: 15
-
-HeroAnimations23.png
-size: 1024,1024
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 2, 683
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 0
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 2, 456
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 1
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 229, 683
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 2
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 2, 229
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 3
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 229, 456
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 4
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 456, 683
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 5
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 2, 2
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 6
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 229, 229
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 7
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 456, 456
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 8
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 683, 683
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 9
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 229, 2
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 10
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 456, 229
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 11
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 683, 456
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 12
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 456, 2
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 13
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 683, 229
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: 14
-Wave/Wave
+FlyingLeft/FlyingLeft
   rotate: false
   xy: 683, 2
   size: 225, 225

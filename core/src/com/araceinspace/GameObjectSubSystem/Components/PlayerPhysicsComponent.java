@@ -35,7 +35,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public static float ANGULAR_DAMPENING = .5f;
     public static float GRAVITATIONAL_CONSTANT = .08f;
 
-    public static float DENSITY = 0.5f;
+    public static float DENSITY = .75f;
     public static float FRICTION = .4f;
 
     /* Field Variables & Objects */
@@ -92,7 +92,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         float PIXELS_TO_METERS = parent.parent.parent.renderManager.PIXELS_TO_METERS;
         bodyDef.position.set((parent.getX() + parent.getWidth() / 2) / PIXELS_TO_METERS,
-                             (parent.getY() + parent.getHeight() / 2) / PIXELS_TO_METERS);
+                ((parent.getY() + parent.getHeight() / 2) / PIXELS_TO_METERS)-(0));
         body = world.createBody(bodyDef);
         body.setLinearDamping(LINEAR_DAMPENING);
         body.setAngularDamping(ANGULAR_DAMPENING);

@@ -1,6 +1,7 @@
 package com.araceinspace.GameObjectSubSystem.Components;
 
 import com.araceinspace.GameObjectSubSystem.PlayerPrototype;
+import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.Managers.ResourceManager;
 import com.araceinspace.misc.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     PlayerPrototype parent;
+    float yOffset; //Used to allow sprite to overlap physics
 
     public PlayerGraphicsComponent(PlayerPrototype p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
         super(region, animations);
@@ -21,6 +23,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         this.setX(loc.x);
         this.setY(loc.y);
         setupRendering(animations);
+        yOffset = getHeight()/6;
     }
 
     public void setupRendering(Animation currentAnimation){
@@ -32,9 +35,9 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         if(parent == null){//takes care of when input isn't constructed yet
             flip = false;
         }else{
-            flip = parent.getInput().flip();
+            flip = flip();
         }
-
+       // System.out.println("currentAnimation: "+ currentAnimation.name);
         TextureRegion frame = currentAnimation.getKeyFrame(elapsedTime, true);
 
         //batch.draw(frame, getX(), getY(), getWidth(), getHeight()); seems to work similar to original
@@ -42,12 +45,19 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         //batch.draw(frame, getX(), getY()); //player is big, and planets are scewed
 
         //originial
-        batch.draw(frame,
+        /*batch.draw(frame,
                     flip ? getX()+getWidth() : getX(), getY(),
                     flip ? -getOriginX(): getOriginX(), getOriginY(),
                     flip ? -getWidth() : getWidth(), getHeight(),
                     getScaleX(), getScaleY(),
-                    getRotation());
+                    getRotation());*/
+
+        batch.draw(frame,
+                flip ? getX()+getWidth() : getX(), getY()-yOffset,
+                flip ? -getOriginX(): getOriginX(), getOriginY()+yOffset,
+                flip ? -getWidth() : getWidth(), getHeight(),
+                getScaleX(), getScaleY(),
+                getRotation());
 
         //to help find the difference between player space, and planet space.
         //batch.draw(frame, 0, 0, 0, 0, 15, 15, 1, 1, 0);
@@ -73,10 +83,51 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                 setAnimation(resourceManager.getJumpForwardAnimation());
                 break;
             case FLYING:
-                if(!parent.getInput().upPressed){
+                /*if(!parent.getInput().upPressed){
                     setAnimation(resourceManager.getFlyingNoThrustAnimation());
                 }else{
                     setAnimation(resourceManager.getFlyingAnimation());
+                }*/
+                /*
+                InputComponent input = parent.getInput();
+                if(input.upPressed && input.rightPressed){
+                    setAnimation(resourceManager.getFlyingRightAnimation());
+
+                }else if(input.upPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingLeftAnimation());
+
+                }else if(input.upPressed){
+                    setAnimation(resourceManager.getFlyingAnimation());
+                }else{
+                    setAnimation(resourceManager.getFlyingNoThrustAnimation());
+                }
+                */
+                //Choose which flying animation to show based on key inputs
+                InputComponent input = parent.getInput();
+                if(input.upPressed && input.rightPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingAnimation());
+                }else if(input.upPressed && input.rightPressed){
+                    setAnimation(resourceManager.getFlyingRightAnimation());
+                }else if(input.upPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingLeftAnimation());
+                }else if(input.upPressed){
+                    setAnimation(resourceManager.getFlyingAnimation());
+                }else if(input.downPressed && input.rightPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingBackwardAnimation());
+                }else if(input.downPressed && input.rightPressed){
+                    setAnimation(resourceManager.getFlyingRightBackAnimation());
+                }else if(input.downPressed && input.leftPressed){
+                    setAnimation(resourceManager.getFlyingLeftBackAnimation());
+                }else if(input.downPressed) {
+                    setAnimation(resourceManager.getFlyingBackwardAnimation());
+                }else if(input.leftPressed && input.rightPressed) {
+                    setAnimation(resourceManager.getFlyingNoThrustAnimation());
+                }else if(input.rightPressed) {
+                    setAnimation(resourceManager.getFlyingRightNoThrustAnimation());
+                }else if(input.leftPressed){
+                    setAnimation(resourceManager.getFlyingLeftNoThrustAnimation());
+                }else{
+                    setAnimation(resourceManager.getFlyingNoThrustAnimation());
                 }
                 break;
             case LAND_FORWARD:
@@ -108,5 +159,21 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     public void setAnimation(Animation animation){
         this.currentAnimation = animation;
 
+    }
+
+    /**
+     * returns true if players leftINput is pressed
+     * @return
+     */
+    public boolean flip(){
+        //return false;//test
+        //*
+        GameInput lastWalkInput = parent.getInput().getLastWalkInput();
+        if(parent.getState().onPlanet() && (lastWalkInput == GameInput.LEFT_PRESSED || lastWalkInput == GameInput.TOUCH_LEFT || lastWalkInput == GameInput.TOUCH_DOWN_LEFT || lastWalkInput == GameInput.TOUCH_UP_LEFT)){
+            return true;
+        }else{
+            return false;
+        }
+        //*/
     }
 }

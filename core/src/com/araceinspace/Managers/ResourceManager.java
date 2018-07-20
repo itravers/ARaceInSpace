@@ -40,7 +40,7 @@ public class ResourceManager {
     private Animation standingStillSidewaysAnimation;
     private Animation jumpForwardAnimation;
     private Animation waveAnimation;
-    private Animation flyingAnimation;
+
     private Animation landingForwardAnimation;
     private Animation floatingSidewaysAnimation;
     private Animation landingSidewaysAnimation;
@@ -48,8 +48,20 @@ public class ResourceManager {
     private Animation runSlowAnimation;
     private Animation  runFastAnimation;
     private Animation  jumpSidewaysAnimation;
-    private Animation flyingNoThrustAnimation;
+
     private Animation explosionAnimation;
+
+    //flying Animations
+    private Animation flyingRightAnimation;
+    private Animation flyingLeftAnimation;
+    private Animation flyingNoThrustAnimation;
+    private Animation flyingAnimation;
+    private Animation flyingBackwardAnimation;
+    private Animation flyingLeftNoThrustAnimation;
+    private Animation flyingRightNoThrustAnimation;
+    private Animation flyingRightBackAnimation;
+    private Animation flyingLeftBackAnimation;
+
     private Animation planet01Animation;
     private Animation planet02Animation;
     private Animation moonAnimation;
@@ -148,58 +160,93 @@ public class ResourceManager {
 
     private void setupExplosionAnimation(){
         Array<TextureAtlas.AtlasRegion> explosionRegion = heroAtlas.findRegions("explosion/explosion");
-        explosionAnimation = new Animation(1/60f, explosionRegion);
+        explosionAnimation = new Animation(1/60f, explosionRegion, "explosionAnimation");
     }
 
     private void setupPlanetAnimations(){
         Array<TextureAtlas.AtlasRegion> planet01Region = heroAtlas.findRegions("Planets/Planet 01");
-        planet01Animation = new Animation(1/60f, planet01Region);
+        planet01Animation = new Animation(1/60f, planet01Region, "planet01Animation");
 
         Array<TextureAtlas.AtlasRegion> planet02Region = heroAtlas.findRegions("Planets/Planet 02");
-        planet02Animation = new Animation(1/60f, planet02Region);
+        planet02Animation = new Animation(1/60f, planet02Region, "planet02Animation");
 
         Array<TextureAtlas.AtlasRegion> moonRegion = heroAtlas.findRegions("Planets/Moon");
-        moonAnimation = new Animation(1/60f, moonRegion);
+        moonAnimation = new Animation(1/60f, moonRegion, "moonAnimation");
     }
 
     private void setFlyingNoThrustAnimation(){
-        Array<TextureAtlas.AtlasRegion> flyingNoThrustRegion = heroAtlas.findRegions("FlyingNoThrust/FlyingNoThrust");
-        flyingNoThrustAnimation = new Animation(1/30f, flyingNoThrustRegion);
+        Array<TextureAtlas.AtlasRegion> flyingNoThrustRegion = heroAtlas.findRegions("FlyingNoThrust/FlyingNoThrus");
+        flyingNoThrustAnimation = new Animation(1/30f, flyingNoThrustRegion, "flyingNoThrustAnimation");
     }
 
     private void setupJumpSidewaysAnimation(){
-        Array<TextureAtlas.AtlasRegion> jumpSidewaysRegion = heroAtlas.findRegions("JumpSideways/JumpSideways");
-        jumpSidewaysAnimation = new Animation(1/30f, jumpSidewaysRegion);
+        Array<TextureAtlas.AtlasRegion> jumpSidewaysRegion = heroAtlas.findRegions("JumpSideways/JumpSideway");
+        jumpSidewaysAnimation = new Animation(1/30f, jumpSidewaysRegion, "jumpSidewaysAnimation");
     }
 
     private void setupRunSlowAnimation(){
-        Array<TextureAtlas.AtlasRegion> runSlowRegion = heroAtlas.findRegions("RunSlow/RunSlow");
-        runSlowAnimation = new Animation(1/30f, runSlowRegion);
+        Array<TextureAtlas.AtlasRegion> runSlowRegion = heroAtlas.findRegions("RunSlow/RunSlo");
+        runSlowAnimation = new Animation(1/30f, runSlowRegion, "runSlowAnimation");
     }
 
     private void setupRunFastAnimation(){
-        Array<TextureAtlas.AtlasRegion> runFastRegion = heroAtlas.findRegions("RunFast/RunFast");
-        runFastAnimation = new Animation(1/30f, runFastRegion);
+        Array<TextureAtlas.AtlasRegion> runFastRegion = heroAtlas.findRegions("RunFast/RunFas");
+        runFastAnimation = new Animation(1/30f, runFastRegion, "runFastAnimation");
     }
 
     private void setupWalkFastAnimation(){
-        Array<TextureAtlas.AtlasRegion> walkFastRegion = heroAtlas.findRegions("WalkingFast/WalkingFast");
-        walkFastAnimation = new Animation(1/30f, walkFastRegion);
+        Array<TextureAtlas.AtlasRegion> walkFastRegion = heroAtlas.findRegions("WalkingFast/WalkingFas");
+        walkFastAnimation = new Animation(1/30f, walkFastRegion, "walkFastAnimation");
     }
 
     private void setupLandingSidewaysAnimation(){
-        Array<TextureAtlas.AtlasRegion> landSidewaysRegion = heroAtlas.findRegions("LandingSideways/LandingSideways");
-        landingSidewaysAnimation = new Animation(1/30f, landSidewaysRegion);
+        Array<TextureAtlas.AtlasRegion> landSidewaysRegion = heroAtlas.findRegions("LandingSideways/LandingSideway");
+        landingSidewaysAnimation = new Animation(1/30f, landSidewaysRegion, "landingSidewaysAnimation");
     }
 
     private void setupFloatingSidewaysAnimation(){
-        Array<TextureAtlas.AtlasRegion> floatingSidewaysRegion = heroAtlas.findRegions("FloatingSideways/FloatingSideways");
-        floatingSidewaysAnimation = new Animation(1/30f, floatingSidewaysRegion);
+        Array<TextureAtlas.AtlasRegion> floatingSidewaysRegion = heroAtlas.findRegions("FloatingSideways/FloatingSideway");
+        floatingSidewaysAnimation = new Animation(1/30f, floatingSidewaysRegion, "floatingSidewaysAnimation");
     }
 
     private void setupLandingForwardAnimation(){
-        Array<TextureAtlas.AtlasRegion> landingForwardRegion = heroAtlas.findRegions("LandingForward/LandingForward");
-        landingForwardAnimation = new Animation(1/30f, landingForwardRegion);
+        Array<TextureAtlas.AtlasRegion> landingForwardRegion = heroAtlas.findRegions("LandingForward/LandingForwar");
+        landingForwardAnimation = new Animation(1/30f, landingForwardRegion, "landingForwardAnimation");
+    }
+
+    private void setupFlyingLeftAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingLeftRegion = heroAtlas.findRegions("FlyingLeft/FlyingLeft");
+        flyingLeftAnimation = new Animation(1/30f, flyingLeftRegion, "flyingLeftAnimation");
+    }
+
+    private void setupFlyingBackwardAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingBackwardRegion = heroAtlas.findRegions("FlyingBackward/FlyingBackwar");
+        flyingBackwardAnimation = new Animation(1/30f, flyingBackwardRegion, "flyingBackwardAnimation");
+    }
+
+    private void setupFlyingLeftNoThrustAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingLeftNoThrustRegion = heroAtlas.findRegions("FlyingLeftNoThrust/FlyingLeftNoThrus");
+        flyingLeftNoThrustAnimation = new Animation(1/30f, flyingLeftNoThrustRegion, "flyingLeftNoThrustAnimation");
+    }
+
+    private void setupFlyingRightNoThrustAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingRightNoThrustRegion = heroAtlas.findRegions("FlyingRightNoThrust/FlyingRightNoThrus");
+        flyingRightNoThrustAnimation = new Animation(1/30f, flyingRightNoThrustRegion, "flyingRightNoThrustAnimation");
+    }
+
+    private void setupFlyingLeftBackAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingLeftBackRegion = heroAtlas.findRegions("FlyingLeftBack/FlyingLeftBac");
+        flyingLeftBackAnimation = new Animation(1/30f, flyingLeftBackRegion, "flyingLeftBackAnimation");
+    }
+
+    private void setupFlyingRightBackAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingRightBackRegion = heroAtlas.findRegions("FlyingRightBack/FlyingRightBac");
+        flyingRightBackAnimation = new Animation(1/30f, flyingRightBackRegion, "flyingRightBackAnimation");
+    }
+
+    private void setupFlyingRightAnimation(){
+        Array<TextureAtlas.AtlasRegion> flyingRightRegion = heroAtlas.findRegions("FlyingRight/FlyingRigh");
+        flyingRightAnimation = new Animation(1/30f, flyingRightRegion, "flyingRightAnimation");
     }
 
     /**
@@ -207,32 +254,32 @@ public class ResourceManager {
      */
     private void setupStandingStillForwardsAnimation(){
         Array<TextureAtlas.AtlasRegion> standingStillForwardsRegion = heroAtlas.findRegions("StandingStillForward/StandingStillForwar");
-        standingStillForwardsAnimation = new Animation(1/30f, standingStillForwardsRegion);
+        standingStillForwardsAnimation = new Animation(1/30f, standingStillForwardsRegion, "standingStillForwardsAnimation");
     }
 
     private void setupWalkSlowAnimation(){
-        Array<TextureAtlas.AtlasRegion> walkSlowRegion = heroAtlas.findRegions("WalkingSlow/WalkSlow");
-        walkSlowAnimation = new Animation(1/30f, walkSlowRegion);
+        Array<TextureAtlas.AtlasRegion> walkSlowRegion = heroAtlas.findRegions("WalkingSlow/WalkingSlo");
+        walkSlowAnimation = new Animation(1/30f, walkSlowRegion, "walkSlowAnimation");
     }
 
     private void setupStandingStillSidewaysAnimation(){
-        Array<TextureAtlas.AtlasRegion> standingStillSidewaysRegion = heroAtlas.findRegions("StandingStillSideways/StandingStillSideways");
-        standingStillSidewaysAnimation = new Animation(1/30f, standingStillSidewaysRegion);
+        Array<TextureAtlas.AtlasRegion> standingStillSidewaysRegion = heroAtlas.findRegions("StandingStillSideways/StandingStillSideway");
+        standingStillSidewaysAnimation = new Animation(1/30f, standingStillSidewaysRegion, "standingStillSidewaysAnimation");
     }
 
     private void setupWaveAnimation(){
-        Array<TextureAtlas.AtlasRegion> waveRegion = heroAtlas.findRegions("Wave/Wave");
-        waveAnimation = new Animation(1/30f, waveRegion);
+        Array<TextureAtlas.AtlasRegion> waveRegion = heroAtlas.findRegions("Wave/Wav");
+        waveAnimation = new Animation(1/30f, waveRegion, "waveAnimation");
     }
 
     private void setupJumpForwardAnimation(){
-        Array<TextureAtlas.AtlasRegion> jumpForwardRegion = heroAtlas.findRegions("JumpForward/JumpForward");
-        jumpForwardAnimation = new Animation(1/30f, jumpForwardRegion);
+        Array<TextureAtlas.AtlasRegion> jumpForwardRegion = heroAtlas.findRegions("JumpForward/JumpForwar");
+        jumpForwardAnimation = new Animation(1/30f, jumpForwardRegion, "jumpForwardAnimation");
     }
 
     private void setupFlyingAnimation(){
-        Array<TextureAtlas.AtlasRegion> flyingRegion = heroAtlas.findRegions("Flying/Flying");
-        flyingAnimation = new Animation(1/30f, flyingRegion);
+        Array<TextureAtlas.AtlasRegion> flyingRegion = heroAtlas.findRegions("Flying/Flyin");
+        flyingAnimation = new Animation(1/30f, flyingRegion, "flyingAnimation");
     }
 
 
@@ -308,6 +355,13 @@ public class ResourceManager {
         setFlyingNoThrustAnimation();
         setupExplosionAnimation();
         setupPlanetAnimations();
+        setupFlyingLeftAnimation();
+        setupFlyingRightAnimation();
+        setupFlyingLeftBackAnimation();
+        setupFlyingRightBackAnimation();
+        setupFlyingLeftNoThrustAnimation();
+        setupFlyingRightNoThrustAnimation();
+        setupFlyingBackwardAnimation();
 
     }
 
@@ -375,6 +429,34 @@ public class ResourceManager {
         return jumpSidewaysAnimation;
     }
 
+    public Animation getFlyingRightAnimation(){
+        return flyingRightAnimation;
+    }
+
+    public Animation getFlyingLeftAnimation(){
+        return flyingLeftAnimation;
+    }
+
+    public Animation getFlyingBackwardAnimation(){
+        return flyingBackwardAnimation;
+    }
+
+    public Animation getFlyingRightNoThrustAnimation(){
+        return flyingRightNoThrustAnimation;
+    }
+
+    public Animation getFlyingLeftNoThrustAnimation(){
+        return flyingLeftNoThrustAnimation;
+    }
+
+    public Animation getFlyingLeftBackAnimation(){
+        return flyingLeftBackAnimation;
+    }
+
+    public Animation getFlyingRightBackAnimation(){
+        return flyingRightBackAnimation;
+    }
+
     public Animation getPlanet01Animation(){
         return planet01Animation;
     }
@@ -396,7 +478,7 @@ public class ResourceManager {
 
     public Animation getPlanetAnimationFromName(String atlasName){
         Array<TextureAtlas.AtlasRegion> planetRegion = getPlanetAtlas().findRegions(atlasName);
-        Animation planetRotateAnimation = new Animation(1/2f, planetRegion);
+        Animation planetRotateAnimation = new Animation(1/2f, planetRegion, "planetRotateAnimation");
         return planetRotateAnimation;
     }
 
