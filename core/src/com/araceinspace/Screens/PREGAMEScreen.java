@@ -396,7 +396,8 @@ public class PREGAMEScreen extends Screen{
         rewardButton.addListener(rewardAdButtonListener);
 
         //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
-        storeTitleLabel = new Label("Choose", skin, "optional");
+        int currentLevel = parent.parent.levelManager.getCurrentLevel();
+        storeTitleLabel = new Label("Level "+currentLevel, skin, "optional");
         Label.LabelStyle style = storeTitleLabel.getStyle();
         style.font = parent.parent.resourceManager.Font48;
         storeTitleLabel.setStyle(style);
@@ -434,13 +435,15 @@ public class PREGAMEScreen extends Screen{
         Table extraTable2 = new Table();
         extraTable2.setDebug(devMode);
         extraTable2.align(Align.center|Align.top);
-        Label taunt1 = new Label(" Your    ", skin, "optional");
+        Label taunt1 = new Label("Choose A Challenge", skin, "optional");
         style = taunt1.getStyle();
         style.font = parent.parent.resourceManager.Font24;
         taunt1.setStyle(style);
         extraTable2.add(taunt1).height(height/30).align(Align.left);
 
-        Label taunt2 = new Label(" Challenge!!!", skin, "optional");
+        String name = parent.p.playerName;
+
+        Label taunt2 = new Label(name+"!!!", skin, "optional");
         style = taunt2.getStyle();
         style.font = parent.parent.resourceManager.Font36;
         taunt2.setStyle(style);
@@ -472,7 +475,6 @@ public class PREGAMEScreen extends Screen{
 
         ImageButton starBronze = new ImageButton(skin, "starBronze");
         starBronze.setTouchable(Touchable.disabled);
-        int currentLevel = parent.parent.levelManager.getCurrentLevel();
         String bronzePlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".bronze.time", 99999999));
         String silverPlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".silver.time", 99999999));
         String goldPlayerTime = msToString(parent.parent.prefs.getInteger("com.araceinspace.level"+currentLevel+".gold.time", 99999999));
