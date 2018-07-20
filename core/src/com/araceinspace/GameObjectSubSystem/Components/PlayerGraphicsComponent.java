@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     PlayerPrototype parent;
+    float yOffset; //Used to allow sprite to overlap physics
 
     public PlayerGraphicsComponent(PlayerPrototype p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
         super(region, animations);
@@ -22,6 +23,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         this.setX(loc.x);
         this.setY(loc.y);
         setupRendering(animations);
+        yOffset = getHeight()/6;
     }
 
     public void setupRendering(Animation currentAnimation){
@@ -35,7 +37,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         }else{
             flip = flip();
         }
-
+       // System.out.println("currentAnimation: "+ currentAnimation.name);
         TextureRegion frame = currentAnimation.getKeyFrame(elapsedTime, true);
 
         //batch.draw(frame, getX(), getY(), getWidth(), getHeight()); seems to work similar to original
@@ -43,12 +45,19 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         //batch.draw(frame, getX(), getY()); //player is big, and planets are scewed
 
         //originial
-        batch.draw(frame,
+        /*batch.draw(frame,
                     flip ? getX()+getWidth() : getX(), getY(),
                     flip ? -getOriginX(): getOriginX(), getOriginY(),
                     flip ? -getWidth() : getWidth(), getHeight(),
                     getScaleX(), getScaleY(),
-                    getRotation());
+                    getRotation());*/
+
+        batch.draw(frame,
+                flip ? getX()+getWidth() : getX(), getY()-yOffset,
+                flip ? -getOriginX(): getOriginX(), getOriginY()+yOffset,
+                flip ? -getWidth() : getWidth(), getHeight(),
+                getScaleX(), getScaleY(),
+                getRotation());
 
         //to help find the difference between player space, and planet space.
         //batch.draw(frame, 0, 0, 0, 0, 15, 15, 1, 1, 0);

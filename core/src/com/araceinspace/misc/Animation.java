@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.Array;
  *
  * @author mzechner */
 public class Animation {
+    public String name;
 
     /** Defines possible playback modes for an {@link Animation}. */
     public enum PlayMode {
@@ -50,14 +51,14 @@ public class Animation {
      *
      * @param frameDuration the time between frames in seconds.
      * @param keyFrames the {@link TextureRegion}s representing the frames. */
-    public Animation (float frameDuration, Array<? extends TextureRegion> keyFrames) {
+    public Animation (float frameDuration, Array<? extends TextureRegion> keyFrames, String name) {
         this.frameDuration = frameDuration;
         this.animationDuration = keyFrames.size * frameDuration;
         this.keyFrames = new TextureRegion[keyFrames.size];
         for (int i = 0, n = keyFrames.size; i < n; i++) {
             this.keyFrames[i] = keyFrames.get(i);
         }
-
+        this.name = name;
         this.playMode = PlayMode.NORMAL;
     }
 
@@ -66,7 +67,7 @@ public class Animation {
      * @param frameDuration the time between frames in seconds.
      * @param keyFrames the {@link TextureRegion}s representing the frames.
      * @param playMode the animation playback mode. */
-    public Animation (float frameDuration, Array<? extends TextureRegion> keyFrames, PlayMode playMode) {
+    public Animation (float frameDuration, Array<? extends TextureRegion> keyFrames, PlayMode playMode, String name) {
 
         this.frameDuration = frameDuration;
         this.animationDuration = keyFrames.size * frameDuration;
@@ -74,7 +75,7 @@ public class Animation {
         for (int i = 0, n = keyFrames.size; i < n; i++) {
             this.keyFrames[i] = keyFrames.get(i);
         }
-
+        this.name = name;
         this.playMode = playMode;
     }
 
@@ -82,11 +83,12 @@ public class Animation {
      *
      * @param frameDuration the time between frames in seconds.
      * @param keyFrames the {@link TextureRegion}s representing the frames. */
-    public Animation (float frameDuration, TextureRegion... keyFrames) {
+    public Animation (float frameDuration, String name, TextureRegion... keyFrames) {
         this.frameDuration = frameDuration;
         this.animationDuration = keyFrames.length * frameDuration;
         this.keyFrames = keyFrames;
         this.playMode = PlayMode.NORMAL;
+        this.name = name;
     }
 
     /** Returns a {@link TextureRegion} based on the so called state time. This is the amount of seconds an object has spent in the

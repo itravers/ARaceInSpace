@@ -28,7 +28,7 @@ public class PlayerStateComponent extends StateComponent{
     PlayerPrototype parent;
     float stateTime = 0; //The amount of time we have been in current State
     public  boolean isLanded = onPlanet();
-    
+
 
     /* Constructors */
     public PlayerStateComponent(PlayerPrototype p, PlayerState state){
