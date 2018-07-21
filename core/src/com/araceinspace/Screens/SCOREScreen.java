@@ -5,6 +5,7 @@ import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -516,18 +517,25 @@ public class SCOREScreen extends Screen{
 
         challenger = "";
 
+        Color challengerColor = new Color(160,170,0,255);
         if(currentChallenge == LevelManager.CHALLENGES.bronze){
             challenger = "Bronze";
+            challengerColor = new Color(.647f, .47f, 0f, 1);
         }else if(currentChallenge == LevelManager.CHALLENGES.silver){
             challenger = "Silver";
+            challengerColor = new Color(.909f,.909f,1f,1f);
         }else if(currentChallenge == LevelManager.CHALLENGES.gold){
             challenger = "Gold";
+            challengerColor = new Color(1f,.831f,0f,1f);
         }else if(currentChallenge == LevelManager.CHALLENGES.first){
             challenger = "First Place";
+            challengerColor = new Color(1f,.831f,0f,1f);
         }else if(currentChallenge == LevelManager.CHALLENGES.second){
             challenger = "Second Place";
+            challengerColor = new Color(.909f,.909f,1f,1f);
         }else if(currentChallenge == LevelManager.CHALLENGES.third){
             challenger = "Third Place";
+            challengerColor = new Color(.647f, .47f, 0f, 1);
         }
 
 
@@ -539,7 +547,10 @@ public class SCOREScreen extends Screen{
         Label info2 = new Label(challenger, skin, "optional");
         style = info2.getStyle();
         style.font = parent.parent.resourceManager.Font36;
+        info2.setColor(challengerColor);
         info2.setStyle(style);
+
+
 
         Label info3 = new Label("Challenger", skin, "optional");
         style = info3.getStyle();

@@ -4,6 +4,7 @@ import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -164,7 +165,7 @@ public class LEVELSELECTScreen extends Screen{
         button_image = new ImageButton(skin, "coinButton_small");
         button_image.setTouchable(Touchable.disabled);
 
-        ArrayList<Boolean>stars = getLevelStars(title);
+        ArrayList<Boolean>stars = parent.parent.levelManager.getLevelStars(title);
 
         if(stars.get(0)){
             starBronze = new ImageButton(skin, "starBronze");
@@ -218,6 +219,7 @@ public class LEVELSELECTScreen extends Screen{
         //taunt1.setFontScale(Gdx.graphics.getDensity());
 
         Label taunt2 = new Label(s_taunt2, skin, "error");
+        if(s_taunt2.equals(parent.parent.playerName)) taunt2.setColor(new Color(.275f, .65f, .12f, 1f));
         style = taunt2.getStyle();
         style.font = parent.parent.resourceManager.Font24;
         taunt2.setStyle(style);
@@ -448,21 +450,5 @@ public class LEVELSELECTScreen extends Screen{
         stageLoaded = true;
     }
 
-    /**
-     * Returns a 3 member array list of booleans
-     * 0 - true means we have completed bronze challenge
-     * 1 - true means we have completed silver challenge
-     * 2 - true means we have completed gold challenge
-     * This will be used to decide if we show the corresponding star, or an empty star in the level
-     * select button.
-     * @param level
-     * @return
-     */
-    private ArrayList<Boolean>getLevelStars(String level){
-        ArrayList<Boolean>returnVal = new ArrayList<Boolean>();
-        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"bronze", false));
-        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"silver", false));
-        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"gold", false));
-        return returnVal;
-    }
+
 }

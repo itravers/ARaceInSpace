@@ -4,6 +4,7 @@ import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -373,6 +374,7 @@ public class LEADERBOARDScreen extends Screen{
                 Table tableName = new Table();
                 tableName.setDebug(devMode);
                 Label labelName = new Label(name + " - ", skin, "optional");
+                if(name.equals(parent.parent.playerName)) labelName.setColor(new Color(.275f, .65f, .12f, 1f));
                 style = labelPlace.getStyle();
                 style.font = parent.parent.resourceManager.Font20;
                 labelPlace.setStyle(style);

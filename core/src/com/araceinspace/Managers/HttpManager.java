@@ -23,7 +23,7 @@ public class HttpManager {
         requestFailed = false;
     }
     public  void sendRequest(String url, String requestJson, String method) {
-        System.out.println("httpManger: send request to: " + url);
+        //System.out.println("httpManger: send request to: " + url);
 
       //  final Json json = new Json();
 
