@@ -79,6 +79,15 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 			a: 1
 		}
 	}
+	dialogDim2: {
+		name: white
+		color: {
+			r: 0.44705883
+			g: 0.2784314
+			b: 0.38431373
+			a: 1
+		}
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
@@ -189,6 +198,9 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	star3: {
 		imageUp: star3_up
 		imageDown: star3_down
+	}
+	introtest: {
+		imageUp: testIntro
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
@@ -347,7 +359,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	}
 	dialog: {
 		titleFont: font_d_estroy__24pt
-		stageBackground: dialogDim
+		stageBackground: dialogDim2
 	}
 }
 }

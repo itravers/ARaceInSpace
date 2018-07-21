@@ -129,7 +129,8 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.bronze);
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                parent.parent.dialogManager.setupLevelIntroDialog(parent.parent.levelManager.getCurrentLevel(), skin, stage, viewport);
+               // parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
             }
 
         };

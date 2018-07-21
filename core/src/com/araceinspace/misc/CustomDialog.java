@@ -15,26 +15,30 @@ import com.badlogic.gdx.utils.Align;
  */
 public class CustomDialog extends Dialog {
     float width;
+    float height;
     String title;
     BitmapFont titleFont;
 
-    public CustomDialog (String title, Skin skin, float width, BitmapFont font) {
+    public CustomDialog (String title, Skin skin, float width, float height, BitmapFont font) {
         super(title, skin, "dialog");
         this.width = width;
+        this.height = height;
         this.title = title;
         this.titleFont = font;
         initialize();
     }
 
     private void initialize() {
-        padTop(60); // set padding on top of the dialog title
-        getButtonTable().defaults().height(60); // set buttons height
+       // padTop(60); // set padding on top of the dialog title
+       // getButtonTable().defaults().height(60); // set buttons height
         setModal(true);
         setMovable(false);
         setResizable(false);
 
         getTitleLabel().getStyle().font = titleFont;
+        getTitleLabel().setAlignment(Align.center);
         WindowStyle style =  this.getStyle();
+
         style.titleFont = titleFont;
         this.setStyle(style);
         //getTitleTable().removeActor(getTitleLabel());
@@ -73,6 +77,6 @@ public class CustomDialog extends Dialog {
     @Override
     public float getPrefHeight() {
         // force dialog height
-        return width/2;
+        return height;
     }
 }
