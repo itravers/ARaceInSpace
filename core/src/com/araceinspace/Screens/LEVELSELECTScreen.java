@@ -4,6 +4,7 @@ import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -218,6 +219,7 @@ public class LEVELSELECTScreen extends Screen{
         //taunt1.setFontScale(Gdx.graphics.getDensity());
 
         Label taunt2 = new Label(s_taunt2, skin, "error");
+        if(s_taunt2.equals(parent.parent.playerName)) taunt2.setColor(new Color(.275f, .65f, .12f, 1f));
         style = taunt2.getStyle();
         style.font = parent.parent.resourceManager.Font24;
         taunt2.setStyle(style);
