@@ -11,6 +11,7 @@ import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.Animation;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -263,10 +264,13 @@ public class PREGAMEScreen extends Screen{
         levelButton.setName(title);
         levelButton.addListener(listener);
 
+
         Table buttonTable = new Table();
         buttonTable.setDebug(devMode);
         buttonTable.add(levelButton).size(butWidth, butHeight);
         levelButton.getImageCell().expand().fill();
+
+
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "optional");
@@ -349,6 +353,7 @@ public class PREGAMEScreen extends Screen{
         buttonStack = new Stack();
         buttonStack.add(buttonTable);
         buttonStack.add(purchaseTable);
+
         return buttonStack;
     }
 
@@ -490,6 +495,16 @@ public class PREGAMEScreen extends Screen{
         buttonTable.setDebug(devMode);
         buttonTable.align(Align.top|Align.center);
 
+        //getLevelStars from levelManager
+        String level = String.valueOf(parent.parent.levelManager.getCurrentLevel());
+        level = "Level "+level;
+        boolean bronzeBeaten = parent.parent.levelManager.getLevelStars(level).get(0);
+        boolean silverBeaten = parent.parent.levelManager.getLevelStars(level).get(1);
+
+        System.out.println("level: "+ level);
+        System.out.println("bronzeBeaten: " + bronzeBeaten);
+        System.out.println("silverBeaten: " + silverBeaten);
+
 
         ImageButton starBronze = new ImageButton(skin, "starBronze");
         starBronze.setTouchable(Touchable.disabled);
@@ -503,13 +518,22 @@ public class PREGAMEScreen extends Screen{
 
         Stack buttonStack1 = makeButtonStack(butWidth, butHeight, "Bronze", bronzeListener, starBronze, bronzeGhostTime, bronzePlayerTime);
 
+
         ImageButton starSilver = new ImageButton(skin, "starSilver");
         starSilver.setTouchable(Touchable.disabled);
         Stack buttonStack2 = makeButtonStack(butWidth, butHeight, "Silver", silverListener, starSilver, silverGhostTime, silverPlayerTime);
+        if(!bronzeBeaten){
+            buttonStack2.setTouchable(Touchable.disabled);
+            buttonStack2.setVisible(false);
+        }
 
         ImageButton starGold = new ImageButton(skin, "starGold");
         starGold.setTouchable(Touchable.disabled);
         Stack buttonStack3 = makeButtonStack(butWidth, butHeight, "Gold",  goldListener, starGold, goldGhostTime, goldPlayerTime);
+        if(!silverBeaten){
+            buttonStack3.setTouchable(Touchable.disabled);
+            buttonStack3.setVisible(false);
+        }
 
         buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
         buttonTable.add(buttonStack2).pad(0).size(butWidth, butHeight).align(Align.top);

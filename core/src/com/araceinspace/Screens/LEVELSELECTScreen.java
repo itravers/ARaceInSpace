@@ -165,7 +165,7 @@ public class LEVELSELECTScreen extends Screen{
         button_image = new ImageButton(skin, "coinButton_small");
         button_image.setTouchable(Touchable.disabled);
 
-        ArrayList<Boolean>stars = getLevelStars(title);
+        ArrayList<Boolean>stars = parent.parent.levelManager.getLevelStars(title);
 
         if(stars.get(0)){
             starBronze = new ImageButton(skin, "starBronze");
@@ -450,21 +450,5 @@ public class LEVELSELECTScreen extends Screen{
         stageLoaded = true;
     }
 
-    /**
-     * Returns a 3 member array list of booleans
-     * 0 - true means we have completed bronze challenge
-     * 1 - true means we have completed silver challenge
-     * 2 - true means we have completed gold challenge
-     * This will be used to decide if we show the corresponding star, or an empty star in the level
-     * select button.
-     * @param level
-     * @return
-     */
-    private ArrayList<Boolean>getLevelStars(String level){
-        ArrayList<Boolean>returnVal = new ArrayList<Boolean>();
-        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"bronze", false));
-        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"silver", false));
-        returnVal.add(parent.parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"gold", false));
-        return returnVal;
-    }
+
 }
