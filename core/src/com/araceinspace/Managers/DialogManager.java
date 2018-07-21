@@ -54,7 +54,7 @@ public class DialogManager {
 
     /* Public Methods */
 
-    public void setupDialogs(Skin skin, final Stage stage, final Screen screen) {
+    public void setupDialogs(final Skin skin, final Stage stage, final Screen screen) {
         purchaseDialog = new CustomDialog("Are you sure you want to spend " + parent.renderManager.coinsToSpend + " coins?", skin, screen.getViewport().getScreenWidth()*.75f, screen.getViewport().getScreenHeight(), queryFont) {
             protected void result(Object object) {
                 if (object.toString().equals("true")) {
@@ -81,7 +81,8 @@ public class DialogManager {
                         }
                         parent.setCoins(parent.getCoins() - parent.renderManager.coinsToSpend);
 
-                        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                        //parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                        parent.levelManager.playGame(skin, stage, stage.getViewport());
                     } else {
                         notEnoughCoinsDialog.show(stage);
                     }

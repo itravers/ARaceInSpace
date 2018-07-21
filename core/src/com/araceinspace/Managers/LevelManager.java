@@ -17,7 +17,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 
@@ -453,5 +456,8 @@ public class LevelManager {
         returnVal.add(parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"silver", false));
         returnVal.add(parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"gold", false));
         return returnVal;
+    }
+    public void playGame(Skin skin, Stage stage, Viewport viewport){
+        parent.dialogManager.setupLevelIntroDialog(parent.levelManager.getCurrentLevel(), skin, stage, viewport);
     }
 }

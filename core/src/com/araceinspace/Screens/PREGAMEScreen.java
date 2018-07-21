@@ -129,7 +129,7 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.bronze);
-                parent.parent.dialogManager.setupLevelIntroDialog(parent.parent.levelManager.getCurrentLevel(), skin, stage, viewport);
+                playGame();
                // parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
             }
 
@@ -138,7 +138,8 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.silver);
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                playGame();
             }
 
         };
@@ -146,7 +147,8 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.gold);
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                playGame();
             }
 
         };
@@ -217,7 +219,8 @@ public class PREGAMEScreen extends Screen{
                         parent.parent.dialogManager.levelLoadingDialog.show(stage); //set level, setup ghost, and change game state will be done in dialog callback
                     }else{
                         parent.parent.levelManager.setupGhostFromJson(jsonOfGhost);
-                        parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+                        //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+                        parent.parent.levelManager.playGame(skin, stage, viewport);
                     }
 
 
@@ -858,4 +861,10 @@ public class PREGAMEScreen extends Screen{
 
         return returnVal;
     }
+
+    private void playGame(){
+        parent.parent.levelManager.playGame(skin, stage, viewport);
+    }
+
+
 }
