@@ -358,6 +358,25 @@ public class PREGAMEScreen extends Screen{
     }
 
     public void setupPortraitGUI(float width, float height){
+        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer();
+        JsonValue jsonValue;
+        JsonValue leaderBoardLevels;
+        JsonReader json = new JsonReader();
+
+        if(jsonFromServer == null){//the server is offline, read from generic leaderboards file
+            jsonValue = json.parse(Gdx.files.internal("levels/LeaderBoard.json"));
+            leaderBoardLevels = jsonValue.get("levels");
+
+        }else{
+            jsonValue = json.parse(jsonFromServer);
+            leaderBoardLevels = jsonValue.get(0).get("levels");
+        }
+
+        JsonValue jlevel = leaderBoardLevels.get(parent.parent.levelManager.getCurrentLevel()-1);
+        String levelName = jlevel.get("name").asString();
+        JsonValue data = jlevel.get("data");
+
+
         boolean devMode = parent.parent.devMode;
         stageLoaded = false;
         float butWidth = width/3.2f;
@@ -583,6 +602,14 @@ public class PREGAMEScreen extends Screen{
         t1.add(t1Header);
         t1.row();
 
+        String gName = data.get(0).get("name").asString();
+        Label goldName = new Label(gName, skin, "taunt_small");
+        if(gName.equals(parent.parent.playerName)){
+            goldName.setColor(new Color(.275f, .65f, .12f, 1f));
+        }
+        t1.add(goldName);
+        t1.row();
+
         ImageButton gold = new ImageButton(skin, "star1");
 
         gold.getImage().getDrawable().setMinWidth(width/5);
@@ -590,6 +617,19 @@ public class PREGAMEScreen extends Screen{
 
         gold.addListener(firstPlaceListener);
         t1.add(gold).align(Align.center);
+
+        t1.row();
+        String gTime = data.get(0).get("time").asString();
+        int iTime = Integer.valueOf(gTime);
+        int min = (iTime/1000)/60;
+        iTime = iTime - (min*60*1000);
+        int sec = (iTime/1000);
+        iTime = iTime - (sec*1000);
+        int ms = iTime;
+        gTime = min+":"+sec+":"+ms;
+        Label goldTime = new Label(gTime, skin, "taunt_small");
+        t1.add(goldTime);
+
 
 
 
@@ -613,11 +653,34 @@ public class PREGAMEScreen extends Screen{
         t2.add(t2Header);
         t2.row();
 
+        gName = data.get(1).get("name").asString();
+        Label silverName = new Label(gName, skin, "taunt_small");
+        if(gName.equals(parent.parent.playerName)){
+            silverName.setColor(new Color(.275f, .65f, .12f, 1f));
+        }
+        t2.add(silverName);
+        t2.row();
+
         ImageButton silver = new ImageButton(skin, "star2");
         silver.getImage().getDrawable().setMinWidth(width/5);
         silver.getImage().getDrawable().setMinHeight(width/5);
         silver.addListener(secondPlaceListener);
         t2.add(silver).align(Align.center);
+
+        t2.row();
+        gTime = data.get(1).get("time").asString();
+        iTime = Integer.valueOf(gTime);
+        min = (iTime/1000)/60;
+        iTime = iTime - (min*60*1000);
+        sec = (iTime/1000);
+        iTime = iTime - (sec*1000);
+        ms = iTime;
+        gTime = min+":"+sec+":"+ms;
+        Label silverTime = new Label(gTime, skin, "taunt_small");
+        if(gName.equals(parent.parent.playerName)){
+            silverTime.setColor(new Color(.275f, .65f, .12f, 1f));
+        }
+        t2.add(silverTime);
 
 
 
@@ -641,12 +704,35 @@ public class PREGAMEScreen extends Screen{
         t3.add(t3Header);
         t3.row();
 
+        gName = data.get(2).get("name").asString();
+        Label bronzeName = new Label(gName, skin, "taunt_small");
+        if(gName.equals(parent.parent.playerName)){
+            bronzeName.setColor(new Color(.275f, .65f, .12f, 1f));
+        }
+        t3.add(bronzeName);
+        t3.row();
+
 
         ImageButton bronze = new ImageButton(skin, "star3");
         bronze.getImage().getDrawable().setMinWidth(width/5);
         bronze.getImage().getDrawable().setMinHeight(width/5);
         bronze.addListener(thirdPlaceListener);
         t3.add(bronze).align(Align.center);
+
+        t3.row();
+        gTime = data.get(2).get("time").asString();
+        iTime = Integer.valueOf(gTime);
+        min = (iTime/1000)/60;
+        iTime = iTime - (min*60*1000);
+        sec = (iTime/1000);
+        iTime = iTime - (sec*1000);
+        ms = iTime;
+        gTime = min+":"+sec+":"+ms;
+        Label bronzeTime = new Label(gTime, skin, "taunt_small");
+        if(gName.equals(parent.parent.playerName)){
+            bronzeTime.setColor(new Color(.275f, .65f, .12f, 1f));
+        }
+        t3.add(bronzeTime);
 
         Table placeTable = new Table();
         placeTable.setDebug(devMode);
