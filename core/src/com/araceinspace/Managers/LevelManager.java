@@ -48,6 +48,7 @@ public class LevelManager {
     public int playerTime;
     public int ghostTime;
     public boolean didFail; // set to true if the player exploads in contact listener checked by score screen
+    String levelStyle = "introtest"; //used by dialog manager to figure out what picture to load
 
     /* Constructors */
     public LevelManager(GameWorld p){
@@ -459,5 +460,20 @@ public class LevelManager {
     }
     public void playGame(Skin skin, Stage stage, Viewport viewport){
         parent.dialogManager.setupLevelIntroDialog(parent.levelManager.getCurrentLevel(), skin, stage, viewport);
+    }
+
+    public String getIntroStyleByLevel(){
+        Json json = new Json();
+        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+        //go through all the level items, find the player item and initialze him
+        for(int i = 0; i < levelItems.size(); i++) {
+            SpriteTemplate item = levelItems.get(i);
+            if (item.getType().equals("style")) {
+                levelStyle = item.getExtraInfo();
+            }else{
+                levelStyle = "introtest";
+            }
+        }
+        return levelStyle;
     }
 }

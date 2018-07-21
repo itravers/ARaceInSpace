@@ -192,7 +192,9 @@ public class DialogManager {
         //levelIntroDialog.getButtonTable().setDebug(parent.devMode);
 
         levelIntroDialog.align(Align.center);
-        ImageButton introButton = new ImageButton(skin, "introtest");
+        String buttonStyle = parent.levelManager.getIntroStyleByLevel();
+        System.out.println("buttonSytle:" + buttonStyle+":");
+        ImageButton introButton = new ImageButton(skin, buttonStyle);
        // levelIntroDialog.getContentTable().setFillParent(true);
         //levelIntroDialog.getButtonTable().add(introButton);
         ImageTextButton button = new ImageTextButton("PLAY!", skin);

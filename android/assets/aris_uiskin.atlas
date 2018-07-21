@@ -114,175 +114,175 @@ filter: Linear,Linear
 repeat: none
 Button
   rotate: false
-  xy: 735, 461
+  xy: 353, 56
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 CheckBox
   rotate: false
-  xy: 803, 818
+  xy: 291, 34
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 ImageButton
   rotate: false
-  xy: 853, 818
+  xy: 182, 17
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 Label
   rotate: false
-  xy: 903, 818
+  xy: 232, 17
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 List
   rotate: false
-  xy: 953, 818
+  xy: 403, 56
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 ProgressBar
   rotate: false
-  xy: 723, 400
+  xy: 410, 131
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 ScrollPane
   rotate: false
-  xy: 795, 764
+  xy: 453, 81
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 SelectBox
   rotate: false
-  xy: 795, 714
+  xy: 460, 131
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 Slider
   rotate: false
-  xy: 845, 768
+  xy: 503, 81
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 SplitPane
   rotate: false
-  xy: 845, 718
+  xy: 510, 131
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 TextButton
   rotate: false
-  xy: 895, 768
+  xy: 553, 45
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 TextField
   rotate: false
-  xy: 895, 718
+  xy: 453, 31
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 TextImageButton
   rotate: false
-  xy: 1, 7
+  xy: 227, 681
   size: 121, 22
   orig: 121, 22
   offset: 0, 0
   index: -1
 Touchpad
   rotate: false
-  xy: 945, 768
+  xy: 503, 31
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 Tree
   rotate: false
-  xy: 945, 718
+  xy: 341, 6
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 Window
   rotate: false
-  xy: 799, 664
+  xy: 391, 6
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 back
   rotate: false
-  xy: 799, 577
+  xy: 603, 8
   size: 47, 85
   orig: 47, 85
   offset: 0, 0
   index: -1
 back_button_down
   rotate: false
-  xy: 1003, 853
+  xy: 553, 107
   size: 20, 22
   orig: 20, 22
   offset: 0, 0
   index: -1
 back_button_down2
   rotate: false
-  xy: 649, 687
+  xy: 705, 147
   size: 68, 74
   orig: 68, 74
   offset: 0, 0
   index: -1
 back_button_down3
   rotate: false
-  xy: 376, 685
+  xy: 819, 301
   size: 195, 212
   orig: 195, 212
   offset: 0, 0
   index: -1
 back_button_up
   rotate: false
-  xy: 1003, 829
+  xy: 400, 226
   size: 20, 22
   orig: 20, 22
   offset: 0, 0
   index: -1
 back_button_up2
   rotate: false
-  xy: 733, 814
+  xy: 112, 6
   size: 68, 74
   orig: 68, 74
   offset: 0, 0
   index: -1
 back_button_up3
   rotate: false
-  xy: 317, 471
+  xy: 225, 302
   size: 195, 212
   orig: 195, 212
   offset: 0, 0
   index: -1
 check-off
   rotate: false
-  xy: 225, 182
+  xy: 337, 188
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 textfield
   rotate: false
-  xy: 225, 182
+  xy: 337, 188
   size: 14, 14
   split: 3, 3, 3, 3
   orig: 14, 14
@@ -290,70 +290,70 @@ textfield
   index: -1
 check-on
   rotate: false
-  xy: 573, 883
+  xy: 560, 165
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 coin_but_115x107
   rotate: false
-  xy: 529, 136
+  xy: 829, 35
   size: 115, 107
   orig: 115, 107
   offset: 0, 0
   index: -1
 coinbutton_small
   rotate: false
-  xy: 529, 136
+  xy: 829, 35
   size: 115, 107
   orig: 115, 107
   offset: 0, 0
   index: -1
 coin_but_122x113
   rotate: false
-  xy: 405, 130
+  xy: 705, 29
   size: 122, 113
   orig: 122, 113
   offset: 0, 0
   index: -1
 coinbutton
   rotate: false
-  xy: 405, 130
+  xy: 705, 29
   size: 122, 113
   orig: 122, 113
   offset: 0, 0
   index: -1
 coin_but_191x176
   rotate: false
-  xy: 243, 262
+  xy: 422, 338
   size: 191, 176
   orig: 191, 176
   offset: 0, 0
   index: -1
 coin_but_74x68
   rotate: false
-  xy: 573, 693
+  xy: 948, 738
   size: 74, 68
   orig: 74, 68
   offset: 0, 0
   index: -1
 coin_button_down
   rotate: false
-  xy: 514, 530
+  xy: 615, 223
   size: 158, 153
   orig: 158, 153
   offset: 0, 0
   index: -1
 coin_button_up
   rotate: false
-  xy: 243, 105
+  xy: 841, 572
   size: 160, 155
   orig: 160, 155
   offset: 0, 0
   index: -1
 cursor
   rotate: false
-  xy: 735, 511
+  xy: 372, 205
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -361,14 +361,14 @@ cursor
   index: -1
 default
   rotate: false
-  xy: 376, 946
+  xy: 692, 729
   size: 254, 77
   orig: 254, 77
   offset: 0, 0
   index: -1
 default-pane
   rotate: false
-  xy: 573, 878
+  xy: 358, 205
   size: 5, 3
   split: 1, 1, 1, 1
   orig: 5, 3
@@ -376,7 +376,7 @@ default-pane
   index: -1
 default-rect-pad
   rotate: false
-  xy: 573, 878
+  xy: 358, 205
   size: 5, 3
   split: 1, 1, 1, 1
   orig: 5, 3
@@ -384,7 +384,7 @@ default-rect-pad
   index: -1
 default-pane-noborder
   rotate: false
-  xy: 795, 711
+  xy: 410, 181
   size: 1, 1
   split: 0, 0, 0, 0
   orig: 1, 1
@@ -392,7 +392,7 @@ default-pane-noborder
   index: -1
 default-rect
   rotate: false
-  xy: 669, 525
+  xy: 377, 205
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -400,7 +400,7 @@ default-rect
   index: -1
 default-rect-down
   rotate: false
-  xy: 794, 608
+  xy: 382, 205
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -408,7 +408,7 @@ default-rect-down
   index: -1
 default-round
   rotate: false
-  xy: 719, 741
+  xy: 439, 109
   size: 12, 20
   split: 5, 5, 5, 4
   pad: 4, 4, 1, 1
@@ -417,7 +417,7 @@ default-round
   index: -1
 default-round-down
   rotate: false
-  xy: 719, 719
+  xy: 930, 167
   size: 12, 20
   split: 5, 5, 5, 4
   orig: 12, 20
@@ -425,7 +425,7 @@ default-round-down
   index: -1
 default-round-large
   rotate: false
-  xy: 803, 868
+  xy: 400, 204
   size: 20, 20
   split: 5, 5, 5, 4
   orig: 20, 20
@@ -433,7 +433,7 @@ default-round-large
   index: -1
 default-scroll
   rotate: false
-  xy: 1003, 807
+  xy: 350, 683
   size: 20, 20
   split: 2, 2, 2, 2
   orig: 20, 20
@@ -441,7 +441,7 @@ default-scroll
   index: -1
 default-select
   rotate: false
-  xy: 124, 9
+  xy: 410, 109
   size: 27, 20
   split: 4, 14, 4, 4
   orig: 27, 20
@@ -449,7 +449,7 @@ default-select
   index: -1
 default-select-selection
   rotate: false
-  xy: 509, 466
+  xy: 387, 205
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -457,7 +457,7 @@ default-select-selection
   index: -1
 default-slider
   rotate: false
-  xy: 735, 451
+  xy: 566, 97
   size: 8, 8
   split: 2, 2, 2, 2
   orig: 8, 8
@@ -465,14 +465,14 @@ default-slider
   index: -1
 default-slider-knob
   rotate: false
-  xy: 819, 958
+  xy: 410, 184
   size: 9, 18
   orig: 9, 18
   offset: 0, 0
   index: -1
 default-splitpane
   rotate: false
-  xy: 580, 878
+  xy: 365, 205
   size: 5, 3
   split: 0, 5, 0, 0
   orig: 5, 3
@@ -480,7 +480,7 @@ default-splitpane
   index: -1
 default-splitpane-vertical
   rotate: false
-  xy: 669, 518
+  xy: 336, 27
   size: 3, 5
   split: 0, 0, 0, 5
   orig: 3, 5
@@ -488,7 +488,7 @@ default-splitpane-vertical
   index: -1
 default-window
   rotate: false
-  xy: 317, 440
+  xy: 988, 11
   size: 27, 29
   split: 4, 3, 20, 3
   orig: 27, 29
@@ -496,84 +496,84 @@ default-window
   index: -1
 menu
   rotate: false
-  xy: 731, 890
+  xy: 930, 213
   size: 86, 86
   orig: 86, 86
   offset: 0, 0
   index: -1
 menu_button_down
   rotate: false
-  xy: 436, 245
+  xy: 225, 530
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 menu_button_up
   rotate: false
-  xy: 564, 245
+  xy: 577, 95
   size: 126, 126
   orig: 126, 126
   offset: 0, 0
   index: -1
 paint_brush
   rotate: false
-  xy: 674, 516
+  xy: 946, 42
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 rewardvideo_button_down
   rotate: false
-  xy: 514, 373
+  xy: 422, 181
   size: 153, 155
   orig: 153, 155
   offset: 0, 0
   index: -1
 rewardvideo_button_up
   rotate: false
-  xy: 830, 868
+  xy: 775, 144
   size: 153, 155
   orig: 153, 155
   offset: 0, 0
   index: -1
 rewardvideoicon
   rotate: false
-  xy: 632, 878
+  xy: 112, 82
   size: 97, 98
   orig: 97, 98
   offset: 0, 0
   index: -1
 selection
   rotate: false
-  xy: 1, 4
+  xy: 413, 181
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 teststorebutton
   rotate: false
-  xy: 1, 440
+  xy: 376, 758
   size: 314, 264
   orig: 314, 264
   offset: 0, 0
   index: -1
 tree-minus
   rotate: false
-  xy: 493, 455
+  xy: 560, 149
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 tree-plus
   rotate: false
-  xy: 669, 382
+  xy: 560, 133
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 uiskin
   rotate: false
-  xy: 153, 9
+  xy: 930, 145
   size: 12, 20
   split: 4, 4, 4, 4
   pad: 0, 0, 4, 4
@@ -582,7 +582,7 @@ uiskin
   index: -1
 white-up
   rotate: false
-  xy: 153, 9
+  xy: 930, 145
   size: 12, 20
   split: 4, 4, 6, 7
   pad: 0, 0, 0, 0
@@ -591,7 +591,7 @@ white-up
   index: -1
 uiskin.9
   rotate: false
-  xy: 719, 687
+  xy: 930, 189
   size: 14, 22
   split: 2, 3, 4, 5
   orig: 14, 22
@@ -599,245 +599,266 @@ uiskin.9
   index: -1
 white
   rotate: false
-  xy: 1, 1
+  xy: 416, 181
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 blank
   rotate: false
-  xy: 849, 666
+  xy: 553, 95
   size: 11, 10
   orig: 11, 10
   offset: 0, 0
   index: -1
 boost_up
   rotate: false
-  xy: 1, 706
+  xy: 1, 705
   size: 373, 317
   orig: 373, 317
   offset: 0, 0
   index: -1
 buyLevelsButton
   rotate: false
-  xy: 573, 763
+  xy: 211, 67
   size: 78, 113
   orig: 78, 113
   offset: 0, 0
   index: -1
 buyLevelsButton_down
   rotate: false
-  xy: 653, 763
+  xy: 221, 187
   size: 78, 113
   orig: 78, 113
   offset: 0, 0
   index: -1
 coin_medium_15
   rotate: false
-  xy: 669, 398
+  xy: 358, 250
   size: 52, 50
   orig: 52, 50
   offset: 0, 0
   index: -1
 coin_small_10
   rotate: false
-  xy: 933, 678
+  xy: 946, 2
   size: 40, 38
   orig: 40, 38
   offset: 0, 0
   index: -1
 coin_small_15
   rotate: false
-  xy: 975, 678
+  xy: 775, 338
   size: 40, 38
   orig: 40, 38
   offset: 0, 0
   index: -1
 coin_small_8
   rotate: false
-  xy: 849, 678
+  xy: 553, 5
   size: 40, 38
   orig: 40, 38
   offset: 0, 0
   index: -1
 coin_small_9
   rotate: false
-  xy: 891, 678
+  xy: 358, 210
   size: 40, 38
   orig: 40, 38
   offset: 0, 0
   index: -1
+level1intro
+  rotate: false
+  xy: 1, 491
+  size: 222, 165
+  orig: 222, 165
+  offset: 0, 0
+  index: -1
+level2intro
+  rotate: false
+  xy: 618, 562
+  size: 221, 165
+  orig: 221, 165
+  offset: 0, 0
+  index: -1
+level3intro
+  rotate: false
+  xy: 618, 378
+  size: 199, 182
+  orig: 199, 182
+  offset: 0, 0
+  index: -1
 minusButton
   rotate: false
-  xy: 742, 562
+  xy: 1, 337
   size: 50, 49
   orig: 50, 49
   offset: 0, 0
   index: -1
 nextLevelButton_Pressed
   rotate: false
-  xy: 436, 373
+  xy: 301, 204
   size: 55, 96
   orig: 55, 96
   offset: 0, 0
   index: -1
 nextLevelButton_Unpressed
   rotate: false
-  xy: 674, 582
+  xy: 946, 108
   size: 66, 103
   orig: 66, 103
   offset: 0, 0
   index: -1
 plusButton
   rotate: false
-  xy: 740, 511
+  xy: 53, 337
   size: 50, 49
   orig: 50, 49
   offset: 0, 0
   index: -1
 previousLevelButton_Pressed
   rotate: false
-  xy: 742, 613
+  xy: 353, 106
   size: 55, 96
   orig: 55, 96
   offset: 0, 0
   index: -1
 previousLevelButton_Unpressed
   rotate: false
-  xy: 733, 711
+  xy: 291, 84
   size: 60, 101
   orig: 60, 101
   offset: 0, 0
   index: -1
 select_box_background
   rotate: false
-  xy: 376, 899
+  xy: 1, 658
   size: 224, 45
   orig: 224, 45
   offset: 0, 0
   index: -1
 select_box_open
   rotate: false
-  xy: 632, 978
+  xy: 819, 515
   size: 196, 45
   orig: 196, 45
   offset: 0, 0
   index: -1
 slider-after-knob
   rotate: false
-  xy: 405, 249
+  xy: 182, 69
   size: 27, 11
   orig: 27, 11
   offset: 0, 0
   index: -1
 sliderKnob
   rotate: false
-  xy: 602, 923
+  xy: 350, 660
   size: 17, 21
   orig: 17, 21
   offset: 0, 0
   index: -1
 slider_before_knob
   rotate: false
-  xy: 317, 693
+  xy: 301, 191
   size: 34, 11
   orig: 34, 11
   offset: 0, 0
   index: -1
 star1_down
   rotate: false
-  xy: 336, 2
+  xy: 1, 199
   size: 108, 101
   orig: 108, 101
   offset: 0, 0
   index: -1
 star1_up
   rotate: false
-  xy: 446, 27
+  xy: 111, 388
   size: 108, 101
   orig: 108, 101
   offset: 0, 0
   index: -1
 star2_down
   rotate: false
-  xy: 225, 2
+  xy: 1, 78
   size: 109, 101
   orig: 109, 101
   offset: 0, 0
   index: -1
 star2_up
   rotate: false
-  xy: 556, 33
+  xy: 1, 388
   size: 108, 101
   orig: 108, 101
   offset: 0, 0
   index: -1
 star3_down
   rotate: false
-  xy: 646, 142
+  xy: 111, 285
   size: 108, 101
   orig: 108, 101
   offset: 0, 0
   index: -1
 star3_up
   rotate: false
-  xy: 666, 39
+  xy: 111, 182
   size: 108, 101
   orig: 108, 101
   offset: 0, 0
   index: -1
 star_bronze
   rotate: false
-  xy: 985, 988
+  xy: 775, 301
   size: 37, 35
   orig: 37, 35
   offset: 0, 0
   index: -1
 star_empty
   rotate: false
-  xy: 985, 877
+  xy: 652, 58
   size: 37, 35
   orig: 37, 35
   offset: 0, 0
   index: -1
 star_gold
   rotate: false
-  xy: 985, 914
+  xy: 67, 4
   size: 37, 35
   orig: 37, 35
   offset: 0, 0
   index: -1
 star_silver
   rotate: false
-  xy: 985, 951
+  xy: 67, 41
   size: 37, 35
   orig: 37, 35
   offset: 0, 0
   index: -1
 testIntro
   rotate: false
-  xy: 1, 31
-  size: 222, 165
-  orig: 222, 165
+  xy: 692, 808
+  size: 299, 214
+  orig: 299, 214
   offset: 0, 0
   index: -1
 touchpad_background
   rotate: false
-  xy: 1, 198
+  xy: 376, 516
   size: 240, 240
   orig: 240, 240
   offset: 0, 0
   index: -1
 touchpad_knob
   rotate: false
-  xy: 669, 450
+  xy: 1, 12
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 window
   rotate: false
-  xy: 446, 1
+  xy: 282, 8
   size: 26, 24
   split: 4, 5, 4, 4
   pad: 3, 4, 3, 3
@@ -846,7 +867,7 @@ window
   index: -1
 window_pressed
   rotate: false
-  xy: 405, 106
+  xy: 310, 10
   size: 24, 22
   split: 4, 4, 4, 4
   pad: 3, 3, 3, 3
