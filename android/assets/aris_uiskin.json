@@ -340,7 +340,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		fontColor: GRAY
 		focusedFontColor: white
 		background: window_pressed
-		cursor: default-rect
+		cursor: rect-white
 		selection: window
 	}
 }

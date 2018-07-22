@@ -384,7 +384,7 @@ default-rect-pad
   index: -1
 default-pane-noborder
   rotate: false
-  xy: 410, 181
+  xy: 397, 207
   size: 1, 1
   split: 0, 0, 0, 0
   orig: 1, 1
@@ -545,7 +545,7 @@ rewardvideoicon
   index: -1
 selection
   rotate: false
-  xy: 413, 181
+  xy: 397, 204
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -599,7 +599,7 @@ uiskin.9
   index: -1
 white
   rotate: false
-  xy: 416, 181
+  xy: 410, 181
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -728,6 +728,13 @@ previousLevelButton_Unpressed
   xy: 291, 84
   size: 60, 101
   orig: 60, 101
+  offset: 0, 0
+  index: -1
+rect-white
+  rotate: false
+  xy: 392, 205
+  size: 3, 3
+  orig: 3, 3
   offset: 0, 0
   index: -1
 select_box_background

@@ -57,6 +57,7 @@ public class CustomDialog extends Dialog {
         getTitleTable().row();
 
         getTitleTable().add(subTitleLabel).expandX();
+        //getTitleTable().row();
     }
 
     @Override

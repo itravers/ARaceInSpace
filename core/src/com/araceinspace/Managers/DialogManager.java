@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -37,7 +38,7 @@ public class DialogManager {
     public CustomDialog purchaseDialog;
     public Dialog notEnoughCoinsDialog;
     public Dialog infoDialog;
-    public Dialog nameDialog;
+    public CustomDialog nameDialog;
     public Dialog levelLoadingDialog;
     public CustomDialog levelIntroDialog;
     BitmapFont titleFont;
@@ -110,10 +111,15 @@ public class DialogManager {
     public void setupNameDialog(Skin skin, Stage stage, Viewport viewport){
         final TextArea textArea = new TextArea("", skin);
         textArea.setMaxLength(8);
-        textArea.getStyle().font = titleFont;
+
+
+        TextField.TextFieldStyle style = textArea.getStyle();
+        style.font = titleFont;
+
+
         ImageTextButton submitButton = new ImageTextButton("SUBMIT", skin);
         final RandomString randomString = new RandomString(4);
-        nameDialog = new CustomDialog("What is Your Name?", skin, viewport.getScreenWidth()*.75f, viewport.getScreenHeight(), titleFont, queryFont){
+        nameDialog = new CustomDialog("What Is", skin, viewport.getScreenWidth()*1f, viewport.getScreenHeight()*.2f, titleFont, queryFont){
             protected void result(Object object) {
                 String name = textArea.getText();
                 if(name.isEmpty() || name.contains("MongoError")){ //don't allow these to be names, instead force guest name
@@ -127,7 +133,15 @@ public class DialogManager {
                 Gdx.input.setOnscreenKeyboardVisible(false);
             }
         };
-        nameDialog.getContentTable().add(textArea).expandX().width(viewport.getScreenWidth()*.50f).height(viewport.getScreenHeight()/14);
+        //nameDialog.setDebug(true);
+       // nameDialog.getTitleTable().setDebug(true);
+        //nameDialog.getContentTable().setDebug(true);
+        nameDialog.getSubTitleLabel().setText("Your Name?");
+        nameDialog.getTitleTable().padBottom(300);
+        nameDialog.getContentTable().add(textArea).expandX().width(viewport.getScreenWidth()*.50f).height(viewport.getScreenHeight()/14).center();
+
+       //Label label = textArea.set
+        //label.setPosition(Gdx.graphics.getWidth()/2-(label.getPrefWidth()/2),Gdx.graphics.getHeight()-(label.getPrefHeight()/2));
 
         nameDialog.button(submitButton);
     }
