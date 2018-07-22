@@ -18,13 +18,22 @@ public class CustomDialog extends Dialog {
     float height;
     String title;
     BitmapFont titleFont;
+    private BitmapFont subtitleFont;
+    private Label subTitleLabel;
+    Skin skin;
 
-    public CustomDialog (String title, Skin skin, float width, float height, BitmapFont font) {
+    public Label getSubTitleLabel(){
+        return subTitleLabel;
+    }
+
+    public CustomDialog (String title, Skin skin, float width, float height, BitmapFont font, BitmapFont subtitleFont) {
         super(title, skin, "dialog");
+        this.skin = skin;
         this.width = width;
         this.height = height;
         this.title = title;
         this.titleFont = font;
+        this.subtitleFont = subtitleFont;
         initialize();
     }
 
@@ -41,13 +50,13 @@ public class CustomDialog extends Dialog {
 
         style.titleFont = titleFont;
         this.setStyle(style);
-        //getTitleTable().removeActor(getTitleLabel());
-        //Label titleLabel = new Label(title, this.getSkin());
-        //titleLabel.getStyle().font = titleFont;
-        //getTitleTable().add(titleLabel).align(Align.center);
 
+        subTitleLabel = new Label("test here", skin, "taunt_small");
+        subTitleLabel.getStyle().font = subtitleFont;
+        getTitleTable().padTop(200);
+        getTitleTable().row();
 
-        //title
+        getTitleTable().add(subTitleLabel).expandX();
     }
 
     @Override
