@@ -97,7 +97,8 @@ public class DialogManager {
         purchaseDialog.button(yes, "true");
         purchaseDialog.button(no, "false");
 
-        notEnoughCoinsDialog = new Dialog("Not Enough Coins", skin);
+        notEnoughCoinsDialog = new Dialog("Not Enough Coins", skin, "dialog");
+        notEnoughCoinsDialog.getTitleTable().padBottom(100);
         ImageTextButton oh = new ImageTextButton("Oh...", skin);
         notEnoughCoinsDialog.button(oh);
     }
@@ -112,10 +113,8 @@ public class DialogManager {
         final TextArea textArea = new TextArea("", skin);
         textArea.setMaxLength(8);
 
-
         TextField.TextFieldStyle style = textArea.getStyle();
         style.font = titleFont;
-
 
         ImageTextButton submitButton = new ImageTextButton("SUBMIT", skin);
         final RandomString randomString = new RandomString(4);
@@ -133,16 +132,9 @@ public class DialogManager {
                 Gdx.input.setOnscreenKeyboardVisible(false);
             }
         };
-        //nameDialog.setDebug(true);
-       // nameDialog.getTitleTable().setDebug(true);
-        //nameDialog.getContentTable().setDebug(true);
         nameDialog.getSubTitleLabel().setText("Your Name?");
         nameDialog.getTitleTable().padBottom(300);
         nameDialog.getContentTable().add(textArea).expandX().width(viewport.getScreenWidth()*.50f).height(viewport.getScreenHeight()/14).center();
-
-       //Label label = textArea.set
-        //label.setPosition(Gdx.graphics.getWidth()/2-(label.getPrefWidth()/2),Gdx.graphics.getHeight()-(label.getPrefHeight()/2));
-
         nameDialog.button(submitButton);
     }
 

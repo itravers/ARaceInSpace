@@ -158,7 +158,7 @@ public class PREGAMEScreen extends Screen{
                 parent.coinsToSpend = 10;
                 parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
                 ghostName = data.get(0).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("Challenge "+ghostName+" for First Place");
+                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("To Challenge "+ghostName+" for First Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
         };
@@ -169,7 +169,7 @@ public class PREGAMEScreen extends Screen{
                 parent.coinsToSpend = 9;
                 parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
                 ghostName = data.get(1).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("Challenge "+ghostName+" for Second Place");
+                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("To Challenge "+ghostName+" for Second Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 
@@ -181,7 +181,7 @@ public class PREGAMEScreen extends Screen{
                 parent.coinsToSpend = 8;
                 parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
                 ghostName = data.get(2).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("Challenge "+ghostName+" for Third Place");
+                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("To Challenge "+ghostName+" for Third Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 
