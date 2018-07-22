@@ -64,9 +64,8 @@ public class PREGAMEScreen extends Screen{
     TextField textField;
     private PREGAMEScreen me;
 
-
-
-
+    String ghostName;
+    JsonValue data;
     boolean stageLoaded;
 
     public PREGAMEScreen(RenderManager parent) {
@@ -129,7 +128,8 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.bronze);
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                playGame();
+               // parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
             }
 
         };
@@ -137,7 +137,8 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.silver);
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                playGame();
             }
 
         };
@@ -145,7 +146,8 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.gold);
-                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
+                playGame();
             }
 
         };
@@ -155,6 +157,8 @@ public class PREGAMEScreen extends Screen{
                 parent.placeClicked = RenderManager.PLACES.first;
                 parent.coinsToSpend = 10;
                 parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                ghostName = data.get(0).get("name").asString();
+                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("Challenge "+ghostName+" for First Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
         };
@@ -164,6 +168,8 @@ public class PREGAMEScreen extends Screen{
                 parent.placeClicked = RenderManager.PLACES.second;
                 parent.coinsToSpend = 9;
                 parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                ghostName = data.get(1).get("name").asString();
+                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("Challenge "+ghostName+" for Second Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 
@@ -174,6 +180,8 @@ public class PREGAMEScreen extends Screen{
                 parent.placeClicked = RenderManager.PLACES.third;
                 parent.coinsToSpend = 8;
                 parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                ghostName = data.get(2).get("name").asString();
+                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("Challenge "+ghostName+" for Third Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 
@@ -216,28 +224,19 @@ public class PREGAMEScreen extends Screen{
                         parent.parent.dialogManager.levelLoadingDialog.show(stage); //set level, setup ghost, and change game state will be done in dialog callback
                     }else{
                         parent.parent.levelManager.setupGhostFromJson(jsonOfGhost);
-                        parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+                        //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
+                        parent.parent.levelManager.playGame(skin, stage, viewport);
                     }
-
-
                 }
             }
 
         };
-
-
-
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);
         spacer = 25;
-
-
-
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         monetizationController.showBannerAd();
     }
-
-
 
     @Override
     public void render(float elapsedTime) {
@@ -253,9 +252,6 @@ public class PREGAMEScreen extends Screen{
         stage.draw();
     }
 
-
-
-
     private Stack makeButtonStack(float butWidth, float butHeight, String title, ClickListener listener, ImageButton star, String s_taunt1, String s_taunt2){
         butHeight = butHeight - spacer/4;
 
@@ -264,13 +260,10 @@ public class PREGAMEScreen extends Screen{
         levelButton.setName(title);
         levelButton.addListener(listener);
 
-
         Table buttonTable = new Table();
         buttonTable.setDebug(devMode);
         buttonTable.add(levelButton).size(butWidth, butHeight);
         levelButton.getImageCell().expand().fill();
-
-
 
         //create stuff to put in table button
         Label titleLabel = new Label(title, skin, "optional");
@@ -285,14 +278,11 @@ public class PREGAMEScreen extends Screen{
         button_image = new ImageButton(skin, "coinButton_small");
         button_image.setTouchable(Touchable.disabled);
 
-
-
         Table starTable = new Table();
         starTable.setDebug(devMode);
         starTable.align(Align.center);
 
         starTable.add(star);
-
 
         Label taunt1 = new Label(s_taunt1, skin, "optional");
         style = taunt1.getStyle();
@@ -374,16 +364,13 @@ public class PREGAMEScreen extends Screen{
 
         JsonValue jlevel = leaderBoardLevels.get(parent.parent.levelManager.getCurrentLevel()-1);
         String levelName = jlevel.get("name").asString();
-        JsonValue data = jlevel.get("data");
+        data = jlevel.get("data");
 
 
         boolean devMode = parent.parent.devMode;
         stageLoaded = false;
         float butWidth = width/3.2f;
         float butHeight = height/5f;
-
-       // System.out.println("setup portrait    stage w:h " + width + ":" + height);
-        // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
         Table storeTable;
 
         //scene2d.ui items
@@ -581,7 +568,6 @@ public class PREGAMEScreen extends Screen{
         storeTable.add(leaderBoardPromptTable);
         storeTable.row();
 
-
         Table t1 = new Table();
         t1.setDebug(devMode);
         Label firstPlaceLabel = new Label("First Place", skin, "taunt_small");
@@ -629,9 +615,6 @@ public class PREGAMEScreen extends Screen{
         gTime = min+":"+sec+":"+ms;
         Label goldTime = new Label(gTime, skin, "taunt_small");
         t1.add(goldTime);
-
-
-
 
         Table t2 = new Table();
         t2.setDebug(devMode);
@@ -681,8 +664,6 @@ public class PREGAMEScreen extends Screen{
             silverTime.setColor(new Color(.275f, .65f, .12f, 1f));
         }
         t2.add(silverTime);
-
-
 
         Table t3 = new Table();
         t3.setDebug(devMode);
@@ -856,5 +837,9 @@ public class PREGAMEScreen extends Screen{
         }
 
         return returnVal;
+    }
+
+    private void playGame(){
+        parent.parent.levelManager.playGame(skin, stage, viewport);
     }
 }

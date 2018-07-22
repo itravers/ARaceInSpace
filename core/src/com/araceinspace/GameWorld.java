@@ -40,6 +40,7 @@ public class GameWorld {
     public World world;
     public float elapsedTime;
     public boolean devMode = false;
+    public boolean devMode2 = false;//used for drawing gui elements
     public Preferences prefs;
     private float ghostTimer;
     public boolean countGhostTimer = true;

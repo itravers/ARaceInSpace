@@ -76,5 +76,14 @@
     "mass": 0,
     "size": 0,
     "extraInfo": ""
+  },
+  {
+    "type": "style",
+    "atlas": "",
+    "xLoc": 0,
+    "yLoc": 0,
+    "mass": 0,
+    "size": 0,
+    "extraInfo": "level3"
   }
 ]

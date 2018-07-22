@@ -17,7 +17,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 
@@ -45,6 +48,7 @@ public class LevelManager {
     public int playerTime;
     public int ghostTime;
     public boolean didFail; // set to true if the player exploads in contact listener checked by score screen
+    String levelStyle = "introtest"; //used by dialog manager to figure out what picture to load
 
     /* Constructors */
     public LevelManager(GameWorld p){
@@ -453,5 +457,23 @@ public class LevelManager {
         returnVal.add(parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"silver", false));
         returnVal.add(parent.prefs.getBoolean("com.araceinspace.Saved_Items."+level+"gold", false));
         return returnVal;
+    }
+    public void playGame(Skin skin, Stage stage, Viewport viewport){
+        parent.dialogManager.setupLevelIntroDialog(parent.levelManager.getCurrentLevel(), skin, stage, viewport);
+    }
+
+    public String getIntroStyleByLevel(){
+        Json json = new Json();
+        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+        //go through all the level items, find the player item and initialze him
+        for(int i = 0; i < levelItems.size(); i++) {
+            SpriteTemplate item = levelItems.get(i);
+            if (item.getType().equals("style")) {
+                levelStyle = item.getExtraInfo();
+            }else{
+                levelStyle = "introtest";
+            }
+        }
+        return levelStyle;
     }
 }

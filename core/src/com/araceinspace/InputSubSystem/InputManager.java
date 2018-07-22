@@ -142,6 +142,9 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
         }else if(keycode == Input.Keys.F1){
             parent.devMode = !parent.devMode;
             return true; //don't send event, just toggle devMode
+        }else if(keycode == Input.Keys.F2){
+            parent.devMode2 = !parent.devMode2;
+            return true; //don't send event, just toggle devMode
         }else if(keycode == Input.Keys.SPACE){
             input = GameInput.JUMP_PRESSED;
         }else if(keycode == Input.Keys.BACK || keycode == Input.Keys.ESCAPE) {
@@ -182,6 +185,8 @@ public class InputManager extends ChangeListener implements EventSender, InputPr
         }else if(keycode == Input.Keys.SHIFT_LEFT){
             input = GameInput.BOOST_RELEASED;
         }else if(keycode == Input.Keys.F1){
+            return true;//don't do anything
+        }else if(keycode == Input.Keys.F2){
             return true;//don't do anything
         }else if(keycode == Input.Keys.SPACE){
             input = GameInput.JUMP_RELEASED;

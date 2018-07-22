@@ -15,35 +15,48 @@ import com.badlogic.gdx.utils.Align;
  */
 public class CustomDialog extends Dialog {
     float width;
+    float height;
     String title;
     BitmapFont titleFont;
+    private BitmapFont subtitleFont;
+    private Label subTitleLabel;
+    Skin skin;
 
-    public CustomDialog (String title, Skin skin, float width, BitmapFont font) {
+    public Label getSubTitleLabel(){
+        return subTitleLabel;
+    }
+
+    public CustomDialog (String title, Skin skin, float width, float height, BitmapFont font, BitmapFont subtitleFont) {
         super(title, skin, "dialog");
+        this.skin = skin;
         this.width = width;
+        this.height = height;
         this.title = title;
         this.titleFont = font;
+        this.subtitleFont = subtitleFont;
         initialize();
     }
 
     private void initialize() {
-        padTop(60); // set padding on top of the dialog title
-        getButtonTable().defaults().height(60); // set buttons height
+       // padTop(60); // set padding on top of the dialog title
+       // getButtonTable().defaults().height(60); // set buttons height
         setModal(true);
         setMovable(false);
         setResizable(false);
 
         getTitleLabel().getStyle().font = titleFont;
+        getTitleLabel().setAlignment(Align.center);
         WindowStyle style =  this.getStyle();
+
         style.titleFont = titleFont;
         this.setStyle(style);
-        //getTitleTable().removeActor(getTitleLabel());
-        //Label titleLabel = new Label(title, this.getSkin());
-        //titleLabel.getStyle().font = titleFont;
-        //getTitleTable().add(titleLabel).align(Align.center);
 
+        subTitleLabel = new Label("test here", skin, "taunt_small");
+        subTitleLabel.getStyle().font = subtitleFont;
+        getTitleTable().padTop(200);
+        getTitleTable().row();
 
-        //title
+        getTitleTable().add(subTitleLabel).expandX();
     }
 
     @Override
@@ -73,6 +86,6 @@ public class CustomDialog extends Dialog {
     @Override
     public float getPrefHeight() {
         // force dialog height
-        return width/2;
+        return height;
     }
 }

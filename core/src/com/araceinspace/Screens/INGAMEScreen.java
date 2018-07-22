@@ -527,7 +527,15 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         }
         stage.setDebugAll(parent.parent.devMode);
-        renderHealth(healthBatch);
+        if(!parent.parent.devMode2){
+            renderHealth(healthBatch);
+            touchPad.setVisible(true);
+            boostButton.setVisible(true);
+        }else{
+            touchPad.setVisible(false);
+            boostButton.setVisible(false);
+        }
+
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
