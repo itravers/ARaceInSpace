@@ -42,6 +42,8 @@ public class LEVELSELECTScreen extends Screen{
     ImageButton starGold;
     ImageButton buyLevelsButton;
 
+    public Label taunt2;
+
 
     public LEVELSELECTScreen(RenderManager parent) {
         super(parent);
@@ -112,7 +114,12 @@ public class LEVELSELECTScreen extends Screen{
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
-        if(parent.parent.playerName == null)parent.parent.dialogManager.nameDialog.show(stage);
+        if(parent.parent.playerName == null){
+            parent.parent.dialogManager.nameDialog.show(stage);
+            //now the name in the gui needs to be updated, otherwise it will show null
+            //taunt2.setText(parent.p.playerName+"!!!");
+
+        }
         monetizationController.showBannerAd();
     }
 
@@ -352,7 +359,7 @@ public class LEVELSELECTScreen extends Screen{
         taunt1.setStyle(style);
         extraTable2.add(taunt1).height(height/30).padLeft(spacer*3);
         String name = parent.p.playerName;
-        Label taunt2 = new Label(" "+name+"!!!", skin, "optional");
+        taunt2 = new Label(" "+name+"!!!", skin, "optional");
         style = taunt2.getStyle();
         style.font = parent.parent.resourceManager.Font36;
         taunt2.setStyle(style);

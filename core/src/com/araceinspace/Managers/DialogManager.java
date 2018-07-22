@@ -2,6 +2,7 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameWorld;
 import com.araceinspace.Screens.LEADERBOARDScreen;
+import com.araceinspace.Screens.LEVELSELECTScreen;
 import com.araceinspace.Screens.SCOREScreen;
 import com.araceinspace.Screens.Screen;
 import com.araceinspace.misc.CustomDialog;
@@ -126,6 +127,8 @@ public class DialogManager {
                 }
                 name = name.replaceAll("\\s", "-");
                 parent.playerName = name;
+                ((LEVELSELECTScreen)parent.renderManager.getCurrentScreen()).taunt2.setText(parent.playerName+"!!!");
+
                 System.out.println("Name is set to: " + parent.playerName);
                 parent.prefs.putString("com.araceinspace.playerName", name);
                 parent.prefs.flush();
