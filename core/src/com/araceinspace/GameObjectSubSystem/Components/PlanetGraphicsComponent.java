@@ -16,6 +16,7 @@ public class PlanetGraphicsComponent extends TwoDGraphicsComponent {
 
     /* Field Variables & Objects */
     Planet parent;
+    Animation gravityWellAnimation;
 
     /* Constructors */
 
@@ -24,6 +25,7 @@ public class PlanetGraphicsComponent extends TwoDGraphicsComponent {
         super(region, animations);
         setupRendering(animations);
         parent = p;
+        gravityWellAnimation = p.parent.parent.resourceManager.getGravityWellAnimation();
         this.setX(loc.x);
         this.setY(loc.y);
     }
@@ -40,7 +42,9 @@ public class PlanetGraphicsComponent extends TwoDGraphicsComponent {
         float y = parent.getY() + (getHeight() / 2 ) - h / 2;
         Color oldColor = batch.getColor();
         batch.setColor(1f, .6f, .25f, .25f);
-        batch.draw(parent.parent.parent.resourceManager.getGravityWellAtlas().getRegions().first(), x, y, w, h);
+        //batch.draw(parent.parent.parent.resourceManager.getGravityWellAtlas().getRegions().first(), x, y, w, h);
+        batch.draw(gravityWellAnimation.getKeyFrame(elapsedTime, true), x, y, w, h);
+        //draw gravity well here
         batch.setColor(oldColor);
         //super.render(elapsedTime, batch);
         TextureRegion frame = currentAnimation.getKeyFrame(elapsedTime, true);

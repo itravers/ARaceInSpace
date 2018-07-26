@@ -2919,6 +2919,19 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Planets/gravity_Well
+  rotate: false
+  xy: 2, 2
+  size: 1020, 1020
+  orig: 1020, 1020
+  offset: 0, 0
+  index: -1
+
+HeroAnimations27.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 Planets/Planet 02
   rotate: false
   xy: 2, 2
@@ -2927,7 +2940,7 @@ Planets/Planet 02
   offset: 0, 0
   index: -1
 
-HeroAnimations27.png
+HeroAnimations28.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
@@ -2940,7 +2953,7 @@ Planets/Planet 01
   offset: 0, 0
   index: -1
 
-HeroAnimations28.png
+HeroAnimations29.png
 size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest

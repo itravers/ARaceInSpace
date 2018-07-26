@@ -65,6 +65,7 @@ public class ResourceManager {
     private Animation planet01Animation;
     private Animation planet02Animation;
     private Animation moonAnimation;
+    private Animation gravityWellAnimation;
 
     /* Font Data */
     public BitmapFont Font60;
@@ -107,7 +108,7 @@ public class ResourceManager {
     private void loadAssets(){
         loadingAssets = true;
        // assetManager.load("data/Planets.pack", TextureAtlas.class);
-        assetManager.load("data/gravity_Well.txt", TextureAtlas.class);
+        //assetManager.load("data/gravity_Well.txt", TextureAtlas.class);
         assetManager.load("data/HeroAnimations.atlas", TextureAtlas.class);
         assetManager.load("aris_uiskin.atlas", TextureAtlas.class);
         assetManager.load("aris_uiskin.json", Skin.class, new SkinLoader.SkinParameter("aris_uiskin.atlas"));
@@ -155,7 +156,7 @@ public class ResourceManager {
        // planetAtlas = assetManager.get("data/Planets.pack", TextureAtlas.class);
         //gravityWellAtlas = new TextureAtlas(Gdx.files.internal("data/gravity_Well.txt"));
 
-        gravityWellAtlas = assetManager.get("data/gravity_Well.txt", TextureAtlas.class);
+       // gravityWellAtlas = assetManager.get("data/gravity_Well.txt", TextureAtlas.class);
     }
 
     private void setupExplosionAnimation(){
@@ -172,6 +173,11 @@ public class ResourceManager {
 
         Array<TextureAtlas.AtlasRegion> moonRegion = heroAtlas.findRegions("Planets/Moon");
         moonAnimation = new Animation(1/60f, moonRegion, "moonAnimation");
+    }
+
+    private void setupGravityWellAnimation(){
+        Array<TextureAtlas.AtlasRegion> gravity_Well = heroAtlas.findRegions("Planets/gravity_Well");
+        gravityWellAnimation = new Animation(1/60f, gravity_Well, "gravityWellAnimation");
     }
 
     private void setFlyingNoThrustAnimation(){
@@ -355,6 +361,7 @@ public class ResourceManager {
         setFlyingNoThrustAnimation();
         setupExplosionAnimation();
         setupPlanetAnimations();
+        setupGravityWellAnimation();
         setupFlyingLeftAnimation();
         setupFlyingRightAnimation();
         setupFlyingLeftBackAnimation();
@@ -466,6 +473,7 @@ public class ResourceManager {
     public Animation getMoonAnimation(){
         return moonAnimation;
     }
+    public Animation getGravityWellAnimation() { return gravityWellAnimation; }
 
     public TextureAtlas getPlanetAtlas(){
         if(planetAtlas == null)setupPlanets();//incase animation manager constructed after level manager
