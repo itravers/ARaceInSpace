@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -30,13 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
-import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.*;
 
 import java.util.ArrayList;
 
@@ -244,6 +239,7 @@ public class PREGAMEScreen extends Screen{
             xCoords = 0;
         }
         Gdx.gl.glClearColor(.447f, .2784f, .3843f, 1);
+        //Gdx.gl.glClearColor(.447f, .2784f, .3843f, .01f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         parent.parent.inputManager.addInputProcessor(stage);
@@ -524,12 +520,17 @@ public class PREGAMEScreen extends Screen{
         Stack buttonStack1 = makeButtonStack(butWidth, butHeight, "Bronze", bronzeListener, starBronze, bronzeGhostTime, bronzePlayerTime);
 
 
+
+
         ImageButton starSilver = new ImageButton(skin, "starSilver");
         starSilver.setTouchable(Touchable.disabled);
         Stack buttonStack2 = makeButtonStack(butWidth, butHeight, "Silver", silverListener, starSilver, silverGhostTime, silverPlayerTime);
         if(!bronzeBeaten){
             buttonStack2.setTouchable(Touchable.disabled);
-            buttonStack2.setVisible(false);
+            SnapshotArray<Actor> actors = buttonStack2.getChildren();
+            for(int i = 0; i < actors.size; i ++){
+                actors.get(i).getColor().a = .2f;
+            }
         }
 
         ImageButton starGold = new ImageButton(skin, "starGold");
@@ -537,7 +538,10 @@ public class PREGAMEScreen extends Screen{
         Stack buttonStack3 = makeButtonStack(butWidth, butHeight, "Gold",  goldListener, starGold, goldGhostTime, goldPlayerTime);
         if(!silverBeaten){
             buttonStack3.setTouchable(Touchable.disabled);
-            buttonStack3.setVisible(false);
+            SnapshotArray<Actor> actors = buttonStack3.getChildren();
+            for(int i = 0; i < actors.size; i ++){
+                actors.get(i).getColor().a = .2f;
+            }
         }
 
         buttonTable.add(buttonStack1).pad(0).size(butWidth, butHeight).align(Align.top);
