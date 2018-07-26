@@ -596,6 +596,7 @@ public class PREGAMEScreen extends Screen{
         if(gName.equals(parent.parent.playerName)){
             goldName.setColor(new Color(.275f, .65f, .12f, 1f));
         }
+
         t1.add(goldName);
         t1.row();
 
@@ -618,6 +619,17 @@ public class PREGAMEScreen extends Screen{
         gTime = min+":"+sec+":"+ms;
         Label goldTime = new Label(gTime, skin, "taunt_small");
         t1.add(goldTime);
+
+        //gray out if player doesn't have enough coins to complete challenge
+        if(parent.parent.getCoins() < 10){
+            firstPlaceLabel.getColor().a = .2f;
+            coin1.getColor().a = .2f;
+            goldName.getColor().a = .2f;
+            gold.getColor().a = .2f;
+            gold.setTouchable(Touchable.disabled);
+            goldTime.getColor().a = .2f;
+        }
+
 
         Table t2 = new Table();
         t2.setDebug(devMode);
@@ -668,6 +680,16 @@ public class PREGAMEScreen extends Screen{
         }
         t2.add(silverTime);
 
+        //gray out if player doesn't have enough coins to complete challenge
+        if(parent.parent.getCoins() < 9){
+            secondPlaceLabel.getColor().a = .2f;
+            coin2.getColor().a = .2f;
+            silverName.getColor().a = .2f;
+            silver.getColor().a = .2f;
+            silver.setTouchable(Touchable.disabled);
+            silverTime.getColor().a = .2f;
+        }
+
         Table t3 = new Table();
         t3.setDebug(devMode);
         Label thirdPlaceLabel = new Label("Third Place", skin, "taunt_small");
@@ -717,6 +739,17 @@ public class PREGAMEScreen extends Screen{
             bronzeTime.setColor(new Color(.275f, .65f, .12f, 1f));
         }
         t3.add(bronzeTime);
+
+        //gray out if player doesn't have enough coins to complete challenge
+        if(parent.parent.getCoins() < 8){
+            thirdPlaceLabel.getColor().a = .2f;
+            coin3.getColor().a = .2f;
+            bronzeName.getColor().a = .2f;
+            bronze.getColor().a = .2f;
+            bronze.setTouchable(Touchable.disabled);
+            bronzeTime.getColor().a = .2f;
+        }
+
 
         Table placeTable = new Table();
         placeTable.setDebug(devMode);
