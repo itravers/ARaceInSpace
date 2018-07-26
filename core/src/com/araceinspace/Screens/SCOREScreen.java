@@ -195,7 +195,8 @@ public class SCOREScreen extends Screen{
                     parent.parent.levelManager.setChallenge(parent.parent.levelManager.getCurrentChallenge());
                     parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
                 }else{//fir first second and third place challenges
-                    parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                    //parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                    parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
                     parent.parent.dialogManager.purchaseDialog.show(stage);
                 }
             }

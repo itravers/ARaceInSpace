@@ -6,7 +6,7 @@
     "yLoc": 0,
     "mass": 2200000,
     "size": 4000,
-    "gravityRadius": 2000,
+    "gravityRadius": 20000,
     "extraInfo": ""
   },
   {
@@ -29,11 +29,10 @@
   },
   {
     "type": "style",
-    "atlas": "",
-    "xLoc": 0,
-    "yLoc": 0,
-    "mass": 0,
-    "size": 0,
     "extraInfo": "level2"
+  },
+  {
+    "type": "subtitle",
+    "extraInfo": "Land On The Planet-Watch Out For-EXTREME GRAVITY"
   }
 ]

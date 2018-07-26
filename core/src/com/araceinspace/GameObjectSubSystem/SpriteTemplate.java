@@ -41,7 +41,6 @@ public class SpriteTemplate {
         this.type = type;
     }
 
-
     public float getMass() {
         return mass;
     }
@@ -85,6 +84,4 @@ public class SpriteTemplate {
     public void setGravityRadius(float gravityRadius) {
         this.gravityRadius = gravityRadius;
     }
-
-
 }

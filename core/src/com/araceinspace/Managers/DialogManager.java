@@ -9,7 +9,6 @@ import com.araceinspace.misc.CustomDialog;
 import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.RandomString;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,14 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.ArrayList;
 
 /**
  * Created by Isaac Assega on 8/6/17.
@@ -56,8 +55,10 @@ public class DialogManager {
 
     /* Public Methods */
 
-    public void setupDialogs(final Skin skin, final Stage stage, final Screen screen) {
-        purchaseDialog = new CustomDialog("Are you sure you want to spend " + parent.renderManager.coinsToSpend + " coins?", skin, screen.getViewport().getScreenWidth(), screen.getViewport().getScreenHeight()*.2f, queryFont, queryFont) {
+    public void setupPurchaseDialog(final Skin skin, final Stage stage, final Screen screen) {
+        ArrayList<String> subtitles = new ArrayList<String>();
+        subtitles.add("Spending Coins");
+        purchaseDialog = new CustomDialog(subtitles, skin, screen.getViewport()) {
             protected void result(Object object) {
                 if (object.toString().equals("true")) {
                     dialogQuestion = true;
@@ -83,7 +84,6 @@ public class DialogManager {
                         }
                         parent.setCoins(parent.getCoins() - parent.renderManager.coinsToSpend);
 
-                        //parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
                         parent.levelManager.playGame(skin, stage, stage.getViewport());
                     } else {
                         notEnoughCoinsDialog.show(stage);
@@ -97,17 +97,26 @@ public class DialogManager {
         ImageTextButton no = new ImageTextButton("NO", skin);
         purchaseDialog.button(yes, "true");
         purchaseDialog.button(no, "false");
+        purchaseDialog.getButtonTable().padBottom(300);
 
-        notEnoughCoinsDialog = new Dialog("Not Enough Coins", skin, "dialog");
+        ArrayList<String> newSubtitle = new ArrayList<String>();
+        newSubtitle.add("Not Enough Coins!");
+        notEnoughCoinsDialog = new CustomDialog(newSubtitle, skin, screen.getViewport());
         notEnoughCoinsDialog.getTitleTable().padBottom(100);
+        notEnoughCoinsDialog.getButtonTable().padBottom(300);
         ImageTextButton oh = new ImageTextButton("Oh...", skin);
         notEnoughCoinsDialog.button(oh);
     }
 
-    public void setupInfoDialog(Skin skin, Stage stage, Screen scren){
-        infoDialog = new Dialog("You Are Offline", skin, "dialog");
+    public void setupInfoDialog(Skin skin, Stage stage, Screen screen){
+        ArrayList<String> newSubtitle = new ArrayList<String>();
+        newSubtitle.add("");
+        infoDialog = new CustomDialog(newSubtitle, skin, screen.getViewport());
         ImageTextButton okButton = new ImageTextButton("OK...", skin);
         infoDialog.button(okButton);
+
+        infoDialog.getTitleTable().padBottom(100);
+        infoDialog.getButtonTable().padBottom(300);
     }
 
     public void setupNameDialog(Skin skin, Stage stage, Viewport viewport){
@@ -119,7 +128,10 @@ public class DialogManager {
 
         ImageTextButton submitButton = new ImageTextButton("SUBMIT", skin);
         final RandomString randomString = new RandomString(4);
-        nameDialog = new CustomDialog("What Is", skin, viewport.getScreenWidth()*1f, viewport.getScreenHeight()*.2f, titleFont, queryFont){
+        ArrayList<String>subtitles = new ArrayList<String>();
+        subtitles.add("What Is");
+        subtitles.add("Your Name?");
+        nameDialog = new CustomDialog(subtitles, skin, viewport){
             protected void result(Object object) {
                 String name = textArea.getText();
                 if(name.isEmpty() || name.contains("MongoError")){ //don't allow these to be names, instead force guest name
@@ -135,8 +147,8 @@ public class DialogManager {
                 Gdx.input.setOnscreenKeyboardVisible(false);
             }
         };
-        nameDialog.getSubTitleLabel().setText("Your Name?");
-        nameDialog.getTitleTable().padBottom(300);
+        nameDialog.getTitleTable().padTop(100);
+        nameDialog.getButtonTable().padBottom(300);
         nameDialog.getContentTable().add(textArea).expandX().width(viewport.getScreenWidth()*.50f).height(viewport.getScreenHeight()/14).center();
         nameDialog.button(submitButton);
     }
@@ -150,7 +162,9 @@ public class DialogManager {
      * @param jsonOfGhost
      */
     public void setupLoadingLevelDialog(Skin skin, Stage stage, Viewport viewport, final int ghostLevel, final String jsonOfGhost){
-        levelLoadingDialog = new CustomDialog("Loading Level: " + ghostLevel, skin, viewport.getScreenWidth(), viewport.getScreenHeight()*.65f, titleFont, queryFont){
+        ArrayList<String>subtitles = new ArrayList<String>();
+        subtitles.add("Loading Level: " + ghostLevel);
+        levelLoadingDialog = new CustomDialog(subtitles, skin, viewport){
             protected void result(Object object) {
                 parent.levelManager.setLevel(ghostLevel);
                 parent.levelManager.setupGhostFromJson(jsonOfGhost);
@@ -167,16 +181,16 @@ public class DialogManager {
      * Dialog used before level to show player the goal
      */
     public void setupLevelIntroDialog(int level, Skin skin, Stage stage, Viewport viewport){
-        levelIntroDialog = new CustomDialog("Level "+level, skin, viewport.getScreenWidth()*1f, viewport.getScreenHeight()*.65f, titleFont, queryFont){
+        ArrayList<String>subtitle = parent.levelManager.getLevelsSubtitles(level);
+        subtitle.add(0, "Level "+level);
+        levelIntroDialog = new CustomDialog(subtitle, skin, viewport){
             public void result(Object object) {
                //we don't need to do anything here, we take care of this in the play buttons listener
             }
         };
 
         levelIntroDialog.getTitleTable().getCell(levelIntroDialog.getTitleLabel()).expandX().align(Align.center);
-        levelIntroDialog.getSubTitleLabel().setText("Land on Planet");
-        //introLabel.getStyle().font = titleFont;
-        levelIntroDialog.getTitleTable().padTop(200);
+        levelIntroDialog.getTitleTable().setDebug(parent.devMode);
         levelIntroDialog.getContentTable().setDebug(parent.devMode);
         levelIntroDialog.getButtonTable().setDebug(parent.devMode);
 
@@ -184,18 +198,29 @@ public class DialogManager {
         String buttonStyle = parent.levelManager.getIntroStyleByLevel();
         System.out.println("buttonSytle:" + buttonStyle+":");
         ImageButton introButton = new ImageButton(skin, buttonStyle);
-        ImageTextButton button = new ImageTextButton("PLAY!", skin);
-        ClickListener buttonListener = new ClickListener(){
+        ImageTextButton playButton = new ImageTextButton("PLAY", skin);
+        ImageTextButton backButton = new ImageTextButton("BACK", skin);
+        ClickListener playButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("Button Clicked: " + event);
                 parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);//start level
             }
         };
-        button.addListener(buttonListener);
-        levelIntroDialog.getContentTable().add(introButton);
+
+        ClickListener backButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                levelIntroDialog.hide();
+            }
+        };
+        playButton.addListener(playButtonListener);
+        backButton.addListener(backButtonListener);
+        levelIntroDialog.getContentTable().add(introButton).expandX();
         levelIntroDialog.getContentTable().row();
-        levelIntroDialog.getContentTable().add(button);
+        levelIntroDialog.getContentTable().add(playButton);
+        levelIntroDialog.getContentTable().row();
+        levelIntroDialog.getContentTable().add(backButton);
 
         levelIntroDialog.show(stage);
     }
