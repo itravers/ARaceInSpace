@@ -24,7 +24,6 @@ public class GameStateManager {
         parent.levelManager.setLevel(1);
         setCurrentState(GAME_STATE.TITLE_SCREEN);
         //setCurrentState(GAME_STATE.PREGAME);
-
     }
 
     /* Private Methods */

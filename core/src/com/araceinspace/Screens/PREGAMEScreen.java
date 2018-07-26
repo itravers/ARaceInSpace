@@ -91,7 +91,7 @@ public class PREGAMEScreen extends Screen{
         //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
         stage = new Stage(viewport, batch);
-        parent.parent.dialogManager.setupDialogs(skin, stage, this);
+        parent.parent.dialogManager.setupPurchaseDialog(skin, stage, this);
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -129,7 +129,6 @@ public class PREGAMEScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.bronze);
                 playGame();
-               // parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
             }
 
         };
@@ -137,7 +136,6 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.silver);
-                //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
                 playGame();
             }
 
@@ -146,7 +144,6 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.levelManager.setChallenge(LevelManager.CHALLENGES.gold);
-                //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.INGAME);
                 playGame();
             }
 
@@ -156,10 +153,11 @@ public class PREGAMEScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.first;
                 parent.coinsToSpend = 10;
-                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
                 ghostName = data.get(0).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("To Challenge "+ghostName+" for First Place");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for First Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
+                parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
             }
         };
         secondPlaceListener = new ClickListener(){
@@ -167,10 +165,11 @@ public class PREGAMEScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.second;
                 parent.coinsToSpend = 9;
-                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
                 ghostName = data.get(1).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("To Challenge "+ghostName+" for Second Place");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for Second Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
+                parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
             }
 
         };
@@ -179,10 +178,11 @@ public class PREGAMEScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.third;
                 parent.coinsToSpend = 8;
-                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
                 ghostName = data.get(2).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.getSubTitleLabel().setText("To Challenge "+ghostName+" for Third Place");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for Third Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
+                parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
             }
 
         };
@@ -229,7 +229,6 @@ public class PREGAMEScreen extends Screen{
                     }
                 }
             }
-
         };
         BitmapFont font = skin.getFont("default-font");
         font.getData().setScale(.13f, .66f);

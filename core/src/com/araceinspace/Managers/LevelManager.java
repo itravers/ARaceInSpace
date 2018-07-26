@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Created by Isaac Assegai on 7/11/17.
@@ -465,15 +466,46 @@ public class LevelManager {
     public String getIntroStyleByLevel(){
         Json json = new Json();
         ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
+        levelStyle = "introtest";
         //go through all the level items, find the player item and initialze him
         for(int i = 0; i < levelItems.size(); i++) {
             SpriteTemplate item = levelItems.get(i);
             if (item.getType().equals("style")) {
                 levelStyle = item.getExtraInfo();
-            }else{
-                levelStyle = "introtest";
             }
         }
         return levelStyle;
+    }
+
+    /**
+     * Looks into the level file to get subtitle information
+     * This is utilized by level intro dialog to show player
+     * level information from the designer
+     * @param levelToGet
+     * @return
+     */
+    public ArrayList<String>getLevelsSubtitles(int levelToGet){
+        ArrayList<String>subtitles = new ArrayList<String>();
+        Json json = new Json();
+        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(levelToGet));
+        for(int i = 0; i < levelItems.size(); i++){
+            if(levelItems.get(i).getType().equals("subtitle")){
+                SpriteTemplate item = levelItems.get(i);
+                String subtitlesString = item.getExtraInfo();
+                String[] result = subtitlesString.split("-");
+                for (int j = 0; j < result.length; j++){
+                    subtitles.add(result[j]);
+                }
+            }
+        }
+
+        //Initialize all subtitles to something if the level file doesn't include it
+        if(subtitles.isEmpty()){
+            subtitles.add("The Level Designer");
+            subtitles.add("Forgot to include");
+            subtitles.add("subtitle information");
+            subtitles.add("for this level");
+        }
+        return subtitles;
     }
 }

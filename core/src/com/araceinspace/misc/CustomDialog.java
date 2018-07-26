@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 8/20/17.
@@ -16,48 +18,52 @@ import com.badlogic.gdx.utils.Align;
 public class CustomDialog extends Dialog {
     float width;
     float height;
-    String title;
-    BitmapFont titleFont;
+    private BitmapFont titleFont;
     private BitmapFont subtitleFont;
-    private Label subTitleLabel;
+    private ArrayList<Label> subTitleLabels;
     Skin skin;
 
-    public Label getSubTitleLabel(){
-        return subTitleLabel;
-    }
-
-    public CustomDialog (String title, Skin skin, float width, float height, BitmapFont font, BitmapFont subtitleFont) {
-        super(title, skin, "dialog");
+    public CustomDialog (ArrayList<String> subtitles, Skin skin, Viewport viewport) {
+        super("", skin, "dialog");
         this.skin = skin;
-        this.width = width;
-        this.height = height;
-        this.title = title;
-        this.titleFont = font;
-        this.subtitleFont = subtitleFont;
-        initialize();
+        initialize(subtitles, viewport);
     }
 
-    private void initialize() {
-       // padTop(60); // set padding on top of the dialog title
-       // getButtonTable().defaults().height(60); // set buttons height
+    private void initialize(ArrayList<String> subtitles, Viewport viewport) {
+        //set fonts
+        titleFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 25);
+        subtitleFont = FreetypeFontLoader.createFont(new FreeTypeFontGenerator(Gdx.files.internal("Font_Destroy.ttf")), 14);
+        this.width = viewport.getScreenWidth();
+        this.height = viewport.getScreenHeight()*.75f;
+        subTitleLabels = new ArrayList<Label>();
+
         setModal(true);
         setMovable(false);
         setResizable(false);
 
-        getTitleLabel().getStyle().font = titleFont;
         getTitleLabel().setAlignment(Align.center);
-        WindowStyle style =  this.getStyle();
 
-        style.titleFont = titleFont;
-        this.setStyle(style);
-
-        subTitleLabel = new Label("test here", skin, "taunt_small");
-        subTitleLabel.getStyle().font = subtitleFont;
+        //Loop through subtitles, create a label for each, add to subtitleLabels and add to table
+        for(int i = 0; i < subtitles.size(); i++){
+            Label subTitleLabel = new Label(subtitles.get(i), skin, "taunt_small");
+            subTitleLabel.getStyle().font = subtitleFont;
+            subTitleLabels.add(subTitleLabel);
+            getTitleTable().row();
+            getTitleTable().add(subTitleLabel).expandX();
+        }
         getTitleTable().padTop(200);
-        getTitleTable().row();
+    }
 
+    /**
+     * Adds a subtitle to the dialog
+     * @param newSub
+     */
+    public void addSubtitle(String newSub){
+        Label subTitleLabel = new Label(newSub, skin, "taunt_small");
+        subTitleLabel.getStyle().font = subtitleFont;
+        subTitleLabels.add(subTitleLabel);
+        getTitleTable().row();
         getTitleTable().add(subTitleLabel).expandX();
-        //getTitleTable().row();
     }
 
     @Override

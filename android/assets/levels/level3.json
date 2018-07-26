@@ -79,11 +79,10 @@
   },
   {
     "type": "style",
-    "atlas": "",
-    "xLoc": 0,
-    "yLoc": 0,
-    "mass": 0,
-    "size": 0,
     "extraInfo": "level3"
+  },
+  {
+    "type": "subtitle",
+    "extraInfo": "Take Off From Planet-Navigate Between Planets-Use Gravity To Your Advantage-Land On Goal Planet"
   }
 ]
