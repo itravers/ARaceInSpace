@@ -2145,133 +2145,147 @@ filter: Nearest,Nearest
 repeat: none
 GhostIndicator/boostMeter_blue_text
   rotate: false
-  xy: 2, 410
+  xy: 2, 447
+  size: 405, 60
+  orig: 405, 60
+  offset: 0, 0
+  index: -1
+GhostIndicator/boostMeter_empty_text
+  rotate: false
+  xy: 2, 385
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/boostMeter_red_text
   rotate: false
-  xy: 2, 348
+  xy: 409, 447
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_empty
   rotate: false
-  xy: 816, 361
+  xy: 816, 398
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_empty_text
   rotate: false
-  xy: 2, 113
+  xy: 2, 88
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_fill
   rotate: false
-  xy: 2, 2
+  xy: 816, 287
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_fill_green
   rotate: false
-  xy: 204, 113
+  xy: 204, 88
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_fill_green_text
   rotate: false
-  xy: 204, 2
+  xy: 409, 150
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_fill_text
   rotate: false
-  xy: 816, 250
+  xy: 611, 150
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_red
   rotate: false
-  xy: 409, 175
+  xy: 406, 39
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/ghostIndicator_red_text
   rotate: false
-  xy: 611, 175
+  xy: 608, 39
   size: 200, 109
   orig: 200, 109
   offset: 0, 0
   index: -1
 GhostIndicator/healthMeter_blue
   rotate: false
-  xy: 409, 410
+  xy: 2, 323
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/healthMeter_blue_text
   rotate: false
-  xy: 2, 286
+  xy: 409, 385
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/healthMeter_empty
   rotate: false
-  xy: 409, 348
+  xy: 2, 261
+  size: 405, 60
+  orig: 405, 60
+  offset: 0, 0
+  index: -1
+GhostIndicator/healthMeter_empty_text
+  rotate: false
+  xy: 409, 323
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/healthMeter_red
   rotate: false
-  xy: 2, 224
+  xy: 2, 199
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/healthMeter_red_text
   rotate: false
-  xy: 409, 286
+  xy: 409, 261
   size: 405, 60
   orig: 405, 60
   offset: 0, 0
   index: -1
 GhostIndicator/indicator-green
   rotate: false
-  xy: 576, 89
+  xy: 2, 2
   size: 168, 84
   orig: 168, 84
   offset: 0, 0
   index: -1
 GhostIndicator/indicator-red
   rotate: false
-  xy: 406, 78
+  xy: 816, 190
   size: 168, 95
   orig: 168, 95
   offset: 0, 0
   index: -1
 GhostIndicator/indicator-white
   rotate: false
-  xy: 406, 2
+  xy: 172, 12
   size: 168, 74
   orig: 168, 74
   offset: 0, 0
   index: -1
 GhostIndicator/indicator-yellow
   rotate: false
-  xy: 576, 24
+  xy: 813, 125
   size: 168, 63
   orig: 168, 63
   offset: 0, 0
