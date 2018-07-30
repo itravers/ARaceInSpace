@@ -254,8 +254,8 @@ public class INGAMEScreen extends Screen implements EventSender{
         touchPad.setDeadzone(touchPad.getWidth()/5);
 
         boostButton = new ImageButton(skin, "boostButton");
-        boostButton.setWidth(Gdx.graphics.getWidth()/3-20);
-        boostButton.setHeight(Gdx.graphics.getWidth()/3-20);
+        boostButton.setWidth(Gdx.graphics.getWidth()/2-20);
+        boostButton.setHeight(Gdx.graphics.getWidth()/2-20);
         boostButton.setBounds(Gdx.graphics.getWidth()-15-boostButton.getWidth(), 15, boostButton.getWidth(), boostButton.getHeight());
 
         boostButtonListener = new InputListener(){
