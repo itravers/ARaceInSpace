@@ -120,7 +120,7 @@ public class INGAMEScreen extends Screen implements EventSender{
     public INGAMEScreen(RenderManager p) {
         super(p);
 
-       // parent.parent.elapsedTime = 0;//reset elapsed time
+        // parent.parent.elapsedTime = 0;//reset elapsed time
         Touchpad t;
     }
 
@@ -131,7 +131,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         backgroundBatch.dispose();
         font.dispose();
         debugRenderer.dispose();
-       // skin.dispose();
+        // skin.dispose();
 
 
     }
@@ -143,11 +143,11 @@ public class INGAMEScreen extends Screen implements EventSender{
 
     @Override
     public void setup() {
-       // System.out.println("SETUP INGAME SCREEN");
+        // System.out.println("SETUP INGAME SCREEN");
         parent.resetFrameNum();
         monetizationController= parent.monetizationController;
         monetizationController.hideBannerAd();
-       // stage = new Stage(menuCamera)
+        // stage = new Stage(menuCamera)
         setupVectors();
         font = new BitmapFont();
         backgroundCamera = new OrthCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -162,8 +162,8 @@ public class INGAMEScreen extends Screen implements EventSender{
         debugRenderer = new Box2DDebugRenderer();
         shapeRenderer = new ShapeRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
-       // monetizationController.loadRewardAd();
-       // monetizationController.hideBannerAd();
+        // monetizationController.loadRewardAd();
+        // monetizationController.hideBannerAd();
         setupStage();
         parent.parent.elapsedTime = 0;
         parent.parent.renderManager.resetFrameNum();
@@ -218,8 +218,8 @@ public class INGAMEScreen extends Screen implements EventSender{
     private void setupStage(){
         viewport = new ScreenViewport(menuCamera);
         stage = new Stage(viewport, batch);
-       // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-       // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+        // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
+        // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
 
 
@@ -254,8 +254,8 @@ public class INGAMEScreen extends Screen implements EventSender{
         touchPad.setDeadzone(touchPad.getWidth()/5);
 
         boostButton = new ImageButton(skin, "boostButton");
-        boostButton.setWidth(Gdx.graphics.getWidth()/3-20);
-        boostButton.setHeight(Gdx.graphics.getWidth()/3-20);
+        boostButton.setWidth(Gdx.graphics.getWidth()/2-20);
+        boostButton.setHeight(Gdx.graphics.getWidth()/2-20);
         boostButton.setBounds(Gdx.graphics.getWidth()-15-boostButton.getWidth(), 15, boostButton.getWidth(), boostButton.getHeight());
 
         boostButtonListener = new InputListener(){
@@ -276,7 +276,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
 
 
-       // touchPad.addListener(touchpadListener);
+        // touchPad.addListener(touchpadListener);
 
         Table mainTable;
         Table headerTable;
@@ -293,7 +293,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         rewardButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-               // System.out.println("Reward Clicked");
+                // System.out.println("Reward Clicked");
 
                 monetizationController.showRewardAd();
                 monetizationController.loadRewardAd();
@@ -303,7 +303,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         menuButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-               // System.out.println("Menu Clicked");
+                // System.out.println("Menu Clicked");
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
             }
         };
@@ -320,7 +320,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         headerTable = new Table();
         headerTable.setDebug(parent.parent.devMode);
         headerTable.align(Align.center | Align.top);
-       // headerTable.add(rewardButton).padLeft(spacer).padTop(0).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
+        // headerTable.add(rewardButton).padLeft(spacer).padTop(0).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
         //headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
         mainTable.add(headerTable).fill().expandX();
         stage.addActor(mainTable);
@@ -344,7 +344,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         velocityIndicatorOutlineTexture = ghostIndicatorOutlineRegion.get(0);
 
         velocityIndicatorOutline = new Image(velocityIndicatorOutlineTexture);
-       // ghostIndicatorOutline.setPosition((viewport.getScreenWidth()/2)-ghostIndicatorOutline.getWidth()/2, viewport.getScreenHeight()-ghostIndicatorOutline.getHeight());
+        // ghostIndicatorOutline.setPosition((viewport.getScreenWidth()/2)-ghostIndicatorOutline.getWidth()/2, viewport.getScreenHeight()-ghostIndicatorOutline.getHeight());
         velocityIndicatorOutline.setPosition(-velocityIndicatorOutline.getWidth()/2,(viewport.getScreenHeight()/2)-velocityIndicatorOutline.getHeight());
 
         Array<TextureAtlas.AtlasRegion> ghostIndicatorRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_fill_text");
@@ -366,11 +366,11 @@ public class INGAMEScreen extends Screen implements EventSender{
         indicatorClip = new Rectangle();
 
 
-        Array<TextureAtlas.AtlasRegion> healthMeterEmptyRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
+        Array<TextureAtlas.AtlasRegion> healthMeterEmptyRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty_text");
         healthMeterEmpty = healthMeterEmptyRegion.get(0);
         healthMeterEmpty.setRegionWidth(2+viewport.getScreenWidth()/2);
 
-       // healthMeterEmpty
+        // healthMeterEmpty
 
         Array<TextureAtlas.AtlasRegion> healthMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_blue_text");
         healthMeterBlue = healthMeterBlueRegion.get(0);
@@ -380,9 +380,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         healthMeterRed = healthMeterRedRegion.get(0);
         healthMeterRed.setRegionWidth(2+viewport.getScreenWidth()/2);
 
-        Array<TextureAtlas.AtlasRegion> boostMeterEmptyRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/healthMeter_empty");
+        Array<TextureAtlas.AtlasRegion> boostMeterEmptyRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/boostMeter_empty_text");
         boostMeterEmpty = boostMeterEmptyRegion.get(0);
-        boostMeterEmpty.flip(true, false);
+        //boostMeterEmpty.flip(true, false);
 
         Array<TextureAtlas.AtlasRegion> boostMeterBlueRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/boostMeter_blue_text");
         boostMeterBlue = boostMeterBlueRegion.get(0);
@@ -402,7 +402,7 @@ public class INGAMEScreen extends Screen implements EventSender{
         float bclipX =  (viewport.getScreenWidth()/2)-bclipWidth;
         float bclipHeight = 100;
         float bclipY = viewport.getScreenHeight()-boostMeterEmpty.getRegionHeight();
-         boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
+        boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
 
         scissors = new Rectangle();
         parent.parent.inputManager.addInputProcessor(stage);
@@ -425,8 +425,8 @@ public class INGAMEScreen extends Screen implements EventSender{
         speedLabel.setPosition((viewport.getScreenWidth()/2)-speedLabel.getWidth()/2, viewport.getScreenHeight()-speedLabel.getHeight()*1.0f);
         //healthLabel.setPosition((viewport.getScreenWidth()/2), viewport.getScreenHeight()-healthLabel.getHeight());
 
-       // boostLabel.setZIndex(100);
-       // System.out.println("timeElapsed: " + timeElapsed);
+        // boostLabel.setZIndex(100);
+        // System.out.println("timeElapsed: " + timeElapsed);
         Player p = parent.parent.levelManager.getPlayer();
         ArrayList<Planet> planets = parent.parent.levelManager.getPlanets();
         camera.zoom = parent.getCameraZoom();
@@ -551,7 +551,7 @@ public class INGAMEScreen extends Screen implements EventSender{
             clipHeight = parent.map(dist, 50, 150, indicator.getRegionHeight(), 40);
             if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
             if(clipHeight < 40)clipHeight = 40;
-          //  System.out.println("  dist: " + dist + "   clipHeight: " + clipHeight);
+            //  System.out.println("  dist: " + dist + "   clipHeight: " + clipHeight);
         }else if(indicator == dirIndicatorGreen){
             //System.out.print("dist: " + dist);
             clipHeight = parent.map(dist, 50, 150, indicator.getRegionHeight(), 30);
@@ -579,8 +579,8 @@ public class INGAMEScreen extends Screen implements EventSender{
      */
     public float getGhostTimerHeight(){
         float timer = parent.parent.getGhostTimer();
-      //  System.out.println("ghostTimer: " + timer);
-      //  if(timer <= 0)timer = parent.parent.GHOST_TIMER_LIMIT-.001f;
+        //  System.out.println("ghostTimer: " + timer);
+        //  if(timer <= 0)timer = parent.parent.GHOST_TIMER_LIMIT-.001f;
         return parent.map(timer, parent.parent.GHOST_TIMER_LIMIT, 0, 0, velocityIndicatorOutline.getHeight());
     }
 
@@ -615,14 +615,14 @@ public class INGAMEScreen extends Screen implements EventSender{
         float hclipX = (viewport.getScreenWidth()/2);
         float hclipHeight = healthMeterEmpty.getRegionHeight();
         float hclipY = viewport.getScreenHeight()-healthMeterEmpty.getRegionHeight();
-       // healthClip = new Rectangle(hclipX, hclipY, hclipWidth, hclipHeight);
+        // healthClip = new Rectangle(hclipX, hclipY, hclipWidth, hclipHeight);
         healthClip.set(hclipX, hclipY, hclipWidth, hclipHeight);
 
         float bclipWidth =  getBoostMeterWidth();
         float bclipX =  (viewport.getScreenWidth()/2)-bclipWidth;
         float bclipHeight = 100;
         float bclipY = viewport.getScreenHeight()-boostMeterEmpty.getRegionHeight();
-       // boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
+        // boostClip = new Rectangle(bclipX, bclipY, bclipWidth, bclipHeight);
         boostClip.set(bclipX, bclipY, bclipWidth, bclipHeight);
 
         batch.begin();
@@ -643,7 +643,7 @@ public class INGAMEScreen extends Screen implements EventSender{
 
 
         //draw healthMeter
-       // scissors = new Rectangle();
+        // scissors = new Rectangle();
         ScissorStack.calculateScissors(menuCamera, batch.getTransformMatrix(), healthClip, scissors);
         ScissorStack.pushScissors(scissors);
         if(parent.parent.levelManager.getPlayer().getHealth() > 40){
@@ -672,8 +672,8 @@ public class INGAMEScreen extends Screen implements EventSender{
         batch.draw(velocityIndicatorOutlineTexture, velocityIndicatorOutline.getX(), velocityIndicatorOutline.getY());
 
         //these next two draw the outline of the health and boost meter, except they were also drawing other things in the texture, i think it's because we not using scissorstack here
-       // batch.draw(healthMeterEmpty,  (velocityIndicatorOutline.getX()+velocityIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
-       // batch.draw(boostMeterEmpty,  -boostMeterEmpty.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterEmpty.getRegionHeight()+2);
+         batch.draw(healthMeterEmpty,  (velocityIndicatorOutline.getX()+velocityIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
+         batch.draw(boostMeterEmpty,  -boostMeterEmpty.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterEmpty.getRegionHeight()+2);
 
         batch.end();
 
@@ -683,11 +683,11 @@ public class INGAMEScreen extends Screen implements EventSender{
 
         shapeRenderer.setColor(Color.YELLOW);
 
-       if(parent.parent.devMode){
-           shapeRenderer.rect(velocityClip.getX(), velocityClip.getY(), velocityClip.getWidth(), velocityClip.getHeight());
-           shapeRenderer.rect(healthClip.getX(), healthClip.getY(), healthClip.getWidth(), healthClip.getHeight());
-           shapeRenderer.rect(boostClip.getX(), boostClip.getY(), boostClip.getWidth(), boostClip.getHeight());
-       }
+        if(parent.parent.devMode){
+            shapeRenderer.rect(velocityClip.getX(), velocityClip.getY(), velocityClip.getWidth(), velocityClip.getHeight());
+            shapeRenderer.rect(healthClip.getX(), healthClip.getY(), healthClip.getWidth(), healthClip.getHeight());
+            shapeRenderer.rect(boostClip.getX(), boostClip.getY(), boostClip.getWidth(), boostClip.getHeight());
+        }
 
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.end();
@@ -747,9 +747,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         float mx = Gdx.input.getX()-25;
         float my = Gdx.graphics.getHeight() - Gdx.input.getY()-25;
         //rotation = 0;//goalAngle;//-camera.getCurrentAngle();//+goalAngle - 90;//+= Gdx.graphics.getDeltaTime() * 0.5f;
-       // rotation += Gdx.graphics.getDeltaTime() * 0.5f;
+        // rotation += Gdx.graphics.getDeltaTime() * 0.5f;
 
-       // rotation = (float)-parent.parent.levelManager.getPlayer().getPhysics().getBody().getAngle()+((float)Math.toRadians(43));
+        // rotation = (float)-parent.parent.levelManager.getPlayer().getPhysics().getBody().getAngle()+((float)Math.toRadians(43));
         rotation = (float)-parent.parent.levelManager.getPlayer().getPhysics().getBody().getAngle()+(float)Math.toRadians(goalAngle-180);
 
         //Vector3 wtoC = camera.project(new Vector3(O1.x, O1.y, 0));
