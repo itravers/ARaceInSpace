@@ -84,6 +84,8 @@ public class INGAMEScreen extends Screen implements EventSender{
     private TextureRegion dirIndicatorWhite;
     private TextureRegion dirIndicatorYellow;
 
+    private TextureRegion indicatorLegend;
+
 
     private SpriteBatch healthBatch;
     Rectangle velocityClip;
@@ -356,6 +358,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         Array<TextureAtlas.AtlasRegion> ghostIndicatorRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_red_text");
         velocityIndicatorRedTexture = ghostIndicatorRedRegion.get(0);
 
+        Array<TextureAtlas.AtlasRegion> indicatorLegendRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator_legend");
+        indicatorLegend = indicatorLegendRegion.get(0);
+
 
         float gclipWidth = velocityIndicatorOutline.getWidth()+4;
         float gclipX = (viewport.getScreenWidth()/2)-gclipWidth/2;
@@ -466,6 +471,8 @@ public class INGAMEScreen extends Screen implements EventSender{
 
 
         batch.end();
+
+
 
         //renderGoal(timeElapsed, batch);
         //renderGravityIndicator(batch);
@@ -675,6 +682,9 @@ public class INGAMEScreen extends Screen implements EventSender{
          batch.draw(healthMeterEmpty,  (velocityIndicatorOutline.getX()+velocityIndicatorOutline.getWidth()/2)-2, (viewport.getScreenHeight()/2)-healthMeterEmpty.getRegionHeight()+2);
          batch.draw(boostMeterEmpty,  -boostMeterEmpty.getRegionWidth()+2, (viewport.getScreenHeight()/2)-boostMeterEmpty.getRegionHeight()+2);
 
+        batch.draw(indicatorLegend, (viewport.getScreenWidth()/2)-indicatorLegend.getRegionWidth()-10, (viewport.getScreenHeight()/2.5f)-indicatorLegend.getRegionHeight()+2);
+
+
         batch.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -694,6 +704,7 @@ public class INGAMEScreen extends Screen implements EventSender{
     }
 
     private void renderIndicator(Vector2 origin, Vector2 goal, ClipBatch batch, TextureRegion indicator, float distanceFromOrigin, float magnitude) {
+
 
         //L1 = G - O
         tmp.set(origin);
@@ -757,10 +768,12 @@ public class INGAMEScreen extends Screen implements EventSender{
 
 
 
+
         if(indicator == dirIndicatorRed){;
             //System.out.println("magnitude: " + magnitude + "   indicator.Height :" + indicator.getRegionHeight());
             //width and height arebackwards here for some reason, i don't care though, it's working
             batch.begin(O4.x, O4.y, magnitude, indicator.getRegionWidth(), rotation, shapeRenderer);
+
             batch.draw(indicator,
                     O3.x, O3.y,
                     0, 0,
