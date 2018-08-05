@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 7/17/17.
- * Lets the user choose which level to play
+ * This is the screen when the player chooses his level
  */
 public class LEVELSELECTScreen extends Screen{
 
@@ -47,6 +47,10 @@ public class LEVELSELECTScreen extends Screen{
     public Label taunt2;
 
 
+    /**
+     * Constructor
+     * @param parent The RenderManager that will contain this screen
+     */
     public LEVELSELECTScreen(RenderManager parent) {
         super(parent);
     }
@@ -55,7 +59,6 @@ public class LEVELSELECTScreen extends Screen{
     public void dispose() {
         stage.dispose();
         batch.dispose();
-       // skin.dispose();
     }
 
     @Override
@@ -68,12 +71,9 @@ public class LEVELSELECTScreen extends Screen{
         System.out.println("Settingup LevelSelectScreen");
 
         stage = new Stage(viewport, batch);
-        // updateOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //System.out.println("Button Clicked: " + event);
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
             }
 
@@ -83,17 +83,12 @@ public class LEVELSELECTScreen extends Screen{
         backButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
             }
-
         };
 
         rewardAdButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
                 monetizationController.loadRewardAd();
                 monetizationController.showRewardAd();
             }
@@ -107,27 +102,22 @@ public class LEVELSELECTScreen extends Screen{
             }
 
         };
-       // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
 
-        //BitmapFont font = skin.getFont("default-font");
-        //font.getData().setScale(.13f, .66f);
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
         if(parent.parent.playerName == null){
             parent.parent.dialogManager.nameDialog.show(stage);
-            //now the name in the gui needs to be updated, otherwise it will show null
-            //taunt2.setText(parent.p.playerName+"!!!");
 
         }
         monetizationController.showBannerAd();
     }
 
-
-
-
+    /**
+     * Renders the screen
+     * @param elapsedTime The time passed since last render
+     */
     @Override
     public void render(float elapsedTime) {
         xCoords++;
@@ -140,20 +130,23 @@ public class LEVELSELECTScreen extends Screen{
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
     }
 
 
-
+    /**
+     * Creates a level select button
+     * @param width
+     * @param height
+     * @param title
+     * @param s_taunt1
+     * @param s_taunt2
+     * @return
+     */
     private Stack makeButtonStack(float width, float height, String title, String s_taunt1, String s_taunt2){
         height = height - spacer/4;
         boolean devMode = parent.parent.devMode;
-        //create buttons to buy iap
-        // final Button storeTestButton = new Button(skin, "white");
-        //storeTestButton.setColor(Color.WHITE);
         ImageButton levelButton = new ImageButton(skin, "storeButton");
         levelButton.setName(title);
-        //levelButton.setWidth(viewport.getScreenWidth()/2);
         levelButton.addListener(parent.parent.inputManager);
 
         Table buttonTable = new Table();
@@ -167,7 +160,6 @@ public class LEVELSELECTScreen extends Screen{
         style.font = parent.parent.resourceManager.Font24;
         titleLabel.setStyle(style);
         titleLabel.setTouchable(Touchable.disabled);
-        //titleLabel.setFontScale(.7f); //WORKS for rizing font, but we also change table container
 
         ImageButton button_image;
 
@@ -197,10 +189,6 @@ public class LEVELSELECTScreen extends Screen{
         }
         starGold.setTouchable(Touchable.disabled);
 
-        /*starBronze.setSize(width, width);
-        starSilver.setSize(width/5, width/5);
-        starGold.setSize(width, width);*/
-
         starBronze.getImage().getDrawable().setMinWidth(width/5);
         starBronze.getImage().getDrawable().setMinHeight(width/5);
 
@@ -225,7 +213,6 @@ public class LEVELSELECTScreen extends Screen{
         taunt1.setStyle(style);
         taunt1.setTouchable(Touchable.disabled);
         taunt1.setFontScale(.7f);
-        //taunt1.setFontScale(Gdx.graphics.getDensity());
 
         Label taunt2 = new Label(s_taunt2, skin, "error");
         if(s_taunt2.equals(parent.parent.playerName)) taunt2.setColor(new Color(.275f, .65f, .12f, 1f));
@@ -260,26 +247,24 @@ public class LEVELSELECTScreen extends Screen{
 
         purchaseTable.add(purchaseBodyTable);
 
-
         Stack buttonStack;
-
         buttonStack = new Stack();
         buttonStack.add(buttonTable);
         buttonStack.add(purchaseTable);
         return buttonStack;
     }
 
-
-
+    /**
+     * Sets up the level select screen in a portrait orientation
+     * @param width
+     * @param height
+     */
     public void setupPortraitGUI(float width, float height){
         boolean devMode = parent.parent.devMode;
         stageLoaded = false;
         float butWidth = width/2.6f;
         float butHeight = height/4.5f;
 
-
-        //System.out.println("setup portrait    stage w:h " + width + ":" + height);
-        // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
         Table storeTable;
 
         //scene2d.ui items
@@ -302,7 +287,6 @@ public class LEVELSELECTScreen extends Screen{
         table.align(Align.center|Align.top);
         table.setPosition(0, height);
 
-
         backButton = new ImageButton(skin, "backButton");
         backButton.setDebug(devMode);
         backButton.addListener(backButtonListener);
@@ -315,12 +299,10 @@ public class LEVELSELECTScreen extends Screen{
         rewardButton.setDebug(devMode);
         rewardButton.addListener(rewardAdButtonListener);
 
-        //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("Choose", skin, "optional");
         Label.LabelStyle style = storeTitleLabel.getStyle();
         style.font = parent.parent.resourceManager.Font48;
         storeTitleLabel.setStyle(style);
-        //storeTitleLabel.getStyle().font = bigFont;
         storeTitleLabel.setDebug(devMode);
 
         String coins = Integer.toString(parent.parent.getCoins());
@@ -340,7 +322,6 @@ public class LEVELSELECTScreen extends Screen{
         headerTable.add(backButton).padLeft(spacer/4).padTop(0).size(width/8, height/10);
         headerTable.add(menuButton).padLeft(spacer/4).padTop(0).align(Align.left).size(width/8, height/10);
         headerTable.add(storeTitleLabel).expandX().align(Align.left).size(width/3.5f, height/12);
-
 
         headerTable.add(coinLabel).size(width/6, height/12).align(Align.right);
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
@@ -369,8 +350,6 @@ public class LEVELSELECTScreen extends Screen{
         extraTable2.add(taunt2).height(height/30).align(Align.top).padLeft(spacer*3);
 
         extraTable.add(extraTable2).fill().expandX();
-
-
 
         table.add(headerTable).fill().expandX();
         table.row();
@@ -540,11 +519,9 @@ public class LEVELSELECTScreen extends Screen{
 
         ImageButton previousLevelButton = new ImageButton(skin, "previousLevelButton");
         previousLevelButton.setWidth(width*.10f);
-        //nextLevelButton.rotateBy(180);
 
         buyLevelsButton = new ImageButton(skin, "buyLevelsButton");
         buyLevelsButton.setWidth(width*.10f);
-
 
         previousLevelButton.setVisible(false);
         buyLevelsButton.setVisible(false);
@@ -558,6 +535,4 @@ public class LEVELSELECTScreen extends Screen{
 
         stageLoaded = true;
     }
-
-
 }
