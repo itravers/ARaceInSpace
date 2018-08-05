@@ -163,12 +163,12 @@ public class HttpManager {
         return returnval;
     }
 
-    public ArrayList<String> getLevelLeaders(){
+    public ArrayList<String> getLevelLeaders(int levelPack){
         ArrayList<String>returnVal = new ArrayList<String>();
-        String url = "http://192.168.1.197:3001/leaderboards/levelleaders";
+        String url = "http://192.168.1.197:3001/leaderboards/levelleaders/"+levelPack;
         sendRequest(url, null, "GET");
         String leadersString = waitForResponse();
-        if(leadersString == null || leadersString.contains("MongoError")){
+        if(leadersString == null || leadersString.contains("MongoError") || leadersString.contains("TypeError")){
             for(int i = 0; i < 12; i++)returnVal.add("N/A");
             return returnVal;
         }

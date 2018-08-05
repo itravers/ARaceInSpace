@@ -82,7 +82,6 @@ public class LEVELSELECTScreen extends Screen{
             public void clicked(InputEvent event, float x, float y){
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
             }
-
         };
 
         //back button shouldn't do anything on level select screen
@@ -372,12 +371,22 @@ public class LEVELSELECTScreen extends Screen{
         storeTable = new Table();
         storeTable.setDebug(devMode);
         storeTable.align(Align.top|Align.center);
-        ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders();
+        ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders(currentLevelPack);
 
         String levelString = "Level "+((currentLevelPack*levelPerPack)+1);
 
-        Stack buttonStack = makeButtonStack(butWidth, butHeight, levelString, "Leaderboard Champ", leaderBoardChamps.get(0));
         boolean levelBeaten = false;
+        if(currentLevelPack == 0 || parent.parent.levelManager.getLevelStars(levelString).get(0)){
+            levelBeaten = true;
+        }
+        Stack buttonStack = makeButtonStack(butWidth, butHeight, levelString, "Leaderboard Champ", leaderBoardChamps.get(0));
+        if(!levelBeaten){
+            buttonStack.setTouchable(Touchable.disabled);
+            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            for(int i = 0; i < actors.size; i++){
+                actors.get(i).getColor().a = .2f;
+            }
+        }
 
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
@@ -392,6 +401,7 @@ public class LEVELSELECTScreen extends Screen{
                 actors.get(i).getColor().a = .2f;
             }
         }
+
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
         storeTable.row();
