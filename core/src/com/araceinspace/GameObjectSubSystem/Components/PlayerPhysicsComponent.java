@@ -278,6 +278,17 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     }
 
     /**
+     * Returns the distance from the player to the given planet
+     * @param p
+     * @return
+     */
+    public float getDistanceFromPlanet(Planet p){
+        float distanceToPlanet = p.getBody().getPosition().dst(body.getPosition());
+
+        return distanceToPlanet;
+    }
+
+    /**
      * Returns the closest Planet to the Player
      * @return
      */

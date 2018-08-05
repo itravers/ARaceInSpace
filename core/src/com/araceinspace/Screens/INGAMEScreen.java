@@ -5,7 +5,6 @@ import com.araceinspace.EventSubSystem.Event;
 import com.araceinspace.EventSubSystem.EventDispatcher;
 import com.araceinspace.EventSubSystem.EventSender;
 import com.araceinspace.GameObjectSubSystem.Components.PlayerPhysicsComponent;
-import com.araceinspace.GameObjectSubSystem.Components.PlayerState;
 import com.araceinspace.GameObjectSubSystem.GameObject;
 import com.araceinspace.GameObjectSubSystem.Planet;
 import com.araceinspace.GameObjectSubSystem.Player;
@@ -25,7 +24,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -76,7 +74,6 @@ public class INGAMEScreen extends Screen implements EventSender{
     private TextureRegion healthMeterBlue;
     private TextureRegion healthMeterRed;
 
-
     private TextureRegion boostMeterEmpty;
     private TextureRegion boostMeterBlue;
     private TextureRegion boostMeterRed;
@@ -85,11 +82,6 @@ public class INGAMEScreen extends Screen implements EventSender{
     private TextureRegion dirIndicatorGreen;
     private TextureRegion dirIndicatorWhite;
     private TextureRegion dirIndicatorYellow;
-
-    private TextureRegion dirIndicatorRedNew;
-    private TextureRegion dirIndicatorGreenNew;
-    private TextureRegion dirIndicatorWhiteNew;
-    private TextureRegion dirIndicatorYellowNew;
 
     private TextureRegion indicatorLegend;
 
@@ -148,8 +140,6 @@ public class INGAMEScreen extends Screen implements EventSender{
         font.dispose();
         debugRenderer.dispose();
         // skin.dispose();
-
-
     }
 
     @Override
@@ -178,44 +168,15 @@ public class INGAMEScreen extends Screen implements EventSender{
         debugRenderer = new Box2DDebugRenderer();
         shapeRenderer = new ShapeRenderer();
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
-        // monetizationController.loadRewardAd();
-        // monetizationController.hideBannerAd();
         setupStage();
         parent.parent.elapsedTime = 0;
         parent.parent.renderManager.resetFrameNum();
-
-
     }
-
 
 
     /* Private Methods */
 
     private void setupVectors(){
-        /*
-        renderVelStartPos = new Vector2();
-        renderVelGoalPos = new Vector2();
-        renderVelEndLine = new Vector2();
-        renderVelPerpLine1 = new Vector2();
-        renderVelPerpLine2 = new Vector2();
-        renderGravityStartPos = new Vector2();
-        renderGravityGoalPos = new Vector2();
-        renderGravityEndLine = new Vector2();
-        renderGravityPerpLine1 = new Vector2();
-        renderGravityPerpLine2 = new Vector2();
-        renderNearestStartPos = new Vector2();
-        renderNearestGoalPos = new Vector2();
-        renderGoalStartPos = new Vector2();
-        renderGoalGoalPos = new Vector2();
-
-        renderGoalEndLine = new Vector2();
-        renderGoalPerpLine1  = new Vector2();
-        renderGoalPerpLine2 = new Vector2();
-        renderNearestMiddleOfGoal = new Vector2();
-        renderNearestEndLine = new Vector2();
-        renderNearestPerpLine1 = new Vector2();
-        renderNearestPerpLine2 = new Vector2();
-        */
         renderGoalMiddleOfGoal = new Vector2();
         tmp = new Vector2();
         tmp2 = new Vector2();
@@ -235,17 +196,12 @@ public class INGAMEScreen extends Screen implements EventSender{
         O = new Vector2();
         G = new Vector2();
         runningAvgGravity = new SimpleMovingAverage(10);
-
     }
 
     private void setupStage(){
         viewport = new ScreenViewport(menuCamera);
         stage = new Stage(viewport, batch);
-        // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
-
-
 
         boostLabel = new Label("BOOST", skin, "optional");
         Label.LabelStyle style = boostLabel.getStyle();
@@ -264,10 +220,6 @@ public class INGAMEScreen extends Screen implements EventSender{
         style3.font = parent.parent.resourceManager.Font20;
         speedLabel.setStyle(style3);
         speedLabel.setPosition((viewport.getScreenWidth()/2)-speedLabel.getWidth()/2, viewport.getScreenHeight()-speedLabel.getHeight()*1.5f);
-
-        //stage.addActor(boostLabel);
-        //stage.addActor(healthLabel);
-        //stage.addActor(speedLabel);
 
         touchPad = new Touchpad(10, skin, "default");
         touchPad.setBounds(15, 15, Gdx.graphics.getWidth()/2-20,Gdx.graphics.getWidth()/2-20);
@@ -292,18 +244,11 @@ public class INGAMEScreen extends Screen implements EventSender{
             }
         };
 
-
         boostButton.addListener(boostButtonListener);
 
 
-
-
-
-        // touchPad.addListener(touchpadListener);
-
         Table mainTable;
         Table headerTable;
-        Table bodyTable;
         ImageButton menuButton;
         ImageButton rewardButton;
 
@@ -316,8 +261,6 @@ public class INGAMEScreen extends Screen implements EventSender{
         rewardButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // System.out.println("Reward Clicked");
-
                 monetizationController.showRewardAd();
                 monetizationController.loadRewardAd();
             }
@@ -326,11 +269,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         menuButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // System.out.println("Menu Clicked");
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.MENU);
             }
         };
-
 
         rewardButton = new ImageButton(skin, "rewardButton");
         rewardButton.setDebug(parent.parent.devMode);
@@ -343,40 +284,24 @@ public class INGAMEScreen extends Screen implements EventSender{
         headerTable = new Table();
         headerTable.setDebug(parent.parent.devMode);
         headerTable.align(Align.center | Align.top);
-        // headerTable.add(rewardButton).padLeft(spacer).padTop(0).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
-        //headerTable.add(menuButton).padLeft(spacer).padTop(0).align(Align.left).size(viewport.getScreenWidth()/8, viewport.getScreenHeight()/10);
         mainTable.add(headerTable).fill().expandX();
         stage.addActor(mainTable);
         stage.addActor(touchPad);
         stage.addActor(boostButton);
 
 
-        Array<TextureAtlas.AtlasRegion> dirIndicatorRedRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-red");
-        dirIndicatorRed = dirIndicatorRedRegion.get(0);
-
-        Array<TextureAtlas.AtlasRegion> dirIndicatorGreenRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-green");
-        dirIndicatorGreen = dirIndicatorGreenRegion.get(0);
-
-        Array<TextureAtlas.AtlasRegion> dirIndicatorWhiteRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-white");
-        dirIndicatorWhite = dirIndicatorWhiteRegion.get(0);
-
-        Array<TextureAtlas.AtlasRegion> dirIndicatorYellowRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-yellow");
-        dirIndicatorYellow = dirIndicatorYellowRegion.get(0);
-
-
-        //TESTING NEW INDICATORS
+        //Direction Indicators
         Array<TextureAtlas.AtlasRegion> dirIndicatorRedNewRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-red-new");
-        dirIndicatorRedNew = dirIndicatorRedNewRegion.get(0);
+        dirIndicatorRed = dirIndicatorRedNewRegion.get(0);
 
         Array<TextureAtlas.AtlasRegion> dirIndicatorGreenNewRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-green-new");
-        dirIndicatorGreenNew = dirIndicatorGreenNewRegion.get(0);
+        dirIndicatorGreen = dirIndicatorGreenNewRegion.get(0);
 
         Array<TextureAtlas.AtlasRegion> dirIndicatorWhiteNewRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-white-new");
-        dirIndicatorWhiteNew = dirIndicatorWhiteNewRegion.get(0);
+        dirIndicatorWhite = dirIndicatorWhiteNewRegion.get(0);
 
         Array<TextureAtlas.AtlasRegion> dirIndicatorYellowNewRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/indicator-yellow-new");
-        dirIndicatorYellowNew = dirIndicatorYellowNewRegion.get(0);
-
+        dirIndicatorYellow = dirIndicatorYellowNewRegion.get(0);
 
 
         Array<TextureAtlas.AtlasRegion> ghostIndicatorOutlineRegion = parent.parent.resourceManager.heroAtlas.findRegions("GhostIndicator/ghostIndicator_empty_text");
@@ -452,8 +377,6 @@ public class INGAMEScreen extends Screen implements EventSender{
     }
 
     private void renderVersion(SpriteBatch batch){
-
-
         font.setColor(Color.WHITE);
         font.draw(batch, "Version: " +((ARaceInSpace)parent.parent.parent).version, parent.parent.levelManager.getPlayer().getX(),parent.parent.levelManager.getPlayer().getY());
     }
@@ -506,88 +429,45 @@ public class INGAMEScreen extends Screen implements EventSender{
             renderVersion(batch);
         }
 
-
         batch.end();
 
-
-
-        //renderGoal(timeElapsed, batch);
-        //renderGravityIndicator(batch);
-        //renderVelocityIndicator(batch);
-        //renderNearestPlanetIndicator(batch);
-        //stage.act(timeElapsed);
-        // stage.draw();
-
         renderGoal(0, batch);
-
-
 
         //Calculate Vector to nearest planet and render and indicator
         O.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2);
         Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
         float planetRadius = ((Planet) planet).getGraphics().getWidth();
         G.set(planet.getX() + planetRadius / 2, planet.getY() + planetRadius / 2);
-        float dist = parent.parent.levelManager.getPlayer().getPhysics().getDistanceFromClosestPlanet();
+        float dist = parent.parent.levelManager.getPlayer().getPhysics().getDistanceFromPlanet(planet);
         float clipHeight = getIndicatorClipHeight(dist, dirIndicatorRed);
-
-        //renderIndicator(O, G, batch, dirIndicatorRed, 150, clipHeight);
-
-        clipHeight = getIndicatorClipHeight(dist, dirIndicatorRedNew);
-
-       // renderNewIndicator(O, G, batch, dirIndicatorRedNew, 150, clipHeight);
-        renderNewIndicator(O, G, batch, dirIndicatorRedNew, 140, clipHeight);
-
-
-
-
-
+        renderIndicator(O, G, batch, dirIndicatorRed, 140, clipHeight);
 
         planet = ((Planet)parent.parent.levelManager.getGoal()); /* This object is our goal. */
         planetRadius = ((Planet) planet).getGraphics().getWidth();
         G.set(planet.getX() + planetRadius / 2, planet.getY() + planetRadius / 2);
-        //dist = tmp.set(O).sub(tmp2.set(G)).len();
-        //dist = parent.parent.levelManager.getPlayer().getPhysics().g
-        dist = parent.parent.levelManager.getPlayer().getPhysics().getDistanceFromClosestPlanet();
+        dist = parent.parent.levelManager.getPlayer().getPhysics().getDistanceFromPlanet(planet);
         clipHeight = getIndicatorClipHeight(dist, dirIndicatorGreen);
-        //renderIndicator(O, G, batch, dirIndicatorGreen, 152, clipHeight);
-
-        clipHeight = getIndicatorClipHeight(dist, dirIndicatorGreenNew);
-        //tmp.set(O);
-        //tmp.x = O.x-1;
-        renderNewIndicator(O, G, batch, dirIndicatorGreenNew, 120, clipHeight);
+        renderIndicator(O, G, batch, dirIndicatorGreen, 114 , clipHeight);
 
         gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
         tmp.set(gravityVector).setLength(200);
         G.set(O).add(tmp);
         dist = gravityVector.len();
-        clipHeight = getIndicatorClipHeight(dist, dirIndicatorWhite);
         if(!G.equals(O)){
-           // renderIndicator(O, G, batch, dirIndicatorWhite, 141, clipHeight);
-            clipHeight = getIndicatorClipHeight(dist, dirIndicatorWhiteNew);
-            renderNewIndicator(O, G, batch, dirIndicatorWhiteNew, 120, clipHeight);
+            clipHeight = getIndicatorClipHeight(dist, dirIndicatorWhite);
+            renderIndicator(O, G, batch, dirIndicatorWhite, 114, clipHeight);
         }
-
-       // clipHeight = getIndicatorClipHeight(dist, dirIndicatorWhiteNew);
-       // if(!G.equals(O))renderIndicator(O, G, batch, dirIndicatorWhiteNew, 141, clipHeight);
-
 
         //calculate velocity and display indicator
         O.set(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2);
         Vector2 velocityVector = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity();
-        //System.out.println(velocityVector.len2());
         tmp.set(velocityVector).setLength(200);
         G.set(O).add(tmp);
         dist = velocityVector.len();
         clipHeight = getIndicatorClipHeight(dist, dirIndicatorYellow);
         if(dist > .15f){
-           // renderIndicator(O, G, batch, dirIndicatorYellow, 131, clipHeight);
+            renderIndicator(O, G, batch, dirIndicatorYellow, 88, clipHeight);
         }
-
-        clipHeight = getIndicatorClipHeight(dist, dirIndicatorYellowNew);
-        if(dist > .15f){
-            renderNewIndicator(O, G, batch, dirIndicatorYellowNew, 100, clipHeight);
-        }
-
 
         debugMatrix = batch.getProjectionMatrix().cpy().scale(parent.PIXELS_TO_METERS, parent.PIXELS_TO_METERS, 0);
 
@@ -612,56 +492,35 @@ public class INGAMEScreen extends Screen implements EventSender{
         float clipHeight = 0;
         if(indicator == dirIndicatorRed){
             //System.out.print("dist: " + dist);
-            clipHeight = parent.map(dist, 50, 150, indicator.getRegionHeight(), 40);
-            if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
-            if(clipHeight < 40)clipHeight = 40;
+            float smallestClip = (indicator.getRegionHeight()/2)/3.4f;
+            float biggestClip = indicator.getRegionHeight()/2.5f;
+            clipHeight = parent.map(dist, 150, 50, smallestClip, biggestClip);
+            if(clipHeight > biggestClip)clipHeight = biggestClip;
+            if(clipHeight < smallestClip)clipHeight = smallestClip;
             //  System.out.println("  dist: " + dist + "   clipHeight: " + clipHeight);
         }else if(indicator == dirIndicatorGreen){
+            float smallestClip = (indicator.getRegionHeight()/2)/3.4f;
+            float biggestClip = indicator.getRegionHeight()/2.5f;
             //System.out.print("dist: " + dist);
-            clipHeight = parent.map(dist, 50, 150, indicator.getRegionHeight(), 30);
-            if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
-            if(clipHeight < 30)clipHeight = 30;
+            clipHeight = parent.map(dist, 150, 50, smallestClip, biggestClip);
+            if(clipHeight > biggestClip)clipHeight = biggestClip;
+            if(clipHeight < smallestClip)clipHeight = smallestClip;
         }else if(indicator == dirIndicatorWhite){
-
-            clipHeight = parent.map(dist, 100 , 750, 40, indicator.getRegionHeight());
-            if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
-            if(clipHeight < 40)clipHeight = 40;
-        }else if(indicator == dirIndicatorYellow){
-
-            clipHeight = parent.map(dist, 0, parent.parent.levelManager.getPlayer().getPhysics().MAX_VELOCITY*.75f, 10, indicator.getRegionHeight());
-            if(clipHeight > indicator.getRegionHeight())clipHeight = indicator.getRegionHeight();
-            if(clipHeight < 10)clipHeight = 10;
-
-        }else if(indicator == dirIndicatorRedNew){
-            //System.out.print("dist: " + dist);
             float smallestClip = (indicator.getRegionHeight()/2)/3.4f;
-            float biggestClip = indicator.getRegionHeight()/2.2f;
-            clipHeight = parent.map(dist, 150, 50, smallestClip, biggestClip);
-            if(clipHeight > biggestClip)clipHeight = biggestClip;
-            if(clipHeight < smallestClip)clipHeight = smallestClip;
-            //  System.out.println("  dist: " + dist + "   clipHeight: " + clipHeight);
-        }else if(indicator == dirIndicatorGreenNew){
-            float smallestClip = (indicator.getRegionHeight()/2)/3.4f;
-            float biggestClip = indicator.getRegionHeight()/2.2f;
-            //System.out.print("dist: " + dist);
-            clipHeight = parent.map(dist, 150, 50, smallestClip, biggestClip);
-            if(clipHeight > biggestClip)clipHeight = biggestClip;
-            if(clipHeight < smallestClip)clipHeight = smallestClip;
-        }else if(indicator == dirIndicatorWhiteNew){
-            float smallestClip = (indicator.getRegionHeight()/2)/3.4f;
-            float biggestClip = indicator.getRegionHeight()/2.2f;
+            float biggestClip = indicator.getRegionHeight()/2.5f;
 
             runningAvgGravity.addData(dist);
             float avg = (float)runningAvgGravity.getMean();
-            System.out.println("gravity: " + avg  +  " : " + dist );
+            //System.out.println("gravity: " + avg  +  " : " + dist );
             clipHeight = parent.map(avg, 100 , 500, smallestClip, biggestClip);
             if(clipHeight > biggestClip)clipHeight = biggestClip;
             if(clipHeight < smallestClip)clipHeight = smallestClip;
-        }else if(indicator == dirIndicatorYellowNew){
-            float smallestClip = indicator.getRegionHeight() /2.6f;
-            clipHeight = parent.map(dist, 0, parent.parent.levelManager.getPlayer().getPhysics().MAX_VELOCITY*.75f, smallestClip, indicator.getRegionHeight()/2);
+        }else if(indicator == dirIndicatorYellow){
+            float smallestClip = indicator.getRegionHeight() /5f;
+            float biggestClip = indicator.getRegionHeight()/2.5f;
+            clipHeight = parent.map(dist, 0, parent.parent.levelManager.getPlayer().getPhysics().MAX_VELOCITY*1f, smallestClip, biggestClip);
 
-            if(clipHeight > indicator.getRegionHeight()/2)clipHeight = indicator.getRegionHeight()/2;
+            if(clipHeight > biggestClip)clipHeight = biggestClip;
             if(clipHeight < smallestClip)clipHeight = smallestClip;
 
         }
@@ -792,70 +651,17 @@ public class INGAMEScreen extends Screen implements EventSender{
         shapeRenderer.end();
     }
 
+
+    /**
+     * Renders the directional indicators
+     * @param origin
+     * @param goal
+     * @param batch
+     * @param indicator
+     * @param distanceFromOrigin
+     * @param magnitude
+     */
     private void renderIndicator(Vector2 origin, Vector2 goal, ClipBatch batch, TextureRegion indicator, float distanceFromOrigin, float magnitude) {
-        //L1 = G - O
-        tmp.set(origin);
-        L1.set(goal).sub(origin);
-
-        float goalAngle = L1.angle();
-
-        //L2 = LIM(L1, L2.Length) // L2.Length = distanceFromOrigin, we will pass in
-        L2.set(L1).limit(distanceFromOrigin);
-
-        //O1 = O + L2
-        tmp.set(L2);
-        O1.set(origin).add(tmp);
-
-        //L3 = LIM(rot(L2, 90), L3.limit); //L3.limit = dirIndicator.width/2
-        L3.set(L2).rotate(90).limit(indicator.getRegionWidth() / 2);
-
-
-        //O2 = O1 + L3
-        tmp.set(L3);
-        O2.set(O1).add(tmp);
-
-        //L4 = LIM(rot(L3, 90), L4.length); //L4.length = dirIndicator.height
-        L4.set(L3).rotate(90).limit(indicator.getRegionHeight());
-
-        //O3 = O2 + L4
-        tmp.set(L4);
-        O3.set(O2).add(tmp);
-
-
-        tmp.set(L2).setLength(10);
-        O4.set(O2).add(tmp);
-
-
-        float mx = Gdx.input.getX()-25;
-        float my = Gdx.graphics.getHeight() - Gdx.input.getY()-25;
-        rotation = (float)-parent.parent.levelManager.getPlayer().getPhysics().getBody().getAngle()+(float)Math.toRadians(goalAngle-180);
-
-
-        if(indicator == dirIndicatorRed){;
-            //System.out.println("magnitude: " + magnitude + "   indicator.Height :" + indicator.getRegionHeight());
-            //width and height arebackwards here for some reason, i don't care though, it's working
-            batch.begin(O4.x, O4.y, magnitude, indicator.getRegionWidth(), rotation, shapeRenderer);
-
-            batch.draw(indicator,
-                    O3.x, O3.y,
-                    0, 0,
-                    indicator.getRegionWidth(), indicator.getRegionHeight(),
-                    1f,1f,
-                    goalAngle - 90);
-            batch.end();
-        }else{
-            batch.begin(O2.x, O2.y, magnitude, indicator.getRegionWidth(), rotation, shapeRenderer);
-            batch.draw(indicator,
-                    O3.x, O3.y,
-                    0, 0,
-                    indicator.getRegionWidth(), indicator.getRegionHeight(),
-                    1f,1f,
-                    goalAngle - 90);
-            batch.end();
-        }
-    }
-
-    private void renderNewIndicator(Vector2 origin, Vector2 goal, ClipBatch batch, TextureRegion indicator, float distanceFromOrigin, float magnitude) {
         float regionHeight = indicator.getRegionHeight()/2;
         float regionWidth = indicator.getRegionWidth()/2;
         //L1 = G - O
@@ -886,14 +692,12 @@ public class INGAMEScreen extends Screen implements EventSender{
         tmp.set(L4);
         tmp.setLength(regionHeight);
         O3.set(O2).add(tmp);
-        //O3.set(O3).add(tmp);
-
 
         tmp.set(L2).setLength(100);
         O4.set(O2).add(tmp);
 
         L5.set(L3);
-        L5.setLength((indicator.getRegionWidth()/4)+1);
+        L5.setLength((indicator.getRegionWidth()/4)+0);
 
         tmp.set(L5);
         O5.set(O3).add(tmp);
@@ -907,18 +711,13 @@ public class INGAMEScreen extends Screen implements EventSender{
         tmp.set(L5);
         O8.set(O2).sub(tmp);
 
-
-        float mx = Gdx.input.getX()-25;
-        float my = Gdx.graphics.getHeight() - Gdx.input.getY()-25;
         rotation = (float)-parent.parent.levelManager.getPlayer().getPhysics().getBody().getAngle()+(float)Math.toRadians(goalAngle-180);
 
 
-        if(indicator == dirIndicatorRedNew){
+        if(indicator == dirIndicatorRed){
             //System.out.println("magnitude: " + magnitude + "   indicator.Height :" + indicator.getRegionHeight());
             //width and height arebackwards here for some reason, i don't care though, it's working
             batch.begin(O2.x, O2.y, magnitude, regionWidth, rotation, shapeRenderer);
-
-
             batch.draw(indicator,
                     O3.x, O3.y,
                     0, 0,
@@ -926,7 +725,7 @@ public class INGAMEScreen extends Screen implements EventSender{
                     1f,1f,
                     goalAngle - 90);
             batch.end();
-        }else if(indicator == dirIndicatorGreenNew){
+        }else if(indicator == dirIndicatorGreen){
             batch.begin(O6.x, O6.y, magnitude, regionWidth, rotation, shapeRenderer);
             batch.draw(indicator,
                     O5.x, O5.y,
@@ -935,7 +734,7 @@ public class INGAMEScreen extends Screen implements EventSender{
                     1f,1f,
                     goalAngle - 90);
             batch.end();
-        }else if(indicator == dirIndicatorWhiteNew){
+        }else if(indicator == dirIndicatorWhite){
             batch.begin(O8.x, O8.y, magnitude, regionWidth, rotation, shapeRenderer);
             batch.draw(indicator,
                     O7.x, O7.y,
@@ -956,232 +755,9 @@ public class INGAMEScreen extends Screen implements EventSender{
         }
     }
 
-    /*
-    private void renderVelocityIndicator(SpriteBatch batch){
-
-
-        Player p = parent.parent.levelManager.getPlayer();
-
-        //don't render velocity indicator if player  is standing still forward
-        if(p.getState().getCurrentState() == PlayerState.STAND_STILL_FORWARD)return;
-        Vector2 velocityVector = parent.parent.levelManager.getPlayer().getPhysics().getBody().getLinearVelocity();
-        float velocityPower = velocityVector.len();
-        //Vector2 renderVelStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-        renderVelStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-        renderVelGoalPos = velocityVector.add(renderVelStartPos);
-        //Vector2 goalPos =new Vector2(0,0);
-
-        renderVelEndLine = renderVelGoalPos.sub(renderVelStartPos);
-        renderVelEndLine.setLength(75f);
-
-        renderVelPerpLine1.set(renderVelEndLine.x, renderVelEndLine.y).rotate(135f);
-        //renderVelPerpLine1 = renderVelEndLine.cpy().rotate(135f); //get rotated difference vector
-        renderVelPerpLine2.set(renderVelEndLine.x, renderVelEndLine.y).rotate(-135f);
-        //renderVelPerpLine2 = renderVelEndLine.cpy().rotate(-135f); //get rotated difference vector
-
-        float lineLength = 15f;
-
-        lineLength = 15f + (velocityPower/1);
-
-
-        renderVelPerpLine1.setLength(lineLength); //set length of perpLineVector
-        renderVelPerpLine2.setLength(lineLength); //set length of perpLineVector
-
-        tmp.set(renderVelEndLine.x, renderVelEndLine.y);
-        renderVelEndLine.set(renderVelStartPos.x, renderVelStartPos.y).add(tmp); //convert back to point
-        //renderVelEndLine = renderVelStartPos.cpy().add(renderVelEndLine); //convert back to point
-
-        tmp.set(renderVelPerpLine1.x, renderVelPerpLine1.y);
-        renderVelPerpLine1.set(renderVelEndLine.x, renderVelEndLine.y).add(tmp); // convert back to point
-        //renderVelPerpLine1 = renderVelEndLine.cpy().add(renderVelPerpLine1); // convert back to point
-
-        tmp.set(renderVelPerpLine2.x, renderVelPerpLine2.y);
-        renderVelPerpLine2.set(renderVelEndLine.x, renderVelEndLine.y).add(tmp);// convert back to point
-       // renderVelPerpLine2 = renderVelEndLine.cpy().add(renderVelPerpLine2); // convert back to point
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setProjectionMatrix(shapeCamera.combined);
-        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
-        shapeRenderer.setColor(Color.YELLOW);
-
-        shapeRenderer.rectLine(renderVelEndLine, renderVelPerpLine1, 3);
-        shapeRenderer.rectLine(renderVelEndLine, renderVelPerpLine2, 3);
-
-        shapeRenderer.setColor(Color.GREEN);
-        shapeRenderer.end();
-    }
-    */
-
-    /*
-    private void renderGravityIndicator(SpriteBatch batch){
-        Player p = parent.parent.levelManager.getPlayer();
-        gravityVector = parent.parent.levelManager.getPlayer().getPhysics().getGravityForce();
-        float gravityPower = gravityVector.len();
-       // System.out.println("gravityPower: " + gravityPower);
-        //Vector2 renderGravityStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-        renderGravityStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-        renderGravityGoalPos = gravityVector.add(renderGravityStartPos);
-        //Vector2 goalPos =new Vector2(0,0);
-
-
-
-        renderGravityEndLine = renderGravityGoalPos.sub(renderGravityStartPos);
-        renderGravityEndLine.setLength(85f);
-
-        float lineLength = 15f;
-
-        //if(gravityPower >= 300){
-            lineLength = 15f + (gravityPower/16);
-       // }
-
-        renderGravityPerpLine1.set(renderGravityEndLine.x, renderGravityEndLine.y).rotate(135f);
-        //renderGravityPerpLine1 = renderGravityEndLine.cpy().rotate(135f); //get rotated difference vector
-
-        renderGravityPerpLine2.set(renderGravityEndLine.x, renderGravityEndLine.y).rotate(-135f);
-        renderGravityPerpLine2 = renderGravityEndLine.cpy().rotate(-135f); //get rotated difference vector
-
-
-
-        renderGravityPerpLine1.setLength(lineLength); //set length of perpLineVector
-        renderGravityPerpLine2.setLength(lineLength); //set length of perpLineVector
-
-        tmp.set(renderGravityEndLine.x, renderGravityEndLine.y);
-        renderGravityEndLine.set(renderGravityStartPos.x, renderGravityStartPos.y).add(tmp);
-        //renderGravityEndLine = renderGravityStartPos.cpy().add(renderGravityEndLine); //convert back to point
-
-        tmp.set(renderGravityPerpLine1.x, renderGravityPerpLine1.y);
-        renderGravityPerpLine1.set(renderGravityEndLine.x, renderGravityEndLine.y).add(tmp);
-        //renderGravityPerpLine1 = renderGravityEndLine.cpy().add(renderGravityPerpLine1); // convert back to point
-
-        tmp.set(renderGravityPerpLine2.x, renderGravityPerpLine2.y);
-        renderGravityPerpLine2.set(renderGravityEndLine.x, renderGravityEndLine.y).add(tmp);
-       // renderGravityPerpLine2 = renderGravityEndLine.cpy().add(renderGravityPerpLine2); // convert back to point
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setProjectionMatrix(shapeCamera.combined);
-        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
-        shapeRenderer.setColor(Color.WHITE);
-
-        shapeRenderer.rectLine(renderGravityEndLine, renderGravityPerpLine1, 3);
-        shapeRenderer.rectLine(renderGravityEndLine, renderGravityPerpLine2, 3);
-
-        shapeRenderer.setColor(Color.GREEN);
-        shapeRenderer.end();
-    }
-    */
-
-
-    /*
-
-    private void renderNearestPlanetIndicator(SpriteBatch batch){
-
-
-
-
-        Player p = parent.parent.levelManager.getPlayer();
-
-
-        Planet planet = parent.parent.levelManager.getPlayer().getPhysics().getClosestPlanet();
-        float goalRadius = ((Planet)planet).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
-
-        renderNearestStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-        renderNearestGoalPos.set(planet.getX()+goalRadius/2, planet.getY()+goalRadius/2);
-
-        renderNearestMiddleOfGoal.set(planet.getX()+(goalRadius/2), planet.getY()+(goalRadius/2));
-
-        tmp.set(renderNearestStartPos.x, renderNearestStartPos.y);
-        renderNearestEndLine.set(renderNearestMiddleOfGoal.x, renderNearestMiddleOfGoal.y).sub(tmp);
-        float goalAngle = renderNearestEndLine.angle();
-
-        renderNearestPerpLine1.set(renderNearestEndLine.x, renderNearestEndLine.y).rotate(135f);
-
-        renderNearestPerpLine2.set(renderNearestEndLine.x, renderNearestEndLine.y).rotate(-135f);
-
-        tmp.set(renderNearestStartPos.x, renderNearestStartPos.y);
-        float distanceToItem = ((tmp.sub(renderNearestGoalPos).len()-(planet.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS);
-
-            float lineLength = 15f;
-
-             if(distanceToItem <= 100){
-                lineLength = 15f + ((100-distanceToItem)/4);
-             }
-
-
-        renderNearestEndLine.setLength(70f); // set length of distance vector
-        renderNearestPerpLine1.setLength(lineLength); //set length of perpLineVector
-        renderNearestPerpLine2.setLength(lineLength); //set length of perpLineVector
-
-        tmp.set(renderNearestEndLine.x, renderNearestEndLine.y);
-        renderNearestEndLine.set(renderNearestStartPos.x, renderNearestStartPos.y).add(tmp);
-       // renderNearestEndLine = renderNearestStartPos.cpy().add(renderNearestEndLine); //convert back to point
-
-        tmp.set(renderNearestPerpLine1.x, renderNearestPerpLine1.y);
-        renderNearestPerpLine1.set(renderNearestEndLine.x, renderNearestEndLine.y).add(tmp);
-        //renderNearestPerpLine1 = renderNearestEndLine.cpy().add(renderNearestPerpLine1); // convert back to point
-
-        tmp.set(renderNearestPerpLine2.x, renderNearestPerpLine2.y);
-        renderNearestPerpLine2.set(renderNearestEndLine.x, renderNearestEndLine.y).add(tmp);
-        //renderNearestPerpLine2 = renderNearestEndLine.cpy().add(renderNearestPerpLine2); // convert back to point
-
-
-
-
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setProjectionMatrix(shapeCamera.combined);
-                shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
-                shapeRenderer.setColor(Color.RED);
-                shapeRenderer.rectLine(renderNearestEndLine, renderNearestPerpLine1, 3);
-                shapeRenderer.rectLine(renderNearestEndLine, renderNearestPerpLine2, 3);
-
-
-
-                 shapeRenderer.setColor(Color.GREEN);
-
-        Vector2 indicatorOrigin = new Vector2();
-        indicatorOrigin.set(renderNearestMiddleOfGoal).sub(renderNearestEndLine);
-
-        indicatorOrigin.rotate(90);
-
-        indicatorOrigin.limit(dirIndicatorRed.getRegionWidth()/2);
-        indicatorOrigin.add(renderNearestEndLine);
-       // indicatorOrigin.rotate(-90);
-
-
-        shapeRenderer.rectLine(renderNearestEndLine, indicatorOrigin, 3);
-
-        shapeRenderer.circle(renderNearestEndLine.x, renderNearestEndLine.y, 2);
-                shapeRenderer.end();
-
-
-        System.out.println("goalAngle: " + goalAngle);
-
-
-        batch.begin();
-        batch.draw(dirIndicatorRed,
-                indicatorOrigin.x, indicatorOrigin.y,
-                0,0,
-                dirIndicatorRed.getRegionWidth(), dirIndicatorRed.getRegionHeight(),
-                1f, 1f,
-                goalAngle-90);
-        batch.end();
-
-//goalAngle-90
-        //renderNearestEndLine.x-dirIndicatorRed.getRegionWidth()/2, renderNearestEndLine.y-dirIndicatorRed.getRegionHeight(),
-
-
-
-    }
-    */
-
-
     private void renderGoal(float elapsedTime, SpriteBatch batch){
         GameObject g = parent.parent.levelManager.getGoal(); // This object is our goal. /
         Player p = parent.parent.levelManager.getPlayer();
-
-
 
         if(g instanceof Planet){ //D
             Planet goal = (Planet)g;
@@ -1197,97 +773,11 @@ public class INGAMEScreen extends Screen implements EventSender{
 
             shapeRenderer.circle((renderGoalMiddleOfGoal.x), (renderGoalMiddleOfGoal.y), (goalRadius / 2)-8);
 
-            //shapeRenderer.circle((renderGoalMiddleOfGoal.x), (renderGoalMiddleOfGoal.y), (goalRadius / 2) + 10);
-
-
-
             shapeRenderer.setProjectionMatrix(shapeCamera.combined);
             shapeRenderer.end();
             Gdx.gl.glLineWidth(2);
-
-            /*
-            Planet goal = (Planet)g;
-            float goalRadius = ((Planet)goal).getGraphics().getWidth();//getPhysics().getBody().getFixtureList().first().getShape().getRadius();
-
-            //Vector2 renderGoalStartPos = new Vector2(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-            //Vector2 renderGoalGoalPos = new Vector2(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
-            renderGoalStartPos.set(p.getX()+p.getWidth()/2, p.getY()+p.getHeight()/2);
-            renderGoalGoalPos.set(goal.getX()+goalRadius/2, goal.getY()+goalRadius/2);
-
-            //Vector2 renderGoalMiddleOfGoal = new Vector2(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
-            renderGoalMiddleOfGoal.set(goal.getX()+(goalRadius/2), goal.getY()+(goalRadius/2));
-
-            tmp.set(renderGoalStartPos.x, renderGoalStartPos.y);
-            renderGoalEndLine.set(renderGoalMiddleOfGoal.x, renderGoalMiddleOfGoal.y).sub(tmp);
-            //renderGoalEndLine = renderGoalMiddleOfGoal.cpy().sub(renderGoalStartPos); //get difference vector
-
-            renderGoalPerpLine1.set(renderGoalEndLine.x, renderGoalEndLine.y).rotate(135f);
-            //renderGoalPerpLine1 = renderGoalEndLine.cpy().rotate(135f); //get rotated difference vector
-
-            renderGoalPerpLine2.set(renderGoalEndLine.x, renderGoalEndLine.y).rotate(-135f);
-            //renderGoalPerpLine2 = renderGoalEndLine.cpy().rotate(-135f); //get rotated difference vector
-
-            tmp.set(renderGoalStartPos.x, renderGoalStartPos.y);
-            float distanceToItem = ((tmp.sub(renderGoalGoalPos).len()-(goal.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS);
-            //float distanceToItem = (renderGoalStartPos.cpy().sub(renderGoalGoalPos).len()-(goal.getWidth()/2)-p.getHeight()/2)/parent.parent.renderManager.PIXELS_TO_METERS;
-
-            float lineLength = 15f;
-
-            if(distanceToItem <= 100){
-                lineLength = 15f + ((100-distanceToItem)/4);
-            }
-
-            renderGoalEndLine.setLength(80f); // set length of distance vector
-            renderGoalPerpLine1.setLength(lineLength); //set length of perpLineVector
-            renderGoalPerpLine2.setLength(lineLength); //set length of perpLineVector
-
-            tmp.set(renderGoalEndLine.x, renderGoalEndLine.y);
-            renderGoalEndLine.set(renderGoalStartPos.x, renderGoalStartPos.y).add(tmp);
-            //renderGoalEndLine = renderGoalStartPos.cpy().add(renderGoalEndLine); //convert back to point
-
-            tmp.set(renderGoalPerpLine1.x, renderGoalPerpLine1.y);
-            renderGoalPerpLine1.set(renderGoalEndLine.x, renderGoalEndLine.y).add(tmp);
-            //renderGoalPerpLine1 = renderGoalEndLine.cpy().add(renderGoalPerpLine1); // convert back to point
-
-            tmp.set(renderGoalPerpLine2.x, renderGoalPerpLine2.y);
-            renderGoalPerpLine2.set(renderGoalEndLine.x, renderGoalEndLine.y).add(tmp);
-            //renderGoalPerpLine2 = renderGoalEndLine.cpy().add(renderGoalPerpLine2); // convert back to point
-
-
-            if(g != null){ // The goal can be null, make sure it isn't here. //
-
-
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setProjectionMatrix(shapeCamera.combined);
-                shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
-                shapeRenderer.setColor(Color.GREEN);
-                shapeRenderer.rectLine(renderGoalEndLine, renderGoalPerpLine1, 3);
-                shapeRenderer.rectLine(renderGoalEndLine, renderGoalPerpLine2, 3);
-
-                shapeRenderer.end();
-
-
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                shapeRenderer.setProjectionMatrix(camera.combined);
-
-                Gdx.gl.glLineWidth(100);
-
-                shapeRenderer.circle((renderGoalMiddleOfGoal.x), (renderGoalMiddleOfGoal.y), goalRadius / 2);
-
-                shapeRenderer.circle((renderGoalMiddleOfGoal.x), (renderGoalMiddleOfGoal.y), 2);
-
-                Gdx.gl.glLineWidth(2);
-
-                shapeRenderer.setProjectionMatrix(shapeCamera.combined);
-                shapeRenderer.end();
-            }
-            */
         }
-
     }
-
-
 
 
     public void setCameraZoom(float zoom){
@@ -1303,6 +793,9 @@ public class INGAMEScreen extends Screen implements EventSender{
     // Java program to calculate
 // Simple Moving Average
 
+    /**
+     * A class to keep track of a simple moving average
+     */
     private class SimpleMovingAverage {
 
         // queue used to store list so that we get the average
@@ -1310,30 +803,36 @@ public class INGAMEScreen extends Screen implements EventSender{
         private final int period;
         private double sum;
 
-        // constructor to initialize period
+        /**
+         * Constructor
+         * @param period The number to average over
+         */
         public SimpleMovingAverage(int period) {
             this.period = period;
         }
 
-        // function to add new data in the
-        // list and update the sum so that
-        // we get the new mean
+        /**
+         * Add new data to the list and update the sum for the new mean
+         * @param num
+         */
         public void addData(double num) {
             sum += num;
             Dataset.add(num);
 
-            // Updating size so that length
-            // of data set should be equal
-            // to period as a normal mean has
+            /**
+             * Limit the size of the list
+             */
             if (Dataset.size() > period) {
                 sum -= Dataset.remove();
             }
         }
 
-        // function to calculate mean
+        /**
+         * Calculate the average
+         * @return
+         */
         public double getMean() {
             return sum / period;
         }
     }
-
 }
