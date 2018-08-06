@@ -166,10 +166,10 @@ public class HttpManager {
         return returnval;
     }
 
-    public String readLeaderBoardFromServer(){
+    public String readLeaderBoardFromServer(int levelPack){
         String returnval = "";
         //Gdx.net.openURI("192.168.1.197");
-        String url = "http://192.168.1.197:3001/leaderboards/json/";
+        String url = "http://192.168.1.197:3001/leaderboards/json/"+levelPack;
 
         sendRequest(url, null, "GET");
         returnval = waitForResponse();

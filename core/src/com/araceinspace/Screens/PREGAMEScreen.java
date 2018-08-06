@@ -343,7 +343,7 @@ public class PREGAMEScreen extends Screen{
     }
 
     public void setupPortraitGUI(float width, float height){
-        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer();
+        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer(parent.parent.levelManager.currentLevelPack);
         JsonValue jsonValue;
         JsonValue leaderBoardLevels;
         JsonReader json = new JsonReader();
@@ -354,10 +354,12 @@ public class PREGAMEScreen extends Screen{
 
         }else{
             jsonValue = json.parse(jsonFromServer);
-            leaderBoardLevels = jsonValue.get(0).get("levels");
+            leaderBoardLevels = jsonValue.get("levels");
         }
 
-        JsonValue jlevel = leaderBoardLevels.get(parent.parent.levelManager.getCurrentLevel()-1);
+        int levelToGet = parent.parent.levelManager.getCurrentLevel()-1;
+        levelToGet = levelToGet % parent.parent.levelManager.levelPerPack;
+        JsonValue jlevel = leaderBoardLevels.get(levelToGet);
         String levelName = jlevel.get("name").asString();
         data = jlevel.get("data");
 

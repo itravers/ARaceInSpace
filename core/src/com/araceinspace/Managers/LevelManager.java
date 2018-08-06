@@ -379,6 +379,7 @@ public class LevelManager {
        // setupBackground();
         setupPlanets();
         setupGoal();
+        currentLevelPack = level / levelPerPack;
     }
 
     /**

@@ -38,6 +38,7 @@ public class LEVELSELECTScreen extends Screen{
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
     ClickListener nextLevelListener;
+    ClickListener previousLevelListener;
     ClickListener buyLevelsListener;
 
     boolean stageLoaded;
@@ -78,7 +79,6 @@ public class LEVELSELECTScreen extends Screen{
     public void setup() {
         lm = parent.parent.levelManager;
         //decide what the current level pack is by what level the player last played
-        lm.currentLevelPack = (int)parent.parent.levelManager.getCurrentLevel()/lm.levelPerPack;
         lm.nextLevelPackUnlocked = isLevelPackUnlocked(lm.currentLevelPack+1);
         System.out.println("Settingup LevelSelectScreen");
 
@@ -119,6 +119,14 @@ public class LEVELSELECTScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 lm.currentLevelPack++; //this doesn't work because we set currentLevelPack based on current level at top of file
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+            }
+        };
+
+        previousLevelListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                lm.currentLevelPack--; //this doesn't work because we set currentLevelPack based on current level at top of file
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
             }
         };
@@ -579,6 +587,7 @@ public class LEVELSELECTScreen extends Screen{
 
         ImageButton previousLevelButton = new ImageButton(skin, "previousLevelButton");
         previousLevelButton.setWidth(width*.10f);
+        previousLevelButton.addListener(previousLevelListener);
 
         buyLevelsButton = new ImageButton(skin, "buyLevelsButton");
         buyLevelsButton.setWidth(width*.10f);

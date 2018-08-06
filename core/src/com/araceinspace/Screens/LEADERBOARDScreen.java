@@ -81,7 +81,7 @@ public class LEADERBOARDScreen extends Screen{
 
 
         JsonReader json = new JsonReader();
-        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer();
+        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer(parent.parent.levelManager.currentLevelPack);
         JsonValue jsonValue;
 
         if(jsonFromServer == null){//the server is offline, read from generic leaderboards file
