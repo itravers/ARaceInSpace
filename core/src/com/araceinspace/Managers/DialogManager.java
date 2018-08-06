@@ -1,10 +1,7 @@
 package com.araceinspace.Managers;
 
 import com.araceinspace.GameWorld;
-import com.araceinspace.Screens.LEADERBOARDScreen;
-import com.araceinspace.Screens.LEVELSELECTScreen;
-import com.araceinspace.Screens.SCOREScreen;
-import com.araceinspace.Screens.Screen;
+import com.araceinspace.Screens.*;
 import com.araceinspace.misc.CustomDialog;
 import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.RandomString;
@@ -44,6 +41,10 @@ public class DialogManager {
     BitmapFont titleFont;
     static BitmapFont queryFont;
 
+    //Keep track of items used by dialog manager
+    public int coinsToSpend;
+    public int levelPackToBuy;
+
     /* Constructor */
     public DialogManager(GameWorld p){
         parent = p;
@@ -66,25 +67,29 @@ public class DialogManager {
                     dialogQuestion = false;
                 }
                 if (dialogQuestion) {
-                    if (parent.getCoins() >= parent.renderManager.coinsToSpend) {
+                    if (parent.getCoins() >= coinsToSpend) {
                         if(screen instanceof SCOREScreen){
                             parent.levelManager.setLevel(parent.levelManager.getCurrentLevel());
                         }else if(screen instanceof LEADERBOARDScreen){
                             parent.levelManager.setLevel(LEADERBOARDScreen.levelClicked);//set in leaderboard screen
+                        }else if(screen instanceof LEVELSELECTScreen){
+                            buyLevelPack(levelPackToBuy);
+                        }else if(screen instanceof PREGAMEScreen){
+                            if (parent.renderManager.placeClicked == RenderManager.PLACES.first) {
+                                parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
+                            } else if (parent.renderManager.placeClicked == RenderManager.PLACES.second) {
+                                parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
+                            } else if (parent.renderManager.placeClicked == RenderManager.PLACES.third) {
+                                parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
+                            } else{
+                                parent.levelManager.setChallenge(parent.levelManager.getCurrentChallenge());
+                            }
+                            parent.setCoins(parent.getCoins() - coinsToSpend);
+
+                            parent.levelManager.playGame(skin, stage, stage.getViewport());
                         }
 
-                        if (parent.renderManager.placeClicked == RenderManager.PLACES.first) {
-                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
-                        } else if (parent.renderManager.placeClicked == RenderManager.PLACES.second) {
-                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
-                        } else if (parent.renderManager.placeClicked == RenderManager.PLACES.third) {
-                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
-                        } else{
-                            parent.levelManager.setChallenge(parent.levelManager.getCurrentChallenge());
-                        }
-                        parent.setCoins(parent.getCoins() - parent.renderManager.coinsToSpend);
 
-                        parent.levelManager.playGame(skin, stage, stage.getViewport());
                     } else {
                         notEnoughCoinsDialog.show(stage);
                     }
@@ -223,5 +228,18 @@ public class DialogManager {
         levelIntroDialog.getContentTable().add(backButton);
 
         levelIntroDialog.show(stage);
+    }
+
+    /**
+     * Called when the user try's to buy a new level pack
+     * sets prefs to show the levels are available
+     * downloads the levels from the server
+     * @param levelPackToBuy
+     */
+    private void buyLevelPack(int levelPackToBuy){
+        System.out.println("Looks like user is buying level pack: "+levelPackToBuy);
+        parent.prefs.putBoolean("com.araceinspace.levelPackUnlocked."+levelPackToBuy, true);
+        parent.setCoins(parent.getCoins() - coinsToSpend);
+        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
     }
 }

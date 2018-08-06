@@ -156,9 +156,9 @@ public class LEADERBOARDScreen extends Screen{
                 buttonName = buttonName.replace("Level ", "");
                 int level = Integer.parseInt(buttonName);
                 levelClicked = level;
-                parent.coinsToSpend = 10;
+                parent.parent.dialogManager.coinsToSpend = 10;
                 parent.placeClicked = RenderManager.PLACES.first;
-                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 

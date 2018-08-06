@@ -56,7 +56,7 @@ public class RenderManager {
 
 
 
-   public int coinsToSpend;
+
    public static enum PLACES {first, second, third};
     public PLACES placeClicked;
 

@@ -36,6 +36,8 @@ public class LEVELSELECTScreen extends Screen{
     ClickListener backButtonListener;
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
+    ClickListener nextLevelListener;
+    ClickListener buyLevelsListener;
 
     boolean stageLoaded;
 
@@ -43,12 +45,14 @@ public class LEVELSELECTScreen extends Screen{
     ImageButton starSilver;
     ImageButton starGold;
     ImageButton buyLevelsButton;
+    ImageButton nextLevelsButton;
 
     public Label taunt2;
 
     //Tracks the current level pack that we want to look at
     private int currentLevelPack = 0;
     public static int levelPerPack = 12;
+    private boolean nextLevelPackUnlocked;
 
 
     /**
@@ -74,6 +78,7 @@ public class LEVELSELECTScreen extends Screen{
     public void setup() {
         //decide what the current level pack is by what level the player last played
         currentLevelPack = (int)parent.parent.levelManager.getCurrentLevel()/levelPerPack;
+        nextLevelPackUnlocked = isLevelPackUnlocked(currentLevelPack+1);
         System.out.println("Settingup LevelSelectScreen");
 
         stage = new Stage(viewport, batch);
@@ -107,6 +112,30 @@ public class LEVELSELECTScreen extends Screen{
             }
 
         };
+
+        //Check if the next Level Button has been pressed
+        nextLevelListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                currentLevelPack++; //this doesn't work because we set currentLevelPack based on current level at top of file
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+            }
+        };
+
+        //called when the buy levels button is pressed
+        buyLevelsListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                System.out.println("Buying level pack: " + (currentLevelPack+1));
+                parent.parent.dialogManager.coinsToSpend = 15;
+                parent.parent.dialogManager.levelPackToBuy = currentLevelPack+1;
+                parent.parent.dialogManager.setupPurchaseDialog(skin, stage, parent.getCurrentScreen());
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("To Unlock A New Level Pack?");
+                parent.parent.dialogManager.purchaseDialog.show(stage);
+            }
+        };
+
         skin = parent.parent.resourceManager.getSkin();
 
         spacer = 25;
@@ -552,17 +581,59 @@ public class LEVELSELECTScreen extends Screen{
 
         buyLevelsButton = new ImageButton(skin, "buyLevelsButton");
         buyLevelsButton.setWidth(width*.10f);
+        buyLevelsButton.addListener(buyLevelsListener);
 
-        previousLevelButton.setVisible(true);
-        buyLevelsButton.setVisible(true);
+        nextLevelsButton = new ImageButton(skin, "nextLevelButton");
+        nextLevelsButton.setWidth(width*.10f);
+
+        nextLevelsButton.addListener(nextLevelListener);
+
+        //Previous level button should not be visible for first level pack
+        if(currentLevelPack == 0){
+            previousLevelButton.setVisible(false);
+        }else{
+            previousLevelButton.setVisible(true);
+        }
+
 
         bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
-        bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+
+        //If the next level is unlocked we want to display the next button, otherwise display buyLevelsButton
+        nextLevelPackUnlocked = isLevelPackUnlocked(currentLevelPack+1);
+        if(nextLevelPackUnlocked){
+            buyLevelsButton.setVisible(false);
+            nextLevelsButton.setVisible(true);
+            bodyTable.add(nextLevelsButton).width(width*.10f).align(Align.right);
+        }else{
+            buyLevelsButton.setVisible(true);
+            nextLevelsButton.setVisible(false);
+            bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+        }
+
+
+
 
         table.add(bodyTable).fill().expandX();
         stage.addActor(table);
 
         stageLoaded = true;
+    }
+
+    /**
+     * Checks the player preferences to see if the given level pack is unlocked
+     * @param levelPack
+     * @return
+     */
+    private boolean isLevelPackUnlocked(int levelPack){
+        boolean returnVal = true;
+        //The first level pack is always unlocked
+        if(levelPack == 0){
+            returnVal = true;
+        }else{
+            //check prefs to see if this levelPack is unlocked
+            returnVal = parent.parent.prefs.getBoolean("com.araceinspace.levelPackUnlocked."+levelPack);
+        }
+        return returnVal;
     }
 }

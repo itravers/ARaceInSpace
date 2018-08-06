@@ -147,9 +147,9 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.first;
-                parent.coinsToSpend = 10;
+                parent.parent.dialogManager.coinsToSpend = 10;
                 ghostName = data.get(0).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for First Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
                 parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
@@ -159,9 +159,9 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.second;
-                parent.coinsToSpend = 9;
+                parent.parent.dialogManager.coinsToSpend = 9;
                 ghostName = data.get(1).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for Second Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
                 parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
@@ -172,9 +172,9 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.third;
-                parent.coinsToSpend = 8;
+                parent.parent.dialogManager.coinsToSpend = 8;
                 ghostName = data.get(2).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for Third Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
                 parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
