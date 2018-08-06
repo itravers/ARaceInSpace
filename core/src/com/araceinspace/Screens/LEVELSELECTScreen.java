@@ -373,12 +373,13 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.align(Align.top|Align.center);
         ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders(currentLevelPack);
 
-        String levelString = "Level "+((currentLevelPack*levelPerPack)+1);
+        String levelString = "Level "+((currentLevelPack*levelPerPack)+0);
 
         boolean levelBeaten = false;
         if(currentLevelPack == 0 || parent.parent.levelManager.getLevelStars(levelString).get(0)){
             levelBeaten = true;
         }
+        levelString = "Level "+((currentLevelPack*levelPerPack)+1);
         Stack buttonStack = makeButtonStack(butWidth, butHeight, levelString, "Leaderboard Champ", leaderBoardChamps.get(0));
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
