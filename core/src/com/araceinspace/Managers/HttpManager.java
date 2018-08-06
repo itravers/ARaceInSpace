@@ -20,10 +20,16 @@ public class HttpManager {
     boolean requestFailed; //Used to judge if the last request failed
     String responseJson; //Used when we want to get JSON from the backend
     byte [] responseBytes; //Used when we want to get pure data from the backend
+    String levelPacksAvailable; //on boot we get a space delimited string of the level packs available
 
     public HttpManager(){
         responseReady = false;
         requestFailed = false;
+        setup();
+    }
+
+    private void setup(){
+        getLevelPacksAvailable();
     }
 
     /**
@@ -164,6 +170,14 @@ public class HttpManager {
         return returnval;
     }
 
+    private void getLevelPacksAvailable(){
+
+        String url = "http://192.168.1.197:3001/levelpacks/packsAvailable";
+        sendRequest(url, null, "GET");
+        levelPacksAvailable = waitForResponse();
+        System.out.println("levelPacksAvailable: " + levelPacksAvailable);
+    }
+
     /**
      * Gets a specific ghost from the server based on it's ghostID
      * @param ghostID
@@ -257,7 +271,7 @@ public class HttpManager {
      * to a useable place for the player
      */
     public boolean dlLevelPackFromServer(int levelPackToBuy){
-        String url = "http://192.168.1.197:3001/levelpacks/"+levelPackToBuy;
+        String url = "http://192.168.1.197:3001/levelpacks/get/"+levelPackToBuy;
         sendRequest(url, null, "GET", true);
         byte[] levelPack = waitForResponse_b();
         if(false){
@@ -287,5 +301,20 @@ public class HttpManager {
             }
         }
         return true;
+    }
+
+    /**
+     * On Startup read all the level packs available into levelPacksAvailable
+     * now we will run this list and return true if any element matches
+     * levelPack
+     * @param levelPack
+     * @return
+     */
+    public boolean isLevelPackAvailable(int levelPack){
+        if(levelPacksAvailable.contains(Integer.toString(levelPack))){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -616,7 +616,12 @@ public class LEVELSELECTScreen extends Screen{
             nextLevelsButton.setVisible(true);
             bodyTable.add(nextLevelsButton).width(width*.10f).align(Align.right);
         }else{
-            buyLevelsButton.setVisible(true);
+            //check if the next level pack even exists, if it doesn't, we don't want to display buyLevelsButton
+            if(parent.parent.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
+                buyLevelsButton.setVisible(true);
+            }else{
+                buyLevelsButton.setVisible(false);
+            }
             nextLevelsButton.setVisible(false);
             bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
         }
