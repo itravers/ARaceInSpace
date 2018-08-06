@@ -238,8 +238,22 @@ public class DialogManager {
      */
     private void buyLevelPack(int levelPackToBuy){
         System.out.println("Looks like user is buying level pack: "+levelPackToBuy);
-        parent.prefs.putBoolean("com.araceinspace.levelPackUnlocked."+levelPackToBuy, true);
-        parent.setCoins(parent.getCoins() - coinsToSpend);
-        parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+        boolean success = downloadLevelPack(levelPackToBuy);
+        if(success){
+            parent.prefs.putBoolean("com.araceinspace.levelPackUnlocked."+levelPackToBuy, true);
+            parent.setCoins(parent.getCoins() - coinsToSpend);
+            parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+        }
+
+    }
+
+    private boolean downloadLevelPack(int levelPackToBuy){
+        boolean success = parent.httpManager.dlLevelPackFromServer(levelPackToBuy);
+        if(success){
+            System.out.println("downloaded level pack: " + levelPackToBuy);
+        }else{
+            System.out.println("error downloading level pack: " + levelPackToBuy);
+        }
+        return success;
     }
 }

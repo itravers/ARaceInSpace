@@ -51,6 +51,11 @@ public class LevelManager {
     public boolean didFail; // set to true if the player exploads in contact listener checked by score screen
     String levelStyle = "introtest"; //used by dialog manager to figure out what picture to load
 
+    //Tracks the current level pack that we want to look at
+    public int currentLevelPack = 0;
+    public static int levelPerPack = 12;
+    public boolean nextLevelPackUnlocked;
+
     /* Constructors */
     public LevelManager(GameWorld p){
         System.out.println("LevelManager Constructor");
@@ -174,8 +179,11 @@ public class LevelManager {
      * @return A fileHandler for the  level we want.
      */
     private FileHandle getLevelFile(int lvl){
+        //first we need to parse the lvl number to a
+        //level pack - level
+        int levelPack = lvl / levelPerPack;//need to get this number from variable
         FileHandle fileHandle = null;
-        String fileName = "levels/level"+lvl+".json";
+        String fileName = "levels/"+levelPack+"/level"+lvl+".json";
         if(Gdx.files.classpath(fileName).exists()){
             fileHandle = Gdx.files.internal(fileName);
             //System.out.println("using external file.");

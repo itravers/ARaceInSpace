@@ -2,12 +2,17 @@ package com.araceinspace.Managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.net.HttpStatus;
+import com.badlogic.gdx.utils.ByteArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * Created by Isaac Assegai on 7/31/17.
@@ -17,12 +22,18 @@ public class HttpManager {
     boolean responseReady;
     boolean requestFailed;
     String responseJson;
+    byte [] responseBytes;
 
     public HttpManager(){
         responseReady = false;
         requestFailed = false;
     }
-    public  void sendRequest(String url, String requestJson, String method) {
+
+    public void sendRequest(String url, String requestJson, String method){
+        sendRequest(url, requestJson, method, false);
+    }
+
+    public  void sendRequest(String url, String requestJson, String method, final boolean getBytes) {
         //System.out.println("httpManger: send request to: " + url);
 
       //  final Json json = new Json();
@@ -51,7 +62,16 @@ public class HttpManager {
                     return;
                 }
 
-                responseJson = httpResponse.getResultAsString();
+                if(getBytes){
+                    responseBytes = httpResponse.getResult();
+                }else{
+                    responseJson = httpResponse.getResultAsString();
+                }
+
+
+
+
+
                 responseReady = true;
                 try {
 
@@ -92,6 +112,22 @@ public class HttpManager {
         }
         responseReady = false; //reset responseready boolean
         return responseJson;
+    }
+
+    public byte[] waitForResponse_b(){
+        while(!responseReady){
+            if(requestFailed){
+                requestFailed = false;
+                return null;
+            }
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        responseReady = false; //reset responseready boolean
+        return responseBytes;
     }
 
     public String readGhostFromServer(LevelManager.CHALLENGES currentChallenge, int currentLevel){
@@ -182,5 +218,60 @@ public class HttpManager {
         //test Array
        // for(int i = 0; i < 12; i++)returnVal.add("Slack");
         return returnVal;
+    }
+
+    /**
+     * Sends a request to server for a certain
+     * level pack. Downloads that level pack
+     * to a useable place for the player
+     */
+    public boolean dlLevelPackFromServer(int levelPackToBuy){
+        String url = "http://192.168.1.197:3001/levelpacks/"+levelPackToBuy;
+        sendRequest(url, null, "GET", true);
+        //String s_levelPack = waitForResponse();
+        byte[] levelPack = waitForResponse_b();
+        if(false){
+           // for(int i = 0; i < 12; i++)returnVal.add("N/A");
+            //return returnVal;
+            //error here
+        }else{
+            //byte[] levelPack = s_levelPack.getBytes();
+            byte[] buffer = new byte[1024];
+            if(levelPack == null)return false;//didn't work something is wrong
+            ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(levelPack));
+            ZipEntry zipEntry;
+
+            try {
+                zipEntry = zis.getNextEntry();
+                while(zipEntry != null){
+                    String fileName = zipEntry.getName();
+                    System.out.println(System.getProperty("user.dir"));
+                    //File newFile = new File("unzipTest/" + fileName);
+                   // FileOutputStream fos = new FileOutputStream(newFile);
+                    FileHandle file = Gdx.files.local("levels/"+levelPackToBuy+"/"+fileName);
+
+                   // file.writeString("My god, it's full of stars", false);
+                    int len;
+                    while ((len = zis.read(buffer)) > 0) {
+                       // fos.write(buffer, 0, len);
+                        //file.writeBytes(buffer, true);
+                        file.writeBytes(buffer, 0, len, true);
+                    }
+                    //fos.close();
+
+                    zipEntry = zis.getNextEntry();
+                }
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+
+
+        }
+        return true;
     }
 }
