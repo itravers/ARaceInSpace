@@ -1,5 +1,6 @@
 package com.araceinspace.Managers;
 
+import com.araceinspace.GameWorld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.files.FileHandle;
@@ -16,13 +17,17 @@ import java.util.zip.ZipInputStream;
  * the leaderboard, ghost and level pack backend.
  */
 public class HttpManager {
+    GameWorld parent;
+
     boolean responseReady; //Used by waitforresponse
     boolean requestFailed; //Used to judge if the last request failed
     String responseJson; //Used when we want to get JSON from the backend
     byte [] responseBytes; //Used when we want to get pure data from the backend
     String levelPacksAvailable; //on boot we get a space delimited string of the level packs available
 
-    public HttpManager(){
+
+    public HttpManager(GameWorld parent){
+        this.parent = parent;
         responseReady = false;
         requestFailed = false;
         setup();
@@ -170,11 +175,26 @@ public class HttpManager {
         return returnval;
     }
 
+    /**
+     * Sets up the levelPacksAvailable String
+     * First it checks the local record of
+     * level packs that are available. This is to allow
+     * the client to display previously dl'd level packs when offline.
+     * Second it asks the server what record packs are available.
+     * if the server responds it overwrites the local records
+     */
     private void getLevelPacksAvailable(){
+
+        levelPacksAvailable = parent.prefs.getString("com.araceinspace.levelPacksAvailable");
 
         String url = "http://192.168.1.197:3001/levelpacks/packsAvailable";
         sendRequest(url, null, "GET");
-        levelPacksAvailable = waitForResponse();
+        String response = waitForResponse();
+        if(response != null){
+            levelPacksAvailable = response;
+            parent.prefs.putString("com.araceinspace.levelPacksAvailable", levelPacksAvailable);
+        }
+
         System.out.println("levelPacksAvailable: " + levelPacksAvailable);
     }
 

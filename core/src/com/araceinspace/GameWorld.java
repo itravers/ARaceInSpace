@@ -80,7 +80,7 @@ public class GameWorld {
     /* Public Methods */
 
     public void initializeManagers(){
-        httpManager = new HttpManager();
+        httpManager = new HttpManager(this);
         contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
         setupPhysics();
         inputManager = new InputManager(this);
