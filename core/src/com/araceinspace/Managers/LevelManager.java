@@ -181,7 +181,7 @@ public class LevelManager {
     private FileHandle getLevelFile(int lvl){
         //first we need to parse the lvl number to a
         //level pack - level
-        int levelPack = lvl / levelPerPack;//need to get this number from variable
+        int levelPack = (lvl-1) / levelPerPack;//need to get this number from variable
         FileHandle fileHandle = null;
         String fileName = "levels/"+levelPack+"/level"+lvl+".json";
         if(Gdx.files.classpath(fileName).exists()){
