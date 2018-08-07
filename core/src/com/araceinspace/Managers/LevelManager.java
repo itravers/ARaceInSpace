@@ -503,4 +503,21 @@ public class LevelManager {
         }
         return subtitles;
     }
+
+    /**
+     * Checks the player preferences to see if the given level pack is unlocked
+     * @param levelPack
+     * @return
+     */
+    public boolean isLevelPackUnlocked(int levelPack){
+        boolean returnVal = true;
+        //The first level pack is always unlocked
+        if(levelPack == 0){
+            returnVal = true;
+        }else{
+            //check prefs to see if this levelPack is unlocked
+            returnVal = parent.prefs.getBoolean("com.araceinspace.levelPackUnlocked."+levelPack);
+        }
+        return returnVal;
+    }
 }

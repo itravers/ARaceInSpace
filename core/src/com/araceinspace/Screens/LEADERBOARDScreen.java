@@ -1,6 +1,7 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
+import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
@@ -40,7 +41,8 @@ public class LEADERBOARDScreen extends Screen{
     ClickListener backButtonListener;
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
-    ClickListener nextButtonListener;
+    ClickListener nextLevelsButtonListener;
+    ClickListener previousLevelsButtonListener;
     ClickListener continueButtonListener;
     ClickListener challengeListener;
 
@@ -49,7 +51,7 @@ public class LEADERBOARDScreen extends Screen{
     ImageButton starBronze;
     ImageButton starSilver;
     ImageButton starGold;
-    ImageButton buyLevelsButton;
+    ImageButton nextLevelButton;
 
     JsonValue leaderBoardLevels;
 
@@ -85,7 +87,7 @@ public class LEADERBOARDScreen extends Screen{
         JsonValue jsonValue;
 
         if(jsonFromServer == null){//the server is offline, read from generic leaderboards file
-            jsonValue = json.parse(Gdx.files.internal("levels/0/LeaderBoard.json"));
+            jsonValue = json.parse(Gdx.files.internal("levels/"+parent.parent.levelManager.currentLevelPack+"/LeaderBoard.json"));
             leaderBoardLevels = jsonValue.get("levels");
 
         }else{
@@ -135,10 +137,19 @@ public class LEADERBOARDScreen extends Screen{
             }
 
         };
-        nextButtonListener = new ClickListener(){
+        nextLevelsButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                parent.parent.devMode = ! parent.parent.devMode;
+                parent.parent.levelManager.currentLevelPack++; //this doesn't work because we set currentLevelPack based on current level at top of file
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEADERBOARDS);
+            }
+
+        };
+        previousLevelsButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.currentLevelPack--; //this doesn't work because we set currentLevelPack based on current level at top of file
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEADERBOARDS);
             }
 
         };
@@ -419,20 +430,38 @@ public class LEADERBOARDScreen extends Screen{
 
         ImageButton previousLevelButton = new ImageButton(skin, "previousLevelButton");
         previousLevelButton.setWidth(width*.10f);
+        previousLevelButton.addListener(previousLevelsButtonListener);
         //nextLevelButton.rotateBy(180);
 
-        buyLevelsButton = new ImageButton(skin, "nextLevelButton");
-        buyLevelsButton.setWidth(width*.10f);
-        buyLevelsButton.addListener(nextButtonListener);
+        nextLevelButton = new ImageButton(skin, "nextLevelButton");
+        nextLevelButton.setWidth(width*.10f);
+        nextLevelButton.addListener(nextLevelsButtonListener);
 
-        previousLevelButton.setVisible(false);
-        buyLevelsButton.setVisible(false);
+        //Previous level button should not be visible for first level pack
+        if(parent.parent.levelManager.currentLevelPack == 0){
+            previousLevelButton.setVisible(false);
+        }else{
+            previousLevelButton.setVisible(true);
+        }
 
 
 
         bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
-        bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+        //If the next level is unlocked we want to display the next button, otherwise display buyLevelsButton
+
+        LevelManager lm = parent.parent.levelManager;
+        lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
+
+        //check if the next level pack even exists, if it doesn't, we don't want to display buyLevelsButton
+        if(parent.parent.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
+            nextLevelButton.setVisible(true);
+        }else{
+            nextLevelButton.setVisible(false);
+        }
+
+        bodyTable.add(nextLevelButton).width(width*.10f).align(Align.right);
+
 
 
         ImageTextButton continueButton = new ImageTextButton("Continue", skin);

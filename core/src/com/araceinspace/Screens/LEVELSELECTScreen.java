@@ -79,7 +79,7 @@ public class LEVELSELECTScreen extends Screen{
     public void setup() {
         lm = parent.parent.levelManager;
         //decide what the current level pack is by what level the player last played
-        lm.nextLevelPackUnlocked = isLevelPackUnlocked(lm.currentLevelPack+1);
+        lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
         System.out.println("Settingup LevelSelectScreen");
 
         stage = new Stage(viewport, batch);
@@ -614,7 +614,7 @@ public class LEVELSELECTScreen extends Screen{
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
 
         //If the next level is unlocked we want to display the next button, otherwise display buyLevelsButton
-        lm.nextLevelPackUnlocked = isLevelPackUnlocked(lm.currentLevelPack+1);
+        lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
         if(lm.nextLevelPackUnlocked){
             buyLevelsButton.setVisible(false);
             nextLevelsButton.setVisible(true);
@@ -637,22 +637,5 @@ public class LEVELSELECTScreen extends Screen{
         stage.addActor(table);
 
         stageLoaded = true;
-    }
-
-    /**
-     * Checks the player preferences to see if the given level pack is unlocked
-     * @param levelPack
-     * @return
-     */
-    private boolean isLevelPackUnlocked(int levelPack){
-        boolean returnVal = true;
-        //The first level pack is always unlocked
-        if(levelPack == 0){
-            returnVal = true;
-        }else{
-            //check prefs to see if this levelPack is unlocked
-            returnVal = parent.parent.prefs.getBoolean("com.araceinspace.levelPackUnlocked."+levelPack);
-        }
-        return returnVal;
     }
 }
