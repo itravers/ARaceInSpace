@@ -85,12 +85,12 @@ public class LEADERBOARDScreen extends Screen{
         JsonValue jsonValue;
 
         if(jsonFromServer == null){//the server is offline, read from generic leaderboards file
-            jsonValue = json.parse(Gdx.files.internal("levels/LeaderBoard.json"));
+            jsonValue = json.parse(Gdx.files.internal("levels/0/LeaderBoard.json"));
             leaderBoardLevels = jsonValue.get("levels");
 
         }else{
             jsonValue = json.parse(jsonFromServer);
-            leaderBoardLevels = jsonValue.get(0).get("levels");
+            leaderBoardLevels = jsonValue.get("levels");
         }
 
 
