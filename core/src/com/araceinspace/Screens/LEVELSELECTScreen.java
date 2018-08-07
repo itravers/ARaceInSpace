@@ -419,6 +419,9 @@ public class LEVELSELECTScreen extends Screen{
         }
         levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+1);
         Stack buttonStack = makeButtonStack(butWidth, butHeight, levelString, "Leaderboard Champ", leaderBoardChamps.get(0));
+        SnapshotArray<Actor> actors;
+
+        /* we don't want the first level of any pack to be unclickable
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
             SnapshotArray<Actor> actors = buttonStack.getChildren();
@@ -426,6 +429,7 @@ public class LEVELSELECTScreen extends Screen{
                 actors.get(i).getColor().a = .2f;
             }
         }
+        */
 
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
@@ -435,7 +439,7 @@ public class LEVELSELECTScreen extends Screen{
         buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(1));
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -452,7 +456,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -465,7 +469,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -480,7 +484,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -493,7 +497,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -508,7 +512,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -521,7 +525,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -536,7 +540,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -549,7 +553,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -564,7 +568,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -577,7 +581,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
