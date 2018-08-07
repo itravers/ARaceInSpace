@@ -68,6 +68,10 @@
     "extraInfo": "flying"
   },
   {
+    "type": "style",
+    "extraInfo": "level4"
+  },
+  {
     "type": "subtitle",
     "extraInfo": "Start Out In Middle of 4 Moons-Navigate Between Top & Right Planet-Land On Goal Planet"
   }

@@ -6,7 +6,10 @@ import com.araceinspace.misc.CustomDialog;
 import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.RandomString;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,7 +20,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
@@ -200,9 +205,16 @@ public class DialogManager {
         levelIntroDialog.getButtonTable().setDebug(parent.devMode);
 
         levelIntroDialog.align(Align.center);
-        String buttonStyle = parent.levelManager.getIntroStyleByLevel();
+        String buttonStyle = "level1";//parent.levelManager.getIntroStyleByLevel();
         System.out.println("buttonSytle:" + buttonStyle+":");
         ImageButton introButton = new ImageButton(skin, buttonStyle);
+        if(Gdx.files.internal("levels/"+parent.levelManager.currentLevelPack+"/level"+parent.levelManager.getCurrentLevel()+"intro.png").exists()){
+            Texture texture1 = new Texture(Gdx.files.internal("levels/"+parent.levelManager.currentLevelPack+"/level"+parent.levelManager.getCurrentLevel()+"intro.png"));
+            TextureRegion tr = new TextureRegion(texture1);
+            TextureRegionDrawable trd = new TextureRegionDrawable(tr);
+            introButton.getStyle().imageUp = trd;
+        }
+
         ImageTextButton playButton = new ImageTextButton("PLAY", skin);
         ImageTextButton backButton = new ImageTextButton("BACK", skin);
         ClickListener playButtonListener = new ClickListener(){
@@ -222,6 +234,7 @@ public class DialogManager {
         playButton.addListener(playButtonListener);
         backButton.addListener(backButtonListener);
         levelIntroDialog.getContentTable().add(introButton).expandX();
+        //levelIntroDialog.getContentTable().add(introButton).expandX();
         levelIntroDialog.getContentTable().row();
         levelIntroDialog.getContentTable().add(playButton);
         levelIntroDialog.getContentTable().row();

@@ -856,10 +856,10 @@ public class PREGAMEScreen extends Screen{
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
         int currentLevel = parent.parent.levelManager.getCurrentLevel();
-        String fileName = "ghosts/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-" + challengeString + "-ghost.json";
+        String fileName = "levels/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-" + challengeString + "-ghost.json";
         boolean exists = Gdx.files.internal(fileName).exists();
         if(!exists){
-            fileName = "ghosts/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-default-ghost.json";
+            fileName = "levels/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-default-ghost.json";
             exists = Gdx.files.internal(fileName).exists();
             if(!exists){
                 System.out.println("No ghost for " + fileName + " exists");

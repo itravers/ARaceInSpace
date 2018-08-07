@@ -118,7 +118,7 @@ public class LevelManager {
         }else{
 
             levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
-            String fileName = "ghosts/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+            String fileName = "levels/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
             boolean exists = Gdx.files.internal(fileName).exists();
             if(!exists){
                 System.out.println("File " + fileName + " does not exist, not making ghost.");
@@ -263,12 +263,12 @@ public class LevelManager {
         playerTime = (int)(getPlayer().getPlayTime()*1000);
         if(ghost == null){
             //Save Replay if no ghost exists
-            getPlayer().getInput().saveInputs("ghosts/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+            getPlayer().getInput().saveInputs("levels/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
         }else{
            ghostTime = ghost.playtime;
             if(playerTime < ghostTime){
                 //Save Replay if ghost exists, and playerTime is less than ghost time.
-                //getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+                //getPlayer().getInput().saveInputs("levels/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
                 setChallengeCompleted();
                 parent.setCoins(parent.getCoins() + 5);
                 saveBestTime(playerTime);
@@ -470,20 +470,6 @@ public class LevelManager {
     }
     public void playGame(Skin skin, Stage stage, Viewport viewport){
         parent.dialogManager.setupLevelIntroDialog(parent.levelManager.getCurrentLevel(), skin, stage, viewport);
-    }
-
-    public String getIntroStyleByLevel(){
-        Json json = new Json();
-        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
-        levelStyle = "introtest";
-        //go through all the level items, find the player item and initialze him
-        for(int i = 0; i < levelItems.size(); i++) {
-            SpriteTemplate item = levelItems.get(i);
-            if (item.getType().equals("style")) {
-                levelStyle = item.getExtraInfo();
-            }
-        }
-        return levelStyle;
     }
 
     /**

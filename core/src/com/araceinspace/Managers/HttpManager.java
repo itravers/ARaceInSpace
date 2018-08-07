@@ -313,8 +313,8 @@ public class HttpManager {
                     if(fileName.contains(".swp")){
                         continue; //don't do anything with a swap file
                     }else if(fileName.contains("ghost")){
-                        //this is a ghost file and should be saved under "ghosts/levelpack/filename
-                        file = Gdx.files.local("ghosts/"+levelPackToBuy+"/"+fileName);
+                        //this is a ghost file and should be saved under "levels/levelpack/filename
+                        file = Gdx.files.local("levels/"+levelPackToBuy+"/"+fileName);
                     }else{
                         //this is a level file and should be saved under "levels/levelpack/filename
                        file = Gdx.files.local("levels/"+levelPackToBuy+"/"+fileName);
