@@ -4,9 +4,9 @@
     "atlas": "Planet 01",
     "xLoc": 0,
     "yLoc": 0,
-    "mass": 1000000,
+    "mass": 2200000,
     "size": 4000,
-    "gravityRadius": 6000,
+    "gravityRadius": 8000,
     "extraInfo": ""
   },
   {
@@ -22,9 +22,13 @@
     "type": "player",
     "atlas": "shipAtlas",
     "xLoc": 0,
-    "yLoc": 2500,
+    "yLoc": 2900,
     "mass": 0,
     "size": 0,
     "extraInfo": "flying"
+  },
+  {
+    "type": "subtitle",
+    "extraInfo": "Land On The Planet-Watch Out For-EXTREME GRAVITY"
   }
 ]

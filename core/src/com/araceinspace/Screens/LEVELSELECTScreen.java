@@ -1,6 +1,7 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
+import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Isaac Assegai on 7/17/17.
- * Lets the user choose which level to play
+ * This is the screen when the player chooses his level
  */
 public class LEVELSELECTScreen extends Screen{
 
@@ -36,6 +37,9 @@ public class LEVELSELECTScreen extends Screen{
     ClickListener backButtonListener;
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
+    ClickListener nextLevelListener;
+    ClickListener previousLevelListener;
+    ClickListener buyLevelsListener;
 
     boolean stageLoaded;
 
@@ -43,10 +47,19 @@ public class LEVELSELECTScreen extends Screen{
     ImageButton starSilver;
     ImageButton starGold;
     ImageButton buyLevelsButton;
+    ImageButton nextLevelsButton;
 
     public Label taunt2;
 
 
+    //Reference to Level Manager
+    LevelManager lm;
+
+
+    /**
+     * Constructor
+     * @param parent The RenderManager that will contain this screen
+     */
     public LEVELSELECTScreen(RenderManager parent) {
         super(parent);
     }
@@ -55,7 +68,6 @@ public class LEVELSELECTScreen extends Screen{
     public void dispose() {
         stage.dispose();
         batch.dispose();
-       // skin.dispose();
     }
 
     @Override
@@ -65,35 +77,29 @@ public class LEVELSELECTScreen extends Screen{
 
     @Override
     public void setup() {
+        lm = parent.parent.levelManager;
+        //decide what the current level pack is by what level the player last played
+        lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
         System.out.println("Settingup LevelSelectScreen");
 
         stage = new Stage(viewport, batch);
-        // updateOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //System.out.println("Button Clicked: " + event);
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
             }
-
         };
 
         //back button shouldn't do anything on level select screen
         backButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
             }
-
         };
 
         rewardAdButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
                 monetizationController.loadRewardAd();
                 monetizationController.showRewardAd();
             }
@@ -107,27 +113,54 @@ public class LEVELSELECTScreen extends Screen{
             }
 
         };
-       // TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-        //skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
+
+        //Check if the next Level Button has been pressed
+        nextLevelListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                lm.currentLevelPack++; //this doesn't work because we set currentLevelPack based on current level at top of file
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+            }
+        };
+
+        previousLevelListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                lm.currentLevelPack--; //this doesn't work because we set currentLevelPack based on current level at top of file
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+            }
+        };
+
+        //called when the buy levels button is pressed
+        buyLevelsListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                System.out.println("Buying level pack: " + (lm.currentLevelPack+1));
+                parent.parent.dialogManager.coinsToSpend = 15;
+                parent.parent.dialogManager.levelPackToBuy = lm.currentLevelPack+1;
+                parent.parent.dialogManager.setupPurchaseDialog(skin, stage, parent.getCurrentScreen());
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("To Unlock A New Level Pack?");
+                parent.parent.dialogManager.purchaseDialog.show(stage);
+            }
+        };
+
         skin = parent.parent.resourceManager.getSkin();
 
-        //BitmapFont font = skin.getFont("default-font");
-        //font.getData().setScale(.13f, .66f);
         spacer = 25;
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
         if(parent.parent.playerName == null){
             parent.parent.dialogManager.nameDialog.show(stage);
-            //now the name in the gui needs to be updated, otherwise it will show null
-            //taunt2.setText(parent.p.playerName+"!!!");
 
         }
         monetizationController.showBannerAd();
     }
 
-
-
-
+    /**
+     * Renders the screen
+     * @param elapsedTime The time passed since last render
+     */
     @Override
     public void render(float elapsedTime) {
         xCoords++;
@@ -140,20 +173,23 @@ public class LEVELSELECTScreen extends Screen{
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
     }
 
 
-
+    /**
+     * Creates a level select button
+     * @param width
+     * @param height
+     * @param title
+     * @param s_taunt1
+     * @param s_taunt2
+     * @return
+     */
     private Stack makeButtonStack(float width, float height, String title, String s_taunt1, String s_taunt2){
         height = height - spacer/4;
         boolean devMode = parent.parent.devMode;
-        //create buttons to buy iap
-        // final Button storeTestButton = new Button(skin, "white");
-        //storeTestButton.setColor(Color.WHITE);
         ImageButton levelButton = new ImageButton(skin, "storeButton");
         levelButton.setName(title);
-        //levelButton.setWidth(viewport.getScreenWidth()/2);
         levelButton.addListener(parent.parent.inputManager);
 
         Table buttonTable = new Table();
@@ -167,7 +203,6 @@ public class LEVELSELECTScreen extends Screen{
         style.font = parent.parent.resourceManager.Font24;
         titleLabel.setStyle(style);
         titleLabel.setTouchable(Touchable.disabled);
-        //titleLabel.setFontScale(.7f); //WORKS for rizing font, but we also change table container
 
         ImageButton button_image;
 
@@ -197,10 +232,6 @@ public class LEVELSELECTScreen extends Screen{
         }
         starGold.setTouchable(Touchable.disabled);
 
-        /*starBronze.setSize(width, width);
-        starSilver.setSize(width/5, width/5);
-        starGold.setSize(width, width);*/
-
         starBronze.getImage().getDrawable().setMinWidth(width/5);
         starBronze.getImage().getDrawable().setMinHeight(width/5);
 
@@ -225,7 +256,6 @@ public class LEVELSELECTScreen extends Screen{
         taunt1.setStyle(style);
         taunt1.setTouchable(Touchable.disabled);
         taunt1.setFontScale(.7f);
-        //taunt1.setFontScale(Gdx.graphics.getDensity());
 
         Label taunt2 = new Label(s_taunt2, skin, "error");
         if(s_taunt2.equals(parent.parent.playerName)) taunt2.setColor(new Color(.275f, .65f, .12f, 1f));
@@ -260,26 +290,24 @@ public class LEVELSELECTScreen extends Screen{
 
         purchaseTable.add(purchaseBodyTable);
 
-
         Stack buttonStack;
-
         buttonStack = new Stack();
         buttonStack.add(buttonTable);
         buttonStack.add(purchaseTable);
         return buttonStack;
     }
 
-
-
+    /**
+     * Sets up the level select screen in a portrait orientation
+     * @param width
+     * @param height
+     */
     public void setupPortraitGUI(float width, float height){
         boolean devMode = parent.parent.devMode;
         stageLoaded = false;
         float butWidth = width/2.6f;
         float butHeight = height/4.5f;
 
-
-        //System.out.println("setup portrait    stage w:h " + width + ":" + height);
-        // System.out.println("setup portrait viewport w:h " + viewport.getScreenWidth() + ":" + viewport.getScreenHeight());
         Table storeTable;
 
         //scene2d.ui items
@@ -302,7 +330,6 @@ public class LEVELSELECTScreen extends Screen{
         table.align(Align.center|Align.top);
         table.setPosition(0, height);
 
-
         backButton = new ImageButton(skin, "backButton");
         backButton.setDebug(devMode);
         backButton.addListener(backButtonListener);
@@ -315,12 +342,10 @@ public class LEVELSELECTScreen extends Screen{
         rewardButton.setDebug(devMode);
         rewardButton.addListener(rewardAdButtonListener);
 
-        //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel = new Label("Choose", skin, "optional");
         Label.LabelStyle style = storeTitleLabel.getStyle();
         style.font = parent.parent.resourceManager.Font48;
         storeTitleLabel.setStyle(style);
-        //storeTitleLabel.getStyle().font = bigFont;
         storeTitleLabel.setDebug(devMode);
 
         String coins = Integer.toString(parent.parent.getCoins());
@@ -340,7 +365,6 @@ public class LEVELSELECTScreen extends Screen{
         headerTable.add(backButton).padLeft(spacer/4).padTop(0).size(width/8, height/10);
         headerTable.add(menuButton).padLeft(spacer/4).padTop(0).align(Align.left).size(width/8, height/10);
         headerTable.add(storeTitleLabel).expandX().align(Align.left).size(width/3.5f, height/12);
-
 
         headerTable.add(coinLabel).size(width/6, height/12).align(Align.right);
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
@@ -370,8 +394,6 @@ public class LEVELSELECTScreen extends Screen{
 
         extraTable.add(extraTable2).fill().expandX();
 
-
-
         table.add(headerTable).fill().expandX();
         table.row();
         table.add(extraTable).fill().expandX();
@@ -387,72 +409,67 @@ public class LEVELSELECTScreen extends Screen{
         storeTable = new Table();
         storeTable.setDebug(devMode);
         storeTable.align(Align.top|Align.center);
-        ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders();
+        ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders(lm.currentLevelPack);
 
-        Stack buttonStack = makeButtonStack(butWidth, butHeight, "Level 1", "Leaderboard Champ", leaderBoardChamps.get(0));
+        String levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+0);
+
         boolean levelBeaten = false;
+        if(lm.currentLevelPack == 0 || parent.parent.levelManager.getLevelStars(levelString).get(0)){
+            levelBeaten = true;
+        }
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+1);
+        Stack buttonStack = makeButtonStack(butWidth, butHeight, levelString, "Leaderboard Champ", leaderBoardChamps.get(0));
+        SnapshotArray<Actor> actors;
+
+        /* we don't want the first level of any pack to be unclickable
+        if(!levelBeaten){
+            buttonStack.setTouchable(Touchable.disabled);
+            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            for(int i = 0; i < actors.size; i++){
+                actors.get(i).getColor().a = .2f;
+            }
+        }
+        */
 
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 2",  "Leaderboard Champ", leaderBoardChamps.get(1));
         //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 1").get(0);
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+2);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(1));
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
         }
+
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 3",  "Leaderboard Champ", leaderBoardChamps.get(2));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 2").get(0);
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+3);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(2));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
         }
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 4",  "Leaderboard Champ", leaderBoardChamps.get(3));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 3").get(0);
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+4);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(3));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
-            for(int i = 0; i < actors.size; i++){
-                actors.get(i).getColor().a = .2f;
-            }
-        }
-
-        storeTable.row();
-
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 5",  "Leaderboard Champ", leaderBoardChamps.get(4));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-        //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 4").get(0);
-        if(!levelBeaten){
-            buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
-            for(int i = 0; i < actors.size; i++){
-                actors.get(i).getColor().a = .2f;
-            }
-        }
-
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 6",  "Leaderboard Champ", leaderBoardChamps.get(5));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-        //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 5").get(0);
-        if(!levelBeaten){
-            buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -460,25 +477,55 @@ public class LEVELSELECTScreen extends Screen{
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 7",  "Leaderboard Champ", leaderBoardChamps.get(6));
+        //check if previous level's bronze star has been beaten, if not, gray this one out
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+5);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(4));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+        if(!levelBeaten){
+            buttonStack.setTouchable(Touchable.disabled);
+            actors = buttonStack.getChildren();
+            for(int i = 0; i < actors.size; i++){
+                actors.get(i).getColor().a = .2f;
+            }
+        }
+
+        //check if previous level's bronze star has been beaten, if not, gray this one out
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+6);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(5));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
+        if(!levelBeaten){
+            buttonStack.setTouchable(Touchable.disabled);
+            actors = buttonStack.getChildren();
+            for(int i = 0; i < actors.size; i++){
+                actors.get(i).getColor().a = .2f;
+            }
+        }
+
+        storeTable.row();
+
+        //check if previous level's bronze star has been beaten, if not, gray this one out
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+7);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(6));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-        //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 6").get(0);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
         }
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 8",  "Leaderboard Champ", leaderBoardChamps.get(7));
+        //check if previous level's bronze star has been beaten, if not, gray this one out
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+8);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(7));
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
-        //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 7").get(0);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -486,25 +533,27 @@ public class LEVELSELECTScreen extends Screen{
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 9",  "Leaderboard Champ", leaderBoardChamps.get(8));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 8").get(0);
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+9);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(8));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
         }
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 10",  "Leaderboard Champ", leaderBoardChamps.get(9));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 9").get(0);
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+10);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString,  "Leaderboard Champ", leaderBoardChamps.get(9));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -512,25 +561,27 @@ public class LEVELSELECTScreen extends Screen{
 
         storeTable.row();
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 11", "Leaderboard Champ", leaderBoardChamps.get(10));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 10").get(0);
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+11);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString, "Leaderboard Champ", leaderBoardChamps.get(10));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
         }
 
-        buttonStack = makeButtonStack(butWidth, butHeight, "Level 12", "Leaderboard Champ", leaderBoardChamps.get(11));
-        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         //check if previous level's bronze star has been beaten, if not, gray this one out
-        levelBeaten = parent.parent.levelManager.getLevelStars("Level 11").get(0);
+        levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
+        levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+12);
+        buttonStack = makeButtonStack(butWidth, butHeight, levelString, "Leaderboard Champ", leaderBoardChamps.get(11));
+        storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
         if(!levelBeaten){
             buttonStack.setTouchable(Touchable.disabled);
-            SnapshotArray<Actor> actors = buttonStack.getChildren();
+            actors = buttonStack.getChildren();
             for(int i = 0; i < actors.size; i++){
                 actors.get(i).getColor().a = .2f;
             }
@@ -540,24 +591,51 @@ public class LEVELSELECTScreen extends Screen{
 
         ImageButton previousLevelButton = new ImageButton(skin, "previousLevelButton");
         previousLevelButton.setWidth(width*.10f);
-        //nextLevelButton.rotateBy(180);
+        previousLevelButton.addListener(previousLevelListener);
 
         buyLevelsButton = new ImageButton(skin, "buyLevelsButton");
         buyLevelsButton.setWidth(width*.10f);
+        buyLevelsButton.addListener(buyLevelsListener);
 
+        nextLevelsButton = new ImageButton(skin, "nextLevelButton");
+        nextLevelsButton.setWidth(width*.10f);
 
-        previousLevelButton.setVisible(false);
-        buyLevelsButton.setVisible(false);
+        nextLevelsButton.addListener(nextLevelListener);
+
+        //Previous level button should not be visible for first level pack
+        if(lm.currentLevelPack == 0){
+            previousLevelButton.setVisible(false);
+        }else{
+            previousLevelButton.setVisible(true);
+        }
+
 
         bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
-        bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+
+        //If the next level is unlocked we want to display the next button, otherwise display buyLevelsButton
+        lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
+        if(lm.nextLevelPackUnlocked){
+            buyLevelsButton.setVisible(false);
+            nextLevelsButton.setVisible(true);
+            bodyTable.add(nextLevelsButton).width(width*.10f).align(Align.right);
+        }else{
+            //check if the next level pack even exists, if it doesn't, we don't want to display buyLevelsButton
+            if(parent.parent.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
+                buyLevelsButton.setVisible(true);
+            }else{
+                buyLevelsButton.setVisible(false);
+            }
+            nextLevelsButton.setVisible(false);
+            bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+        }
+
+
+
 
         table.add(bodyTable).fill().expandX();
         stage.addActor(table);
 
         stageLoaded = true;
     }
-
-
 }

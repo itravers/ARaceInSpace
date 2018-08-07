@@ -147,9 +147,9 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.first;
-                parent.coinsToSpend = 10;
+                parent.parent.dialogManager.coinsToSpend = 10;
                 ghostName = data.get(0).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for First Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
                 parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
@@ -159,9 +159,9 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.second;
-                parent.coinsToSpend = 9;
+                parent.parent.dialogManager.coinsToSpend = 9;
                 ghostName = data.get(1).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for Second Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
                 parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
@@ -172,9 +172,9 @@ public class PREGAMEScreen extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 parent.placeClicked = RenderManager.PLACES.third;
-                parent.coinsToSpend = 8;
+                parent.parent.dialogManager.coinsToSpend = 8;
                 ghostName = data.get(2).get("name").asString();
-                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.addSubtitle("To Challenge "+ghostName+" for Third Place");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
                 parent.parent.dialogManager.setupPurchaseDialog(skin, stage, me);
@@ -343,7 +343,7 @@ public class PREGAMEScreen extends Screen{
     }
 
     public void setupPortraitGUI(float width, float height){
-        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer();
+        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer(parent.parent.levelManager.currentLevelPack);
         JsonValue jsonValue;
         JsonValue leaderBoardLevels;
         JsonReader json = new JsonReader();
@@ -354,10 +354,12 @@ public class PREGAMEScreen extends Screen{
 
         }else{
             jsonValue = json.parse(jsonFromServer);
-            leaderBoardLevels = jsonValue.get(0).get("levels");
+            leaderBoardLevels = jsonValue.get("levels");
         }
 
-        JsonValue jlevel = leaderBoardLevels.get(parent.parent.levelManager.getCurrentLevel()-1);
+        int levelToGet = parent.parent.levelManager.getCurrentLevel()-1;
+        levelToGet = levelToGet % parent.parent.levelManager.levelPerPack;
+        JsonValue jlevel = leaderBoardLevels.get(levelToGet);
         String levelName = jlevel.get("name").asString();
         data = jlevel.get("data");
 
@@ -854,10 +856,10 @@ public class PREGAMEScreen extends Screen{
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
         int currentLevel = parent.parent.levelManager.getCurrentLevel();
-        String fileName = "ghosts/level"+currentLevel + "-" + challengeString + "-ghost.json";
+        String fileName = "levels/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-" + challengeString + "-ghost.json";
         boolean exists = Gdx.files.internal(fileName).exists();
         if(!exists){
-            fileName = "ghosts/level"+currentLevel + "-default-ghost.json";
+            fileName = "levels/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-default-ghost.json";
             exists = Gdx.files.internal(fileName).exists();
             if(!exists){
                 System.out.println("No ghost for " + fileName + " exists");

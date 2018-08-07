@@ -1,0 +1,48 @@
+[
+  {
+    "type": "planet",
+    "atlas": "Moon",
+    "xLoc": 0,
+    "yLoc": 0,
+    "mass": 500000,
+    "size": 2000,
+    "gravityRadius": 3000,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Planet 02",
+    "xLoc": 0,
+    "yLoc": 2500,
+    "mass": 500000,
+    "size": 1000,
+    "gravityRadius": 2000,
+    "extraInfo": ""
+  },
+  {
+    "type": "goal",
+    "atlas": "",
+    "xLoc": 0,
+    "yLoc": 0,
+    "mass": 0,
+    "size": 0,
+    "extraInfo": "1"
+  },
+  {
+    "type": "player",
+    "atlas": "shipAtlas",
+    "xLoc": 0,
+    "yLoc": 1000,
+    "mass": 0,
+    "size": 0,
+    "extraInfo": ""
+  },
+  {
+    "type": "style",
+    "extraInfo": "level1"
+  },
+  {
+    "type": "subtitle",
+    "extraInfo": "Take Off From Moon-Turn Around-Land On Planet"
+  }
+]

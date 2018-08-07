@@ -1,15 +1,15 @@
 package com.araceinspace.Managers;
 
 import com.araceinspace.GameWorld;
-import com.araceinspace.Screens.LEADERBOARDScreen;
-import com.araceinspace.Screens.LEVELSELECTScreen;
-import com.araceinspace.Screens.SCOREScreen;
-import com.araceinspace.Screens.Screen;
+import com.araceinspace.Screens.*;
 import com.araceinspace.misc.CustomDialog;
 import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.RandomString;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,7 +20,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
@@ -44,6 +46,10 @@ public class DialogManager {
     BitmapFont titleFont;
     static BitmapFont queryFont;
 
+    //Keep track of items used by dialog manager
+    public int coinsToSpend;
+    public int levelPackToBuy;
+
     /* Constructor */
     public DialogManager(GameWorld p){
         parent = p;
@@ -66,25 +72,29 @@ public class DialogManager {
                     dialogQuestion = false;
                 }
                 if (dialogQuestion) {
-                    if (parent.getCoins() >= parent.renderManager.coinsToSpend) {
+                    if (parent.getCoins() >= coinsToSpend) {
                         if(screen instanceof SCOREScreen){
                             parent.levelManager.setLevel(parent.levelManager.getCurrentLevel());
                         }else if(screen instanceof LEADERBOARDScreen){
                             parent.levelManager.setLevel(LEADERBOARDScreen.levelClicked);//set in leaderboard screen
+                        }else if(screen instanceof LEVELSELECTScreen){
+                            buyLevelPack(levelPackToBuy);
+                        }else if(screen instanceof PREGAMEScreen){
+                            if (parent.renderManager.placeClicked == RenderManager.PLACES.first) {
+                                parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
+                            } else if (parent.renderManager.placeClicked == RenderManager.PLACES.second) {
+                                parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
+                            } else if (parent.renderManager.placeClicked == RenderManager.PLACES.third) {
+                                parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
+                            } else{
+                                parent.levelManager.setChallenge(parent.levelManager.getCurrentChallenge());
+                            }
+                            parent.setCoins(parent.getCoins() - coinsToSpend);
+
+                            parent.levelManager.playGame(skin, stage, stage.getViewport());
                         }
 
-                        if (parent.renderManager.placeClicked == RenderManager.PLACES.first) {
-                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.first);
-                        } else if (parent.renderManager.placeClicked == RenderManager.PLACES.second) {
-                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.second);
-                        } else if (parent.renderManager.placeClicked == RenderManager.PLACES.third) {
-                            parent.levelManager.setChallenge(LevelManager.CHALLENGES.third);
-                        } else{
-                            parent.levelManager.setChallenge(parent.levelManager.getCurrentChallenge());
-                        }
-                        parent.setCoins(parent.getCoins() - parent.renderManager.coinsToSpend);
 
-                        parent.levelManager.playGame(skin, stage, stage.getViewport());
                     } else {
                         notEnoughCoinsDialog.show(stage);
                     }
@@ -195,9 +205,16 @@ public class DialogManager {
         levelIntroDialog.getButtonTable().setDebug(parent.devMode);
 
         levelIntroDialog.align(Align.center);
-        String buttonStyle = parent.levelManager.getIntroStyleByLevel();
+        String buttonStyle = "level1";//parent.levelManager.getIntroStyleByLevel();
         System.out.println("buttonSytle:" + buttonStyle+":");
         ImageButton introButton = new ImageButton(skin, buttonStyle);
+        if(Gdx.files.internal("levels/"+parent.levelManager.currentLevelPack+"/level"+parent.levelManager.getCurrentLevel()+"intro.png").exists()){
+            Texture texture1 = new Texture(Gdx.files.internal("levels/"+parent.levelManager.currentLevelPack+"/level"+parent.levelManager.getCurrentLevel()+"intro.png"));
+            TextureRegion tr = new TextureRegion(texture1);
+            TextureRegionDrawable trd = new TextureRegionDrawable(tr);
+            introButton.getStyle().imageUp = trd;
+        }
+
         ImageTextButton playButton = new ImageTextButton("PLAY", skin);
         ImageTextButton backButton = new ImageTextButton("BACK", skin);
         ClickListener playButtonListener = new ClickListener(){
@@ -217,11 +234,39 @@ public class DialogManager {
         playButton.addListener(playButtonListener);
         backButton.addListener(backButtonListener);
         levelIntroDialog.getContentTable().add(introButton).expandX();
+        //levelIntroDialog.getContentTable().add(introButton).expandX();
         levelIntroDialog.getContentTable().row();
         levelIntroDialog.getContentTable().add(playButton);
         levelIntroDialog.getContentTable().row();
         levelIntroDialog.getContentTable().add(backButton);
 
         levelIntroDialog.show(stage);
+    }
+
+    /**
+     * Called when the user try's to buy a new level pack
+     * sets prefs to show the levels are available
+     * downloads the levels from the server
+     * @param levelPackToBuy
+     */
+    private void buyLevelPack(int levelPackToBuy){
+        System.out.println("Looks like user is buying level pack: "+levelPackToBuy);
+        boolean success = downloadLevelPack(levelPackToBuy);
+        if(success){
+            parent.prefs.putBoolean("com.araceinspace.levelPackUnlocked."+levelPackToBuy, true);
+            parent.setCoins(parent.getCoins() - coinsToSpend);
+            parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+        }
+
+    }
+
+    private boolean downloadLevelPack(int levelPackToBuy){
+        boolean success = parent.httpManager.dlLevelPackFromServer(levelPackToBuy);
+        if(success){
+            System.out.println("downloaded level pack: " + levelPackToBuy);
+        }else{
+            System.out.println("error downloading level pack: " + levelPackToBuy);
+        }
+        return success;
     }
 }

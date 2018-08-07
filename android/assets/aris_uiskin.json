@@ -199,20 +199,8 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageUp: star3_up
 		imageDown: star3_down
 	}
-	introtest: {
-		imageUp: testIntro
-	}
 	level1: {
 		imageUp: level1intro
-	}
-	level2: {
-		imageUp: level2intro
-	}
-	level3: {
-		imageUp: level3intro
-	}
-	level4: {
-		imageUp: level4intro
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {

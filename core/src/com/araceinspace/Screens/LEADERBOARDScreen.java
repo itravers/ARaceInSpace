@@ -1,13 +1,13 @@
 package com.araceinspace.Screens;
 
 import com.araceinspace.Managers.GameStateManager;
+import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -40,23 +40,26 @@ public class LEADERBOARDScreen extends Screen{
     ClickListener backButtonListener;
     ClickListener rewardAdButtonListener;
     ClickListener menuButtonListener;
-    ClickListener nextButtonListener;
+    ClickListener nextLevelsButtonListener;
+    ClickListener previousLevelsButtonListener;
     ClickListener continueButtonListener;
     ClickListener challengeListener;
 
     boolean stageLoaded;
-
-    ImageButton starBronze;
-    ImageButton starSilver;
-    ImageButton starGold;
-    ImageButton buyLevelsButton;
-
+    ImageButton nextLevelButton;
     JsonValue leaderBoardLevels;
 
+    /**
+     * Constructor
+     * @param parent
+     */
     public LEADERBOARDScreen(RenderManager parent) {
         super(parent);
     }
 
+    /**
+     * Destructor
+     */
     @Override
     public void dispose() {
         stage.dispose();
@@ -64,45 +67,41 @@ public class LEADERBOARDScreen extends Screen{
       //  skin.dispose();
     }
 
+    /**
+     * leaderboard screen has no background camera
+     * @return
+     */
     @Override
     public OrthCamera getBackgroundCamera() {
         return null;
     }
 
+    /**
+     * Set up the screen to display
+     */
     @Override
     public void setup() {
         System.out.println("Settingup LeaderBoardScreen");
-       //TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("aris_uiskin.atlas"));
-       // skin = new Skin(Gdx.files.internal("aris_uiskin.json"), atlas);
         skin = parent.parent.resourceManager.getSkin();
         stage = new Stage(viewport, batch);
-
         parent.parent.dialogManager.setupInfoDialog(skin, stage, this);
 
-
         JsonReader json = new JsonReader();
-        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer();
+        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer(parent.parent.levelManager.currentLevelPack);
         JsonValue jsonValue;
 
         if(jsonFromServer == null){//the server is offline, read from generic leaderboards file
-            jsonValue = json.parse(Gdx.files.internal("levels/LeaderBoard.json"));
+            jsonValue = json.parse(Gdx.files.internal("levels/0/LeaderBoard.json"));
             leaderBoardLevels = jsonValue.get("levels");
 
         }else{
             jsonValue = json.parse(jsonFromServer);
-            leaderBoardLevels = jsonValue.get(0).get("levels");
+            leaderBoardLevels = jsonValue.get("levels");
         }
 
-
-       // System.out.println(jsonValue);
-
-
-        // updateOrientation(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         coinButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //System.out.println("Button Clicked: " + event);
                 parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.STORE);
             }
 
@@ -111,7 +110,6 @@ public class LEADERBOARDScreen extends Screen{
         backButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
                 parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
             }
 
@@ -120,8 +118,6 @@ public class LEADERBOARDScreen extends Screen{
         rewardAdButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                // resize(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-                //parent.parent.gameStateManager.setCurrentState(parent.parent.gameStateManager.popState());
                 monetizationController.loadRewardAd();
                 monetizationController.showRewardAd();
             }
@@ -135,10 +131,19 @@ public class LEADERBOARDScreen extends Screen{
             }
 
         };
-        nextButtonListener = new ClickListener(){
+        nextLevelsButtonListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                parent.parent.devMode = ! parent.parent.devMode;
+                parent.parent.levelManager.currentLevelPack++; //this doesn't work because we set currentLevelPack based on current level at top of file
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEADERBOARDS);
+            }
+
+        };
+        previousLevelsButtonListener = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                parent.parent.levelManager.currentLevelPack--; //this doesn't work because we set currentLevelPack based on current level at top of file
+                parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEADERBOARDS);
             }
 
         };
@@ -156,9 +161,9 @@ public class LEADERBOARDScreen extends Screen{
                 buttonName = buttonName.replace("Level ", "");
                 int level = Integer.parseInt(buttonName);
                 levelClicked = level;
-                parent.coinsToSpend = 10;
+                parent.parent.dialogManager.coinsToSpend = 10;
                 parent.placeClicked = RenderManager.PLACES.first;
-                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.coinsToSpend + " coins?");
+                parent.parent.dialogManager.purchaseDialog.getTitleLabel().setText("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
 
@@ -176,9 +181,10 @@ public class LEADERBOARDScreen extends Screen{
         monetizationController.showBannerAd();
     }
 
-
-
-
+    /**
+     * Renders the leaderboards to the screen
+     * @param elapsedTime
+     */
     @Override
     public void render(float elapsedTime) {
         xCoords++;
@@ -193,17 +199,17 @@ public class LEADERBOARDScreen extends Screen{
         stage.draw();
     }
 
+    /**
+     * Setup the the gui in portrait mode
+     * @param width
+     * @param height
+     */
     public void setupPortraitGUI(float width, float height){
         boolean devMode = parent.parent.devMode;
         stageLoaded = false;
-        float butWidth = width/2.6f;
-        float butHeight = height/4.5f;
 
-
-        //System.out.println("setup portrait    stage w:h " + width + ":" + height);
         Table storeTable;
 
-        //scene2d.ui items
         Table table;
         Table headerTable;
         Table bodyTable;
@@ -224,7 +230,6 @@ public class LEADERBOARDScreen extends Screen{
         table.align(Align.center|Align.top);
         table.setPosition(0, height);
 
-
         backButton = new ImageButton(skin, "backButton");
         backButton.setDebug(devMode);
         backButton.addListener(backButtonListener);
@@ -237,7 +242,6 @@ public class LEADERBOARDScreen extends Screen{
         rewardButton.setDebug(devMode);
         rewardButton.addListener(rewardAdButtonListener);
 
-        //System.out.println("density: portrait, " + Gdx.graphics.getDensity());
         storeTitleLabel1 = new Label("LEADER", skin, "optional");
         Label.LabelStyle style = storeTitleLabel1.getStyle();
         style.font = parent.parent.resourceManager.Font36;
@@ -274,12 +278,10 @@ public class LEADERBOARDScreen extends Screen{
         headerTable.add(menuButton).padLeft(spacer/4).padTop(0).align(Align.left).size(width/8, height/10);
         headerTable.add(titleTable).expandX().align(Align.left).size(width/3.5f, height/12);
 
-
         headerTable.add(coinLabel).size(width/6, height/12).align(Align.right);
         headerTable.add(coinButton).size(width/8, height/10).padTop(0).padRight(spacer);
 
         headerTable.row();
-        //headerTable.add(rewardButton).size(width/8, height/12).padLeft(spacer/1).padTop(spacer/4).align(Align.top).spaceLeft(0);
 
         Table extraTable = new Table();
         extraTable.setDebug(devMode);
@@ -304,8 +306,6 @@ public class LEADERBOARDScreen extends Screen{
 
         extraTable.add(extraTable2).fill().expandX();
 
-
-
         table.add(headerTable).fill().expandX();
         table.row();
         table.add(extraTable).fill().expandX();
@@ -321,8 +321,6 @@ public class LEADERBOARDScreen extends Screen{
         storeTable = new Table();
         storeTable.setDebug(devMode);
         storeTable.align(Align.top|Align.left);
-
-
 
         Tree tree = new Tree(skin, "default");
 
@@ -343,12 +341,8 @@ public class LEADERBOARDScreen extends Screen{
 
             ImageButton coin10 = new ImageButton(skin, "coinSmall10");
             parentTable.add(l).width(l.getWidth()*1.0f).padLeft(spacer).padRight(spacer);
-           // parentTable.add(challengeButton).align(Align.right).width(challengeButton.getWidth()*1.0f);
-            //parentTable.add(coin10);
-
 
             Tree.Node node = new Tree.Node(parentTable);
-
 
             Table tableChild = new Table();
             tableChild.align(Align.left);
@@ -388,52 +382,52 @@ public class LEADERBOARDScreen extends Screen{
                 labelPlace.setStyle(style);
                 tableTime.add(labelTime).align(Align.left);
 
-
                 tableChild.add(tablePlace).align(Align.left);
                 tableChild.add(tableName).align(Align.right);
                 tableChild.add(tableTime).align(Align.left);
                 tableChild.row();
-
             }
 
-
-
-
             //end inner for loop here
-
             Tree.Node nodeChild = new Tree.Node(tableChild);
             node.add(nodeChild);
             tree.add(node);
-
-
         }
-
         tree.expandAll();
-
-
         storeTable.add(tree).align(Align.top|Align.left).expandX();
-
-       // storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);
-
         scrollPane = new ScrollPane(storeTable, skin, "default");
 
         ImageButton previousLevelButton = new ImageButton(skin, "previousLevelButton");
         previousLevelButton.setWidth(width*.10f);
+        previousLevelButton.addListener(previousLevelsButtonListener);
         //nextLevelButton.rotateBy(180);
 
-        buyLevelsButton = new ImageButton(skin, "nextLevelButton");
-        buyLevelsButton.setWidth(width*.10f);
-        buyLevelsButton.addListener(nextButtonListener);
+        nextLevelButton = new ImageButton(skin, "nextLevelButton");
+        nextLevelButton.setWidth(width*.10f);
+        nextLevelButton.addListener(nextLevelsButtonListener);
 
-        previousLevelButton.setVisible(false);
-        buyLevelsButton.setVisible(false);
-
-
+        //Previous level button should not be visible for first level pack
+        if(parent.parent.levelManager.currentLevelPack == 0){
+            previousLevelButton.setVisible(false);
+        }else{
+            previousLevelButton.setVisible(true);
+        }
 
         bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
-        bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+        //If the next level is unlocked we want to display the next button, otherwise display buyLevelsButton
 
+        LevelManager lm = parent.parent.levelManager;
+        lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
+
+        //check if the next level pack even exists, if it doesn't, we don't want to display buyLevelsButton
+        if(parent.parent.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
+            nextLevelButton.setVisible(true);
+        }else{
+            nextLevelButton.setVisible(false);
+        }
+
+        bodyTable.add(nextLevelButton).width(width*.10f).align(Align.right);
 
         ImageTextButton continueButton = new ImageTextButton("Continue", skin);
         continueButton.addListener(continueButtonListener);

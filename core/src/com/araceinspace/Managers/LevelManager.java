@@ -51,6 +51,11 @@ public class LevelManager {
     public boolean didFail; // set to true if the player exploads in contact listener checked by score screen
     String levelStyle = "introtest"; //used by dialog manager to figure out what picture to load
 
+    //Tracks the current level pack that we want to look at
+    public int currentLevelPack = 0;
+    public static int levelPerPack = 12;
+    public boolean nextLevelPackUnlocked;
+
     /* Constructors */
     public LevelManager(GameWorld p){
         System.out.println("LevelManager Constructor");
@@ -113,7 +118,7 @@ public class LevelManager {
         }else{
 
             levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
-            String fileName = "ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+            String fileName = "levels/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
             boolean exists = Gdx.files.internal(fileName).exists();
             if(!exists){
                 System.out.println("File " + fileName + " does not exist, not making ghost.");
@@ -174,8 +179,11 @@ public class LevelManager {
      * @return A fileHandler for the  level we want.
      */
     private FileHandle getLevelFile(int lvl){
+        //first we need to parse the lvl number to a
+        //level pack - level
+        int levelPack = (lvl-1) / levelPerPack;//need to get this number from variable
         FileHandle fileHandle = null;
-        String fileName = "levels/level"+lvl+".json";
+        String fileName = "levels/"+levelPack+"/level"+lvl+".json";
         if(Gdx.files.classpath(fileName).exists()){
             fileHandle = Gdx.files.internal(fileName);
             //System.out.println("using external file.");
@@ -255,12 +263,12 @@ public class LevelManager {
         playerTime = (int)(getPlayer().getPlayTime()*1000);
         if(ghost == null){
             //Save Replay if no ghost exists
-            getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+            getPlayer().getInput().saveInputs("levels/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
         }else{
            ghostTime = ghost.playtime;
             if(playerTime < ghostTime){
                 //Save Replay if ghost exists, and playerTime is less than ghost time.
-                //getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+                //getPlayer().getInput().saveInputs("levels/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
                 setChallengeCompleted();
                 parent.setCoins(parent.getCoins() + 5);
                 saveBestTime(playerTime);
@@ -371,6 +379,7 @@ public class LevelManager {
        // setupBackground();
         setupPlanets();
         setupGoal();
+        currentLevelPack = level / levelPerPack;
     }
 
     /**
@@ -463,20 +472,6 @@ public class LevelManager {
         parent.dialogManager.setupLevelIntroDialog(parent.levelManager.getCurrentLevel(), skin, stage, viewport);
     }
 
-    public String getIntroStyleByLevel(){
-        Json json = new Json();
-        ArrayList<SpriteTemplate>levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
-        levelStyle = "introtest";
-        //go through all the level items, find the player item and initialze him
-        for(int i = 0; i < levelItems.size(); i++) {
-            SpriteTemplate item = levelItems.get(i);
-            if (item.getType().equals("style")) {
-                levelStyle = item.getExtraInfo();
-            }
-        }
-        return levelStyle;
-    }
-
     /**
      * Looks into the level file to get subtitle information
      * This is utilized by level intro dialog to show player
@@ -507,5 +502,22 @@ public class LevelManager {
             subtitles.add("for this level");
         }
         return subtitles;
+    }
+
+    /**
+     * Checks the player preferences to see if the given level pack is unlocked
+     * @param levelPack
+     * @return
+     */
+    public boolean isLevelPackUnlocked(int levelPack){
+        boolean returnVal = true;
+        //The first level pack is always unlocked
+        if(levelPack == 0){
+            returnVal = true;
+        }else{
+            //check prefs to see if this levelPack is unlocked
+            returnVal = parent.prefs.getBoolean("com.araceinspace.levelPackUnlocked."+levelPack);
+        }
+        return returnVal;
     }
 }
