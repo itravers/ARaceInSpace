@@ -118,7 +118,7 @@ public class LevelManager {
         }else{
 
             levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
-            String fileName = "ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
+            String fileName = "ghosts/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json";
             boolean exists = Gdx.files.internal(fileName).exists();
             if(!exists){
                 System.out.println("File " + fileName + " does not exist, not making ghost.");
@@ -263,7 +263,7 @@ public class LevelManager {
         playerTime = (int)(getPlayer().getPlayTime()*1000);
         if(ghost == null){
             //Save Replay if no ghost exists
-            getPlayer().getInput().saveInputs("ghosts/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+            getPlayer().getInput().saveInputs("ghosts/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
         }else{
            ghostTime = ghost.playtime;
             if(playerTime < ghostTime){

@@ -5,7 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.net.HttpStatus;
+import com.badlogic.gdx.utils.ByteArray;
+
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.zip.ZipEntry;
@@ -296,7 +299,6 @@ public class HttpManager {
         byte[] levelPack = waitForResponse_b();
         if(false){
         }else{
-            byte[] buffer = new byte[1024];
             if(levelPack == null)return false;//didn't work something is wrong
             ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(levelPack));
             ZipEntry zipEntry;
@@ -304,13 +306,25 @@ public class HttpManager {
             try {
                 zipEntry = zis.getNextEntry();
                 while(zipEntry != null){
+                    byte[] buffer = new byte[1024];
                     String fileName = zipEntry.getName();
-                    System.out.println(System.getProperty("user.dir"));
-                    FileHandle file = Gdx.files.local("levels/"+levelPackToBuy+"/"+fileName);
+                    FileHandle file;
+
+                    if(fileName.contains(".swp")){
+                        continue; //don't do anything with a swap file
+                    }else if(fileName.contains("ghost")){
+                        //this is a ghost file and should be saved under "ghosts/levelpack/filename
+                        file = Gdx.files.local("ghosts/"+levelPackToBuy+"/"+fileName);
+                    }else{
+                        //this is a level file and should be saved under "levels/levelpack/filename
+                       file = Gdx.files.local("levels/"+levelPackToBuy+"/"+fileName);
+                    }
 
                     int len;
+                    file.writeString("", false); //causes the  file to be blanked out
+
                     while ((len = zis.read(buffer)) > 0) {
-                        file.writeBytes(buffer, 0, len, true);
+                        file.writeBytes(buffer, 0, len, true); //actually writing the file
                     }
 
                     zipEntry = zis.getNextEntry();
