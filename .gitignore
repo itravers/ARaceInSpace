@@ -72,3 +72,4 @@ build/
 Thumbs.db
 
 captures/
+android/assets/levels/1/*
