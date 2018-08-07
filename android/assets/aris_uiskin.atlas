@@ -6,31 +6,18 @@ filter: Linear,Linear
 repeat: none
 font_d_estroy__20pt
   rotate: false
-  xy: 1, 124
+  xy: 1, 807
   size: 512, 101
   orig: 512, 101
   offset: 0, 0
   index: -1
 font_d_estroy__24pt
   rotate: false
-  xy: 1, 1
+  xy: 1, 684
   size: 512, 121
   orig: 512, 121
   offset: 0, 0
   index: -1
-testIntro
-  rotate: false
-  xy: 1, 227
-  size: 717, 653
-  orig: 717, 653
-  offset: 0, 0
-  index: -1
-
-aris_uiskin2.png
-size: 1024,1024
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
 font_d_estroy__36pt
   rotate: false
   xy: 1, 434
@@ -46,7 +33,7 @@ font_d_estroy__48pt
   offset: 0, 0
   index: -1
 
-aris_uiskin3.png
+aris_uiskin2.png
 size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
@@ -66,7 +53,7 @@ font_raavi_28pt
   offset: 0, 0
   index: -1
 
-aris_uiskin4.png
+aris_uiskin3.png
 size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
@@ -86,7 +73,7 @@ font_raavi_48pt_bold
   offset: 0, 0
   index: -1
 
-aris_uiskin5.png
+aris_uiskin4.png
 size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
@@ -120,7 +107,7 @@ boost_up
   offset: 0, 0
   index: -1
 
-aris_uiskin6.png
+aris_uiskin5.png
 size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
