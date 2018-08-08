@@ -859,7 +859,7 @@ public class PREGAMEScreen extends Screen{
         String fileName = "levels/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-" + challengeString + "-ghost.json";
         boolean exists = Gdx.files.internal(fileName).exists();
         if(!exists){
-            fileName = "levels/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-default-ghost.json";
+            fileName = "levels/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-bronze-ghost.json";
             exists = Gdx.files.internal(fileName).exists();
             if(!exists){
                 System.out.println("No ghost for " + fileName + " exists");

@@ -172,7 +172,7 @@ public class HttpManager {
         returnval = waitForResponse();
         if( returnval == null  || returnval.startsWith("no ghost found")){
             //ghost was not found on server for some reason, we want to read default ghost from local file system
-            String fileName = "ghosts/level"+currentLevel + "-default-ghost.json";
+            String fileName = "levels/"+parent.levelManager.currentLevelPack+"/level"+currentLevel + "-bronze-ghost.json";
             returnval = Gdx.files.internal(fileName).readString();
         }
         return returnval;
@@ -238,7 +238,7 @@ public class HttpManager {
      */
     public String submitScore(int level, int place, String name, int time){
         String returnval = "";
-        String url = "http://192.168.1.197:3001/leaderboards/update/"+level+"/"+place+"/"+name+"/"+time;
+        String url = "http://192.168.1.197:3001/leaderboards/update/"+parent.levelManager.currentLevelPack+"/"+level+"/"+place+"/"+name+"/"+time;
         sendRequest(url, null, "GET");
         returnval = waitForResponse();
         return returnval;
