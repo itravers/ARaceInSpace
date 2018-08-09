@@ -22,7 +22,7 @@
     "type": "player",
     "atlas": "shipAtlas",
     "xLoc": 0,
-    "yLoc": 30,
+    "yLoc": 300,
     "mass": 0,
     "size": 0,
     "extraInfo": "flying"

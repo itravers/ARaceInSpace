@@ -149,7 +149,12 @@ public class DialogManager {
                 }
                 name = name.replaceAll("\\s", "-");
                 parent.playerName = name;
-                ((LEVELSELECTScreen)parent.renderManager.getCurrentScreen()).taunt2.setText(parent.playerName+"!!!");
+
+                //If we are changing the from level select screen, we will make sure to immediately set
+                //our new name on that screen
+                if(parent.renderManager.getCurrentScreen() instanceof LEVELSELECTScreen ){
+                    ((LEVELSELECTScreen)parent.renderManager.getCurrentScreen()).taunt2.setText(parent.playerName+"!!!");
+                }
 
                 System.out.println("Name is set to: " + parent.playerName);
                 parent.prefs.putString("com.araceinspace.playerName", name);
