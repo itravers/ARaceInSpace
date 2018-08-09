@@ -69,7 +69,7 @@ public class LevelManager {
 
     public void setupGhostFromJson(String ghostJson){
         System.out.println("SETUPGHOST");
-        ArrayList<KeyAction>actions;
+        ArrayList<Action>actions;
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
 
@@ -102,7 +102,7 @@ public class LevelManager {
 
     private void setupGhost(CHALLENGES currentChallenge){
         System.out.println("SETUPGHOST");
-        ArrayList<KeyAction>actions;
+        ArrayList<Action>actions;
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
         if(currentChallenge == CHALLENGES.first || currentChallenge == CHALLENGES.second || currentChallenge == CHALLENGES.third){
@@ -263,7 +263,7 @@ public class LevelManager {
         playerTime = (int)(getPlayer().getPlayTime()*1000);
         if(ghost == null){
             //Save Replay if no ghost exists
-            getPlayer().getInput().saveInputs("levels/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime);
+            getPlayer().getInput().saveInputs("levels/"+currentLevelPack+"/level"+currentLevel + "-" + currentChallenge + "-ghost.json", playerTime, parent.playerName);
         }else{
            ghostTime = ghost.playtime;
             if(playerTime < ghostTime){
@@ -310,7 +310,7 @@ public class LevelManager {
 
     public String getGhostReplay(){
         playerTime = (int)(getPlayer().getPlayTime()*1000);
-        return getPlayer().getInput().getReplay(playerTime);
+        return getPlayer().getInput().getReplay(playerTime, parent.playerName);
     }
 
     private void setGoalCompleted(Boolean levelGoalCompleted) {

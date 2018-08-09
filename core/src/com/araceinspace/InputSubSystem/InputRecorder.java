@@ -28,14 +28,14 @@ public class InputRecorder{
 
 
     /* Field Variables & Objects */
-    ArrayList<KeyAction> actions;
+    ArrayList<Action> actions;
 
     /* Constructor */
     public InputRecorder(){
-        actions = new ArrayList<KeyAction>();
+        actions = new ArrayList<Action>();
     }
 
-    public InputRecorder(ArrayList<KeyAction>a){
+    public InputRecorder(ArrayList<Action>a){
         actions = a;
     }
 
@@ -57,18 +57,25 @@ public class InputRecorder{
         //System.out.println(this + " Setting position from KeyActionb: "+actions.get(actions.size()-1).getPosition());
     }
 
-    public void writeToFile(String fileName, int playTime){
-        KeyAction keyAction = new KeyAction(playTime, GameInput.PLAYTIME, Action.Type.INPUT, null, null , 0, 0);
+    public void writeToFile(String fileName, int playTime, String name){
+        KeyAction playTimeAction = new KeyAction(playTime, GameInput.PLAYTIME, Action.Type.INPUT, null, null , 0, 0);
+
+       // System.out.println("name: " + name + " inthash: " + playTime + " decoded: "+ Integer.toString(playTime));
+        InfoAction infoAction = new InfoAction(playTime+1, GameInput.NAME, Action.Type.INFO,name);
        // System.out.println(this + " Setting position from KeyAction: "+keyAction.getPosition());
-        actions.add(keyAction);
+        actions.add(infoAction);
+        actions.add(playTimeAction);
+
         Json json = new Json();
         //System.out.println(json.toJson(json.prettyPrint(actions)));
         FileHandle file = Gdx.files.local(fileName);
         file.writeString(json.toJson(actions, ArrayList.class), false);
     }
 
-    public String getReplay(int playTime){
+    public String getReplay(int playTime, String name){
+        actions.add(new InfoAction(playTime+1, GameInput.NAME, Action.Type.INFO, name));
         actions.add(new KeyAction(playTime, GameInput.PLAYTIME, Action.Type.INPUT, null, null, 0, 0));
+
         Json json = new Json(JsonWriter.OutputType.json);
         String jsonString = json.toJson(actions, ArrayList.class);
 
@@ -80,10 +87,11 @@ public class InputRecorder{
      * @param currentFrame the currenet frame num
      * @return Null if no actions recorded under current frame Time, else returns the action.
      */
-    public KeyAction getNextAction(int currentFrame, Action.Type type){
-        KeyAction returnVal = null;
+    public Action getNextAction(int currentFrame, Action.Type type){
+        Action returnVal = null;
         for(int i = 0; i < actions.size(); i++){
-            if(actions.get(i).getFrameNum() <= currentFrame && actions.get(i).getType() == type && actions.get(i).getInput() != GameInput.PLAYTIME){//we don't process PLAYTIME INPUTS
+            if(actions.get(i).getFrameNum() <= currentFrame && actions.get(i).getType() == type &&
+                    actions.get(i).getInput() != GameInput.PLAYTIME && actions.get(i).getInput() != GameInput.NAME){//we don't process PLAYTIME INPUTS
                 returnVal =  actions.remove(i);
                 break;
             }
@@ -97,5 +105,17 @@ public class InputRecorder{
      */
     public int getPlayTime(){
         return actions.get(actions.size()-1).getFrameNum();
+    }
+
+    public String getName(){
+        //return actions.get(actions.size()-1).getFrameNum();
+        String name = "";
+        if(actions.get(actions.size()-2).getType() == Action.Type.INFO){
+            InfoAction action = (InfoAction)actions.get(actions.size()-2);
+            name = action.getInfo();
+        }else{
+            name = "";
+        }
+        return name;
     }
 }

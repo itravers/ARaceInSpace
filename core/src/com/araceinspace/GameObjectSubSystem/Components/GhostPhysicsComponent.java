@@ -29,7 +29,7 @@ public class GhostPhysicsComponent extends  PlayerPhysicsComponent{
 
     @Override
     public void update(float elapsedTime){
-        KeyAction nextAction = parent.getInput().inputRecorder.getNextAction(RenderManager.frameNum, Action.Type.KEY);
+        KeyAction nextAction = (KeyAction)parent.getInput().inputRecorder.getNextAction(RenderManager.frameNum, Action.Type.KEY);
         if(nextAction != null){
            // System.out.println("type " + nextAction.getType());
             if(nextAction.getType() == Action.Type.KEY){

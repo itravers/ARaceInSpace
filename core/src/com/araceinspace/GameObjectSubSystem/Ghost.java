@@ -34,11 +34,12 @@ public class Ghost extends PlayerPrototype{
      * Constructor
      * @param animations
      */
-    public Ghost(LevelManager levelManager, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations, ArrayList<KeyAction> actions) {
+    public Ghost(LevelManager levelManager, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations, ArrayList<Action> actions) {
         super(levelManager);
-        labelName = "Ghost";
-        graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new GhostInputComponent(this, actions);
+        labelName = input.getInputRecorder().getName();
+        graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
+
         physics = new GhostPhysicsComponent(this, world);
         state = new PlayerStateComponent(this, firstState);
         boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();

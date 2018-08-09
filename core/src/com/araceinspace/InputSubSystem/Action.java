@@ -10,7 +10,7 @@ import com.badlogic.gdx.Game;
  */
 public class Action {
     /* Static Variables */
-    public static enum Type {INPUT, KEY}
+    public static enum Type {INPUT, KEY, INFO}
 
     /* Field Variables */
     private int frameNum;

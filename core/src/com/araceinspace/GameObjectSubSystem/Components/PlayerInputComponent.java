@@ -53,12 +53,12 @@ public class PlayerInputComponent extends InputComponent implements EventReceive
         }
     }
 
-    public void saveInputs(String fileName, int playTime){
-        inputRecorder.writeToFile(fileName, playTime);
+    public void saveInputs(String fileName, int playTime, String name){
+        inputRecorder.writeToFile(fileName, playTime, name);
     }
 
-    public String getReplay(int playTime){
-        return inputRecorder.getReplay(playTime);
+    public String getReplay(int playTime, String name){
+        return inputRecorder.getReplay(playTime, name);
     }
 
     /**
