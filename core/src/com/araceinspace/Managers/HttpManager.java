@@ -167,7 +167,7 @@ public class HttpManager {
                 place = 3;
                 break;
         }
-        String url = "http://192.168.1.197:3001/leaderboards/getghost/"+currentLevel+"/"+place;
+        String url = "http://192.168.1.197:3001/leaderboards/getghost/"+parent.levelManager.currentLevelPack+"/"+currentLevel+"/"+place;
         sendRequest(url, null, "GET");
         returnval = waitForResponse();
         if( returnval == null  || returnval.startsWith("no ghost found")){
