@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -852,7 +853,7 @@ public class PREGAMEScreen extends Screen{
      */
     private int getGhostTime(String challengeString){
         int returnVal = 99999999;
-        ArrayList<KeyAction>actions;
+        ArrayList<Action>actions;
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
         int currentLevel = parent.parent.levelManager.getCurrentLevel();
