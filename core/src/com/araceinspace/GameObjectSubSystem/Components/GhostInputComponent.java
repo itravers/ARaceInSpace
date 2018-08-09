@@ -30,7 +30,7 @@ public class GhostInputComponent extends PlayerInputComponent implements EventSe
     PlayerPrototype parent;
 
     /* Constructors */
-    public GhostInputComponent(PlayerPrototype p, ArrayList<KeyAction>actions){
+    public GhostInputComponent(PlayerPrototype p, ArrayList<Action>actions){
         super(p);
         parent = p;
         inputRecorder = new InputRecorder(actions);
@@ -40,7 +40,7 @@ public class GhostInputComponent extends PlayerInputComponent implements EventSe
 
     /**
      * Updates the input component
-     * @param o
+     * @param
      */
     public void update(float timeElapsed) {
 
@@ -69,5 +69,9 @@ public class GhostInputComponent extends PlayerInputComponent implements EventSe
 
     public int getPlayTime(){
         return inputRecorder.getPlayTime();
+    }
+
+    public String getName(){
+        return inputRecorder.getName();
     }
 }

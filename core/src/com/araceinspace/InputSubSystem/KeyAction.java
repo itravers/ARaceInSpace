@@ -18,6 +18,7 @@ public class KeyAction extends Action{
     private Vector2 position, velocity;
     private float angle, angularVelocity;
 
+
     /* Constructors */
     public KeyAction(int frame, GameInput input, Type type, Vector2 position, Vector2 velocity, float angle, float angularVelocity){
         super(frame, input, type);
