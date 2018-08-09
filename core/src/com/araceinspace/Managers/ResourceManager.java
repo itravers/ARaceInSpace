@@ -106,6 +106,7 @@ public class ResourceManager {
     /* Private Methods */
 
     private void loadAssets(){
+
         loadingAssets = true;
        // assetManager.load("data/Planets.pack", TextureAtlas.class);
         //assetManager.load("data/gravity_Well.txt", TextureAtlas.class);

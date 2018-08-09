@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 /**
  * Created by Isaac Assegai on 7/11/17.
@@ -16,6 +19,9 @@ import com.badlogic.gdx.math.Vector2;
 public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     PlayerPrototype parent;
     float yOffset; //Used to allow sprite to overlap physics
+    Group labelGroup = new Group();
+    Label nameLabel;
+    Vector2 tmp; //used to calculate name label placement
 
     public PlayerGraphicsComponent(PlayerPrototype p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
         super(region, animations);
@@ -24,6 +30,13 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         this.setY(loc.y);
         setupRendering(animations);
         yOffset = getHeight()/6;
+        nameLabel = new Label("Test Label", parent.parent.parent.resourceManager.getSkin(), "extra_small");
+
+        labelGroup.addActor(nameLabel);
+        tmp = new Vector2();
+
+
+
     }
 
     public void setupRendering(Animation currentAnimation){
@@ -51,6 +64,38 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
                     flip ? -getWidth() : getWidth(), getHeight(),
                     getScaleX(), getScaleY(),
                     getRotation());*/
+       // parent.parent.parent.resourceManager.Font20.draw(batch, "Test Label", 0, 0);
+       // parent.parent.parent.resourceManager.Font20.draw(batch, "Test 2", getX(), getY()-yOffset, 0, 0,  0, 0, false);
+        //nameLabel.setX(getX());
+        //nameLabel.setY(getY());
+        //nameLabel.setRotation(45);
+        //nameLabel.draw(batch, 1);
+        //nameLabel.rotateBy(20);
+
+        float x = getX()+getWidth()/2;
+        float y = getY()+getWidth()/2;
+        //System.out.println("x: " + getX() + " y: " + getY());
+
+        //System.out.println("xB: " + parent.getPhysics().getBody().getPosition().x + " yB: " + parent.getPhysics().getBody().getPosition().y);
+        nameLabel.setFontScale(.4f);
+
+        tmp.set(x, y);
+        tmp = tmp.setLength(30);
+        tmp = tmp.setAngle(getRotation()+155);
+        //tmp.x = tmp.x - nameLabel.getWidth()/2;
+
+
+
+        labelGroup.setPosition(x+tmp.x, y+tmp.y);
+
+        labelGroup.setRotation(getRotation());
+       // nameLabel.setDebug(parent.parent.parent.devMode);
+       // nameLabel.setEllipsis(true);
+       // labelGroup.setDebug(parent.parent.parent.devMode);
+
+        labelGroup.draw(batch, 1);
+        //batch.draw();
+
 
         batch.draw(frame,
                 flip ? getX()+getWidth() : getX(), getY()-yOffset,
@@ -176,4 +221,5 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         }
         //*/
     }
+
 }
