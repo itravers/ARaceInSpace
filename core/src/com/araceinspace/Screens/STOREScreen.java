@@ -125,7 +125,11 @@ public class STOREScreen extends Screen{
         buy100Listener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                monetizationController.buyItem("buy_100_coins");
+                if(parent.parent.devMode){
+                    parent.parent.setCoins(parent.parent.getCoins()+100);
+                }else{
+                    monetizationController.buyItem("buy_100_coins");
+                }
             }
 
         };
