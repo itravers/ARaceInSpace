@@ -40,7 +40,7 @@ public class Ghost extends PlayerPrototype{
         labelName = input.getInputRecorder().getName();
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
 
-        physics = new GhostPhysicsComponent(this, world);
+        physics = new GhostPhysicsComponent(this, world, loc);
         state = new PlayerStateComponent(this, firstState);
         boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();
         ((PlayerStateComponent)state).isLanded = onPlanet;

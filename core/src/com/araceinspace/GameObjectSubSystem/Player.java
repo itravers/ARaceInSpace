@@ -35,7 +35,7 @@ public class Player extends PlayerPrototype{
         labelName = parent.parent.playerName;
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent(this);
-        physics = new PlayerPhysicsComponent(this, world);
+        physics = new PlayerPhysicsComponent(this, world, loc);
         state = new PlayerStateComponent(this, firstState);
         boolean onPlanet = ((PlayerPhysicsComponent)physics).onPlanet();
         ((PlayerStateComponent)state).isLanded = onPlanet;

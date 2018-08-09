@@ -68,9 +68,9 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     /**
      * Create a new PlayerPhysicsComponent
      */
-    public PlayerPhysicsComponent(PlayerPrototype p, World world){
+    public PlayerPhysicsComponent(PlayerPrototype p, World world, Vector2 loc){
         parent = p;
-        setupPhysics(world);
+        setupPhysics(world, loc);
     }
 
     /* Private Methods */
@@ -83,7 +83,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         jumpImpulse = new Vector2(0,0);
     }
 
-    private void setupPhysics(World world){
+    private void setupPhysics(World world, Vector2 loc){
         this.world = world;
         CRASH_VELOCITY = MAX_VELOCITY / 3.25f;
         setupVectors();
@@ -93,6 +93,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         float PIXELS_TO_METERS = parent.parent.parent.renderManager.PIXELS_TO_METERS;
         bodyDef.position.set((parent.getX() + parent.getWidth() / 2) / PIXELS_TO_METERS,
                 ((parent.getY() + parent.getHeight() / 2) / PIXELS_TO_METERS)-(0));
+
+        //bodyDef.position.set(loc);
         body = world.createBody(bodyDef);
         body.setLinearDamping(LINEAR_DAMPENING);
         body.setAngularDamping(ANGULAR_DAMPENING);

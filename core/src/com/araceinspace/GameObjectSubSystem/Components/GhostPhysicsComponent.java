@@ -6,6 +6,7 @@ import com.araceinspace.InputSubSystem.Action;
 import com.araceinspace.InputSubSystem.GameInput;
 import com.araceinspace.InputSubSystem.KeyAction;
 import com.araceinspace.Managers.RenderManager;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
@@ -23,8 +24,8 @@ public class GhostPhysicsComponent extends  PlayerPhysicsComponent{
      * @param p
      * @param world
      */
-    public GhostPhysicsComponent(PlayerPrototype p, World world) {
-        super(p, world);
+    public GhostPhysicsComponent(PlayerPrototype p, World world, Vector2 loc) {
+        super(p, world, loc);
     }
 
     @Override
