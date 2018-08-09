@@ -36,6 +36,7 @@ public class Ghost extends PlayerPrototype{
      */
     public Ghost(LevelManager levelManager, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations, ArrayList<KeyAction> actions) {
         super(levelManager);
+        labelName = "Ghost";
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new GhostInputComponent(this, actions);
         physics = new GhostPhysicsComponent(this, world);

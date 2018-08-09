@@ -32,6 +32,7 @@ public class Player extends PlayerPrototype{
     public Player(LevelManager p, PlayerState firstState, Vector2 loc, World world, TextureAtlas.AtlasRegion region, Animation animations) {
        super(p);
         this.startTime = 0;
+        labelName = parent.parent.playerName;
         graphics = new PlayerGraphicsComponent(this, loc, region, animations);//Graphics Component must be constructed before physics component
         input = new PlayerInputComponent(this);
         physics = new PlayerPhysicsComponent(this, world);

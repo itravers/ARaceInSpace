@@ -25,6 +25,7 @@ public abstract class PlayerPrototype extends TwoDGameObject{
     private boolean updateable = true;
     public float startTime;
     public float endTime;
+    public String labelName;
 
     public PlayerPrototype(LevelManager p){
         parent = p;

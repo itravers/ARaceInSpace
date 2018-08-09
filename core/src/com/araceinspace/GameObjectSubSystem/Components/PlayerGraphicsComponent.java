@@ -30,7 +30,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         this.setY(loc.y);
         setupRendering(animations);
         yOffset = getHeight()/6;
-        nameLabel = new Label("Test Label", parent.parent.parent.resourceManager.getSkin(), "extra_small");
+        nameLabel = new Label(parent.labelName, parent.parent.parent.resourceManager.getSkin(), "extra_small");
 
         labelGroup.addActor(nameLabel);
         tmp = new Vector2();
@@ -80,8 +80,8 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
         nameLabel.setFontScale(.4f);
 
         tmp.set(x, y);
-        tmp = tmp.setLength(30);
-        tmp = tmp.setAngle(getRotation()+155);
+        tmp = tmp.setLength(20);
+        tmp = tmp.setAngle(getRotation()+140);
         //tmp.x = tmp.x - nameLabel.getWidth()/2;
 
 
