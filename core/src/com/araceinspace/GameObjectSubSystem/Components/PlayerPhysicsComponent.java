@@ -91,10 +91,11 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         float PIXELS_TO_METERS = parent.parent.parent.renderManager.PIXELS_TO_METERS;
-        bodyDef.position.set((parent.getX() + parent.getWidth() / 2) / PIXELS_TO_METERS,
-                ((parent.getY() + parent.getHeight() / 2) / PIXELS_TO_METERS)-(0));
-
-        //bodyDef.position.set(loc);
+        //bodyDef.position.set((parent.getX() + parent.getWidth() / 2) / PIXELS_TO_METERS,
+        //        ((parent.getY() + parent.getHeight() / 2) / PIXELS_TO_METERS)-(0));
+        loc.x = loc.x-((parent.getX() + parent.getWidth() / 2) / PIXELS_TO_METERS);
+        loc.y = loc.y/PIXELS_TO_METERS;
+        bodyDef.position.set(loc);
         body = world.createBody(bodyDef);
         body.setLinearDamping(LINEAR_DAMPENING);
         body.setAngularDamping(ANGULAR_DAMPENING);

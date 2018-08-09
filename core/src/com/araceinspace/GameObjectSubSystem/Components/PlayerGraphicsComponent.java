@@ -26,7 +26,7 @@ public class PlayerGraphicsComponent extends TwoDGraphicsComponent {
     public PlayerGraphicsComponent(PlayerPrototype p, Vector2 loc, TextureAtlas.AtlasRegion region, Animation animations) {
         super(region, animations);
         parent = p;
-        this.setX(loc.x);
+        this.setX(loc.x-getWidth()/2);//center is in middle of players feet
         this.setY(loc.y);
         setupRendering(animations);
         yOffset = getHeight()/6;
