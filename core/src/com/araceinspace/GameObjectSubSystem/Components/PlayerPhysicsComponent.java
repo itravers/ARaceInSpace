@@ -267,6 +267,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public float getDistanceFromClosestPlanet(){
         float distanceToClosestPlanet = 1010101f;
         ArrayList<Planet>planets = parent.parent.parent.levelManager.getPlanets();
+        //in case this gets called before the planets are created, return default value
+        if(planets == null) return distanceToClosestPlanet;
         for(int i = 0; i < planets.size(); i++){
             Planet p = planets.get(i);
             float radiusPlanet = p.getBody().getFixtureList().first().getShape().getRadius();
