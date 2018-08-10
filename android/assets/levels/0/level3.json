@@ -3,60 +3,20 @@
     "type": "planet",
     "atlas": "Planet 01",
     "xLoc": 0,
-    "yLoc": -6000,
-    "mass": 250000,
-    "size": 1000,
-    "gravityRadius": 2800,
-    "extraInfo": ""
-  },
-  {
-    "type": "planet",
-    "atlas": "Planet 01",
-    "xLoc": -1000,
-    "yLoc": -4000,
-    "mass": 500000,
-    "size": 1000,
-    "gravityRadius": 3000,
-    "extraInfo": ""
-  },
-  {
-    "type": "planet",
-    "atlas": "Planet 02",
-    "xLoc": 1000,
-    "yLoc": -4000,
-    "mass": 500000,
-    "size": 1000,
-    "gravityRadius": 3000,
-    "extraInfo": ""
-  },
-  {
-    "type": "planet",
-    "atlas": "Planet 02",
-    "xLoc": 1000,
-    "yLoc": -1000,
-    "mass": 1000000,
-    "size": 2000,
-    "gravityRadius": 8000,
-    "extraInfo": ""
-  },
-  {
-    "type": "planet",
-    "atlas": "Planet 02",
-    "xLoc": -2000,
-    "yLoc": -1000,
-    "mass": 1000000,
-    "size": 2000,
-    "gravityRadius": 8000,
+    "yLoc": 0,
+    "mass": 300000,
+    "size": 750,
+    "gravityRadius": 1500,
     "extraInfo": ""
   },
   {
     "type": "planet",
     "atlas": "Moon",
-    "xLoc": -650,
-    "yLoc": 2000,
-    "mass": 500000,
-    "size": 2200,
-    "gravityRadius": 6000,
+    "xLoc": 0,
+    "yLoc": -1000,
+    "mass": 200000,
+    "size": 500,
+    "gravityRadius": 1000,
     "extraInfo": ""
   },
   {
@@ -66,19 +26,19 @@
     "yLoc": 0,
     "mass": 0,
     "size": 0,
-    "extraInfo": "5"
+    "extraInfo": "1"
   },
   {
     "type": "player",
     "atlas": "shipAtlas",
     "xLoc": 0,
-    "yLoc": -5499,
+    "yLoc": 375,
     "mass": 0,
     "size": 0,
     "extraInfo": ""
   },
   {
     "type": "subtitle",
-    "extraInfo": "Take Off From Planet-Navigate Between Planets-Use Gravity To Your Advantage-Land On Goal Planet"
+    "extraInfo": "Take Off From Planet-Land On The Moon On Opposite Side Of Planet - Follow The Green Arrow (T)"
   }
 ]
