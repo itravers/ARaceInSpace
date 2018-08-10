@@ -2,31 +2,31 @@
   {
     "type": "planet",
     "atlas": "Moon",
-    "xLoc": -2000,
-    "yLoc": 0,
-    "mass": 400000,
-    "size": 2000,
-    "gravityRadius": 3800,
-    "extraInfo": ""
-  },
-  {
-    "type": "planet",
-    "atlas": "Moon",
-    "xLoc": 2000,
-    "yLoc": 0,
-    "mass": 400000,
-    "size": 2000,
-    "gravityRadius": 3800,
-    "extraInfo": ""
-  },
-  {
-    "type": "planet",
-    "atlas": "Moon",
     "xLoc": 0,
-    "yLoc": -2000,
+    "yLoc": 0,
+    "mass": 150000,
+    "size": 500,
+    "gravityRadius": 1500,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Planet 01",
+    "xLoc": -1000,
+    "yLoc": 1000,
     "mass": 400000,
-    "size": 2000,
-    "gravityRadius": 3800,
+    "size": 1000,
+    "gravityRadius": 2500,
+    "extraInfo": ""
+  },
+  {
+    "type": "planet",
+    "atlas": "Planet 02",
+    "xLoc": 1000,
+    "yLoc": 1000,
+    "mass": 400000,
+    "size": 1000,
+    "gravityRadius": 2500,
     "extraInfo": ""
   },
   {
@@ -34,19 +34,9 @@
     "atlas": "Moon",
     "xLoc": 0,
     "yLoc": 2000,
-    "mass": 400000,
-    "size": 2000,
-    "gravityRadius": 3800,
-    "extraInfo": ""
-  },
-  {
-    "type": "planet",
-    "atlas": "Planet 02",
-    "xLoc": 500,
-    "yLoc": 5000,
-    "mass": 750000,
-    "size": 1000,
-    "gravityRadius": 3800,
+    "mass": 150000,
+    "size": 500,
+    "gravityRadius": 1500,
     "extraInfo": ""
   },
   {
@@ -56,23 +46,19 @@
     "yLoc": 0,
     "mass": 0,
     "size": 0,
-    "extraInfo": "4"
+    "extraInfo": "3"
   },
   {
     "type": "player",
     "atlas": "shipAtlas",
     "xLoc": 0,
-    "yLoc": 0,
+    "yLoc": 250,
     "mass": 0,
     "size": 0,
     "extraInfo": "flying"
   },
   {
-    "type": "style",
-    "extraInfo": "level4"
-  },
-  {
     "type": "subtitle",
-    "extraInfo": "Start Out In Middle of 4 Moons-Navigate Between Top & Right Planet-Land On Goal Planet"
+    "extraInfo": "Take Off From The Moon-Land On The Moon Above You-Avoid Crashing Into The Planets"
   }
 ]
