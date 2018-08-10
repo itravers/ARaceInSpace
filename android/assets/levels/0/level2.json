@@ -4,9 +4,9 @@
     "atlas": "Planet 01",
     "xLoc": 0,
     "yLoc": 0,
-    "mass": 2200000,
-    "size": 4000,
-    "gravityRadius": 8000,
+    "mass": 200000,
+    "size": 300,
+    "gravityRadius": 1000,
     "extraInfo": ""
   },
   {
@@ -15,20 +15,20 @@
     "xLoc": 0,
     "yLoc": 0,
     "mass": 0,
-    "size": 50,
+    "size": 0,
     "extraInfo": "0"
   },
   {
     "type": "player",
     "atlas": "shipAtlas",
     "xLoc": 0,
-    "yLoc": 2900,
+    "yLoc": 400,
     "mass": 0,
     "size": 0,
     "extraInfo": "flying"
   },
   {
     "type": "subtitle",
-    "extraInfo": "Land On The Planet-Watch Out For-EXTREME GRAVITY"
+    "extraInfo": "Land On The Moon Below-This Moon Does Have Gravity"
   }
 ]
