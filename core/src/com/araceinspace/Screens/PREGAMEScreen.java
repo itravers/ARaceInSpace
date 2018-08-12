@@ -189,7 +189,7 @@ public class PREGAMEScreen extends Screen{
                 int level = parent.parent.levelManager.getCurrentLevel();
                 String ghostID = textField.getText();
 
-                String ghostJSON = parent.parent.httpManager.readCustomGhostFromServer(ghostID, level);
+                String ghostJSON = parent.parent.connectionManager.httpManager.readCustomGhostFromServer(ghostID, level);
                 System.out.println("loading ghost: " + ghostID + " for level: " + level);
 
                 if(ghostJSON == null || ghostJSON.startsWith("error:")){
@@ -246,6 +246,7 @@ public class PREGAMEScreen extends Screen{
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+
     }
 
     private Stack makeButtonStack(float butWidth, float butHeight, String title, ClickListener listener, ImageButton star, String s_taunt1, String s_taunt2){
@@ -344,7 +345,7 @@ public class PREGAMEScreen extends Screen{
     }
 
     public void setupPortraitGUI(float width, float height){
-        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer(parent.parent.levelManager.currentLevelPack);
+        String jsonFromServer = parent.parent.connectionManager.httpManager.readLeaderBoardFromServer(parent.parent.levelManager.currentLevelPack);
         JsonValue jsonValue;
         JsonValue leaderBoardLevels;
         JsonReader json = new JsonReader();

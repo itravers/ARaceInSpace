@@ -3,6 +3,7 @@ package com.araceinspace.Managers;
 import com.araceinspace.GameWorld;
 import com.araceinspace.misc.Animation;
 import com.araceinspace.misc.FreetypeFontLoader;
+import com.araceinspace.misc.GifDecoder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
@@ -10,12 +11,15 @@ import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Created by Isaac Assegai on 7/11/17.
@@ -66,6 +70,8 @@ public class ResourceManager {
     private Animation planet02Animation;
     private Animation moonAnimation;
     private Animation gravityWellAnimation;
+
+    private com.badlogic.gdx.graphics.g2d.Animation loadingSpinnerAnimation;
 
     /* Font Data */
     public BitmapFont Font60;
@@ -289,6 +295,12 @@ public class ResourceManager {
         flyingAnimation = new Animation(1/30f, flyingRegion, "flyingAnimation");
     }
 
+    private void setupLoadingSpinnerAnimation() {
+        loadingSpinnerAnimation = GifDecoder.loadGIFAnimation(com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP, Gdx.files.internal("loading.gif").read());
+
+
+    }
+
 
     /* Public Methods */
 
@@ -345,6 +357,8 @@ public class ResourceManager {
     public void setupAnimations(){
         //heroAtlas = new TextureAtlas(Gdx.files.internal("data/HeroAnimations.atlas"));
         heroAtlas = assetManager.get("data/HeroAnimations.atlas", TextureAtlas.class);
+
+        setupLoadingSpinnerAnimation();
 
         setupStandingStillForwardsAnimation();
         setupWalkSlowAnimation();
@@ -513,4 +527,10 @@ public class ResourceManager {
             return getMoonAnimation();
         }
     }
+
+    public com.badlogic.gdx.graphics.g2d.Animation getLoadingSpinnerAnimation(){
+        return loadingSpinnerAnimation;
+    }
+
+
 }

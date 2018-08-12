@@ -2,6 +2,7 @@ package com.araceinspace.Managers;
 
 import com.araceinspace.GameWorld;
 import com.araceinspace.Screens.*;
+import com.araceinspace.misc.CallBack;
 import com.araceinspace.misc.CustomDialog;
 import com.araceinspace.misc.FreetypeFontLoader;
 import com.araceinspace.misc.RandomString;
@@ -50,6 +51,8 @@ public class DialogManager {
     public int coinsToSpend;
     public int levelPackToBuy;
 
+    private boolean cancelBuyingLevelPack = false;
+
     /* Constructor */
     public DialogManager(GameWorld p){
         parent = p;
@@ -64,6 +67,7 @@ public class DialogManager {
     public void setupPurchaseDialog(final Skin skin, final Stage stage, final Screen screen) {
         ArrayList<String> subtitles = new ArrayList<String>();
         subtitles.add("Spending Coins");
+
         purchaseDialog = new CustomDialog(subtitles, skin, screen.getViewport()) {
             protected void result(Object object) {
                 if (object.toString().equals("true")) {
@@ -254,24 +258,25 @@ public class DialogManager {
      * downloads the levels from the server
      * @param levelPackToBuy
      */
-    private void buyLevelPack(int levelPackToBuy){
+    private void buyLevelPack(final int levelPackToBuy){
         System.out.println("Looks like user is buying level pack: "+levelPackToBuy);
-        boolean success = downloadLevelPack(levelPackToBuy);
-        if(success){
-            parent.prefs.putBoolean("com.araceinspace.levelPackUnlocked."+levelPackToBuy, true);
-            parent.setCoins(parent.getCoins() - coinsToSpend);
-            parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+        if (parent.renderManager.getCurrentScreen() instanceof LEVELSELECTScreen){
+          //  ((LEVELSELECTScreen)parent.renderManager.getCurrentScreen()).hideBuyANDNextButtons();
         }
-
-    }
-
-    private boolean downloadLevelPack(int levelPackToBuy){
-        boolean success = parent.httpManager.dlLevelPackFromServer(levelPackToBuy);
-        if(success){
-            System.out.println("downloaded level pack: " + levelPackToBuy);
-        }else{
-            System.out.println("error downloading level pack: " + levelPackToBuy);
-        }
-        return success;
+        CallBack callBack = new CallBack() {
+            @Override
+            public void onCallBack(boolean success) {
+                if(success){
+                    parent.prefs.putBoolean("com.araceinspace.levelPackUnlocked."+levelPackToBuy, true);
+                    parent.setCoins(parent.getCoins() - coinsToSpend);
+                    if(parent.renderManager.getCurrentScreen() instanceof LEVELSELECTScreen){
+                        ((LEVELSELECTScreen)parent.renderManager.getCurrentScreen()).showNextButton();
+                    }
+                    parent.connectionManager.setDownloadingLevelPack(false);//done download
+                    System.out.println("level pack bought");
+                }
+            }
+        };
+        parent.connectionManager.downloadLevelPack(levelPackToBuy, callBack);
     }
 }

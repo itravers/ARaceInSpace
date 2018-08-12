@@ -16,20 +16,22 @@ import java.util.zip.ZipInputStream;
 
 /**
  * Created by Isaac Assegai on 7/31/17.
- * Class is to be used to make http post and get requests to
- * the leaderboard, ghost and level pack backend.
+ * Used by the ConnectionManager to pull
+ * data from the backend server
  */
 public class HttpManager {
-    GameWorld parent;
-
+    ConnectionManager parent;
     boolean responseReady; //Used by waitforresponse
     boolean requestFailed; //Used to judge if the last request failed
     String responseJson; //Used when we want to get JSON from the backend
     byte [] responseBytes; //Used when we want to get pure data from the backend
     String levelPacksAvailable; //on boot we get a space delimited string of the level packs available
 
-
-    public HttpManager(GameWorld parent){
+    /**
+     * Constructor
+     * @param parent
+     */
+    public HttpManager(ConnectionManager parent){
         this.parent = parent;
         responseReady = false;
         requestFailed = false;
@@ -167,12 +169,12 @@ public class HttpManager {
                 place = 3;
                 break;
         }
-        String url = "http://192.168.1.197:3001/leaderboards/getghost/"+parent.levelManager.currentLevelPack+"/"+currentLevel+"/"+place;
+        String url = "http://192.168.1.197:3001/leaderboards/getghost/"+parent.parent.levelManager.currentLevelPack+"/"+currentLevel+"/"+place;
         sendRequest(url, null, "GET");
         returnval = waitForResponse();
         if( returnval == null  || returnval.startsWith("no ghost found")){
             //ghost was not found on server for some reason, we want to read default ghost from local file system
-            String fileName = "levels/"+parent.levelManager.currentLevelPack+"/level"+currentLevel + "-bronze-ghost.json";
+            String fileName = "levels/"+parent.parent.levelManager.currentLevelPack+"/level"+currentLevel + "-bronze-ghost.json";
             returnval = Gdx.files.internal(fileName).readString();
         }
         return returnval;
@@ -188,14 +190,14 @@ public class HttpManager {
      */
     private void getLevelPacksAvailable(){
 
-        levelPacksAvailable = parent.prefs.getString("com.araceinspace.levelPacksAvailable");
+        levelPacksAvailable = parent.parent.prefs.getString("com.araceinspace.levelPacksAvailable");
 
         String url = "http://192.168.1.197:3001/levelpacks/packsAvailable";
         sendRequest(url, null, "GET");
         String response = waitForResponse();
         if(response != null){
             levelPacksAvailable = response;
-            parent.prefs.putString("com.araceinspace.levelPacksAvailable", levelPacksAvailable);
+            parent.parent.prefs.putString("com.araceinspace.levelPacksAvailable", levelPacksAvailable);
         }
 
         System.out.println("levelPacksAvailable: " + levelPacksAvailable);
@@ -238,7 +240,7 @@ public class HttpManager {
      */
     public String submitScore(int level, int place, String name, int time){
         String returnval = "";
-        String url = "http://192.168.1.197:3001/leaderboards/update/"+parent.levelManager.currentLevelPack+"/"+level+"/"+place+"/"+name+"/"+time;
+        String url = "http://192.168.1.197:3001/leaderboards/update/"+parent.parent.levelManager.currentLevelPack+"/"+level+"/"+place+"/"+name+"/"+time;
         sendRequest(url, null, "GET");
         returnval = waitForResponse();
         return returnval;

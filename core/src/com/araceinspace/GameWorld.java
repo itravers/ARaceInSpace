@@ -1,6 +1,7 @@
 package com.araceinspace;
 
 import com.araceinspace.InputSubSystem.InputManager;
+import com.araceinspace.Managers.ConnectionManager;
 import com.araceinspace.Managers.DialogManager;
 import com.araceinspace.Managers.ResourceManager;
 import com.araceinspace.Managers.ContactListenerManager;
@@ -28,7 +29,7 @@ public class GameWorld {
 
     /* Field Variables & Objects */
     public ApplicationAdapter parent;
-    public HttpManager httpManager;
+    public ConnectionManager connectionManager;
     public GameStateManager gameStateManager;
     public ResourceManager resourceManager; //Must be constructed before renderManager
     public RenderManager renderManager;
@@ -48,17 +49,17 @@ public class GameWorld {
     public String playerName;
     public LOADINGScreen loadingScreen;
 
-
-
     /* Constructors */
     public GameWorld(ApplicationAdapter p){
         parent = p;
-        prefs = Gdx.app.getPreferences("com.araceinspace.Saved_Items");
 
+        //Get Preferences/Locally Saved Items
+        prefs = Gdx.app.getPreferences("com.araceinspace.Saved_Items");
         ghostTimer = prefs.getFloat("com.araceinspace.ghostTimer", GHOST_TIMER_LIMIT);
         playerName = prefs.getString("com.araceinspace.playerName", null);
         coins = prefs.getInteger("com.araceinspace.coins");
 
+        //Setup the loading screen, it has no parent
         loadingScreen = new LOADINGScreen(null);
 
         /**
@@ -67,11 +68,13 @@ public class GameWorld {
          * for the game
          */
         resourceManager = new ResourceManager(this);
-
     }
 
     /* Private Methods */
 
+    /**
+     * Setup the physics systems for the world
+     */
     public void setupPhysics(){
         world = new World(new Vector2(0,0), true); //create world
         world.setContactListener(contactListenerManager); //set collision manager
@@ -79,31 +82,30 @@ public class GameWorld {
 
     /* Public Methods */
 
+    /**
+     * Start up the managers that control all aspects of the game.
+     * *NOTE* Sometimes the order of initialization matters, if so it should be noted
+     */
     public void initializeManagers(){
-        httpManager = new HttpManager(this);
-        contactListenerManager = new ContactListenerManager(this);//must be before setupphysics
+        connectionManager = new ConnectionManager(this);
+        contactListenerManager = new ContactListenerManager(this);//must be before setupphysics()
         setupPhysics();
         inputManager = new InputManager(this);
-
-
-
         levelManager = new LevelManager(this);
         renderManager = new RenderManager(this);
         dialogManager = new DialogManager(this);
         soundManager = new SoundManager(this);//must be before gamestateManager
         gameStateManager = new GameStateManager(this);//must come after rendermanager
-
-
-
-        elapsedTime = 0;
+        elapsedTime = 0; //The game is newly started.
     }
 
-    private void resetPhysics(){
-        setupPhysics();
-    }
-
+    /**
+     * The Game Loop
+     * Get Players Input - Calculate The World - Render Everything
+     */
     public void update(){
         float delta = Gdx.graphics.getDeltaTime();
+        elapsedTime += delta;
 
         if(resourceManager.loadingAssets){
             resourceManager.update();
@@ -111,8 +113,6 @@ public class GameWorld {
             loadingScreen.render(delta);
             return;
         }
-
-        //System.out.println("deltaTime: " + delta);
 
         renderManager.render(elapsedTime);
         levelManager.update(elapsedTime);
@@ -122,11 +122,10 @@ public class GameWorld {
         //we don't want physics to update when not ingame, or titlescreen
         if(currentState == GameStateManager.GAME_STATE.INGAME || currentState == GameStateManager.GAME_STATE.TITLE_SCREEN){
             elapsedTime += delta;
-            world.step(1f / 60f, 6, 2);
-
-
+            world.step(1f / 60f, 6, 2); //updates the physics
         }
 
+        //Update the ghost timer
         if(countGhostTimer){
             ghostTimer = ghostTimer - delta;
             if(ghostTimer <= 0){
@@ -135,11 +134,11 @@ public class GameWorld {
             }
         }
 
+        //Why are we saving the ghost timer again?
         if(countGhostTimer && renderManager.getFrameNum() % 1000 == 0){
             prefs.putFloat("com.araceinspace.ghostTimer", ghostTimer);
             prefs.flush();
         }
-
     }
 
     /**
@@ -150,16 +149,22 @@ public class GameWorld {
         return ghostTimer;
     }
 
+    /**
+     * Returns the number of coins the player has
+     * @return
+     */
     public int getCoins(){
         return coins;
     }
 
+    /**
+     * Sets the number of coins the player should have
+     * @param c
+     */
     public void setCoins(int c){
         coins = c;
         prefs.putInteger("com.araceinspace.coins", coins);
         prefs.flush();
         renderManager.getCurrentScreen().updateCoins();
     }
-
-
 }

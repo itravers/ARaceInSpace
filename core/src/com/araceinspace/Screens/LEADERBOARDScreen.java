@@ -87,7 +87,7 @@ public class LEADERBOARDScreen extends Screen{
         parent.parent.dialogManager.setupInfoDialog(skin, stage, this);
 
         JsonReader json = new JsonReader();
-        String jsonFromServer = parent.parent.httpManager.readLeaderBoardFromServer(parent.parent.levelManager.currentLevelPack);
+        String jsonFromServer = parent.parent.connectionManager.httpManager.readLeaderBoardFromServer(parent.parent.levelManager.currentLevelPack);
         JsonValue jsonValue;
 
         if(jsonFromServer == null){//the server is offline, read from generic leaderboards file
@@ -421,7 +421,7 @@ public class LEADERBOARDScreen extends Screen{
         lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
 
         //check if the next level pack even exists, if it doesn't, we don't want to display buyLevelsButton
-        if(parent.parent.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
+        if(parent.parent.connectionManager.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
             nextLevelButton.setVisible(true);
         }else{
             nextLevelButton.setVisible(false);

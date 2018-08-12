@@ -106,7 +106,7 @@ public class LevelManager {
         ArrayList<SpriteTemplate>levelItems;
         Json json = new Json();
         if(currentChallenge == CHALLENGES.first || currentChallenge == CHALLENGES.second || currentChallenge == CHALLENGES.third){
-            String ghostJson = parent.httpManager.readGhostFromServer(currentChallenge, currentLevel);//reads the ghost file from the server backend instead of locally
+            String ghostJson = parent.connectionManager.httpManager.readGhostFromServer(currentChallenge, currentLevel);//reads the ghost file from the server backend instead of locally
             levelItems = json.fromJson(ArrayList.class, SpriteTemplate.class, getLevelFile(currentLevel));
             if(ghostJson == null){//ghost json was not found on server, return ghost=null ghost will not be displayed this level
                 ghost = null;

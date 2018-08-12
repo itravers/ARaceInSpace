@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -51,6 +52,9 @@ public class LEVELSELECTScreen extends Screen{
 
     public Label taunt2;
 
+    Table bodyTable;
+
+
 
     //Reference to Level Manager
     LevelManager lm;
@@ -67,7 +71,7 @@ public class LEVELSELECTScreen extends Screen{
     @Override
     public void dispose() {
         stage.dispose();
-        batch.dispose();
+      //  batch.dispose();
     }
 
     @Override
@@ -135,12 +139,15 @@ public class LEVELSELECTScreen extends Screen{
         buyLevelsListener = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                if(parent.parent.connectionManager.isDownloadingLevelPack())return;//don't do anything if already dling
+                //buyLevelsButton.setDisabled(true);//dont allow button to be clicked twice
                 System.out.println("Buying level pack: " + (lm.currentLevelPack+1));
                 parent.parent.dialogManager.coinsToSpend = 15;
                 parent.parent.dialogManager.levelPackToBuy = lm.currentLevelPack+1;
                 parent.parent.dialogManager.setupPurchaseDialog(skin, stage, parent.getCurrentScreen());
                 parent.parent.dialogManager.purchaseDialog.addSubtitle("Are you sure you want to spend " + parent.parent.dialogManager.coinsToSpend + " coins?");
                 parent.parent.dialogManager.purchaseDialog.addSubtitle("To Unlock A New Level Pack?");
+
                 parent.parent.dialogManager.purchaseDialog.show(stage);
             }
         };
@@ -173,6 +180,18 @@ public class LEVELSELECTScreen extends Screen{
         parent.parent.inputManager.addInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+
+        //downloadingLevelPack = false;
+        //if we are waiting for a download, draw a loading spinner
+        if(parent.parent.connectionManager.isDownloadingLevelPack()){
+            batch.begin();
+            batch.draw(parent.parent.resourceManager.getLoadingSpinnerAnimation().getKeyFrame(elapsedTime),
+                    (viewport.getScreenWidth()/1)-(parent.parent.resourceManager.getLoadingSpinnerAnimation().getKeyFrame(elapsedTime).getRegionWidth()/1) - 5,
+                    (viewport.getScreenHeight()/1.70f)-parent.parent.resourceManager.getLoadingSpinnerAnimation().getKeyFrame(elapsedTime).getRegionHeight()/2);
+            batch.end();
+        }
+
+
     }
 
 
@@ -313,7 +332,7 @@ public class LEVELSELECTScreen extends Screen{
         //scene2d.ui items
         Table table;
         Table headerTable;
-        Table bodyTable;
+
 
         ScrollPane scrollPane;
 
@@ -409,7 +428,7 @@ public class LEVELSELECTScreen extends Screen{
         storeTable = new Table();
         storeTable.setDebug(devMode);
         storeTable.align(Align.top|Align.center);
-        ArrayList<String>leaderBoardChamps = parent.parent.httpManager.getLevelLeaders(lm.currentLevelPack);
+        ArrayList<String>leaderBoardChamps = parent.parent.connectionManager.httpManager.getLevelLeaders(lm.currentLevelPack);
 
         String levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+0);
 
@@ -612,22 +631,31 @@ public class LEVELSELECTScreen extends Screen{
 
         bodyTable.add(previousLevelButton).width(width*.10f).align(Align.left);
         bodyTable.add(scrollPane).width(width*.78f).height(height*.755f).padLeft(0).align(Align.top|Align.center);//set the scroll pane size
+        Table buttonTable = new Table();
+        buttonTable.add(buyLevelsButton);
+        buttonTable.row();
+        buttonTable.add(nextLevelsButton);
+        bodyTable.add(buttonTable).width(width*.10f).align(Align.right);
 
         //If the next level is unlocked we want to display the next button, otherwise display buyLevelsButton
         lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
+       // bodyTable.add(nextLevelsButton).width(width*.10f).align(Align.right);
+
+        //bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+        buyLevelsButton.setPosition(50, 50);
         if(lm.nextLevelPackUnlocked){
             buyLevelsButton.setVisible(false);
             nextLevelsButton.setVisible(true);
-            bodyTable.add(nextLevelsButton).width(width*.10f).align(Align.right);
+
         }else{
             //check if the next level pack even exists, if it doesn't, we don't want to display buyLevelsButton
-            if(parent.parent.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
+            if(parent.parent.connectionManager.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
                 buyLevelsButton.setVisible(true);
             }else{
                 buyLevelsButton.setVisible(false);
             }
             nextLevelsButton.setVisible(false);
-            bodyTable.add(buyLevelsButton).width(width*.10f).align(Align.right);
+
         }
 
 
@@ -638,4 +666,17 @@ public class LEVELSELECTScreen extends Screen{
 
         stageLoaded = true;
     }
+
+    public void showNextButton(){
+        buyLevelsButton.setVisible(false);
+        nextLevelsButton.setVisible(true);
+    }
+
+    public void hideBuyANDNextButtons(){
+        buyLevelsButton.setDisabled(true);
+        System.out.println("buy levels disabled");
+        //buyLevelsButton.setVisible(false);
+        //nextLevelsButton.setVisible(false);
+    }
+
 }
