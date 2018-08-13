@@ -114,6 +114,7 @@ public class GameWorld {
             return;
         }
 
+        connectionManager.update(elapsedTime);//updates timeouts and such
         renderManager.render(elapsedTime);
         levelManager.update(elapsedTime);
 

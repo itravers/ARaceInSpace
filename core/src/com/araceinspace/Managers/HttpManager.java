@@ -25,7 +25,6 @@ public class HttpManager {
     boolean requestFailed; //Used to judge if the last request failed
     String responseJson; //Used when we want to get JSON from the backend
     byte [] responseBytes; //Used when we want to get pure data from the backend
-    String levelPacksAvailable; //on boot we get a space delimited string of the level packs available
 
     /**
      * Constructor
@@ -35,12 +34,8 @@ public class HttpManager {
         this.parent = parent;
         responseReady = false;
         requestFailed = false;
-        setup();
     }
 
-    private void setup(){
-        getLevelPacksAvailable();
-    }
 
     /**
      * Sending a request to the backend, expecting a string/json reponse
@@ -114,6 +109,7 @@ public class HttpManager {
      */
     public String waitForResponse(){
         while(!responseReady){
+           // System.out.print("!");
             if(requestFailed){
                 requestFailed = false;
                 return null;
@@ -124,6 +120,7 @@ public class HttpManager {
                 e.printStackTrace();
             }
         }
+        System.out.println();
         responseReady = false; //reset responseready boolean
         return responseJson;
     }
@@ -188,19 +185,17 @@ public class HttpManager {
      * Second it asks the server what record packs are available.
      * if the server responds it overwrites the local records
      */
-    private void getLevelPacksAvailable(){
-
-        levelPacksAvailable = parent.parent.prefs.getString("com.araceinspace.levelPacksAvailable");
-
+    public boolean downloadLevelPacksAvailable(){
+        System.out.println("Download level Packs Available");
+        boolean success = false;
         String url = "http://192.168.1.197:3001/levelpacks/packsAvailable";
         sendRequest(url, null, "GET");
         String response = waitForResponse();
         if(response != null){
-            levelPacksAvailable = response;
-            parent.parent.prefs.putString("com.araceinspace.levelPacksAvailable", levelPacksAvailable);
+            parent.setLevelPacksAvailable(response);
+            success = true;
         }
-
-        System.out.println("levelPacksAvailable: " + levelPacksAvailable);
+        return success;
     }
 
     /**
@@ -266,15 +261,22 @@ public class HttpManager {
     }
 
     /**
-     * Returns the level leaders for a specific level pack
+     * Gets the leaderboards from the server for
+     * a specific levelPack.
+     * If no leaderboards are available
+     * this creates a fake leaderboard, with N/A's
      * @param levelPack
      * @return
      */
-    public ArrayList<String> getLevelLeaders(int levelPack){
+    public ArrayList<String> downloadLevelLeaders(int levelPack){
+        //int j = 0;
+        //System.out.println("getLevelLeaders()#:"+j++);
         ArrayList<String>returnVal = new ArrayList<String>();
         String url = "http://192.168.1.197:3001/leaderboards/levelleaders/"+levelPack;
         sendRequest(url, null, "GET");
+        //System.out.println("getLevelLeaders()#:"+j++);
         String leadersString = waitForResponse();
+        //System.out.println("getLevelLeaders()#:"+j++);
 
         //check for errors, and return a correct data structure filled with error data
         if(leadersString == null || leadersString.contains("MongoError") || leadersString.contains("TypeError") || leadersString.contains("error no Level Pack")){
@@ -339,18 +341,5 @@ public class HttpManager {
         return true;
     }
 
-    /**
-     * On Startup read all the level packs available into levelPacksAvailable
-     * now we will run this list and return true if any element matches
-     * levelPack
-     * @param levelPack
-     * @return
-     */
-    public boolean isLevelPackAvailable(int levelPack){
-        if(levelPacksAvailable.contains(Integer.toString(levelPack))){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 }

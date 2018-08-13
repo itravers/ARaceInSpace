@@ -3,6 +3,7 @@ package com.araceinspace.Screens;
 import com.araceinspace.Managers.GameStateManager;
 import com.araceinspace.Managers.LevelManager;
 import com.araceinspace.Managers.RenderManager;
+import com.araceinspace.misc.CallBack;
 import com.araceinspace.misc.OrthCamera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -12,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -155,6 +155,7 @@ public class LEVELSELECTScreen extends Screen{
         skin = parent.parent.resourceManager.getSkin();
 
         spacer = 25;
+
         setupPortraitGUI(viewport.getScreenWidth(), viewport.getScreenHeight());
         parent.parent.dialogManager.setupNameDialog(skin, stage, viewport);
         if(parent.parent.playerName == null){
@@ -428,7 +429,19 @@ public class LEVELSELECTScreen extends Screen{
         storeTable = new Table();
         storeTable.setDebug(devMode);
         storeTable.align(Align.top|Align.center);
-        ArrayList<String>leaderBoardChamps = parent.parent.connectionManager.httpManager.getLevelLeaders(lm.currentLevelPack);
+        System.out.println("before getLevelLeaders");
+        //ArrayList<String>leaderBoardChamps = parent.parent.connectionManager.httpManager.getLevelLeaders(lm.currentLevelPack);
+        ArrayList<String>leaderBoardChamps  = parent.parent.connectionManager.getLevelLeaders(lm.currentLevelPack);
+
+        parent.parent.connectionManager.refreshLevelLeaders(lm.currentLevelPack, new CallBack() {
+            @Override
+            public void onCallBack(boolean success) {
+                //refreshLeaderboardChamps();
+                System.out.println("refresh leaderboards here: " );
+                //parent.parent.gameStateManager.setCurrentState(GameStateManager.GAME_STATE.LEVEL_SELECT);
+            }
+        });
+        System.out.println("after getLevelLeaders");
 
         String levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+0);
 
@@ -452,6 +465,8 @@ public class LEVELSELECTScreen extends Screen{
 
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
+
+
         //check if previous level's bronze star has been beaten, if not, gray this one out
         levelBeaten = parent.parent.levelManager.getLevelStars(levelString).get(0);
         levelString = "Level "+((lm.currentLevelPack*lm.levelPerPack)+2);
@@ -463,6 +478,7 @@ public class LEVELSELECTScreen extends Screen{
                 actors.get(i).getColor().a = .2f;
             }
         }
+
 
         storeTable.add(buttonStack).pad(0).size(butWidth, butHeight);//sets the button size
 
@@ -649,7 +665,7 @@ public class LEVELSELECTScreen extends Screen{
 
         }else{
             //check if the next level pack even exists, if it doesn't, we don't want to display buyLevelsButton
-            if(parent.parent.connectionManager.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
+            if(parent.parent.connectionManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
                 buyLevelsButton.setVisible(true);
             }else{
                 buyLevelsButton.setVisible(false);

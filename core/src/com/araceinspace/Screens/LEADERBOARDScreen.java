@@ -421,7 +421,7 @@ public class LEADERBOARDScreen extends Screen{
         lm.nextLevelPackUnlocked = lm.isLevelPackUnlocked(lm.currentLevelPack+1);
 
         //check if the next level pack even exists, if it doesn't, we don't want to display buyLevelsButton
-        if(parent.parent.connectionManager.httpManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
+        if(parent.parent.connectionManager.isLevelPackAvailable(parent.parent.levelManager.currentLevelPack + 1)){
             nextLevelButton.setVisible(true);
         }else{
             nextLevelButton.setVisible(false);
